@@ -1,0 +1,25 @@
+.footer {
+  margin-top: auto; /* Pushes footer to bottom if content is short */
+  padding: 1.5rem;
+  background-color: #242424;
+  color: #ffffff;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
