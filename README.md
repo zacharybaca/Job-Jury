@@ -1,78 +1,166 @@
-## 
-
 # Job-Jury
 
-_“Don't just take the job. Hear the jury.”_
+> _“Don't just take the job. Hear the jury.”_
 
-Zachary Baca
+**Author:** Zachary Baca
 
-# Overview
+## Overview
 
-This is a web application that will give users a platform to review their current or former place of employment. In return, this will provide other users of the platform un-biased reviews on the workplace environment.
+This is a MERN stack web application that provides users a platform to review their current or former place of employment. In return, this provides unbiased reviews on workplace environments to help job seekers make informed decisions.
 
-# Goals
+## Goals
 
-The problem that this application will help solve is the lack of transparency within the workplace. Users of the platform will be able to see if the company they are interested in working for aligns with their views, before they even go in for their interview.
+The application addresses the lack of transparency in the workplace. Users can verify if a company's culture aligns with their values before committing to an interview process.
 
-# Specifications
+## Specifications
 
-## **Database Schema(s)**
+### Database Schema(s)
 
 ### User Schema
 
+![User Schema screenshot](client/public/assets/readme_images/User-Schema.png)
+
 ### Company Schema
+
+![Company Schema screenshot](client/public/assets/readme_images/Company-Schema.png)
 
 ### Review Schema
 
-## **Frontend Component Layout**
+![Review Schema screenshot](client/public/assets/readme_images/Review-Schema.png)
 
-- Layout Components
-    - Navbar: Includes search bar and user profile/login.
-    - Footer: Standard links and "Add a Company" CTA.
+### Frontend Component Layout
 
-- Company Components
-    - CompanyCard: Small preview used in search results.
-    - CompanyHeader: Large hero section with the image you mentioned and the average rating.
-    - ImageUpload: A specific component for handling file selection and previewing.
+* **Layout Components**
+  * `Navbar`: Includes search bar and user profile/login.
+    * `Footer`: Standard links and "Add a Company" CTA.
+* **Company Components**
+  * `CompanyCard`: Small preview used in search results.
+    * `CompanyHeader`: Hero section with company image and average rating.
+    * `ImageUpload`: Handling file selection and previewing.
+* **Review Components**
+  * `ReviewList`: Maps through the array of reviews.
+  * `ReviewForm`: Star-rating system and text areas.
+* **Utility Components**
+  * `ProtectedRoute`: Ensures only logged-in users can post.
+  * `SearchBar`: Live filtering for industries and locations.
 
-- Review Components
-    - ReviewList: Maps through the array of reviews.
-    - ReviewForm: The Star-rating system and text areas.
+## API Routes
 
-- Utility Components
-    - ProtectedRoute: To ensure only logged-in users can post reviews.
-    - SearchBar: With live filtering for industries and locations.
+### Company and Reviews
 
-# 
+| Method | Description | Endpoint |
+| :--- | :--- | :--- |
+| GET | Fetch all/filter companies | `/api/companies` |
+| POST | Create new company | `/api/companies` |
+| GET | Fetch individual company | `/api/companies/:companyId` |
+| PUT | Update company info | `/api/companies/:companyId` |
+| POST | Add review & update avgRating | `/api/reviews/:companyId` |
+| DELETE | Delete a review | `/api/reviews/:companyId/:reviewId` |
 
-# API Routes
+### Authentication
 
-<div class="joplin-table-wrapper"><table><thead><tr><th colspan="3"><h2><a id="_73u84sd8xeko"></a><strong>Company and Reviews API Endpoints</strong></h2></th></tr><tr><th><p>📩 <strong>Method</strong></p></th><th><p>📧 <strong>Description</strong></p></th><th><p>📨 <strong>Endpoint</strong></p></th></tr></thead><tbody><tr><td><p>GET</p></td><td><p>Fetch all or filter by industry/location</p></td><td><p>/api/companies</p></td></tr><tr><td><p>POST</p></td><td><p>Create a new company (and upload image)</p></td><td><p>/api/companies</p></td></tr><tr><td><p>GET</p></td><td><p>Fetch an individual company</p></td><td><p>/api/companies/:companyId</p></td></tr><tr><td><p>PUT</p></td><td><p>Update an individual company’s information</p></td><td><p>/api/companies/:companyId</p></td></tr><tr><td><p>POST</p></td><td><p>Add a review and update the Company’s avgRating</p></td><td><p>/api/reviews/:companyId</p></td></tr><tr><td><p>GET</p></td><td><p>Fetch all reviews for an individual company</p></td><td><p>/api/reviews/:companyId</p></td></tr><tr><td><p>DELETE</p></td><td><p>Delete a review for an individual company</p></td><td><p>/api/reviews/:companyId/:reviewId</p></td></tr><tr><td><p>POST</p></td><td><p>Allows a user to up-vote a review</p></td><td><p>/api/reviews/:reviewId/vote</p></td></tr></tbody></table></div>
+| Method | Description | Endpoint |
+| :--- | :--- | :--- |
+| POST | User Signup | `/api/auth/register` |
+| GET | Fetch user profile | `/api/users/:userId` |
+| PUT | Update user profile | `/api/users/:userId` |
 
-<div class="joplin-table-wrapper"><table><thead><tr><th colspan="3"><h2><a id="_m7t0w66qpanv"></a><strong>Authentication API Endpoints</strong></h2></th></tr><tr><th><p>📩 <strong>Method</strong></p></th><th><p>📧 <strong>Description</strong></p></th><th><p>📨 <strong>Endpoint</strong></p></th></tr></thead><tbody><tr><td><p>POST</p></td><td><p>User Signup</p></td><td><p>/api/auth/register</p></td></tr><tr><td><p>GET</p></td><td><p>Fetch a specific user</p></td><td><p>/api/users/:userId</p></td></tr><tr><td><p>DELETE</p></td><td><p>Delete a specific user</p></td><td><p>/api/users/:userId</p></td></tr><tr><td><p>PUT</p></td><td><p>Update a specific user</p></td><td><p>/api/users/:userId</p></td></tr></tbody></table></div>
+## Technology Stack
 
-<div class="joplin-table-wrapper"><table><thead><tr><th colspan="3"><h2><a id="_95jvabhc3qw4"></a><strong>Admin Only API Endpoints</strong></h2></th></tr><tr><th><p>📩 <strong>Method</strong></p></th><th><p>📧 <strong>Description</strong></p></th><th><p>📨 <strong>Endpoint</strong></p></th></tr></thead><tbody><tr><td><p>PUT</p></td><td><p>Suspend a user</p></td><td><p>/api/admin/suspend/:userId</p></td></tr><tr><td><p>PUT</p></td><td><p>Flag a review posted by a user</p></td><td><p>/api/admin/flag-review/:reviewId</p></td></tr><tr><td><p>GET</p></td><td><p>Fetch all users</p></td><td><p>/api/admin/users</p></td></tr><tr><td><p>DELETE</p></td><td><p>Delete a specific user</p></td><td><p>/api/admin/users/:userId</p></td></tr></tbody></table></div>
+### Backend
 
-## **Technology Stack & Third-Party Libraries**
+* **Node.js & Express:** Server environment and routing.
+* **MongoDB & Mongoose:** NoSQL Database and object modeling.
+* **Cloudinary & Multer:** Image storage and middleware handling.
 
-**Base Technology Stack**
+### Frontend
 
-- Database
-    - MongoDB
-    - Mongoose Middleware for Database Querying
-    - Cloudinary for Image Storage
-    - Multer for Image Storage and Retrieval
-- Frontend Framework and Application State Management
-    - ReactJS
-    - Context API for State Management
-- Backend Framework
-    - NodeJS for Server Environment
-    - ExpressJS for Server Creation and Manipulation
-- Security and Authentication
-    - JWT with HTTP-Only Cookies for Authentication “Core”
-    - BcryptJS for Password Hashing
-    - Express-Validator for Password Requirements Validation
-    - Express-Rate-Limit to Prevent Spam
-    - HelmetJS to Improve Security
-    - CORS to Improve Security
-    - DOTEnv for Environment Variables and Secrets
+* **ReactJS:** UI Library.
+* **Context API:** Global state management.
+
+### Security
+
+* **JWT:** Authentication via HTTP-Only Cookies.
+* **BcryptJS:** Password hashing.
+* **Helmet & CORS:** Header security and cross-origin resource sharing.
+
+## Environment Variables
+
+To run this project locally, you will need to create a `.env` file in the `server` directory and include the following variables:
+
+```env
+# Database Connection
+MONGO_URI=your_mongodb_connection_string
+
+# Authentication Secrets
+JWT_SECRET=your_super_secret_jwt_key
+JWT_EXPIRES_IN=7d
+
+# Cloudinary Configuration (For Image Storage)
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# Server Port
+PORT=5000
+
+# Security
+NODE_ENV=development
+
+```
+
+### Installation Setup
+
+To get a local copy up and running, follow these steps.
+
+1. Prerequisites
+Ensure you have Node.js and npm installed on your machine. You will also need a MongoDB account (Atlas or local) and a Cloudinary account for image handling.
+
+2. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/job-jury.git
+cd job-jury
+```
+
+1. Install Dependencies
+You will need to install dependencies in three locations: the root, the server, and the client.
+
+Install Root Dependencies (includes Concurrently):
+
+```bash
+npm install
+```
+
+Install Server Dependencies:
+
+```bash
+cd server && npm install
+```
+
+Install Client Dependencies:
+
+```bash
+cd ../client && npm install
+```
+
+1. Configure Scripts
+To make the application easy to run, ensure your root-level package.json includes the following scripts:
+
+```json
+"scripts": {
+  "start": "node server/server.js",
+  "server": "nodemon server/server.js",
+  "client": "npm start --prefix client",
+  "dev": "concurrently \"npm run server\" \"npm run client\""
+}
+```
+
+1. Running the Application
+From the root directory of the project, run:
+
+```bash
+npm run dev
+```
+
+This command uses concurrently to boot up your Express server (usually on port 5000) and your React development server (usually on port 3000) at the same time.
