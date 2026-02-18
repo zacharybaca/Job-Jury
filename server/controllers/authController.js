@@ -30,7 +30,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
-  const user = await User.findOne({ email }) || await User.findOne({ username });
+  const user =
+    (await User.findOne({ email })) || (await User.findOne({ username }));
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);

@@ -12,37 +12,40 @@ const CompanyList = () => {
   // 1. Mock Data for Design Testing
   const mockCompanies = [
     {
-      _id: "1",
-      name: "Surf Internet",
-      industry: "Telecommunications",
-      location: "La Porte, IN",
-      imageUrl: "https://surfinternet.com/wp-content/uploads/sites/10/2022/06/surf-internet-logo-lt.png",
-      averageRating: 4.8
+      _id: '1',
+      name: 'Surf Internet',
+      industry: 'Telecommunications',
+      location: 'La Porte, IN',
+      imageUrl:
+        'https://surfinternet.com/wp-content/uploads/sites/10/2022/06/surf-internet-logo-lt.png',
+      averageRating: 4.8,
     },
     {
-      _id: "2",
-      name: "Tech Solutions",
-      industry: "Software Engineering",
-      location: "Chicago, IL",
-      imageUrl: "https://chicagotechsolution.com/assets/images/logo.png",
-      averageRating: 3.5
+      _id: '2',
+      name: 'Tech Solutions',
+      industry: 'Software Engineering',
+      location: 'Chicago, IL',
+      imageUrl: 'https://chicagotechsolution.com/assets/images/logo.png',
+      averageRating: 3.5,
     },
     {
-      _id: "3",
-      name: "Medi-Care Group",
-      industry: "Healthcare",
-      location: "Michigan City, IN",
-      imageUrl: "https://medicareagentshub.com/images/the-medicare-agent-directory-logo.png",
-      averageRating: 4.2
+      _id: '3',
+      name: 'Medi-Care Group',
+      industry: 'Healthcare',
+      location: 'Michigan City, IN',
+      imageUrl:
+        'https://medicareagentshub.com/images/the-medicare-agent-directory-logo.png',
+      averageRating: 4.2,
     },
     {
-      _id: "4",
-      name: "Global Logistics",
-      industry: "Supply Chain",
-      location: "Indianapolis, IN",
-      imageUrl: "https://www.echo.com/wp-content/themes/ws/assets/logos/Echo_Logo_RGB.svg",
-      averageRating: 2.9
-    }
+      _id: '4',
+      name: 'Global Logistics',
+      industry: 'Supply Chain',
+      location: 'Indianapolis, IN',
+      imageUrl:
+        'https://www.echo.com/wp-content/themes/ws/assets/logos/Echo_Logo_RGB.svg',
+      averageRating: 2.9,
+    },
   ];
 
   // 2. Data Loading Logic
@@ -68,16 +71,19 @@ const CompanyList = () => {
   }, []);
 
   // 3. Search Filtering Logic
-  const filteredCompanies = companies.filter((company) =>
-    company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    company.industry.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCompanies = companies.filter(
+    (company) =>
+      company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.industry.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <section className="company-list-wrapper">
       <div className="list-header">
         <h1 className="list-title">Explore the Jury's Verdicts</h1>
-        <p className="list-subtitle">Search for employers and see what it's really like to work there.</p>
+        <p className="list-subtitle">
+          Search for employers and see what it's really like to work there.
+        </p>
 
         {/* Integrated Search Bar */}
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -99,8 +105,13 @@ const CompanyList = () => {
         ) : (
           // Display empty state if search finds nothing
           <div className="no-results-container">
-            <p className="no-results-text">No verdicts found for "<strong>{searchTerm}</strong>"</p>
-            <button onClick={() => setSearchTerm('')} className="clear-search-btn">
+            <p className="no-results-text">
+              No verdicts found for "<strong>{searchTerm}</strong>"
+            </p>
+            <button
+              onClick={() => setSearchTerm('')}
+              className="clear-search-btn"
+            >
               Clear Search
             </button>
           </div>

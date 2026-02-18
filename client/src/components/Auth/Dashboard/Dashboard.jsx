@@ -19,7 +19,8 @@ const Dashboard = () => {
     getProfile();
   }, []);
 
-  if (!isLoaded) return <div className="loading">Loading your jury profile...</div>;
+  if (!isLoaded)
+    return <div className="loading">Loading your jury profile...</div>;
 
   return (
     <div className="dashboard-container">
@@ -30,7 +31,9 @@ const Dashboard = () => {
         </div>
         <div className="user-stats">
           <div className="stat-box">
-            <span className="stat-number">{user?.savedCompanies?.length || 0}</span>
+            <span className="stat-number">
+              {user?.savedCompanies?.length || 0}
+            </span>
             <span className="stat-label">Saved Companies</span>
           </div>
         </div>
@@ -47,7 +50,10 @@ const Dashboard = () => {
         ) : (
           <div className="empty-dashboard">
             <p>You haven't saved any companies yet.</p>
-            <button className="browse-btn" onClick={() => window.location.href = '/'}>
+            <button
+              className="browse-btn"
+              onClick={() => (window.location.href = '/')}
+            >
               Browse Companies
             </button>
           </div>

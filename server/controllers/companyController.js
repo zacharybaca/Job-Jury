@@ -18,11 +18,13 @@ const createCompany = asyncHandler(async (req, res) => {
 
 const getCompanies = asyncHandler(async (req, res) => {
   const companies = await Company.find().sort({ createdAt: -1 });
-  res.status(200).json({ success: true, count: companies.length, data: companies });
+  res
+    .status(200)
+    .json({ success: true, count: companies.length, data: companies });
 });
 
 const getCompany = asyncHandler(async (req, res) => {
-  const company = await Company.findById(req.params.id).populate('reviews');
+  const company = await Company.findById(req.params.id).populate("reviews");
 
   if (!company) {
     res.status(404);

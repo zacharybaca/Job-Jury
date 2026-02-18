@@ -9,7 +9,10 @@ const CompanyHeader = ({ company }) => {
     const roundedRating = Math.round(rating || 0);
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <span key={i} className={i <= roundedRating ? "header-star filled" : "header-star"}>
+        <span
+          key={i}
+          className={i <= roundedRating ? 'header-star filled' : 'header-star'}
+        >
           ★
         </span>
       );
@@ -27,8 +30,12 @@ const CompanyHeader = ({ company }) => {
           <span className="header-location">{company.location}</span>
         </div>
         <div className="header-rating-box">
-          <div className="header-stars">{renderStars(company.averageRating)}</div>
-          <span className="header-rating-num">{company.averageRating || "0.0"}</span>
+          <div className="header-stars">
+            {renderStars(company.averageRating)}
+          </div>
+          <span className="header-rating-num">
+            {company.averageRating || '0.0'}
+          </span>
         </div>
       </div>
     </header>

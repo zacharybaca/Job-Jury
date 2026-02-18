@@ -6,7 +6,7 @@ import asyncHandler from "express-async-handler";
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
   // Find user and populate the savedCompanies array with actual company data
-  const user = await User.findById(req.user._id).populate('savedCompanies');
+  const user = await User.findById(req.user._id).populate("savedCompanies");
 
   if (user) {
     res.status(200).json({
@@ -69,7 +69,7 @@ const toggleSaveCompany = asyncHandler(async (req, res) => {
   if (isSaved) {
     // Remove if already exists
     user.savedCompanies = user.savedCompanies.filter(
-      (id) => id.toString() !== companyId
+      (id) => id.toString() !== companyId,
     );
   } else {
     // Add if it doesn't exist
@@ -80,12 +80,8 @@ const toggleSaveCompany = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: isSaved ? "Company removed from saves" : "Company saved",
-    savedCompanies: user.savedCompanies
+    savedCompanies: user.savedCompanies,
   });
 });
 
-export {
-  getUserProfile,
-  updateUserProfile,
-  toggleSaveCompany
-};
+export { getUserProfile, updateUserProfile, toggleSaveCompany };

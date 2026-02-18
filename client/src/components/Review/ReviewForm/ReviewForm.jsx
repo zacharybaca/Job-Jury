@@ -19,8 +19,8 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
         companyId,
         rating,
         content,
-        jobTitle
-      })
+        jobTitle,
+      }),
     });
 
     setIsSubmitting(false);
@@ -32,7 +32,7 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
       // Callback to refresh the company data in the parent component
       if (onReviewAdded) onReviewAdded(response.data.data);
     } else {
-      alert(response.error || "Failed to submit review.");
+      alert(response.error || 'Failed to submit review.');
     }
   };
 
@@ -54,8 +54,15 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
 
         <div className="form-group">
           <label>Rating (1-5)</label>
-          <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-            {[5, 4, 3, 2, 1].map(num => <option key={num} value={num}>{num} Stars</option>)}
+          <select
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+          >
+            {[5, 4, 3, 2, 1].map((num) => (
+              <option key={num} value={num}>
+                {num} Stars
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -70,7 +77,11 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
         />
       </div>
 
-      <button type="submit" className="submit-review-btn" disabled={isSubmitting}>
+      <button
+        type="submit"
+        className="submit-review-btn"
+        disabled={isSubmitting}
+      >
         {isSubmitting ? 'Submitting...' : 'Post Review'}
       </button>
     </form>

@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     const response = await fetcher('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     });
 
     if (response.success) {
@@ -47,10 +47,15 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className="auth-submit-btn">Login to Job Jury</button>
+          <button type="submit" className="auth-submit-btn">
+            Login to Job Jury
+          </button>
         </form>
         <p className="auth-footer">
-          Don't have an account? <Link to="/register" className="auth-link">Sign Up</Link>
+          Don't have an account?{' '}
+          <Link to="/register" className="auth-link">
+            Sign Up
+          </Link>
         </p>
       </div>
     </div>

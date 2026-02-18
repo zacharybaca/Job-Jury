@@ -1,5 +1,5 @@
-import Review from '../models/Review.js';
-import Company from '../models/Company.js';
+import Review from "../models/Review.js";
+import Company from "../models/Company.js";
 import asyncHandler from "express-async-handler";
 
 // @desc    Create a new review and update company average
@@ -21,7 +21,7 @@ export const createReview = asyncHandler(async (req, res) => {
     rating: Number(rating),
     content,
     jobTitle,
-    author: req.user._id // Provided by protect middleware
+    author: req.user._id, // Provided by protect middleware
   });
 
   // 3. Fetch all reviews for this specific company
@@ -35,12 +35,12 @@ export const createReview = asyncHandler(async (req, res) => {
   // 5. Dual Update: Push Review ID and Update the running Average
   await Company.findByIdAndUpdate(companyId, {
     $push: { reviews: newReview._id },
-    averageRating: Number(updatedAverage) // Convert back to number for the schema
+    averageRating: Number(updatedAverage), // Convert back to number for the schema
   });
 
   res.status(201).json({
     success: true,
     data: newReview,
-    message: "Verdict submitted successfully"
+    message: "Verdict submitted successfully",
   });
 });

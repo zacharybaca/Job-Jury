@@ -8,7 +8,8 @@
     "server": "nodemon --prefix server server.js",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "format": "prettier --write \"{client/src,server}/**/*.{js,jsx,json,css,md}\""
   },
   "author": "Zachary Baca",
   "license": "ISC",
@@ -16,7 +17,8 @@
     "concurrently": "^9.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.0"
+    "nodemon": "^3.0.0",
+    "prettier": "^3.8.1"
   },
   "repository": {
     "type": "git",

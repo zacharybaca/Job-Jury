@@ -31,7 +31,9 @@ const CompanyDetail = () => {
   };
 
   if (!isLoaded) {
-    return <div className="detail-loading">Gathering the Jury's findings...</div>;
+    return (
+      <div className="detail-loading">Gathering the Jury's findings...</div>
+    );
   }
 
   if (!company) {
@@ -44,7 +46,6 @@ const CompanyDetail = () => {
 
       <section className="reviews-section">
         <div className="section-container">
-
           <div className="reviews-header">
             <h2>Employee Reviews</h2>
             <button
@@ -58,10 +59,7 @@ const CompanyDetail = () => {
           {/* VERDICT SECTION START */}
           {showForm && (
             <div className="form-wrapper">
-              <ReviewForm
-                companyId={id}
-                onReviewAdded={handleReviewAdded}
-              />
+              <ReviewForm companyId={id} onReviewAdded={handleReviewAdded} />
             </div>
           )}
 
@@ -69,7 +67,6 @@ const CompanyDetail = () => {
             <ReviewList reviews={company.reviews} />
           </div>
           {/* VERDICT SECTION END */}
-
         </div>
       </section>
     </main>

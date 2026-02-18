@@ -7,7 +7,12 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": ["mern", "backend", "express", "job-jury"],
+  "keywords": [
+    "mern",
+    "backend",
+    "express",
+    "job-jury"
+  ],
   "author": "Zachary Baca",
   "license": "ISC",
   "description": "Backend API for Job-Jury workplace reviews",

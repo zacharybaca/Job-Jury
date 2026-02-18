@@ -28,7 +28,7 @@ export const FetcherProvider = ({ children }) => {
     const config = {
       credentials: 'include',
       ...options,
-      headers
+      headers,
     };
 
     try {
@@ -40,7 +40,7 @@ export const FetcherProvider = ({ children }) => {
         const data = await response.json().catch(() => null);
         return {
           success: false,
-          error: data?.message || "Whoa, slow down! Please wait a moment.",
+          error: data?.message || 'Whoa, slow down! Please wait a moment.',
           status: 429,
         };
       }
@@ -51,7 +51,7 @@ export const FetcherProvider = ({ children }) => {
         return {
           success: false,
           error: 'Unauthorized. Please log in to continue.',
-          status: 401
+          status: 401,
         };
       }
 
@@ -65,21 +65,20 @@ export const FetcherProvider = ({ children }) => {
         return {
           success: false,
           error: errorMessage,
-          status: response.status
+          status: response.status,
         };
       }
 
       // 5. Success
       setIsLoaded(true);
       return { success: true, data };
-
     } catch (err) {
       console.error('Fetcher error:', err);
       setIsLoaded(true);
       return {
         success: false,
         error: 'Network error. Please check your connection.',
-        status: null
+        status: null,
       };
     }
   };

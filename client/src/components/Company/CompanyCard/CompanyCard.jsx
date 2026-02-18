@@ -9,7 +9,7 @@ const CompanyCard = ({ company }) => {
     const roundedRating = Math.round(rating || 0);
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <span key={i} className={i <= roundedRating ? "star filled" : "star"}>
+        <span key={i} className={i <= roundedRating ? 'star filled' : 'star'}>
           ★
         </span>
       );
@@ -35,12 +35,13 @@ const CompanyCard = ({ company }) => {
         <h3 className="company-name">{company.name}</h3>
 
         <p className="company-meta">
-          {company.industry} <span className="separator">•</span> {company.location}
+          {company.industry} <span className="separator">•</span>{' '}
+          {company.location}
         </p>
 
         <div className="rating-container">
           <div className="stars-row">{renderStars(company.averageRating)}</div>
-          <span className="rating-badge">{company.averageRating || "0"}</span>
+          <span className="rating-badge">{company.averageRating || '0'}</span>
         </div>
 
         <Link to={`/companies/${company._id}`} className="view-btn">

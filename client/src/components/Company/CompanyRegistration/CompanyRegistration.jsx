@@ -9,7 +9,7 @@ const CompanyRegistration = () => {
     name: '',
     industry: '',
     location: '',
-    description: ''
+    description: '',
   });
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -35,7 +35,7 @@ const CompanyRegistration = () => {
     // 2. Use the fetcher
     const response = await fetcher('/api/companies', {
       method: 'POST',
-      body: data
+      body: data,
     });
 
     if (response.success) {
@@ -97,7 +97,9 @@ const CompanyRegistration = () => {
           />
         </div>
 
-        <button type="submit" className="submit-btn">Register Company</button>
+        <button type="submit" className="submit-btn">
+          Register Company
+        </button>
       </form>
     </div>
   );

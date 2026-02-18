@@ -4,13 +4,13 @@ import axios from 'axios';
 const api = axios.create({
   // Since we set up the proxy in vite.config.js, we don't need the full URL here.
   // "/api" automatically redirects to http://localhost:5000/api
-  baseURL: "/api",
+  baseURL: '/api',
 
   // This allows cookies/sessions to be sent with requests (Vital for Auth)
   withCredentials: true,
 
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
