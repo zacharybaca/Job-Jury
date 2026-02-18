@@ -54,7 +54,10 @@ The application addresses the lack of transparency in the workplace. Users can v
 | POST | Create new company | `/api/companies` |
 | GET | Fetch individual company | `/api/companies/:companyId` |
 | PUT | Update company info | `/api/companies/:companyId` |
+| DELETE | Delete company   | `/api/companies/:companyId` |
 | POST | Add review & update avgRating | `/api/reviews/:companyId` |
+| GET  | Retrieve a review from company| `/api/reviews/:companyId/:reviewId` |
+| PUT  | Update a created review       | `/api/reviews/:companyId/:reviewId` |
 | DELETE | Delete a review | `/api/reviews/:companyId/:reviewId` |
 
 ### Authentication
@@ -62,6 +65,8 @@ The application addresses the lack of transparency in the workplace. Users can v
 | Method | Description | Endpoint |
 | :--- | :--- | :--- |
 | POST | User Signup | `/api/auth/register` |
+| POST | User Login  | `/api/auth/login`    |
+| POST | User Logout | `/api/auth/logout`   |
 | GET | Fetch user profile | `/api/users/:userId` |
 | PUT | Update user profile | `/api/users/:userId` |
 
