@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CompanyCard from '../CompanyCard/CompanyCard';
 import SearchBar from '../../Utility/SearchBar/SearchBar';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher } from '../../../hooks/useFetcher.js';
 import './company-list.css';
 
 const CompanyList = () => {
