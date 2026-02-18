@@ -1,6 +1,7 @@
 import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "./components/Layout/Header/Header";
+import NavBar from "./components/Layout/NavBar/NavBar";
 import Footer from "./components/Layout/Footer/Footer";
 import ProtectedRoute from "./components/Utility/ProtectedRoute/ProtectedRoute";
 import CompanyList from "./components/Company/CompanyList/CompanyList";
@@ -23,7 +24,7 @@ const Layout = () => {
   return (
     <div className="app-container">
       <ScrollToTop />
-      <Header />
+      <NavBar />
       <main className="main-content">
         <Outlet />
       </main>
