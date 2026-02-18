@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CompanyCard from '../CompanyCard/CompanyCard';
-import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../../Utility/SearchBar/SearchBar';
 import { useFetcher } from '../../hooks/useFetcher';
 import './company-list.css';
 
