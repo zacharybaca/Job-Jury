@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher } from '../../../hooks/useFetcher';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../ReviewForm/ReviewForm';
 import ReviewList from '../ReviewList/ReviewList';
