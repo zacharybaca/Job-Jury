@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/job-jury-logo-minimal.jpg';
 import './nav-bar.css';
 
 const NavBar = () => {
@@ -9,7 +8,7 @@ const NavBar = () => {
       <div className="nav-container">
         {/* Logo Section */}
         <Link to="/" className="nav-logo-link">
-          <img src={logo} alt="Job Jury Logo" className="nav-logo-img" />
+          <img src="/assets/icons/job-jury-logo-minimal.jpg" alt="Job Jury Logo" className="nav-logo-img" />
         </Link>
 
         {/* Links Section */}
