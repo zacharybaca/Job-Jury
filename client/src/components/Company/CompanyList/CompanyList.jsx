@@ -24,7 +24,7 @@ const CompanyList = () => {
       name: "Tech Solutions",
       industry: "Software Engineering",
       location: "Chicago, IL",
-      imageUrl: "https://via.placeholder.com/350x180?text=Tech+Solutions",
+      imageUrl: "https://chicagotechsolution.com/assets/images/logo.png",
       averageRating: 3.5
     },
     {
@@ -32,7 +32,7 @@ const CompanyList = () => {
       name: "Medi-Care Group",
       industry: "Healthcare",
       location: "Michigan City, IN",
-      imageUrl: "https://via.placeholder.com/350x180?text=Medi-Care",
+      imageUrl: "https://medicareagentshub.com/images/the-medicare-agent-directory-logo.png",
       averageRating: 4.2
     },
     {
@@ -40,7 +40,7 @@ const CompanyList = () => {
       name: "Global Logistics",
       industry: "Supply Chain",
       location: "Indianapolis, IN",
-      imageUrl: "https://via.placeholder.com/350x180?text=Global+Logistics",
+      imageUrl: "https://www.echo.com/wp-content/themes/ws/assets/logos/Echo_Logo_RGB.svg",
       averageRating: 2.9
     }
   ];
