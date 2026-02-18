@@ -13,6 +13,8 @@ const NavBar = () => {
 
         {/* Links Section */}
         <ul className="nav-links">
+          <li><Link to="/register" className="nav-item">Sign Up</Link></li>
+          <li><Link to="/login" className="nav-item">Login</Link></li>
           <li><Link to="/" className="nav-item">Browse Companies</Link></li>
           <li><Link to="/register-company" className="nav-item">Register Company</Link></li>
         </ul>
