@@ -1,0 +1,57 @@
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.review-badge {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.review-job-title {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.review-text {
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap; /* Preserves line breaks from textarea */
+}
+
+.empty-reviews {
+  text-align: center;
+  padding: 40px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #64748b;
+}
