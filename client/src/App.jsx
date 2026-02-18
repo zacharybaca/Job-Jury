@@ -2,6 +2,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
 import Footer from "./components/Layout/Footer/Footer";
 import ProtectedRoute from "./components/Utility/ProtectedRoute/ProtectedRoute";
+import CompanyCard from "./components/Company/CompanyCard/CompanyCard";
 import "./App.css";
 
 // Page imports would eventually go here
@@ -29,6 +30,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Public Routes */}
         <Route index element={<Home />} />
+        <Route path="/company-card" element={<CompanyCard />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="company/:id" element={<CompanyDetail />} />
