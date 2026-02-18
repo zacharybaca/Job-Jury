@@ -3,14 +3,13 @@ import Header from "./components/Layout/Header/Header";
 import Footer from "./components/Layout/Footer/Footer";
 import ProtectedRoute from "./components/Utility/ProtectedRoute/ProtectedRoute";
 import CompanyList from "./components/Company/CompanyList/CompanyList";
+import CompanyDetail from "./components/Company/CompanyDetail/CompanyDetail"; // Import real component
+import CompanyRegistration from "./components/Company/CompanyRegistration/CompanyRegistration"; // Import real component
 import "./App.css";
 
-// Page imports would eventually go here
-const Home = () => <div className="page-content"><h2>Welcome to Job-Jury</h2></div>;
+// Page imports (Keep these until you build the actual login/register pages)
 const Login = () => <div className="page-content"><h2>Login</h2></div>;
 const Register = () => <div className="page-content"><h2>Register</h2></div>;
-const CompanyDetail = () => <div className="page-content"><h2>Company Details</h2></div>;
-const ReviewForm = () => <div className="page-content"><h2>Write a Review</h2></div>;
 
 const Layout = () => {
   return (
@@ -28,19 +27,26 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        {/* Index route: Shows the list immediately on the home page */}
+        <Route index element={<CompanyList />} />
+
         {/* Public Routes */}
-        <Route index element={<Home />} />
-        <Route path="/company-list" element={<CompanyList/>} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="company/:id" element={<CompanyDetail />} />
+
+        {/* Updated path for better SEO/naming consistency */}
+        <Route path="companies/:id" element={<CompanyDetail />} />
+
+        {/* Registration page */}
+        <Route path="register-company" element={<CompanyRegistration />} />
 
         {/* Protected Routes */}
         <Route
           path="add-review/:companyId"
           element={
             <ProtectedRoute>
-              <ReviewForm />
+              {/* This would be your full Review form page */}
+              <div className="page-content"><h2>Write a Review</h2></div>
             </ProtectedRoute>
           }
         />
