@@ -16,7 +16,7 @@ const CompanyList = () => {
       name: "Surf Internet",
       industry: "Telecommunications",
       location: "La Porte, IN",
-      imageUrl: "https://via.placeholder.com/350x180?text=Surf+Internet",
+      imageUrl: "https://surfinternet.com/wp-content/uploads/sites/10/2022/06/surf-internet-logo-lt.png",
       averageRating: 4.8
     },
     {
