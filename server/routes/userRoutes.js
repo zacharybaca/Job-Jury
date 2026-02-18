@@ -8,11 +8,13 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// All user routes should be protected
-router.route('/profile')
-  .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+// Apply protection to all routes in this file
+router.use(protect);
 
-router.post('/save/:companyId', protect, toggleSaveCompany);
+router.route('/profile')
+  .get(getUserProfile)
+  .put(updateUserProfile);
+
+router.post('/save/:companyId', toggleSaveCompany);
 
 export default router;
