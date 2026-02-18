@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher } from '../../../hooks/useFetcher.js';
 import './review-form.css';
 
 const ReviewForm = ({ companyId, onReviewAdded }) => {
