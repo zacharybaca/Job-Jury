@@ -1,5 +1,5 @@
 .main-nav {
-  background-color: #ffffff;
+  background-color: #0F172A;
   border-bottom: 1px solid #e2e8f0;
   height: 80px;
   display: flex;
@@ -33,7 +33,7 @@
 
 .nav-item {
   text-decoration: none;
-  color: #1e293b;
+  color: whitesmoke;
   font-weight: 600;
   font-size: 0.95rem;
   transition: color 0.2s;
