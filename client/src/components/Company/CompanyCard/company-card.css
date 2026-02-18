@@ -1,0 +1,116 @@
+.company-card {
+  max-width: 350px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-container {
+  height: 180px;
+  width: 100%;
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-image {
+  color: #94a3b8;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.company-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a; /* Navy Blue */
+  text-transform: uppercase;
+}
+
+.company-meta {
+  margin: 0 0 1rem 0;
+  font-size: 0.875rem;
+  color: #10b981; /* Emerald Green */
+  font-weight: 600;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.star {
+  color: #cbd5e1; /* Gray stars */
+  font-size: 1.25rem;
+}
+
+.star.filled {
+  color: #fbbf24; /* Yellow stars */
+}
+
+.rating-badge {
+  background-color: #dcfce7;
+  color: #166534;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.view-btn {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background-color: #10b981; /* Emerald */
+  color: white;
+  padding: 10px 0;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn:hover {
+  background-color: #059669;
+}
+
+.company-grid {
+  display: grid;
+  /* This creates a grid that automatically adds as many 300px columns as fit */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem; /* Space between the cards */
+  padding: 2rem;
+  max-width: 1200px; /* Keeps the grid from getting too wide on huge monitors */
+  margin: 0 auto; /* Centers the grid on the page */
+  justify-items: center; /* Centers the cards within their grid cells */
+}
+
+/* Mobile Tweak: Add a bit more padding on small screens */
+@media (max-width: 480px) {
+  .company-grid {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}
