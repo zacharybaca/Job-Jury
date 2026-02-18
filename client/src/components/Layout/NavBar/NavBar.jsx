@@ -7,8 +7,8 @@ const NavBar = () => {
     <nav className="main-nav">
       <div className="nav-container">
         {/* Logo Section */}
-        <Link to="/" className="nav-logo-link">
-          <img src="/assets/icons/job-jury-logo-minimal.jpg" alt="Job Jury Logo" className="nav-logo-img" />
+        <Link to="/" className="footer-logo">
+          Job<span className="logo-accent">Jury</span>
         </Link>
 
         {/* Links Section */}
