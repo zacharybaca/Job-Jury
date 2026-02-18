@@ -1,19 +1,28 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./components/Layout/Header/Header";
 import Footer from "./components/Layout/Footer/Footer";
 import ProtectedRoute from "./components/Utility/ProtectedRoute/ProtectedRoute";
 import CompanyList from "./components/Company/CompanyList/CompanyList";
-import CompanyDetail from "./components/Company/CompanyDetail/CompanyDetail"; // Import real component
-import CompanyRegistration from "./components/Company/CompanyRegistration/CompanyRegistration"; // Import real component
+import CompanyDetail from "./components/Company/CompanyDetail/CompanyDetail";
+import CompanyRegistration from "./components/Company/CompanyRegistration/CompanyRegistration";
+import Login from "./components/Auth/Login/Login";
+import Register from "./components/Auth/Register/Register";
 import "./App.css";
 
-// Page imports (Keep these until you build the actual login/register pages)
-const Login = () => <div className="page-content"><h2>Login</h2></div>;
-const Register = () => <div className="page-content"><h2>Register</h2></div>;
+// Scroll to top on every route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const Layout = () => {
   return (
     <div className="app-container">
+      <ScrollToTop />
       <Header />
       <main className="main-content">
         <Outlet />
@@ -27,32 +36,30 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* Index route: Shows the list immediately on the home page */}
+        {/* Home / Company Feed */}
         <Route index element={<CompanyList />} />
 
-        {/* Public Routes */}
+        {/* Auth Routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 
-        {/* Updated path for better SEO/naming consistency */}
+        {/* Company Routes */}
         <Route path="companies/:id" element={<CompanyDetail />} />
-
-        {/* Registration page */}
         <Route path="register-company" element={<CompanyRegistration />} />
 
-        {/* Protected Routes */}
+        {/* Protected Actions */}
         <Route
-          path="add-review/:companyId"
+          path="companies/:companyId/add-review"
           element={
             <ProtectedRoute>
-              {/* This would be your full Review form page */}
-              <div className="page-content"><h2>Write a Review</h2></div>
+              {/* Replace this with a dedicated ReviewFormPage if needed */}
+              <div className="page-content"><h2>Submit Your Verdict</h2></div>
             </ProtectedRoute>
           }
         />
 
-        {/* Catch-all for 404s */}
-        <Route path="*" element={<div className="page-content"><h2>404: Page Not Found</h2></div>} />
+        {/* 404 Route */}
+        <Route path="*" element={<div className="page-content"><h2>404: Verdict Not Found</h2></div>} />
       </Route>
     </Routes>
   );
