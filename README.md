@@ -1,4 +1,4 @@
-# Job-Jury
+# <img src="client/public/assets/icons/job-jury-logo-minimal.jpg" alt="Logo" width="40" height="40" /> Job-Jury
 
 > _“Don't just take the job. Hear the jury.”_
 
