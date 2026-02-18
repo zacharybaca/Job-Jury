@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher } from '../../../hooks/useFetcher.js';
 import '../auth-forms.css';
 
 const Register = () => {
