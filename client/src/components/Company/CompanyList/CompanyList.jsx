@@ -1,56 +1,53 @@
-import React from 'react';
-import CompanyCard from '../CompanyCard/CompanyCard'; // Ensure this path matches your folder structure
+import React, { useEffect, useState } from 'react';
+import CompanyCard from '../CompanyCard/CompanyCard';
+import { useFetcher } from '../../../hooks/useFetcher';
 import './company-grid.css';
 
 const CompanyList = () => {
-  // Mock Data for Design & Layout Testing
+  const { fetcher, isLoaded, setIsLoaded } = useFetcher();
+  const [companies, setCompanies] = useState([]);
+
+  // Mock data for when you want to see the "final" look
   const mockCompanies = [
-    {
-      _id: "1",
-      name: "Surf Internet",
-      industry: "Telecommunications",
-      location: "La Porte, IN",
-      imageUrl: "https://via.placeholder.com/350x180?text=Surf+Internet",
-      averageRating: 4.8
-    },
-    {
-      _id: "2",
-      name: "Tech Solutions",
-      industry: "Software Engineering",
-      location: "Chicago, IL",
-      imageUrl: "https://via.placeholder.com/350x180?text=Tech+Solutions",
-      averageRating: 3.5
-    },
-    {
-      _id: "3",
-      name: "Medi-Care Group",
-      industry: "Healthcare",
-      location: "Michigan City, IN",
-      imageUrl: "https://via.placeholder.com/350x180?text=Medi-Care",
-      averageRating: 4.2
-    },
-    {
-      _id: "4",
-      name: "Global Logistics",
-      industry: "Supply Chain",
-      location: "Indianapolis, IN",
-      imageUrl: "https://via.placeholder.com/350x180?text=Global+Logistics",
-      averageRating: 2.9
-    }
+    { _id: "1", name: "Surf Internet", industry: "Telecom", location: "La Porte, IN", averageRating: 4.8 },
+    { _id: "2", name: "Tech Solutions", industry: "Software", location: "Chicago, IL", averageRating: 3.5 },
+    { _id: "3", name: "Medi-Care", industry: "Healthcare", location: "Michigan City, IN", averageRating: 4.2 }
   ];
+
+  useEffect(() => {
+    // Simulated fetch call (Replace with real API call later)
+    const loadData = async () => {
+      setIsLoaded(false);
+      // Simulate network delay
+      setTimeout(() => {
+        setCompanies(mockCompanies);
+        setIsLoaded(true);
+      }, 2000);
+    };
+
+    loadData();
+  }, []);
 
   return (
     <section className="company-list-wrapper">
       <div className="list-header">
         <h2 className="list-title">Explore the Jury's Verdicts</h2>
-        <p className="list-subtitle">Browse companies by their real-world employee ratings.</p>
       </div>
 
-      {/* The responsive grid container */}
       <div className="company-grid">
-        {mockCompanies.map((company) => (
-          <CompanyCard key={company._id} company={company} />
-        ))}
+        {!isLoaded ? (
+          // Display 6 skeleton cards while loading
+          [...Array(6)].map((_, index) => (
+            <div key={index} className="skeleton-card">
+              <div className="skeleton-pulse"></div>
+            </div>
+          ))
+        ) : (
+          // Display the real (or mock) cards
+          companies.map((company) => (
+            <CompanyCard key={company._id} company={company} />
+          ))
+        )}
       </div>
     </section>
   );
