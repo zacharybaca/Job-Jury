@@ -1,0 +1,44 @@
+.company-list-wrapper {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.list-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.list-title {
+  font-size: 2.25rem;
+  color: #1e293b; /* Navy Blue */
+  margin-bottom: 10px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.list-subtitle {
+  color: #64748b; /* Muted Slate */
+  font-size: 1.1rem;
+}
+
+/* Responsive Grid Logic */
+.company-grid {
+  display: grid;
+  /* Creates as many 300px columns as possible, then stretches them to fill space */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 640px) {
+  .list-title {
+    font-size: 1.75rem;
+  }
+
+  .company-grid {
+    gap: 20px;
+    grid-template-columns: 1fr; /* Force 1 column on very small phones */
+  }
+}
