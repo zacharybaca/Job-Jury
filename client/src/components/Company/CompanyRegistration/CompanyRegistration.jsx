@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher } from '../../../hooks/useFetcher';
 import CompanyImageUpload from '../CompanyImageUpload/CompanyImageUpload';
 import './company-registration.css';
 
