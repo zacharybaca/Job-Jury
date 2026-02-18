@@ -2,25 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetcher } from '../../hooks/useFetcher';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
+import ReviewForm from '../ReviewForm/ReviewForm';
+import ReviewList from '../ReviewList/ReviewList';
 import './company-detail.css';
 
 const CompanyDetail = () => {
   const { id } = useParams();
   const { fetcher, isLoaded, setIsLoaded } = useFetcher();
   const [company, setCompany] = useState(null);
+  const [showForm, setShowForm] = useState(false); // Toggle for the review form
+
+  const getCompanyData = async () => {
+    const response = await fetcher(`/api/companies/${id}`);
+    if (response.success) {
+      setCompany(response.data.data);
+    }
+  };
 
   useEffect(() => {
-    const getCompanyData = async () => {
-      setIsLoaded(false);
-      const response = await fetcher(`/api/companies/${id}`);
-      if (response.success) {
-        setCompany(response.data.data);
-      }
-      setIsLoaded(true);
-    };
-
-    getCompanyData();
+    setIsLoaded(false);
+    getCompanyData().then(() => setIsLoaded(true));
   }, [id]);
+
+  // This function updates the UI instantly when a new review is posted
+  const handleReviewAdded = () => {
+    getCompanyData(); // Re-fetch data to get the new averageRating and review list
+    setShowForm(false); // Hide the form after success
+  };
 
   if (!isLoaded) {
     return <div className="detail-loading">Gathering the Jury's findings...</div>;
@@ -32,36 +40,36 @@ const CompanyDetail = () => {
 
   return (
     <main className="company-detail-page">
-      {/* Reusing the Header we built! */}
       <CompanyHeader company={company} />
 
       <section className="reviews-section">
         <div className="section-container">
+
           <div className="reviews-header">
             <h2>Employee Reviews</h2>
-            <button className="add-review-btn">Submit a Review</button>
+            <button
+              className="add-review-btn"
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? 'Cancel' : 'Submit a Review'}
+            </button>
           </div>
 
-          {company.reviews && company.reviews.length > 0 ? (
-            <div className="reviews-list">
-              {company.reviews.map((review) => (
-                <div key={review._id} className="review-item">
-                  <div className="review-top">
-                    <span className="review-rating">★ {review.rating}</span>
-                    <span className="review-job">{review.jobTitle}</span>
-                    <span className="review-date">
-                      {new Date(review.createdAt).toLocaleDateString()}
-                    </span>
-                  </div>
-                  <p className="review-content">{review.content}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="empty-reviews">
-              <p>No reviews yet for {company.name}. Be the first to give a verdict!</p>
+          {/* VERDICT SECTION START */}
+          {showForm && (
+            <div className="form-wrapper">
+              <ReviewForm
+                companyId={id}
+                onReviewAdded={handleReviewAdded}
+              />
             </div>
           )}
+
+          <div className="verdict-list-container">
+            <ReviewList reviews={company.reviews} />
+          </div>
+          {/* VERDICT SECTION END */}
+
         </div>
       </section>
     </main>
