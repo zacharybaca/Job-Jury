@@ -97,3 +97,12 @@
   color: #1e293b;
   background-color: #f8fafc; /* Use the light background, not the emerald */
 }
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  border: 2px solid black;
+}
