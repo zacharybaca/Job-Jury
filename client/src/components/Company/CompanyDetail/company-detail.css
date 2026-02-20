@@ -86,3 +86,14 @@
   color: #64748b;
   border: 2px dashed #e2e8f0;
 }
+
+.detail-error, .detail-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px; /* Limits the giant color block */
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e293b;
+  background-color: #f8fafc; /* Use the light background, not the emerald */
+}
