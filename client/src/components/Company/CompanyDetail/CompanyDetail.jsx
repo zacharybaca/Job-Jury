@@ -4,6 +4,7 @@ import { useFetcher } from '../../../hooks/useFetcher';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
+import SaveButton from '../../Utility/SaveButton/SaveButton';
 import './company-detail.css';
 
 const CompanyDetail = () => {
@@ -110,6 +111,9 @@ const CompanyDetail = () => {
             <ReviewList reviews={company.reviews} />
           </div>
           {/* VERDICT SECTION END */}
+        </div>
+        <div className="button-container">
+          <SaveButton />
         </div>
       </section>
     </main>
