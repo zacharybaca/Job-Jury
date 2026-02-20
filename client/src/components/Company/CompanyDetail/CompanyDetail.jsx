@@ -12,10 +12,53 @@ const CompanyDetail = () => {
   const [company, setCompany] = useState(null);
   const [showForm, setShowForm] = useState(false); // Toggle for the review form
 
+  // 1. Mock Data for Design Testing
+  const mockCompanies = [
+    {
+      _id: '1',
+      name: 'Surf Internet',
+      industry: 'Telecommunications',
+      location: 'La Porte, IN',
+      imageUrl:
+        'https://surfinternet.com/wp-content/uploads/sites/10/2022/06/surf-internet-logo-lt.png',
+      averageRating: 4.8,
+    },
+    {
+      _id: '2',
+      name: 'Tech Solutions',
+      industry: 'Software Engineering',
+      location: 'Chicago, IL',
+      imageUrl: 'https://chicagotechsolution.com/assets/images/logo.png',
+      averageRating: 3.5,
+    },
+    {
+      _id: '3',
+      name: 'Medi-Care Group',
+      industry: 'Healthcare',
+      location: 'Michigan City, IN',
+      imageUrl:
+        'https://medicareagentshub.com/images/the-medicare-agent-directory-logo.png',
+      averageRating: 4.2,
+    },
+    {
+      _id: '4',
+      name: 'Global Logistics',
+      industry: 'Supply Chain',
+      location: 'Indianapolis, IN',
+      imageUrl:
+        'https://www.echo.com/wp-content/themes/ws/assets/logos/Echo_Logo_RGB.svg',
+      averageRating: 2.9,
+    },
+  ];
+
   const getCompanyData = async () => {
     const response = await fetcher(`/api/companies/${id}`);
     if (response.success) {
-      setCompany(response.data.data);
+      setCompany(response.data);
+    } else {
+      // 2. FALLBACK: If API fails, find the company in your hardcoded list
+      const localMatch = mockCompanies.find(c => c._id === id);
+      setCompany(localMatch);
     }
   };
 
