@@ -2,15 +2,17 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import Company from './models/Company.js';
+import Company from '../models/Company.js';
 
-// Fix for __dirname in ES Modules
+// 1. Setup paths for ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Explicitly point to the .env file in the server directory
-dotenv.config({ path: path.resolve(__dirname, './.env') });
+// 2. Resolve the path to the .env file (stepping up from /utils to /server)
+const envPath = path.resolve(__dirname, '../.env');
+dotenv.config({ path: envPath });
 
+// 3. Mock Data
 const mockCompanies = [
   {
     name: "Surf Internet",
@@ -48,27 +50,32 @@ const mockCompanies = [
 
 const seedDB = async () => {
   try {
-    const mongoUri = process.env.MONGO_URI;
+    // Debugging logs to verify path resolution
+    console.log("------------------------------------------");
+    console.log(`Checking for .env at: ${envPath}`);
 
-    if (!mongoUri) {
-      throw new Error("MONGO_URI is undefined. Check the path to your .env file.");
+    if (!process.env.MONGO_URI) {
+      console.error("❌ Error: MONGO_URI is still undefined.");
+      console.log("Available Env Variables:", Object.keys(process.env).filter(k => !k.startsWith('NODE_')));
+      process.exit(1);
     }
 
-    console.log("Connecting to MongoDB...");
-    await mongoose.connect(mongoUri);
-    console.log("Connected successfully.");
+    console.log("✅ MONGO_URI Found. Connecting to MongoDB...");
 
-    // Clear existing data to prevent duplicates during testing
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Successfully connected to the JobJury database.");
+
+    // Clear existing data to prevent duplicates
     await Company.deleteMany({});
     console.log("Old company data cleared.");
 
     // Insert the mock data
     await Company.insertMany(mockCompanies);
-    console.log(`${mockCompanies.length} companies have been added to the Jury's records!`);
+    console.log(`🚀 ${mockCompanies.length} companies have been added to the Jury's records!`);
 
     process.exit(0);
   } catch (error) {
-    console.error("Error during database seeding:", error.message);
+    console.error("❌ Error during database seeding:", error.message);
     process.exit(1);
   }
 };
