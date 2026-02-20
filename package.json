@@ -10,7 +10,8 @@
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "start": "node server/server.js",
-    "format": "prettier --write \"{client/src,server}/**/*.{js,jsx,json,css,md}\""
+    "format": "prettier --write \"{client/src,server}/**/*.{js,jsx,json,css,md}\"",
+    "seed": "node server/utils/seed.js"
   },
   "author": "Zachary Baca",
   "license": "ISC",
