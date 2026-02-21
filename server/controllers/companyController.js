@@ -24,7 +24,10 @@ const getCompanies = asyncHandler(async (req, res) => {
 });
 
 const getCompany = asyncHandler(async (req, res) => {
-  const company = await Company.findById(req.params.id).populate("reviews");
+  // .lean() makes the response a plain JS object instead of a Mongoose Document
+  const company = await Company.findById(req.params.id)
+    .populate("reviews")
+    .lean();
 
   if (!company) {
     res.status(404);

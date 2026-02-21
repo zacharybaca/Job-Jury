@@ -4,7 +4,7 @@ import {
   getCompanies,
   getCompany,
 } from "../controllers/companyController.js";
-import { upload } from "../config/cloudinary.js";
+import { upload } from "../middleware/cloudinary.js";
 
 const router = express.Router();
 

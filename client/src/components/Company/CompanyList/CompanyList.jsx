@@ -53,18 +53,17 @@ const CompanyList = () => {
     const loadData = async () => {
       setIsLoaded(false);
       // Simulating a network delay so you can see the Skeleton Loader in action
-      setTimeout(() => {
-        setCompanies(mockCompanies);
-        setIsLoaded(true);
-      }, 1500);
+      // setTimeout(() => {
+      //   setCompanies(mockCompanies);
+      //   setIsLoaded(true);
+      // }, 1500);
 
-      /* // UNCOMMENT THIS for real API connection later:
+      // UNCOMMENT THIS for real API connection later:
       const response = await fetcher('/api/companies');
       if (response.success) {
         setCompanies(response.data.data);
       }
       setIsLoaded(true);
-      */
     };
 
     loadData();

@@ -1,24 +1,27 @@
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const multer = require("multer");
+// 1. Change require to import
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
 
-// These values will come from your .env file
+// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-// Configure how files are stored
+// Configure Storage
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "job_jury_assets", // Folder name in Cloudinary
+    folder: "job_jury_assets",
     allowedFormats: ["jpeg", "png", "jpg", "mp4"],
-    resource_type: "auto", // Crucial: allows both images AND videos
+    resource_type: "auto",
   },
 });
 
-const upload = multer({ storage });
+// 2. Create the upload middleware
+export const upload = multer({ storage });
 
-module.exports = { cloudinary, upload };
+// 3. Export cloudinary if needed elsewhere
+export { cloudinary };

@@ -23,7 +23,12 @@ const CompanyHeader = ({ company }) => {
   return (
     <header className="company-header-hero">
       <div className="header-content">
-        <h1 className="header-name">{company.name}</h1>
+        <h1
+          className="header-name text-white block"
+          style={{ color: 'white', display: 'block' }}
+        >
+          {company.name || 'Name Missing'}
+        </h1>
         <div className="header-meta">
           <span className="header-industry">{company.industry}</span>
           <span className="header-divider">|</span>

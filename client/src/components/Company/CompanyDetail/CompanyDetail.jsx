@@ -5,113 +5,78 @@ import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
-import './company-detail.css';
+import './company-detail.css'; // Comment this out if moving to Tailwind!
 
 const CompanyDetail = () => {
   const { id } = useParams();
   const { fetcher, isLoaded, setIsLoaded } = useFetcher();
   const [company, setCompany] = useState(null);
-  const [showForm, setShowForm] = useState(false); // Toggle for the review form
-
-  // 1. Mock Data for Design Testing
-  const mockCompanies = [
-    {
-      _id: '1',
-      name: 'Surf Internet',
-      industry: 'Telecommunications',
-      location: 'La Porte, IN',
-      imageUrl:
-        'https://surfinternet.com/wp-content/uploads/sites/10/2022/06/surf-internet-logo-lt.png',
-      averageRating: 4.8,
-    },
-    {
-      _id: '2',
-      name: 'Tech Solutions',
-      industry: 'Software Engineering',
-      location: 'Chicago, IL',
-      imageUrl: 'https://chicagotechsolution.com/assets/images/logo.png',
-      averageRating: 3.5,
-    },
-    {
-      _id: '3',
-      name: 'Medi-Care Group',
-      industry: 'Healthcare',
-      location: 'Michigan City, IN',
-      imageUrl:
-        'https://medicareagentshub.com/images/the-medicare-agent-directory-logo.png',
-      averageRating: 4.2,
-    },
-    {
-      _id: '4',
-      name: 'Global Logistics',
-      industry: 'Supply Chain',
-      location: 'Indianapolis, IN',
-      imageUrl:
-        'https://www.echo.com/wp-content/themes/ws/assets/logos/Echo_Logo_RGB.svg',
-      averageRating: 2.9,
-    },
-  ];
+  const [showForm, setShowForm] = useState(false);
 
   const getCompanyData = async () => {
+    // Ensure the loader shows while fetching
+    setIsLoaded(false);
     const response = await fetcher(`/api/companies/${id}`);
+
     if (response.success) {
-      setCompany(response.data);
+      setCompany(response.data.data);
     } else {
-      // 2. FALLBACK: If API fails, find the company in your hardcoded list
-      const localMatch = mockCompanies.find(c => c._id === id);
-      setCompany(localMatch);
+      console.error('API Error:', response.message);
+      setCompany(null);
     }
+    setIsLoaded(true);
   };
 
   useEffect(() => {
-    setIsLoaded(false);
-    getCompanyData().then(() => setIsLoaded(true));
+    getCompanyData();
   }, [id]);
 
-  // This function updates the UI instantly when a new review is posted
   const handleReviewAdded = () => {
-    getCompanyData(); // Re-fetch data to get the new averageRating and review list
-    setShowForm(false); // Hide the form after success
+    getCompanyData();
+    setShowForm(false);
   };
 
   if (!isLoaded) {
     return (
-      <div className="detail-loading">Gathering the Jury's findings...</div>
+      <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
+        Gathering the Jury's findings...
+      </div>
     );
   }
 
   if (!company) {
-    return <div className="detail-error">Company not found.</div>;
+    return (
+      <div className="text-center py-20 text-red-600 font-bold">
+        Company not found in the Jury's records.
+      </div>
+    );
   }
 
   return (
     <main className="company-detail-page">
       <CompanyHeader company={company} />
 
-      <section className="reviews-section">
-        <div className="section-container">
-          <div className="reviews-header">
-            <h2>Employee Reviews</h2>
-            <button
-              className="add-review-btn"
-              onClick={() => setShowForm(!showForm)}
-            >
-              {showForm ? 'Cancel' : 'Submit a Review'}
-            </button>
-          </div>
-
-          {/* VERDICT SECTION START */}
-          {showForm && (
-            <div className="form-wrapper">
-              <ReviewForm companyId={id} onReviewAdded={handleReviewAdded} />
-            </div>
-          )}
-
-          <div className="verdict-list-container">
-            <ReviewList reviews={company.reviews} />
-          </div>
-          {/* VERDICT SECTION END */}
+      <section className="section-container">
+        <div className="reviews-header">
+          <h2>Employee Reviews</h2>
+          <button
+            className="add-review-btn"
+            onClick={() => setShowForm(!showForm)}
+          >
+            {showForm ? 'Cancel' : 'Submit a Review'}
+          </button>
         </div>
+
+        {showForm && (
+          <div className="form-wrapper">
+            <ReviewForm companyId={id} onReviewAdded={handleReviewAdded} />
+          </div>
+        )}
+
+        <div className="verdict-list-container">
+          <ReviewList reviews={company.reviews} />
+        </div>
+
         <div className="button-container">
           <SaveButton />
         </div>

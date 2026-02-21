@@ -1,6 +1,8 @@
 .company-detail-page {
   background-color: #f8fafc;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .section-container {
@@ -87,7 +89,8 @@
   border: 2px dashed #e2e8f0;
 }
 
-.detail-error, .detail-loading {
+.detail-error,
+.detail-loading {
   display: flex;
   justify-content: center;
   align-items: center;
