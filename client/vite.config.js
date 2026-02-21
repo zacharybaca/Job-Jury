@@ -1,12 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite';
 
 // Render-friendly Vite config
 export default defineConfig({
   base: '/', // Ensure correct asset paths in production
   plugins: [react(),
-            tailwindcss(),
   ],
   server: {
     port: 5173,

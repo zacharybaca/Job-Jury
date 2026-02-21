@@ -26,7 +26,7 @@ const ReviewList = ({ reviews }) => {
               </span>
             </div>
           </div>
-          <p className="review-text">{review.content}</p>
+          <p className="review-text">{review.body}</p>
         </div>
       ))}
     </div>

@@ -1,10 +1,4 @@
-@import 'tailwindcss';
 
-/* You can still define your custom colors here using CSS variables */
-@theme {
-  --color-jury-navy: #1e293b;
-  --color-jury-emerald: #10b981;
-}
 
 /* ---- Base Layout Adjustments ---- */
 *,
