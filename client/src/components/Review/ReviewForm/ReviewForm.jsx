@@ -5,7 +5,7 @@ import './review-form.css';
 const ReviewForm = ({ companyId, onReviewAdded }) => {
   const { fetcher } = useFetcher();
   const [rating, setRating] = useState(5);
-  const [content, setContent] = useState('');
+  const [body, setBody] = useState('');
   const [jobTitle, setJobTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -18,7 +18,7 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
       body: JSON.stringify({
         companyId,
         rating,
-        content,
+        body,
         jobTitle,
       }),
     });
@@ -26,7 +26,7 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
     setIsSubmitting(false);
 
     if (response.success) {
-      setContent('');
+      setBody('');
       setJobTitle('');
       setRating(5);
       // Callback to refresh the company data in the parent component
@@ -70,8 +70,8 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
       <div className="form-group">
         <label>Your Review</label>
         <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
           placeholder="What is it really like to work here?"
           required
         />

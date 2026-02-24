@@ -5,7 +5,7 @@ import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
-import './company-detail.css'; // Comment this out if moving to Tailwind!
+import './company-detail.css';
 
 const CompanyDetail = () => {
   const { id } = useParams();
@@ -34,6 +34,20 @@ const CompanyDetail = () => {
   const handleReviewAdded = () => {
     getCompanyData();
     setShowForm(false);
+  };
+
+  const handleToggleSave = async () => {
+    // This calls your backend route rather than the raw function
+    const response = await fetcher(`/api/users/save/${id}`, {
+      method: 'POST'
+    });
+
+    if (response.success) {
+      alert('Company save status updated!');
+      // Optional: Update local state to show the button as "Saved"
+    } else {
+      console.error('Failed to save company:', response.message);
+    }
   };
 
   if (!isLoaded) {
@@ -78,7 +92,7 @@ const CompanyDetail = () => {
         </div>
 
         <div className="button-container">
-          <SaveButton />
+          <SaveButton onSave={handleToggleSave}/>
         </div>
       </section>
     </main>

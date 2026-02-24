@@ -6,7 +6,7 @@ import asyncHandler from "express-async-handler";
 // @route   POST /api/reviews
 // @access  Private
 export const createReview = asyncHandler(async (req, res) => {
-  const { companyId, rating, content, jobTitle } = req.body;
+  const { companyId, rating, body, jobTitle } = req.body;
 
   // 1. Verify the company exists before doing anything
   const company = await Company.findById(companyId);
@@ -19,7 +19,7 @@ export const createReview = asyncHandler(async (req, res) => {
   const newReview = await Review.create({
     company: companyId,
     rating: Number(rating),
-    content,
+    body,
     jobTitle,
     author: req.user._id, // Provided by protect middleware
   });
