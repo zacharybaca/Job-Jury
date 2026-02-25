@@ -11,7 +11,6 @@ import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
 import './App.css';
 
-// Scroll to top on every route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -37,25 +36,30 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* Home / Company Feed */}
+        {/* Public Routes */}
         <Route index element={<CompanyList />} />
-
-        {/* Auth Routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-
-        {/* Company Routes */}
         <Route path="companies/:id" element={<CompanyDetail />} />
-        <Route path="register-company" element={<CompanyRegistration />} />
 
-        {/* Protected Actions */}
+        {/* Protected Company Routes */}
+        <Route
+          path="register-company"
+          element={
+            <ProtectedRoute>
+              <CompanyRegistration />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Protected Review Actions */}
         <Route
           path="companies/:companyId/add-review"
           element={
             <ProtectedRoute>
-              {/* Replace this with a dedicated ReviewFormPage if needed */}
               <div className="page-content">
                 <h2>Submit Your Verdict</h2>
+                {/* Your review form component would go here */}
               </div>
             </ProtectedRoute>
           }
