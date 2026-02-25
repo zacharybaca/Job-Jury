@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
+import { useAuth } from '../../../contexts/Auth/AuthProvider.jsx';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
-import { useAuth } from '../../../hooks/useAuth';
 import './company-detail.css';
 
 const CompanyDetail = () => {
   const { id } = useParams();
-  const { fetcher, isLoaded, setIsLoaded } = useFetcher();
+  const { fetcher } = useFetcher();
+  const { user, loading: authLoading } = useAuth();
+
   const [company, setCompany] = useState(null);
+  const [companyLoading, setCompanyLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
-  const { user } = useAuth();
-
-  console.log('Logged In User: ', user);
-
   const getCompanyData = async () => {
-    // Ensure the loader shows while fetching
-    setIsLoaded(false);
+    setCompanyLoading(true);
     const response = await fetcher(`/api/companies/${id}`);
 
     if (response.success) {
+      // Handles the double-nesting: fetcher.data -> controller.data
       setCompany(response.data.data);
     } else {
       console.error('API Error:', response.message);
-      setCompany(null);
     }
-    setIsLoaded(true);
+    setCompanyLoading(false);
   };
 
   useEffect(() => {
@@ -42,20 +40,19 @@ const CompanyDetail = () => {
   };
 
   const handleToggleSave = async () => {
-    // This calls your backend route rather than the raw function
+    if (!user) return alert('Please log in to save companies.');
+
     const response = await fetcher(`/api/users/save/${id}`, {
       method: 'POST',
     });
 
     if (response.success) {
       alert('Company save status updated!');
-      // Optional: Update local state to show the button as "Saved"
-    } else {
-      console.error('Failed to save company:', response.message);
     }
   };
 
-  if (!isLoaded) {
+  // Wait for both the initial auth check and company data fetch
+  if (authLoading || companyLoading) {
     return (
       <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
         Gathering the Jury's findings...
@@ -78,13 +75,8 @@ const CompanyDetail = () => {
       <section className="section-container">
         <div className="reviews-header">
           <h2>Employee Reviews</h2>
-
-          {/* The button only appears if 'user' is not null */}
           {user && (
-            <button
-              className="add-review-btn"
-              onClick={() => setShowForm(!showForm)}
-            >
+            <button className="add-review-btn" onClick={() => setShowForm(!showForm)}>
               {showForm ? 'Cancel' : 'Submit a Review'}
             </button>
           )}
