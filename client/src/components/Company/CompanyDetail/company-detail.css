@@ -94,11 +94,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px; /* Limits the giant color block */
+  min-height: 400px;
   font-size: 1.2rem;
   font-weight: 600;
   color: #1e293b;
-  background-color: #f8fafc; /* Use the light background, not the emerald */
+  background-color: #f8fafc;
 }
 
 .button-container {
@@ -107,5 +107,13 @@
   justify-content: center;
   gap: 15px;
   margin-bottom: 15px;
-  border: 2px solid black;
+  margin-top: 15px;
+}
+
+.button-container button {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: 1.5rem;
+  color: whitesmoke;
 }

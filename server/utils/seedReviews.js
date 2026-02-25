@@ -33,7 +33,7 @@ const seedReviews = async () => {
     const mockReviews = [];
 
     // Helper to find a company by name from the fetched list
-    const getCoId = (name) => companies.find(c => c.name === name)?._id;
+    const getCoId = (name) => companies.find((c) => c.name === name)?._id;
 
     // 3. Define Mock Reviews for your specific companies
     const reviewsData = [
@@ -72,11 +72,11 @@ const seedReviews = async () => {
         salary: 45000,
         jobTitle: "Logistics Coordinator",
         isAnonymous: true,
-      }
+      },
     ];
 
     // Filter out any reviews where the company wasn't found
-    const validReviews = reviewsData.filter(r => r.company);
+    const validReviews = reviewsData.filter((r) => r.company);
 
     await Review.insertMany(validReviews);
 
@@ -84,11 +84,13 @@ const seedReviews = async () => {
     // This is necessary if your Company schema stores an array of review ObjectIds
     for (const review of await Review.find({})) {
       await Company.findByIdAndUpdate(review.company, {
-        $push: { reviews: review._id }
+        $push: { reviews: review._id },
       });
     }
 
-    console.log(`🚀 ${validReviews.length} verdicts have been recorded by the Jury!`);
+    console.log(
+      `🚀 ${validReviews.length} verdicts have been recorded by the Jury!`,
+    );
     process.exit(0);
   } catch (error) {
     console.error("❌ Error during review seeding:", error.message);

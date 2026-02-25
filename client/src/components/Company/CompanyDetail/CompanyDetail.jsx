@@ -12,6 +12,17 @@ const CompanyDetail = () => {
   const { fetcher, isLoaded, setIsLoaded } = useFetcher();
   const [company, setCompany] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const response = await fetcher('/api/users/me');
+      if (response.success) {
+        setUser(response.user);
+      }
+    };
+    checkAuth();
+  }, []);
 
   const getCompanyData = async () => {
     // Ensure the loader shows while fetching
@@ -39,7 +50,7 @@ const CompanyDetail = () => {
   const handleToggleSave = async () => {
     // This calls your backend route rather than the raw function
     const response = await fetcher(`/api/users/save/${id}`, {
-      method: 'POST'
+      method: 'POST',
     });
 
     if (response.success) {
@@ -73,12 +84,16 @@ const CompanyDetail = () => {
       <section className="section-container">
         <div className="reviews-header">
           <h2>Employee Reviews</h2>
-          <button
-            className="add-review-btn"
-            onClick={() => setShowForm(!showForm)}
-          >
-            {showForm ? 'Cancel' : 'Submit a Review'}
-          </button>
+
+          {/* The button only appears if 'user' is not null */}
+          {user && (
+            <button
+              className="add-review-btn"
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? 'Cancel' : 'Submit a Review'}
+            </button>
+          )}
         </div>
 
         {showForm && (
@@ -91,9 +106,11 @@ const CompanyDetail = () => {
           <ReviewList reviews={company.reviews} />
         </div>
 
-        <div className="button-container">
-          <SaveButton onSave={handleToggleSave}/>
-        </div>
+        {user && (
+          <div className="button-container">
+            <SaveButton onSave={handleToggleSave} />
+          </div>
+        )}
       </section>
     </main>
   );

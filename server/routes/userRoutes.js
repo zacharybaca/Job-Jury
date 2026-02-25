@@ -15,4 +15,8 @@ router.route("/profile").get(getUserProfile).put(updateUserProfile);
 
 router.post("/save/:companyId", toggleSaveCompany);
 
+router.get("/me", protect, (req, res) => {
+  res.status(200).json({ success: true, user: req.user });
+});
+
 export default router;
