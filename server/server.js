@@ -1,14 +1,14 @@
+// 1. Load environment variables BEFORE any other imports
 import dotenv from "dotenv";
+dotenv.config();
+
 import mongoose from "mongoose";
 import app from "./app.js";
-
-dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 // 1. Fail Fast Safety Check
-// This prevents the server from hanging or giving vague errors if .env is missing
 if (!MONGO_URI) {
   console.error("❌ FATAL ERROR: MONGO_URI is not defined in .env");
   process.exit(1);
@@ -19,15 +19,15 @@ mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
+    // Ensure we are listening on the correct port from .env
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
   .catch((err) => {
     console.error("❌ DB connection error:", err);
-    process.exit(1); // Exit if DB fails to connect
+    process.exit(1);
   });
 
 // 3. Graceful Shutdown
-// Ensures MongoDB connection closes cleanly when you stop the server (Ctrl+C)
 process.on("SIGINT", async () => {
   try {
     await mongoose.connection.close();
