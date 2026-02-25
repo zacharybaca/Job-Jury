@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher.js';
-import { useAuth } from '../../../context/Auth/AuthProvider'; // Verified path
+import { useAuth } from '../../../hooks/useAuth.js';
 import '../auth-forms.css';
 
 const Login = () => {
