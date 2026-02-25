@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { useAuth } from '../../../contexts/Auth/AuthProvider.jsx';
+import { useAuth } from '../../../hooks/useAuth.js';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
@@ -76,7 +76,10 @@ const CompanyDetail = () => {
         <div className="reviews-header">
           <h2>Employee Reviews</h2>
           {user && (
-            <button className="add-review-btn" onClick={() => setShowForm(!showForm)}>
+            <button
+              className="add-review-btn"
+              onClick={() => setShowForm(!showForm)}
+            >
               {showForm ? 'Cancel' : 'Submit a Review'}
             </button>
           )}
