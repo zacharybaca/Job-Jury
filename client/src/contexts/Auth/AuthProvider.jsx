@@ -8,23 +8,24 @@ export const AuthProvider = ({ children }) => {
   const { fetcher } = useFetcher();
 
   const checkUserAuth = async () => {
-    try {
-      const response = await fetcher('/api/users/me');
+  try {
+    const response = await fetcher('/api/users/me');
 
-      console.log('Auth Provider RAW Response:', response);
-
-      if (response.success) {
-        setUser(response.data.user);
-      } else {
-        setUser(null);
-      }
-    } catch (err) {
-      console.error('Auth check failed:', err);
+    if (response.status === 401) {
+      // 401 is an expected result for logged-out users
       setUser(null);
-    } finally {
-      setLoading(false);
+    } else if (response.success) {
+      // Success! Set the user from the nested data property
+      setUser(response.data.user);
+    } else {
+      setUser(null);
     }
-  };
+  } catch (err) {
+    setUser(null);
+  } finally {
+    setLoading(false);
+  }
+};
 
   /**
    * Triggers the backend logout and resets local user state.
