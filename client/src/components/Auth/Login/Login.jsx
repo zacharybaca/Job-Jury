@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher.js';
-import { useAuth } from '../../../hooks/useAuth.js';
+import { useAuth } from '../../../context/Auth/AuthProvider'; // Verified path
 import '../auth-forms.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { fetcher } = useFetcher();
+  const { setUser } = useAuth(); // Accessing the global setUser function
   const navigate = useNavigate();
-
-  const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,11 +19,11 @@ const Login = () => {
     });
 
     if (response.success) {
-      setUser(response.user);
-      // You would typically call a login function from an AuthContext here
+      // Update the global auth state immediately with the logged-in user
+      setUser(response.data.user);
       navigate('/');
     } else {
-      alert(response.error);
+      alert(response.error || 'Login failed');
     }
   };
 
