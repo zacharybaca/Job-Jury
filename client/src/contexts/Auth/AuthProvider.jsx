@@ -10,19 +10,26 @@ export const AuthProvider = ({ children }) => {
   const { fetcher } = useFetcher();
 
   const checkUserAuth = async () => {
-    try {
-      const response = await fetcher('/api/users/me');
-      if (response.success) {
-        setUser(response.user);
-      } else {
-        setUser(null);
-      }
-    } catch (err) {
+  try {
+    const response = await fetcher('/api/users/me');
+
+    // Log this to see exactly where 'user' is hiding
+    console.log("Auth Provider RAW Response:", response);
+
+    if (response.success) {
+      // If your fetcher wraps the backend JSON in a 'data' property:
+      // Access response -> data (from fetcher) -> user (from backend)
+      setUser(response.data.user);
+    } else {
       setUser(null);
-    } finally {
-      setLoading(false);
     }
-  };
+  } catch (err) {
+    console.error("Auth check failed:", err);
+    setUser(null);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     checkUserAuth();
