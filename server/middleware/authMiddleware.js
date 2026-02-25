@@ -9,15 +9,19 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.userId).select("-password");
-      next();
+      return next(); // Continue if token is valid
     } catch (error) {
+      // If token is expired/invalid, clear it and move on as a guest
+      res.clearCookie('jwt');
       res.status(401);
       throw new Error("Not authorized, token failed");
     }
-  } else {
-    res.status(401);
-    throw new Error("Not authorized, no token");
   }
+
+  // If you want some routes to be "Guest Friendly",
+  // you might create a separate 'optionalProtect' middleware.
+  res.status(401);
+  throw new Error("Not authorized, no token");
 });
 
 export { protect };
