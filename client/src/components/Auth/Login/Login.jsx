@@ -21,7 +21,8 @@ const Login = () => {
     if (response.success) {
       // Update the global auth state immediately with the logged-in user
       setUser(response.data.user);
-      navigate('/');
+      const origin = location.state?.from?.pathname || '/';
+      navigate(origin);
     } else {
       alert(response.error || 'Login failed');
     }
