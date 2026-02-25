@@ -55,3 +55,14 @@
 .logout-button:hover {
   color: #10b981;
 }
+
+.nav-logo-link {
+  display: block;
+  width: 200px; /* Control the overall size here */
+  height: auto;
+}
+
+.nav-logo-svg:hover .search-icon {
+  transform: scale(1.1) translate(-5px, -5px);
+  transition: transform 0.3s ease;
+}
