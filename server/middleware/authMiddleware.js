@@ -9,17 +9,26 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.userId).select("-password");
-      return next(); // Continue if token is valid
+
+      // If a user was actually found, move to next
+      if (req.user) return next();
+
+      // If token was valid but user no longer exists in DB, fall through to soft-fail
     } catch (error) {
-      // If token is expired/invalid, clear it and move on as a guest
-      res.clearCookie('jwt');
-      res.status(401);
-      throw new Error("Not authorized, token failed");
+      // For any route OTHER than /me, a failed token is a hard 401
+      if (req.originalUrl !== '/api/users/me') {
+        res.status(401);
+        throw new Error("Not authorized, token failed");
+      }
     }
   }
 
-  // If you want some routes to be "Guest Friendly",
-  // you might create a separate 'optionalProtect' middleware.
+  // SOFT-FAIL: If we are checking auth status (/me), allow the request
+  // to continue even if token is missing or invalid. req.user will just be null.
+  if (req.originalUrl === '/api/users/me') {
+    return next();
+  }
+
   res.status(401);
   throw new Error("Not authorized, no token");
 });
