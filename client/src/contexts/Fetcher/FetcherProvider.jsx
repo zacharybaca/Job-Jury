@@ -16,7 +16,6 @@ export const FetcherProvider = ({ children }) => {
     const finalUrl = url.startsWith('/') ? `${backendUrl}${url}` : url;
 
     // 2. SMART HEADERS: Check if we are sending a file (FormData)
-    // If it's FormData, we let the browser set the Content-Type automatically
     const isFormData = options.body instanceof FormData;
 
     const headers = {
@@ -24,7 +23,7 @@ export const FetcherProvider = ({ children }) => {
       ...(options.headers || {}),
     };
 
-    // 3. Config (Including credentials for future cookie-based auth)
+    // 3. Config (Ensuring credentials are sent for JWT cookies)
     const config = {
       credentials: 'include',
       ...options,
@@ -36,7 +35,6 @@ export const FetcherProvider = ({ children }) => {
 
       // 🛑 1. Handle Rate Limiting (429)
       if (response.status === 429) {
-        setIsLoaded(true);
         const data = await response.json().catch(() => null);
         return {
           success: false,
@@ -46,11 +44,12 @@ export const FetcherProvider = ({ children }) => {
       }
 
       // 🛑 2. Handle Unauthorized (401)
+      // Note: We return the status so AuthProvider can decide if this is a "hard" error
+      // or just a guest user session.
       if (response.status === 401) {
-        setIsLoaded(true);
         return {
           success: false,
-          error: 'Unauthorized. Please log in to continue.',
+          error: 'Unauthorized',
           status: 401,
         };
       }
@@ -61,25 +60,26 @@ export const FetcherProvider = ({ children }) => {
       // 4. Handle other errors (400, 404, 500)
       if (!response.ok || data.success === false) {
         const errorMessage = data?.message || fallbackError;
-        setIsLoaded(true);
         return {
           success: false,
           error: errorMessage,
           status: response.status,
+          data: data // Keep data in case we need to see why it failed
         };
       }
 
       // 5. Success
-      setIsLoaded(true);
       return { success: true, data };
     } catch (err) {
       console.error('Fetcher error:', err);
-      setIsLoaded(true);
       return {
         success: false,
         error: 'Network error. Please check your connection.',
         status: null,
       };
+    } finally {
+      // Move this to finally to ensure isLoaded is always true after a call finishes
+      setIsLoaded(true);
     }
   };
 
