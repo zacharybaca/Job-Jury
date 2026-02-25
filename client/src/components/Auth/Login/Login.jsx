@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher.js';
 import { useAuth } from '../../../hooks/useAuth.js';
 import '../auth-forms.css';
@@ -8,8 +8,11 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { fetcher } = useFetcher();
-  const { setUser } = useAuth(); // Accessing the global setUser function
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // 1. Grab setUser from your AuthContext
+  const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,12 +22,15 @@ const Login = () => {
     });
 
     if (response.success) {
-      // Update the global auth state immediately with the logged-in user
-      setUser(response.data.user);
+      // 2. Update the global state IMMEDIATELY
+      // Based on your fetcher, the user is at response.data
+      setUser(response.data);
+
+      // 3. Redirect the user
       const origin = location.state?.from?.pathname || '/';
       navigate(origin);
     } else {
-      alert(response.error || 'Login failed');
+      alert(response.error);
     }
   };
 
@@ -55,12 +61,6 @@ const Login = () => {
             Login to Job Jury
           </button>
         </form>
-        <p className="auth-footer">
-          Don't have an account?{' '}
-          <Link to="/register" className="auth-link">
-            Sign Up
-          </Link>
-        </p>
       </div>
     </div>
   );
