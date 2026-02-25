@@ -1,10 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth.js';
 import './nav-bar.css';
 
 const NavBar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth(); // Destructure logout from your context
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logout(); // Clears the cookie on the server and sets user to null locally
+    navigate('/');  // Redirects to the homepage (Browse Companies)
+  };
 
   return (
     <nav className="main-nav">
@@ -30,24 +37,27 @@ const NavBar = () => {
               </li>
             </>
           )}
+
           {user && (
-            <li>
-              <Link to="/logout" className="nav-item">
-                Logout
-              </Link>
-            </li>
+            <>
+              <li>
+                {/* Changed from Link to button to trigger the handleLogout function */}
+                <button onClick={handleLogout} className="nav-item logout-button">
+                  Logout
+                </button>
+              </li>
+              <li>
+                <Link to="/register-company" className="nav-item">
+                  Register Company
+                </Link>
+              </li>
+            </>
           )}
+
           <li>
             <Link to="/" className="nav-item">
               Browse Companies
             </Link>
-          </li>
-          <li>
-            {user && (
-              <Link to="/register-company" className="nav-item">
-                Register Company
-              </Link>
-            )}
           </li>
         </ul>
       </div>
