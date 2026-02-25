@@ -5,6 +5,7 @@ import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
+import { useAuth } from '../../../hooks/useAuth';
 import './company-detail.css';
 
 const CompanyDetail = () => {
@@ -12,17 +13,10 @@ const CompanyDetail = () => {
   const { fetcher, isLoaded, setIsLoaded } = useFetcher();
   const [company, setCompany] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const response = await fetcher('/api/users/me');
-      if (response.success) {
-        setUser(response.user);
-      }
-    };
-    checkAuth();
-  }, []);
+  const { user } = useAuth();
+
+  console.log('Logged In User: ', user);
 
   const getCompanyData = async () => {
     // Ensure the loader shows while fetching
