@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth.js';
+import JobJuryLogo from '../JobJuryLogo/JobJuryLogo.jsx';
 import './nav-bar.css';
 
 const NavBar = () => {
@@ -17,8 +18,8 @@ const NavBar = () => {
     <nav className="main-nav">
       <div className="nav-container">
         {/* Logo Section */}
-        <Link to="/" className="footer-logo">
-          Job<span className="logo-accent">Jury</span>
+        <Link to="/" className="nav-logo-link">
+          <JobJuryLogo className="nav-logo-svg" />
         </Link>
 
         {/* Links Section */}
