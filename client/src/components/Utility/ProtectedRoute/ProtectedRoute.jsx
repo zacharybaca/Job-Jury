@@ -1,20 +1,30 @@
 import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth.js';
 
 /**
  * ProtectedRoute Wrapper
- * @param {Object} props
- * @param {boolean} props.isAuthenticated - Passed from your Auth Context/State
- * @param {React.ReactNode} props.children - The component to render if auth'd
+ * Uses global AuthContext to determine access.
  */
-const ProtectedRoute = ({ isAuthenticated, children }) => {
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
   const location = useLocation();
 
-  if (!isAuthenticated) {
-    // Redirect to login, but save the current location so we can
-    // send them back after they log in.
+  // 1. Wait for the AuthProvider to finish its check-auth API call
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
+        Gathering the Jury's findings...
+      </div>
+    );
+  }
+
+  // 2. If no user is found after loading, redirect to login
+  if (!user) {
+    // Save the current location so we can redirect them back after login
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  // 3. If authenticated, render the protected content
   return children;
 };
 
