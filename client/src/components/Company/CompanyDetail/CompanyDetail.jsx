@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useAuth } from '../../../hooks/useAuth.js';
@@ -19,22 +19,22 @@ const CompanyDetail = () => {
   const [companyLoading, setCompanyLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
-  const getCompanyData = async () => {
+  const getCompanyData = useCallback(async () => {
     setCompanyLoading(true);
     const response = await fetcher(`/api/companies/${id}`);
 
     if (response.success) {
-      // Handles the double-nesting: fetcher.data -> controller.data
+      // Accessing response.data (from fetcher) -> data (from controller)
       setCompany(response.data.data);
     } else {
-      console.error('API Error:', response.message);
+      console.error('API Error:', response.error);
     }
     setCompanyLoading(false);
-  };
+  }, [id, fetcher]);
 
   useEffect(() => {
     getCompanyData();
-  }, [id]);
+  }, [getCompanyData]);
 
   const handleReviewAdded = () => {
     getCompanyData();
@@ -49,11 +49,21 @@ const CompanyDetail = () => {
     });
 
     if (response.success) {
-      alert('Company save status updated!');
+      // CRITICAL: Refresh the global saved companies list so the button updates
+      await fetchSavedCompanies();
+    } else {
+      console.error('Save toggle failed:', response.error);
     }
   };
 
-  // Wait for both the initial auth check and company data fetch
+  // Check if the current company is in the saved list
+  // We use .some() in case savedCompanies contains full objects or just IDs
+  const isSaved = savedCompanies?.some((saved) => {
+    const savedId = typeof saved === 'string' ? saved : saved._id;
+    return savedId === company?._id;
+  });
+
+  // Wait for both auth and company data to load
   if (authLoading || companyLoading) {
     return (
       <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
@@ -97,13 +107,16 @@ const CompanyDetail = () => {
           <ReviewList reviews={company.reviews} />
         </div>
 
-        {user && savedCompanies.includes(company._id) && (
+        {/* CLEANED LOGIC:
+          If user is logged in, show the SaveButton.
+          The title is determined by the 'isSaved' boolean.
+        */}
+        {user && (
           <div className="button-container">
-            <SaveButton onSave={handleToggleSave} title="Save"/>
-          </div>
-        )} : {user && !savedCompanies.includes(company._id) && (
-          <div className="button-container">
-            <SaveButton onSave={handleToggleSave} title="Unsave"/>
+            <SaveButton
+              onSave={handleToggleSave}
+              title={isSaved ? "Unsave" : "Save"}
+            />
           </div>
         )}
       </section>
