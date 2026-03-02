@@ -1,11 +1,14 @@
 import { FetcherProvider } from './Fetcher/FetcherProvider';
 import { AuthProvider } from './Auth/AuthProvider';
+import { SavedCompaniesProvider } from './SavedCompanies/SavedCompaniesProvider';
 
 export const AppProvider = ({ children }) => {
   return (
     <FetcherProvider>
       <AuthProvider>
-        {children}
+        <SavedCompaniesProvider>
+          {children}
+        </SavedCompaniesProvider>
       </AuthProvider>
     </FetcherProvider>
   );
