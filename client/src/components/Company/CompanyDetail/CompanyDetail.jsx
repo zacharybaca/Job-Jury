@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useAuth } from '../../../hooks/useAuth.js';
+import { useSavedCompanies } from '../../../hooks/useSavedCompanies.js';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
@@ -12,6 +13,7 @@ const CompanyDetail = () => {
   const { id } = useParams();
   const { fetcher } = useFetcher();
   const { user, loading: authLoading } = useAuth();
+  const { savedCompanies, fetchSavedCompanies } = useSavedCompanies();
 
   const [company, setCompany] = useState(null);
   const [companyLoading, setCompanyLoading] = useState(true);
@@ -95,9 +97,13 @@ const CompanyDetail = () => {
           <ReviewList reviews={company.reviews} />
         </div>
 
-        {user && (
+        {user && savedCompanies.includes(company._id) && (
           <div className="button-container">
-            <SaveButton onSave={handleToggleSave} />
+            <SaveButton onSave={handleToggleSave} title="Save"/>
+          </div>
+        )} : {user && !savedCompanies.includes(company._id) && (
+          <div className="button-container">
+            <SaveButton onSave={handleToggleSave} title="Unsave"/>
           </div>
         )}
       </section>
