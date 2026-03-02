@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import './save-button.css';
 
-const SaveButton = ({ onSave }) => {
+const SaveButton = ({ onSave, title }) => {
   return (
     <div className="d-flex gap-2 mb-2">
       <Button
@@ -11,7 +11,7 @@ const SaveButton = ({ onSave }) => {
         size="lg"
         className="save-button"
       >
-        Save
+        {title}
       </Button>
     </div>
   );
