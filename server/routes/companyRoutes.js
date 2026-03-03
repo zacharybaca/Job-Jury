@@ -5,6 +5,7 @@ import {
   getCompany,
 } from "../controllers/companyController.js";
 import { upload } from "../middleware/cloudinary.js";
+import { admin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
