@@ -64,7 +64,7 @@ export const FetcherProvider = ({ children }) => {
           success: false,
           error: errorMessage,
           status: response.status,
-          data: data // Keep data in case we need to see why it failed
+          data: data, // Keep data in case we need to see why it failed
         };
       }
 

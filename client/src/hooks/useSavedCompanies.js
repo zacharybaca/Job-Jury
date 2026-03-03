@@ -4,7 +4,9 @@ import { SavedCompaniesContext } from '../contexts/SavedCompanies/SavedCompanies
 export const useSavedCompanies = () => {
   const context = useContext(SavedCompaniesContext);
   if (!context) {
-    throw new Error('useSavedCompanies must be used within a SavedCompaniesProvider');
+    throw new Error(
+      'useSavedCompanies must be used within a SavedCompaniesProvider'
+    );
   }
   return context;
 };

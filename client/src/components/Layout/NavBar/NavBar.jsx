@@ -11,7 +11,7 @@ const NavBar = () => {
   const handleLogout = async (e) => {
     e.preventDefault();
     await logout(); // Clears the cookie on the server and sets user to null locally
-    navigate('/');  // Redirects to the homepage (Browse Companies)
+    navigate('/'); // Redirects to the homepage (Browse Companies)
   };
 
   return (
@@ -43,7 +43,10 @@ const NavBar = () => {
             <>
               <li>
                 {/* Changed from Link to button to trigger the handleLogout function */}
-                <button onClick={handleLogout} className="nav-item logout-button">
+                <button
+                  onClick={handleLogout}
+                  className="nav-item logout-button"
+                >
                   Logout
                 </button>
               </li>

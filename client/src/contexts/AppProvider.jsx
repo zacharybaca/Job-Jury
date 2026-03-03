@@ -6,9 +6,7 @@ export const AppProvider = ({ children }) => {
   return (
     <FetcherProvider>
       <AuthProvider>
-        <SavedCompaniesProvider>
-          {children}
-        </SavedCompaniesProvider>
+        <SavedCompaniesProvider>{children}</SavedCompaniesProvider>
       </AuthProvider>
     </FetcherProvider>
   );

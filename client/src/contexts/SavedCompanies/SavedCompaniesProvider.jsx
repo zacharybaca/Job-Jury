@@ -27,7 +27,9 @@ export const SavedCompaniesProvider = ({ children }) => {
   }, []);
 
   return (
-    <SavedCompaniesContext.Provider value={{ savedCompanies, setSavedCompanies, fetchSavedCompanies }}>
+    <SavedCompaniesContext.Provider
+      value={{ savedCompanies, setSavedCompanies, fetchSavedCompanies }}
+    >
       {children}
     </SavedCompaniesContext.Provider>
   );

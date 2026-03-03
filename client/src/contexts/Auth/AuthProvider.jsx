@@ -8,24 +8,24 @@ export const AuthProvider = ({ children }) => {
   const { fetcher } = useFetcher();
 
   const checkUserAuth = async () => {
-  try {
-    const response = await fetcher('/api/users/me');
+    try {
+      const response = await fetcher('/api/users/me');
 
-    if (response.status === 401) {
-      // 401 is an expected result for logged-out users
+      if (response.status === 401) {
+        // 401 is an expected result for logged-out users
+        setUser(null);
+      } else if (response.success) {
+        // Success! Set the user from the nested data property
+        setUser(response.data.user);
+      } else {
+        setUser(null);
+      }
+    } catch (err) {
       setUser(null);
-    } else if (response.success) {
-      // Success! Set the user from the nested data property
-      setUser(response.data.user);
-    } else {
-      setUser(null);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    setUser(null);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   /**
    * Triggers the backend logout and resets local user state.
@@ -49,7 +49,9 @@ export const AuthProvider = ({ children }) => {
 
   return (
     // Make sure 'logout' is added to the value object here
-    <AuthContext.Provider value={{ user, setUser, loading, checkUserAuth, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, loading, checkUserAuth, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

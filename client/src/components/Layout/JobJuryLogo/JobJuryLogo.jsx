@@ -12,15 +12,38 @@ const JobJuryLogo = ({ className }) => {
         {/* Gavel Head */}
         <rect x="20" y="25" width="45" height="20" rx="3" fill="white" />
         {/* Gavel Handle */}
-        <line x1="42" y1="45" x2="42" y2="70" stroke="white" strokeWidth="6" strokeLinecap="round" />
+        <line
+          x1="42"
+          y1="45"
+          x2="42"
+          y2="70"
+          stroke="white"
+          strokeWidth="6"
+          strokeLinecap="round"
+        />
       </g>
 
       {/* 2. THE MAGNIFYING GLASS (Investigation) */}
       <g className="search-icon">
         {/* The Glass Ring */}
-        <circle cx="55" cy="40" r="22" stroke="#10b981" strokeWidth="5" fill="none" />
+        <circle
+          cx="55"
+          cy="40"
+          r="22"
+          stroke="#10b981"
+          strokeWidth="5"
+          fill="none"
+        />
         {/* The Glass Handle */}
-        <line x1="72" y1="56" x2="85" y2="70" stroke="#10b981" strokeWidth="6" strokeLinecap="round" />
+        <line
+          x1="72"
+          y1="56"
+          x2="85"
+          y2="70"
+          stroke="#10b981"
+          strokeWidth="6"
+          strokeLinecap="round"
+        />
       </g>
 
       {/* 3. THE TEXT */}
