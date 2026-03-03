@@ -17,3 +17,18 @@
 .add-fav-btn:hover {
   background-color: #059669;
 }
+
+.admin-remove-btn {
+  background-color: #dc2626; /* Deep Red */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-remove-btn:hover {
+  background-color: #b91c1c;
+}
