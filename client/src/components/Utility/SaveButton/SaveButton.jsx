@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import './save-button.css';
 
-const SaveButton = ({ onSave, title }) => {
+const SaveButton = ({ onSave, title, classTitle }) => {
   return (
     <div className="d-flex gap-2 mb-2">
       <Button
@@ -9,7 +9,7 @@ const SaveButton = ({ onSave, title }) => {
         onClick={onSave}
         variant="primary"
         size="lg"
-        className="save-button add-fav-btn"
+        className={classTitle}
       >
         {title}
       </Button>
