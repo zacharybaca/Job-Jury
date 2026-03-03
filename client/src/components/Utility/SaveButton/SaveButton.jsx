@@ -9,7 +9,7 @@ const SaveButton = ({ onSave, title }) => {
         onClick={onSave}
         variant="primary"
         size="lg"
-        className="save-button"
+        className="save-button add-fav-btn"
       >
         {title}
       </Button>
