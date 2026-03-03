@@ -11,6 +11,6 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.get("/is-admin", isUserAdmin);
+router.get("/is-admin", isUserAdmin); // Route to check if the user is an admin
 
 export default router;
