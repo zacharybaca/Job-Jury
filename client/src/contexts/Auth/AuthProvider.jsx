@@ -7,15 +7,12 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
 
+  const isUserAdmin = user?.isAdmin || user?.role === 'admin';
+
   const checkUserAuth = async () => {
     try {
       const response = await fetcher('/api/users/me');
-
-      if (response.status === 401) {
-        // 401 is an expected result for logged-out users
-        setUser(null);
-      } else if (response.success) {
-        // Success! Set the user from the nested data property
+      if (response.success) {
         setUser(response.data.user);
       } else {
         setUser(null);
@@ -50,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   return (
     // Make sure 'logout' is added to the value object here
     <AuthContext.Provider
-      value={{ user, setUser, loading, checkUserAuth, logout }}
+      value={{ user, setUser, loading, checkUserAuth, logout, isUserAdmin }}
     >
       {children}
     </AuthContext.Provider>
