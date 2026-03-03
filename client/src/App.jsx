@@ -9,6 +9,7 @@ import CompanyDetail from './components/Company/CompanyDetail/CompanyDetail';
 import CompanyRegistration from './components/Company/CompanyRegistration/CompanyRegistration';
 import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
+import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
 import './App.css';
 
 const ScrollToTop = () => {
