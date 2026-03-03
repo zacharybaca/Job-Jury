@@ -124,7 +124,7 @@ const CompanyDetail = () => {
           <div className="button-container">
             <SaveButton
               onSave={() => alert('Admin remove company functionality coming soon!')}
-              title="Remove Company (Admin)"
+              title="Remove Company From List"
               classTitle="admin-remove-btn"
             />
           </div>
