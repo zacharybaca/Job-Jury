@@ -12,7 +12,7 @@ import './company-detail.css';
 const CompanyDetail = () => {
   const { id } = useParams();
   const { fetcher } = useFetcher();
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, isUserAdmin } = useAuth();
   const { savedCompanies, fetchSavedCompanies } = useSavedCompanies();
 
   const [company, setCompany] = useState(null);
@@ -116,6 +116,14 @@ const CompanyDetail = () => {
             <SaveButton
               onSave={handleToggleSave}
               title={isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
+            />
+          </div>
+        )}
+        {user && isUserAdmin && (
+          <div className="button-container">
+            <SaveButton
+              onSave={() => alert('Admin remove company functionality coming soon!')}
+              title="Remove Company (Admin)"
             />
           </div>
         )}
