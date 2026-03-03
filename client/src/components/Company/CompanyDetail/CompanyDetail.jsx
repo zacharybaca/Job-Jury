@@ -116,6 +116,7 @@ const CompanyDetail = () => {
             <SaveButton
               onSave={handleToggleSave}
               title={isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
+              classTitle="add-fav-btn"
             />
           </div>
         )}
@@ -124,6 +125,7 @@ const CompanyDetail = () => {
             <SaveButton
               onSave={() => alert('Admin remove company functionality coming soon!')}
               title="Remove Company (Admin)"
+              classTitle="admin-remove-btn"
             />
           </div>
         )}
