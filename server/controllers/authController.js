@@ -28,6 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Alternative way to check if user is admin (used in client/src/contexts/Auth/AuthProvider.jsx)
 const isUserAdmin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
