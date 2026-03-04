@@ -24,7 +24,6 @@ const CompanyDetail = () => {
     const response = await fetcher(`/api/companies/${id}`);
 
     if (response.success) {
-      // Accessing response.data (from fetcher) -> data (from controller)
       setCompany(response.data.data);
     } else {
       console.error('API Error:', response.error);
@@ -43,31 +42,31 @@ const CompanyDetail = () => {
 
   const handleToggleSave = async () => {
     if (!user) return alert('Please log in to save companies.');
-
-    const response = await fetcher(`/api/users/save/${id}`, {
-      method: 'POST',
-    });
-
+    const response = await fetcher(`/api/users/save/${id}`, { method: 'POST' });
     if (response.success) {
-      // CRITICAL: Refresh the global saved companies list so the button updates
       await fetchSavedCompanies();
-    } else {
-      console.error('Save toggle failed:', response.error);
     }
   };
 
-  // Check if the current company is in the saved list
-  // We use .some() in case savedCompanies contains full objects or just IDs
   const isSaved = savedCompanies?.some((saved) => {
     const savedId = typeof saved === 'string' ? saved : saved._id;
     return savedId === company?._id;
   });
 
-  // Wait for both auth and company data to load
-  if (authLoading || companyLoading) {
+  // 1. STRICT AUTH GUARD: Wait for AuthProvider to finish background checks
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
-        Gathering the Jury's findings...
+        Verifying credentials with the Jury...
+      </div>
+    );
+  }
+
+  // 2. DATA GUARD: Wait for the specific company data
+  if (companyLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
+        Gathering the Jury's findings on this company...
       </div>
     );
   }
@@ -107,10 +106,6 @@ const CompanyDetail = () => {
           <ReviewList reviews={company.reviews} />
         </div>
 
-        {/* CLEANED LOGIC:
-          If user is logged in, show the SaveButton.
-          The title is determined by the 'isSaved' boolean.
-        */}
         {user && (
           <div className="button-container">
             <SaveButton
@@ -120,12 +115,12 @@ const CompanyDetail = () => {
             />
           </div>
         )}
+
+        {/* ADMIN SECTION: This will now update instantly because of the Login.jsx changes */}
         {user && isUserAdmin && (
           <div className="button-container">
             <SaveButton
-              onSave={() =>
-                alert('Admin remove company functionality coming soon!')
-              }
+              onSave={() => alert('Admin remove functionality coming soon!')}
               title="Remove Company From List"
               classTitle="admin-remove-btn"
             />
