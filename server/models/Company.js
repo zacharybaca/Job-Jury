@@ -8,8 +8,7 @@ const companySchema = new mongoose.Schema(
     location: { type: String, required: true },
     description: { type: String },
     imageUrl: { type: String },
-    // Store this to make Cloudinary management easy
-    imagePublicId: { type: String },
+    imagePublicId: { type: String }, // This is the key for Cloudinary deletion
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -26,19 +25,20 @@ const companySchema = new mongoose.Schema(
 
 /**
  * PRE-DELETE MIDDLEWARE
- * This runs automatically whenever you call company.deleteOne()
- * in your controller.
+ * This function runs automatically before the database record is removed.
  */
 companySchema.pre("deleteOne", { document: true, query: false }, async function (next) {
   try {
+    // If an imagePublicId exists, tell Cloudinary to delete it
     if (this.imagePublicId) {
       await cloudinary.uploader.destroy(this.imagePublicId);
-      console.log(`✅ Cloudinary asset ${this.imagePublicId} deleted.`);
+      console.log(`✅ Asset ${this.imagePublicId} successfully removed from Cloudinary.`);
     }
     next();
   } catch (error) {
-    console.error("❌ Error deleting image from Cloudinary:", error);
-    next(error);
+    console.error("❌ Cloudinary Cleanup Error:", error);
+    // We call next() anyway so the DB record is still deleted even if Cloudinary fails
+    next();
   }
 });
 
