@@ -10,6 +10,7 @@ import CompanyRegistration from './components/Company/CompanyRegistration/Compan
 import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
 import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
+import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -66,6 +67,11 @@ function App() {
           }
         />
 
+        {/* Admin Routes */}
+        <Route element={<AdminRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
+        
         {/* 404 Route */}
         <Route
           path="*"
