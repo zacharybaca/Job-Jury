@@ -56,6 +56,7 @@ const getCompany = asyncHandler(async (req, res) => {
 // @desc    Delete a company
 // @route   DELETE /api/companies/:id
 const deleteCompany = asyncHandler(async (req, res) => {
+  // 1. Find the document instance
   const company = await Company.findById(req.params.id);
 
   if (!company) {
@@ -63,10 +64,14 @@ const deleteCompany = asyncHandler(async (req, res) => {
     throw new Error("Company not found");
   }
 
-  // Trigger the middleware by calling deleteOne on the document instance
+  /** * 2. Trigger the middleware
+   * CRITICAL: You must call .deleteOne() on the DOCUMENT instance,
+   * not the Model (Company.findByIdAndDelete), otherwise the
+   * { document: true } middleware won't trigger.
+   */
   await company.deleteOne();
 
-  res.status(200).json({ success: true, message: "Company and associated assets removed." });
+  res.status(200).json({ success: true, message: "Company and assets removed." });
 });
 
 export { createCompany, getCompanies, getCompany, deleteCompany };
