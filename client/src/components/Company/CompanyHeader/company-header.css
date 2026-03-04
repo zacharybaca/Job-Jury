@@ -11,6 +11,7 @@
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: #ffffff; /* Ensuring visibility */
 }
 
 .header-meta {
@@ -32,19 +33,53 @@
   gap: 15px;
 }
 
+/* Base star style (Empty state) */
 .header-star {
   font-size: 1.5rem;
-  color: #475569;
+  color: #475569; /* Slate grey for empty */
+  position: relative;
+  display: inline-block;
 }
 
+/* Fully filled star */
 .header-star.filled {
-  color: #fbbf24;
+  color: #fbbf24; /* Jury Gold */
+}
+
+/* --- HALF-STAR IMPLEMENTATION --- */
+/* This creates a gold overlay that only covers 50% of the star width */
+.header-star.half-filled {
+  color: #475569; /* Base is grey */
+}
+
+.header-star.half-filled::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%; /* Fill exactly half */
+  overflow: hidden;
+  color: #fbbf24; /* Gold fill */
+  z-index: 1;
+}
+
+.header-rating-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .header-rating-num {
   font-size: 1.5rem;
   font-weight: 800;
   background: #10b981;
+  color: #ffffff;
   padding: 2px 12px;
   border-radius: 8px;
+}
+
+.header-review-count {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  font-style: italic;
 }
