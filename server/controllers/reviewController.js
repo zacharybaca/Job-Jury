@@ -44,3 +44,45 @@ export const createReview = asyncHandler(async (req, res) => {
     message: "Verdict submitted successfully",
   });
 });
+
+// @desc    Delete a review and update company average
+// @route   DELETE /api/reviews/:id
+// @access  Private/Admin
+export const deleteReview = asyncHandler(async (req, res) => {
+  const reviewId = req.params.id;
+
+  // 1. Find the review first to get the company ID
+  const review = await Review.findById(reviewId);
+  if (!review) {
+    res.status(404);
+    throw new Error("Review not found");
+  }
+
+  const companyId = review.company;
+
+  // 2. Remove the review from the Database
+  await Review.findByIdAndDelete(reviewId);
+
+  // 3. Remove the review reference from the Company's 'reviews' array
+  await Company.findByIdAndUpdate(companyId, {
+    $pull: { reviews: reviewId },
+  });
+
+  // 4. Recalculate and update the average rating for the company
+  const remainingReviews = await Review.find({ company: companyId });
+
+  let newAverage = 0;
+  if (remainingReviews.length > 0) {
+    const total = remainingReviews.reduce((sum, item) => sum + item.rating, 0);
+    newAverage = (total / remainingReviews.length).toFixed(1);
+  }
+
+  await Company.findByIdAndUpdate(companyId, {
+    averageRating: Number(newAverage),
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Review removed and average rating updated."
+  });
+});
