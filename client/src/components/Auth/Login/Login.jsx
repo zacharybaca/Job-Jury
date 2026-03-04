@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher.js';
 import { useAuth } from '../../../hooks/useAuth.js';
 import '../auth-forms.css';
@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 1. Grab setUser from your AuthContext
+  // CRITICAL: Pull setUser from your AuthContext
   const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -22,15 +22,15 @@ const Login = () => {
     });
 
     if (response.success) {
-      // 2. Update the global state IMMEDIATELY
-      // Based on your fetcher, the user is at response.data
-      setUser(response.data);
+      // 1. UPDATE GLOBAL STATE IMMEDIATELY
+      // This ensures isUserAdmin becomes true before the redirect happens
+      setUser(response.data.user);
 
-      // 3. Redirect the user
+      // 2. REDIRECT
       const origin = location.state?.from?.pathname || '/';
       navigate(origin);
     } else {
-      alert(response.error);
+      alert(response.error || "Login failed. Check your credentials.");
     }
   };
 
