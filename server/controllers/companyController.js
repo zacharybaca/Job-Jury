@@ -7,15 +7,22 @@ import { v2 as cloudinary } from "cloudinary"; // Import to handle image deletio
 const createCompany = asyncHandler(async (req, res) => {
   const { name, industry, location, description } = req.body;
 
+  // 1. Check for existing company to prevent duplicate errors
+  const companyExists = await Company.findOne({ name });
+  if (companyExists) {
+    res.status(400);
+    throw new Error("A company with this name is already registered in the Jury's records.");
+  }
+
   const newCompany = new Company({
     name,
     industry,
     location,
     description,
     imageUrl: req.file ? req.file.path : "",
-    // If you store the public_id from Cloudinary, it makes deletion easier
-    // req.file.filename usually contains the public_id in multer-storage-cloudinary
     imagePublicId: req.file ? req.file.filename : "",
+    // 2. Attach the user ID from the 'protect' middleware
+    createdBy: req.user ? req.user._id : null,
   });
 
   const savedCompany = await newCompany.save();
