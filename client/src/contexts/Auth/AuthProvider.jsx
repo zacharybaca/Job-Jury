@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useFetcher } from '../../hooks/useFetcher.js';
 import { AuthContext } from './AuthContext.jsx';
 
@@ -7,17 +7,31 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
 
-  const isUserAdmin = user?.isAdmin || user?.role === 'admin';
+  /**
+   * DERIVED STATE: isUserAdmin
+   * Using useMemo ensures this value is re-calculated immediately
+   * whenever the 'user' object changes (e.g., after login or checkUserAuth).
+   */
+  const isUserAdmin = useMemo(() => {
+    return user?.isAdmin || user?.role === 'admin';
+  }, [user]);
 
+  /**
+   * Validates the session with the backend on mount.
+   */
   const checkUserAuth = async () => {
+    setLoading(true); // Ensure loading is true while checking
     try {
       const response = await fetcher('/api/users/me');
-      if (response.success) {
+
+      // Based on your controller structure: response.data.user
+      if (response.success && response.data?.user) {
         setUser(response.data.user);
       } else {
         setUser(null);
       }
     } catch (err) {
+      console.error('Auth check failed:', err);
       setUser(null);
     } finally {
       setLoading(false);
@@ -29,25 +43,31 @@ export const AuthProvider = ({ children }) => {
    */
   const logout = async () => {
     try {
-      // Hits your authController.logoutUser route
       const response = await fetcher('/api/auth/logout', { method: 'POST' });
 
       if (response.success) {
-        setUser(null); // Wipe the user from global state
+        setUser(null); // This will automatically set isUserAdmin to false
       }
     } catch (err) {
       console.error('Logout failed:', err);
     }
   };
 
+  // Run the auth check once when the provider mounts
   useEffect(() => {
     checkUserAuth();
   }, []);
 
   return (
-    // Make sure 'logout' is added to the value object here
     <AuthContext.Provider
-      value={{ user, setUser, loading, checkUserAuth, logout, isUserAdmin }}
+      value={{
+        user,
+        setUser,
+        loading,
+        checkUserAuth,
+        logout,
+        isUserAdmin
+      }}
     >
       {children}
     </AuthContext.Provider>
