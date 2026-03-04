@@ -15,24 +15,27 @@ const Login = () => {
   const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetcher('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    });
+  e.preventDefault();
+  const response = await fetcher('/api/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (response.success) {
-      // 1. UPDATE GLOBAL STATE IMMEDIATELY
-      // This ensures isUserAdmin becomes true before the redirect happens
-      setUser(response.data.user);
+  console.log("Full Login Response:", response); // DEBUG: Check this in your browser console
 
-      // 2. REDIRECT
-      const origin = location.state?.from?.pathname || '/';
-      navigate(origin);
-    } else {
-      alert(response.error || "Login failed. Check your credentials.");
-    }
-  };
+  if (response.success) {
+    // 1. CHECK THE PATH: Based on your previous patterns, it's likely response.data.user
+    // But if that fails, try: setUser(response.data);
+    const userData = response.data?.user || response.data;
+
+    setUser(userData);
+
+    const origin = location.state?.from?.pathname || '/';
+    navigate(origin);
+  } else {
+    alert(response.error || "Login failed.");
+  }
+};
 
   return (
     <div className="auth-page-container">
