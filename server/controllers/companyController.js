@@ -56,23 +56,10 @@ const deleteCompany = asyncHandler(async (req, res) => {
     throw new Error("Company not found");
   }
 
-  // 1. Remove image from Cloudinary if it exists
-  // We extract the public_id from the URL if you didn't store it separately
-  if (company.imageUrl) {
-    try {
-      // Logic to extract public_id from URL or use company.imagePublicId
-      const publicId = company.imageUrl.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(publicId);
-    } catch (err) {
-      console.error("Cloudinary deletion failed:", err);
-      // We continue anyway to ensure the DB record is removed
-    }
-  }
+  // Trigger the middleware by calling deleteOne on the document instance
+  await company.deleteOne();
 
-  // 2. Remove from MongoDB
-  await Company.findByIdAndDelete(req.params.id);
-
-  res.status(200).json({ success: true, message: "Company removed" });
+  res.status(200).json({ success: true, message: "Company and associated assets removed." });
 });
 
 export { createCompany, getCompanies, getCompany, deleteCompany };
