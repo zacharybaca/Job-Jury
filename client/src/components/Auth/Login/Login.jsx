@@ -11,31 +11,31 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // CRITICAL: Pull setUser from your AuthContext
-  const { setUser } = useAuth();
+  // Pull checkUserAuth from your AuthContext
+  const { checkUserAuth } = useAuth();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  const response = await fetcher('/api/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-  });
+    e.preventDefault();
+    const response = await fetcher('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
 
-  console.log("Full Login Response:", response); // DEBUG: Check this in your browser console
+    if (response.success) {
+      /**
+       * TRIGGER GLOBAL SYNC:
+       * Instead of manually setting user state, we tell the Provider
+       * to fetch the user data. This ensures isAdmin is correctly
+       * identified before we leave this function.
+       */
+      await checkUserAuth();
 
-  if (response.success) {
-    // 1. CHECK THE PATH: Based on your previous patterns, it's likely response.data.user
-    // But if that fails, try: setUser(response.data);
-    const userData = response.data?.user || response.data;
-
-    setUser(userData);
-
-    const origin = location.state?.from?.pathname || '/';
-    navigate(origin);
-  } else {
-    alert(response.error || "Login failed.");
-  }
-};
+      const origin = location.state?.from?.pathname || '/';
+      navigate(origin);
+    } else {
+      alert(response.error || "Login failed. Check your credentials.");
+    }
+  };
 
   return (
     <div className="auth-page-container">
