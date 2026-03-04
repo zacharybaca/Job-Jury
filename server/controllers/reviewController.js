@@ -49,40 +49,27 @@ export const createReview = asyncHandler(async (req, res) => {
 // @route   DELETE /api/reviews/:id
 // @access  Private/Admin
 export const deleteReview = asyncHandler(async (req, res) => {
-  const reviewId = req.params.id;
+  const review = await Review.findById(req.params.id);
 
-  // 1. Find the review first to get the company ID
-  const review = await Review.findById(reviewId);
   if (!review) {
     res.status(404);
     throw new Error("Review not found");
   }
 
-  const companyId = review.company;
-
-  // 2. Remove the review from the Database
-  await Review.findByIdAndDelete(reviewId);
-
-  // 3. Remove the review reference from the Company's 'reviews' array
-  await Company.findByIdAndUpdate(companyId, {
-    $pull: { reviews: reviewId },
-  });
-
-  // 4. Recalculate and update the average rating for the company
-  const remainingReviews = await Review.find({ company: companyId });
-
-  let newAverage = 0;
-  if (remainingReviews.length > 0) {
-    const total = remainingReviews.reduce((sum, item) => sum + item.rating, 0);
-    newAverage = (total / remainingReviews.length).toFixed(1);
+  // Permission Check: Author or Admin only
+  if (review.author.toString() !== req.user._id.toString() && !req.user.isAdmin) {
+    res.status(403);
+    throw new Error("Not authorized to delete this review");
   }
 
-  await Company.findByIdAndUpdate(companyId, {
-    averageRating: Number(newAverage),
+  // 1. Remove review ID from Company array
+  const Company = mongoose.model("Company");
+  await Company.findByIdAndUpdate(review.company, {
+    $pull: { reviews: review._id },
   });
 
-  res.status(200).json({
-    success: true,
-    message: "Review removed and average rating updated."
-  });
+  // 2. Trigger the automated calculation via the model hook
+  await review.deleteOne();
+
+  res.status(200).json({ success: true, message: "Review removed and average updated." });
 });
