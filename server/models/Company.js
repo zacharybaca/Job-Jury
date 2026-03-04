@@ -3,12 +3,36 @@ import { v2 as cloudinary } from "cloudinary";
 
 const companySchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true },
-    industry: { type: String, required: true },
-    location: { type: String, required: true },
-    description: { type: String },
-    imageUrl: { type: String },
-    imagePublicId: { type: String }, // This is the key for Cloudinary deletion
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true
+    },
+    industry: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    location: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    description: {
+      type: String
+    },
+    imageUrl: {
+      type: String
+    },
+    // Essential for Cloudinary cleanup
+    imagePublicId: {
+      type: String
+    },
+    averageRating: {
+      type: Number,
+      default: 0
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -25,19 +49,31 @@ const companySchema = new mongoose.Schema(
 
 /**
  * PRE-DELETE MIDDLEWARE
- * This function runs automatically before the database record is removed.
+ * Triggers on company.deleteOne()
+ * Handles both Cloudinary asset removal and Review cascade deletion.
  */
+
 companySchema.pre("deleteOne", { document: true, query: false }, async function (next) {
   try {
-    // If an imagePublicId exists, tell Cloudinary to delete it
+    const companyId = this._id;
+
+    // 1. Cleanup Cloudinary Image
     if (this.imagePublicId) {
       await cloudinary.uploader.destroy(this.imagePublicId);
-      console.log(`✅ Asset ${this.imagePublicId} successfully removed from Cloudinary.`);
+      console.log(`✅ Cloudinary image removed: ${this.imagePublicId}`);
     }
+
+    // 2. Cascade Delete Reviews
+    // We access the Review model via mongoose to avoid circular dependency errors
+    const Review = mongoose.model("Review");
+    const deleteResult = await Review.deleteMany({ company: companyId });
+
+    console.log(`✅ Cascade delete: Removed ${deleteResult.deletedCount} reviews for company ${this.name}`);
+
     next();
   } catch (error) {
-    console.error("❌ Cloudinary Cleanup Error:", error);
-    // We call next() anyway so the DB record is still deleted even if Cloudinary fails
+    console.error("❌ Middleware Cleanup Error:", error);
+    // We call next() anyway so the primary record is still deleted
     next();
   }
 });
