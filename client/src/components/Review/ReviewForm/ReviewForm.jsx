@@ -77,6 +77,16 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
         />
       </div>
 
+      <div className="form-group-checkbox">
+        <input
+          type="checkbox"
+          id="isAnonymous"
+          name="isAnonymous"
+          value="anonymous"
+        />
+        <label for="isAnonymous">Mark as Anonymous</label>
+      </div>
+
       <button
         type="submit"
         className="submit-review-btn"
