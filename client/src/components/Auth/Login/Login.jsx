@@ -33,7 +33,7 @@ const Login = () => {
       const origin = location.state?.from?.pathname || '/';
       navigate(origin);
     } else {
-      alert(response.error || "Login failed. Check your credentials.");
+      alert(response.error || 'Login failed. Check your credentials.');
     }
   };
 

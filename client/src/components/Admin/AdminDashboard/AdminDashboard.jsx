@@ -22,19 +22,27 @@ const AdminDashboard = () => {
   }, []);
 
   const handleDelete = async (id, name) => {
-    if (window.confirm(`Are you sure you want to remove ${name}? This action cannot be undone.`)) {
-      const response = await fetcher(`/api/companies/${id}`, { method: 'DELETE' });
+    if (
+      window.confirm(
+        `Are you sure you want to remove ${name}? This action cannot be undone.`
+      )
+    ) {
+      const response = await fetcher(`/api/companies/${id}`, {
+        method: 'DELETE',
+      });
       if (response.success) {
         // Optimistic UI update: remove from state without a full reload
-        setCompanies(companies.filter(company => company._id !== id));
+        setCompanies(companies.filter((company) => company._id !== id));
       } else {
-        alert(response.error || "Failed to delete company.");
+        alert(response.error || 'Failed to delete company.');
       }
     }
   };
 
   if (loading) {
-    return <div className="admin-loading">Consulting the Jury's records...</div>;
+    return (
+      <div className="admin-loading">Consulting the Jury's records...</div>
+    );
   }
 
   return (
@@ -63,7 +71,9 @@ const AdminDashboard = () => {
                 <td className="admin-actions">
                   <button
                     className="view-btn"
-                    onClick={() => window.open(`/companies/${company._id}`, '_blank')}
+                    onClick={() =>
+                      window.open(`/companies/${company._id}`, '_blank')
+                    }
                   >
                     View
                   </button>

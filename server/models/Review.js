@@ -13,7 +13,7 @@ const reviewSchema = mongoose.Schema(
     jobTitle: { type: String },
     isAnonymous: { type: Boolean, default: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // --- STATIC METHOD TO CALCULATE AVERAGE ---

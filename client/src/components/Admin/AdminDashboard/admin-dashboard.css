@@ -57,5 +57,9 @@
   cursor: pointer;
 }
 
-.delete-btn:hover { background: #dc2626; }
-.view-btn:hover { background: #059669; }
+.delete-btn:hover {
+  background: #dc2626;
+}
+.view-btn:hover {
+  background: #059669;
+}

@@ -11,7 +11,9 @@ const createCompany = asyncHandler(async (req, res) => {
   const companyExists = await Company.findOne({ name });
   if (companyExists) {
     res.status(400);
-    throw new Error("A company with this name is already registered in the Jury's records.");
+    throw new Error(
+      "A company with this name is already registered in the Jury's records.",
+    );
   }
 
   const newCompany = new Company({
@@ -71,7 +73,9 @@ const deleteCompany = asyncHandler(async (req, res) => {
    */
   await company.deleteOne();
 
-  res.status(200).json({ success: true, message: "Company and assets removed." });
+  res
+    .status(200)
+    .json({ success: true, message: "Company and assets removed." });
 });
 
 export { createCompany, getCompanies, getCompany, deleteCompany };

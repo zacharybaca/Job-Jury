@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         checkUserAuth,
         logout,
-        isUserAdmin
+        isUserAdmin,
       }}
     >
       {children}

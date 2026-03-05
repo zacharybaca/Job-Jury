@@ -71,7 +71,7 @@ function App() {
         <Route element={<AdminRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
-        
+
         {/* 404 Route */}
         <Route
           path="*"

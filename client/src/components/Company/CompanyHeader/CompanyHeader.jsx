@@ -33,9 +33,7 @@ const CompanyHeader = ({ company }) => {
   return (
     <header className="company-header-hero">
       <div className="header-content">
-        <h1 className="header-name">
-          {name || 'Name Missing'}
-        </h1>
+        <h1 className="header-name">{name || 'Name Missing'}</h1>
 
         <div className="header-meta">
           <span className="header-industry">{industry}</span>
@@ -44,15 +42,14 @@ const CompanyHeader = ({ company }) => {
         </div>
 
         <div className="header-rating-box">
-          <div className="header-stars">
-            {renderStars(averageRating)}
-          </div>
+          <div className="header-stars">{renderStars(averageRating)}</div>
           <div className="header-rating-info">
             <span className="header-rating-num">
               {averageRating ? averageRating.toFixed(1) : '0.0'}
             </span>
             <span className="header-review-count">
-              ({reviews?.length || 0} {reviews?.length === 1 ? 'Verdict' : 'Verdicts'})
+              ({reviews?.length || 0}{' '}
+              {reviews?.length === 1 ? 'Verdict' : 'Verdicts'})
             </span>
           </div>
         </div>

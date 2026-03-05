@@ -57,7 +57,10 @@ export const deleteReview = asyncHandler(async (req, res) => {
   }
 
   // Permission Check: Author or Admin only
-  if (review.author.toString() !== req.user._id.toString() && !req.user.isAdmin) {
+  if (
+    review.author.toString() !== req.user._id.toString() &&
+    !req.user.isAdmin
+  ) {
     res.status(403);
     throw new Error("Not authorized to delete this review");
   }
@@ -71,5 +74,7 @@ export const deleteReview = asyncHandler(async (req, res) => {
   // 2. Trigger the automated calculation via the model hook
   await review.deleteOne();
 
-  res.status(200).json({ success: true, message: "Review removed and average updated." });
+  res
+    .status(200)
+    .json({ success: true, message: "Review removed and average updated." });
 });
