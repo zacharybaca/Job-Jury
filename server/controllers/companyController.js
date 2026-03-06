@@ -31,6 +31,19 @@ const createCompany = asyncHandler(async (req, res) => {
   res.status(201).json({ success: true, data: savedCompany });
 });
 
+// @desc    Get top rated companies for featured section
+// @route   GET /api/companies/top
+export const getTopCompanies = asyncHandler(async (req, res) => {
+  // 1. Find companies with at least one review
+  // 2. Sort by averageRating (-1 for descending)
+  // 3. Limit to 3 results
+  const topCompanies = await Company.find({ averageRating: { $gt: 0 } })
+    .sort({ averageRating: -1 })
+    .limit(3);
+
+  res.status(200).json({ success: true, data: topCompanies });
+});
+
 // @desc    Get all companies
 // @route   GET /api/companies
 const getCompanies = asyncHandler(async (req, res) => {
@@ -93,4 +106,4 @@ const deleteCompany = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Company and assets removed." });
 });
 
-export { createCompany, getCompanies, getCompany, deleteCompany };
+export { createCompany, getCompanies, getCompany, getTopCompanies, deleteCompany };
