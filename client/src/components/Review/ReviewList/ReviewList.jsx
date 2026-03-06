@@ -26,7 +26,20 @@ const ReviewList = ({ reviews }) => {
               </span>
             </div>
           </div>
+
           <p className="review-text">{review.body}</p>
+
+          <div className="review-footer">
+            <span className="review-author">
+              {/* If isAnonymous is true, backend sends 'Anonymous User' here */}
+              Contributed by: <strong>{review.author?.username || 'Member of the Jury'}</strong>
+            </span>
+            {review.isAnonymous && (
+              <span className="anonymous-tag" title="Identity protected by the Jury">
+                (Anonymous)
+              </span>
+            )}
+          </div>
         </div>
       ))}
     </div>
