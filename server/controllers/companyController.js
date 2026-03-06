@@ -33,7 +33,7 @@ const createCompany = asyncHandler(async (req, res) => {
 
 // @desc    Get top rated companies for featured section
 // @route   GET /api/companies/top
-export const getTopCompanies = asyncHandler(async (req, res) => {
+const getTopCompanies = asyncHandler(async (req, res) => {
   // 1. Find companies with at least one review
   // 2. Sort by averageRating (-1 for descending)
   // 3. Limit to 3 results
