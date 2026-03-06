@@ -8,6 +8,7 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
   const [body, setBody] = useState('');
   const [jobTitle, setJobTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
         rating,
         body,
         jobTitle,
+        isAnonymous, // CRITICAL: Added this to the payload
       }),
     });
 
@@ -29,7 +31,7 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
       setBody('');
       setJobTitle('');
       setRating(5);
-      // Callback to refresh the company data in the parent component
+      setIsAnonymous(true); // Reset to default
       if (onReviewAdded) onReviewAdded(response.data.data);
     } else {
       alert(response.error || 'Failed to submit review.');
@@ -77,14 +79,20 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
         />
       </div>
 
+      {/* Logic for Anonymity Toggle */}
       <div className="form-group-checkbox">
         <input
           type="checkbox"
           id="isAnonymous"
-          name="isAnonymous"
-          value="anonymous"
+          checked={isAnonymous}
+          onChange={(e) => setIsAnonymous(e.target.checked)}
         />
-        <label for="isAnonymous">Mark as Anonymous</label>
+        <label htmlFor="isAnonymous">
+          Post anonymously?
+          <span className="checkbox-hint">
+            {isAnonymous ? " (Your name will be hidden)" : " (Your name will be visible)"}
+          </span>
+        </label>
       </div>
 
       <button
