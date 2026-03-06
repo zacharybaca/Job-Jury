@@ -42,9 +42,24 @@ const getCompanies = asyncHandler(async (req, res) => {
 
 // @desc    Get single company
 // @route   GET /api/companies/:id
+// @desc    Get single company
+// @route   GET /api/companies/:id
 const getCompany = asyncHandler(async (req, res) => {
+  /**
+   * NESTED POPULATION:
+   * 1. First, we populate the 'reviews' array.
+   * 2. Inside each review, we populate the 'author' field.
+   * 3. We use 'select' to only bring back the username, keeping data lean.
+   */
   const company = await Company.findById(req.params.id)
-    .populate("reviews")
+    .populate({
+      path: "reviews",
+      options: { sort: { createdAt: -1 } }, // Show newest reviews first
+      populate: {
+        path: "author",
+        select: "username", // Only expose what we need for the UI
+      },
+    })
     .lean();
 
   if (!company) {
