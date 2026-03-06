@@ -54,12 +54,6 @@
   font-weight: 600;
 }
 
-.rating-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
 .star {
   color: #cbd5e1;
   font-size: 1.1rem;
@@ -67,16 +61,6 @@
 
 .star.filled {
   color: #f59e0b; /* Amber/Gold */
-}
-
-.rating-badge {
-  background-color: #ecfdf5;
-  color: #065f46;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 6px;
-  margin-left: 10px;
 }
 
 .view-btn {
@@ -95,4 +79,37 @@
 
 .view-btn:hover {
   background-color: #334155;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.rating-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-badge {
+  background: #10b981; /* Emerald */
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.review-count {
+  font-size: 0.85rem;
+  color: #64748b; /* Slate grey */
+  font-style: italic;
+}
+
+.stars-row {
+  display: flex;
+  gap: 2px;
 }
