@@ -11,6 +11,7 @@ import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
 import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
+import Home from './components/Pages/Home/Home';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -39,7 +40,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* Public Routes */}
-        <Route index element={<CompanyList />} />
+        <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="companies/:id" element={<CompanyDetail />} />
