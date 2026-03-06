@@ -41,7 +41,12 @@ const CompanyCard = ({ company }) => {
 
         <div className="rating-container">
           <div className="stars-row">{renderStars(company.averageRating)}</div>
-          <span className="rating-badge">{company.averageRating || '0'}</span>
+          <div className="rating-stats">
+            <span className="rating-badge">{company.averageRating || '0.0'}</span>
+            <span className="review-count">
+              ({company.reviews?.length || 0} {company.reviews?.length === 1 ? 'Verdict' : 'Verdicts'})
+            </span>
+          </div>
         </div>
 
         <Link to={`/companies/${company._id}`} className="view-btn">
