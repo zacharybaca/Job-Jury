@@ -1,5 +1,5 @@
 import React from 'react';
-import FeaturedCompanies from '../../Company/FeaturedCompanies/FeaturedCompanies';
+import FeaturedCompanies from '../../Layout/FeaturedCompanies/FeaturedCompanies';
 import CompanyList from '../../Company/CompanyList/CompanyList';
 
 const Home = () => {
