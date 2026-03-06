@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
-import CompanyCard from '../CompanyCard/CompanyCard';
+import CompanyCard from '../../Company/CompanyCard/CompanyCard';
 import './featured-companies.css';
 
 const FeaturedCompanies = () => {
