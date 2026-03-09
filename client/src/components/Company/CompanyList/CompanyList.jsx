@@ -10,7 +10,7 @@ const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterIndustry, setFilterIndustry] = useState('');
 
-  const industries = [...new Set(companies.map(c => c.industry))].sort();
+  const industries = [...new Set(companies.map((c) => c.industry))].sort();
 
   // 1. Mock Data for Design Testing
   const mockCompanies = [
@@ -73,11 +73,14 @@ const CompanyList = () => {
   }, []);
 
   // 3. Search Filtering Logic
-  const filteredCompanies = companies.filter(company => {
-  const matchesSearch = company.name.toLowerCase().includes(searchTerm.toLowerCase());
-  const matchesIndustry = filterIndustry === '' || company.industry === filterIndustry;
-  return matchesSearch && matchesIndustry;
-});
+  const filteredCompanies = companies.filter((company) => {
+    const matchesSearch = company.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesIndustry =
+      filterIndustry === '' || company.industry === filterIndustry;
+    return matchesSearch && matchesIndustry;
+  });
 
   return (
     <section className="company-list-wrapper">
@@ -88,7 +91,13 @@ const CompanyList = () => {
         </p>
 
         {/* Integrated Search Bar */}
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterIndustry={filterIndustry} setFilterIndustry={setFilterIndustry} industries={industries} />
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          filterIndustry={filterIndustry}
+          setFilterIndustry={setFilterIndustry}
+          industries={industries}
+        />
       </div>
 
       <div className="company-grid">

@@ -90,7 +90,9 @@ const ReviewForm = ({ companyId, onReviewAdded }) => {
         <label htmlFor="isAnonymous">
           Post anonymously?
           <span className="checkbox-hint">
-            {isAnonymous ? " (Your name will be hidden)" : " (Your name will be visible)"}
+            {isAnonymous
+              ? ' (Your name will be hidden)'
+              : ' (Your name will be visible)'}
           </span>
         </label>
       </div>

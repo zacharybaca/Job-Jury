@@ -31,7 +31,9 @@ const SearchBar = ({ setSearchTerm, setFilterIndustry, industries }) => {
         >
           <option value="">All Industries</option>
           {industries.map((ind) => (
-            <option key={ind} value={ind}>{ind}</option>
+            <option key={ind} value={ind}>
+              {ind}
+            </option>
           ))}
         </select>
       </div>

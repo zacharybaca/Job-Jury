@@ -106,4 +106,10 @@ const deleteCompany = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Company and assets removed." });
 });
 
-export { createCompany, getCompanies, getCompany, getTopCompanies, deleteCompany };
+export {
+  createCompany,
+  getCompanies,
+  getCompany,
+  getTopCompanies,
+  deleteCompany,
+};

@@ -24,7 +24,7 @@ const FeaturedCompanies = () => {
       <div className="featured-badge">Top Picks</div>
       <h2 className="featured-title">Highest Rated by the Jury</h2>
       <div className="featured-grid">
-        {featured.map(company => (
+        {featured.map((company) => (
           <CompanyCard key={company._id} company={company} />
         ))}
       </div>

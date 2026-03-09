@@ -14,7 +14,7 @@ const router = express.Router();
 // The upload middleware must stay here in the route definition
 router.post("/", upload.single("image"), createCompany);
 router.get("/", getCompanies);
-router.get('/top', getTopCompanies);
+router.get("/top", getTopCompanies);
 router.get("/:id", getCompany);
 router.delete("/:id", protect, admin, deleteCompany);
 
