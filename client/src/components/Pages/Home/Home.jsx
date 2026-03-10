@@ -10,7 +10,6 @@ const Home = () => {
 
       {/* The main searchable/filterable list */}
       <div className="all-companies-section">
-        <h2 className="section-title">All Jury Records</h2>
         <CompanyList />
       </div>
     </div>

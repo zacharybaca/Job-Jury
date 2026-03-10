@@ -9,68 +9,40 @@ const CompanyList = () => {
   const [companies, setCompanies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterIndustry, setFilterIndustry] = useState('');
+  const [localLoading, setLocalLoading] = useState(false);
 
   const industries = [...new Set(companies.map((c) => c.industry))].sort();
 
-  // 1. Mock Data for Design Testing
-  const mockCompanies = [
-    {
-      _id: '1',
-      name: 'Surf Internet',
-      industry: 'Telecommunications',
-      location: 'La Porte, IN',
-      imageUrl:
-        'https://surfinternet.com/wp-content/uploads/sites/10/2022/06/surf-internet-logo-lt.png',
-      averageRating: 4.8,
-    },
-    {
-      _id: '2',
-      name: 'Tech Solutions',
-      industry: 'Software Engineering',
-      location: 'Chicago, IL',
-      imageUrl: 'https://chicagotechsolution.com/assets/images/logo.png',
-      averageRating: 3.5,
-    },
-    {
-      _id: '3',
-      name: 'Medi-Care Group',
-      industry: 'Healthcare',
-      location: 'Michigan City, IN',
-      imageUrl:
-        'https://medicareagentshub.com/images/the-medicare-agent-directory-logo.png',
-      averageRating: 4.2,
-    },
-    {
-      _id: '4',
-      name: 'Global Logistics',
-      industry: 'Supply Chain',
-      location: 'Indianapolis, IN',
-      imageUrl:
-        'https://www.echo.com/wp-content/themes/ws/assets/logos/Echo_Logo_RGB.svg',
-      averageRating: 2.9,
-    },
-  ];
-
-  // 2. Data Loading Logic
   useEffect(() => {
-    const loadData = async () => {
-      setIsLoaded(false);
-      // Simulating a network delay so you can see the Skeleton Loader in action
-      // setTimeout(() => {
-      //   setCompanies(mockCompanies);
-      //   setIsLoaded(true);
-      // }, 1500);
+    // 1. Create a promise that resolves after 1.5 seconds
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-      // UNCOMMENT THIS for real API connection later:
-      const response = await fetcher('/api/companies');
-      if (response.success) {
-        setCompanies(response.data.data);
+    const loadData = async () => {
+      setLocalLoading(true);
+
+      try {
+        // 2. Run both the delay and the API call
+        // We use Promise.all to ensure the skeleton shows for AT LEAST 1.5s
+        const [response] = await Promise.all([
+          fetcher('/api/companies'),
+          delay(1500),
+        ]);
+
+        if (response.success) {
+          setCompanies(response.data.data);
+          setLocalLoading(false);
+        }
+      } catch (error) {
+        console.error('The Jury encountered an error:', error);
+      } finally {
+        // 3. This runs after the longest of the two (the API or the 1.5s)
+        setLocalLoading(false);
       }
-      setIsLoaded(true);
     };
 
     loadData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Added fetcher to dependency array for best practice
 
   // 3. Search Filtering Logic
   const filteredCompanies = companies.filter((company) => {
@@ -101,7 +73,7 @@ const CompanyList = () => {
       </div>
 
       <div className="company-grid">
-        {!isLoaded ? (
+        {localLoading ? (
           // Display 6 skeletons while loading
           [...Array(6)].map((_, index) => (
             <div key={index} className="skeleton-card">

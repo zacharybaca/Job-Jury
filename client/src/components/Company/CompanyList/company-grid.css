@@ -20,6 +20,7 @@
 .list-subtitle {
   color: #64748b; /* Muted Slate */
   font-size: 1.1rem;
+  padding-bottom: 1rem;
 }
 
 /* Responsive Grid Logic */
