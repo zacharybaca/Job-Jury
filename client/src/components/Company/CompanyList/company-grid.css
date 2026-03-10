@@ -77,3 +77,29 @@
     background-position: -200% 0;
   }
 }
+
+/* Container for the real cards */
+.staggered-card {
+  width: 100%;
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Start slightly lower */
+  animation: fadeInUp 0.5s ease forwards;
+
+  /* Stagger calculation:
+     If index is 0, delay is 0s.
+     If index is 1, delay is 0.1s.
+     If index is 2, delay is 0.2s, and so on.
+  */
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
