@@ -1,6 +1,5 @@
 import { Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Header from './components/Layout/Header/Header';
 import NavBar from './components/Layout/NavBar/NavBar';
 import Footer from './components/Layout/Footer/Footer';
 import ProtectedRoute from './components/Utility/ProtectedRoute/ProtectedRoute';
@@ -23,18 +22,24 @@ const ScrollToTop = () => {
   return null;
 };
 
-// 1. Update Layout to accept props
+// Layout handles the global structure and conditional Wallpaper visibility
 const Layout = ({ wallpapers, selectedWallpaper, onSelect }) => {
+  const { pathname } = useLocation();
+  const isAuthPage = ['/login', '/register'].includes(pathname);
+
   return (
     <div className="app-container">
       <ScrollToTop />
       <NavBar />
-      {/* Now these variables are defined! */}
-      <WallpaperSelector
-        wallpapers={wallpapers}
-        currentWallpaper={selectedWallpaper}
-        onSelect={onSelect}
-      />
+
+      {!isAuthPage && (
+        <WallpaperSelector
+          wallpapers={wallpapers}
+          currentWallpaper={selectedWallpaper}
+          onSelect={onSelect}
+        />
+      )}
+
       <main className="main-content">
         <Outlet />
       </main>
@@ -44,9 +49,12 @@ const Layout = ({ wallpapers, selectedWallpaper, onSelect }) => {
 };
 
 function App() {
+  const { pathname } = useLocation();
+
   const [wallpapers] = useState([
     { id: 1, url: '/bg-dark.jpg', name: 'Jury Night' },
     { id: 2, url: '/bg-light.jpg', name: 'Emerald Day' },
+    { id: 3, url: '/bg-office.jpg', name: 'The Breakroom' }
   ]);
 
   const [selectedWallpaper, setSelectedWallpaper] = useState(() => {
@@ -55,13 +63,19 @@ function App() {
   });
 
   useEffect(() => {
-    if (selectedWallpaper) {
-      localStorage.setItem('user-wallpaper', JSON.stringify(selectedWallpaper));
+    const isAuthPage = ['/login', '/register'].includes(pathname);
+
+    if (selectedWallpaper && !isAuthPage) {
       document.body.style.backgroundImage = `url(${selectedWallpaper.url})`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundPosition = 'center';
+    } else {
+      // Clean slate for Auth pages
+      document.body.style.backgroundImage = 'none';
+      document.body.style.backgroundColor = '#0f172a';
     }
-  }, [selectedWallpaper]);
+  }, [selectedWallpaper, pathname]);
 
   const handleSelect = (wallpaper) => {
     setSelectedWallpaper(wallpaper);
@@ -69,17 +83,13 @@ function App() {
 
   return (
     <Routes>
-      {/* 2. Pass the props into the Layout element here */}
-      <Route
-        path="/"
-        element={
-          <Layout
-            wallpapers={wallpapers}
-            selectedWallpaper={selectedWallpaper}
-            onSelect={handleSelect}
-          />
-        }
-      >
+      <Route path="/" element={
+        <Layout
+          wallpapers={wallpapers}
+          selectedWallpaper={selectedWallpaper}
+          onSelect={handleSelect}
+        />
+      }>
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
@@ -90,6 +100,10 @@ function App() {
             <CompanyRegistration />
           </ProtectedRoute>
         } />
+
+        <Route element={<AdminRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
 
         <Route path="*" element={
           <div className="page-content">
