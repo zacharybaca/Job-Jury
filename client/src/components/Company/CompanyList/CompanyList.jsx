@@ -71,7 +71,7 @@ const CompanyList = () => {
           industries={industries}
         />
       </div>
-
+    <hr className="company-list-divider" />
       <div className="company-grid">
         {localLoading ? (
           // Display 6 skeletons while loading
