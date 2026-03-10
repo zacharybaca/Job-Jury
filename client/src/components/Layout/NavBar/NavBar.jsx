@@ -10,15 +10,11 @@ const NavBar = () => {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-
-    // 1. Wipe the UI preference so a new session gets a clean slate
     localStorage.removeItem('user-wallpaper');
-
-    // 2. Clear the cookie on the server and set user to null locally
     await logout();
 
-    // 3. Redirect to the login page (This triggers the CSS fade effect)
-    navigate('/login');
+    // Pass a state object along with the route change
+    navigate('/login', { state: { message: 'Successfully logged out.' } });
   };
 
   return (
