@@ -76,9 +76,19 @@ const CompanyList = () => {
   {localLoading ? (
     /* Skeletons */
     [...Array(6)].map((_, index) => (
-      <div key={index} className="skeleton-card">
-        <div className="skeleton-pulse"></div>
-      </div>
+      <><div className="skeleton-image shimmer"></div><div className="skeleton-body">
+        {/* Matches the company-name */}
+        <div className="skeleton-title shimmer"></div>
+
+        {/* Matches the company-meta */}
+        <div className="skeleton-text shimmer"></div>
+
+        {/* Matches the rating-container */}
+        <div className="skeleton-rating shimmer"></div>
+
+        {/* Matches the view-btn */}
+        <div className="skeleton-button shimmer"></div>
+      </div></>
     ))
   ) : filteredCompanies.length > 0 ? (
     /* Real Cards with Staggered Delay */
