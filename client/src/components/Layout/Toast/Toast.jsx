@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './toast.css';
 
-const Toast = ({ message, onClose }) => {
+// Added 'type' prop (defaults to 'success')
+const Toast = ({ message, type = 'success', onClose }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // 1. Start the fade-out animation slightly before removing it
-    const hideTimer = setTimeout(() => {
-      setIsVisible(false);
-    }, 2700);
-
-    // 2. Actually unmount/close the component after 3 seconds
-    const removeTimer = setTimeout(() => {
-      onClose();
-    }, 3000);
+    const hideTimer = setTimeout(() => setIsVisible(false), 2700);
+    const removeTimer = setTimeout(() => onClose(), 3000);
 
     return () => {
       clearTimeout(hideTimer);
@@ -21,9 +15,14 @@ const Toast = ({ message, onClose }) => {
     };
   }, [onClose]);
 
+  // Determine styles based on type
+  const isError = type === 'error';
+  const icon = isError ? '!' : '✓';
+  const containerClass = isError ? 'toast-error' : 'toast-success';
+
   return (
-    <div className={`toast-container ${isVisible ? 'toast-enter' : 'toast-exit'}`}>
-      <div className="toast-icon">✓</div>
+    <div className={`toast-container ${containerClass} ${isVisible ? 'toast-enter' : 'toast-exit'}`}>
+      <div className="toast-icon">{icon}</div>
       <div className="toast-message">{message}</div>
     </div>
   );
