@@ -5,13 +5,20 @@ import JobJuryLogo from '../JobJuryLogo/JobJuryLogo.jsx';
 import './nav-bar.css';
 
 const NavBar = () => {
-  const { user, logout } = useAuth(); // Destructure logout from your context
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    await logout(); // Clears the cookie on the server and sets user to null locally
-    navigate('/'); // Redirects to the homepage (Browse Companies)
+
+    // 1. Wipe the UI preference so a new session gets a clean slate
+    localStorage.removeItem('user-wallpaper');
+
+    // 2. Clear the cookie on the server and set user to null locally
+    await logout();
+
+    // 3. Redirect to the login page (This triggers the CSS fade effect)
+    navigate('/login');
   };
 
   return (
@@ -42,7 +49,6 @@ const NavBar = () => {
           {user && (
             <>
               <li>
-                {/* Changed from Link to button to trigger the handleLogout function */}
                 <button
                   onClick={handleLogout}
                   className="nav-item logout-button"
