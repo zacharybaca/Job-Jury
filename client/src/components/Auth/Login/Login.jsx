@@ -22,7 +22,7 @@ const Login = () => {
     if (location.state?.message) {
       setToastConfig({
         message: location.state.message,
-        type: 'success'
+        type: 'success',
       });
       // Clear the history state so the toast doesn't pop up again on refresh
       window.history.replaceState({}, document.title);
@@ -46,7 +46,7 @@ const Login = () => {
       // 2. Replace the alert() with a professional Error Toast
       setToastConfig({
         message: response.error || 'Login failed. Check your credentials.',
-        type: 'error'
+        type: 'error',
       });
     }
   };

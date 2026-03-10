@@ -71,42 +71,45 @@ const CompanyList = () => {
           industries={industries}
         />
       </div>
-    <hr className="company-list-divider" />
+      <hr className="company-list-divider" />
       <div className="company-grid">
-  {localLoading ? (
-    /* Skeletons */
-    [...Array(6)].map((_, index) => (
-      <><div className="skeleton-image shimmer"></div><div className="skeleton-body">
-        {/* Matches the company-name */}
-        <div className="skeleton-title shimmer"></div>
+        {localLoading ? (
+          /* Skeletons */
+          [...Array(6)].map((_, index) => (
+            <>
+              <div className="skeleton-image shimmer"></div>
+              <div className="skeleton-body">
+                {/* Matches the company-name */}
+                <div className="skeleton-title shimmer"></div>
 
-        {/* Matches the company-meta */}
-        <div className="skeleton-text shimmer"></div>
+                {/* Matches the company-meta */}
+                <div className="skeleton-text shimmer"></div>
 
-        {/* Matches the rating-container */}
-        <div className="skeleton-rating shimmer"></div>
+                {/* Matches the rating-container */}
+                <div className="skeleton-rating shimmer"></div>
 
-        {/* Matches the view-btn */}
-        <div className="skeleton-button shimmer"></div>
-      </div></>
-    ))
-  ) : filteredCompanies.length > 0 ? (
-    /* Real Cards with Staggered Delay */
-    filteredCompanies.map((company, index) => (
-      <div
-        key={company._id}
-        className="staggered-card"
-        style={{ '--index': index }} /* This is the "magic" variable */
-      >
-        <CompanyCard company={company} />
+                {/* Matches the view-btn */}
+                <div className="skeleton-button shimmer"></div>
+              </div>
+            </>
+          ))
+        ) : filteredCompanies.length > 0 ? (
+          /* Real Cards with Staggered Delay */
+          filteredCompanies.map((company, index) => (
+            <div
+              key={company._id}
+              className="staggered-card"
+              style={{ '--index': index }} /* This is the "magic" variable */
+            >
+              <CompanyCard company={company} />
+            </div>
+          ))
+        ) : (
+          <div className="no-results-container">
+            <p>No verdicts found.</p>
+          </div>
+        )}
       </div>
-    ))
-  ) : (
-    <div className="no-results-container">
-      <p>No verdicts found.</p>
-    </div>
-  )}
-</div>
     </section>
   );
 };

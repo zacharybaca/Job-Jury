@@ -21,7 +21,9 @@ const Toast = ({ message, type = 'success', onClose }) => {
   const containerClass = isError ? 'toast-error' : 'toast-success';
 
   return (
-    <div className={`toast-container ${containerClass} ${isVisible ? 'toast-enter' : 'toast-exit'}`}>
+    <div
+      className={`toast-container ${containerClass} ${isVisible ? 'toast-enter' : 'toast-exit'}`}
+    >
       <div className="toast-icon">{icon}</div>
       <div className="toast-message">{message}</div>
     </div>
