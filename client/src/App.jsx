@@ -1,5 +1,5 @@
 import { Routes, Route, Outlet, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Layout/Header/Header';
 import NavBar from './components/Layout/NavBar/NavBar';
 import Footer from './components/Layout/Footer/Footer';
@@ -12,6 +12,7 @@ import Register from './components/Auth/Register/Register';
 import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
 import Home from './components/Pages/Home/Home';
+import WallpaperSelector from './components/Layout/WallpaperSelector/WallpaperSelector';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -22,11 +23,18 @@ const ScrollToTop = () => {
   return null;
 };
 
-const Layout = () => {
+// 1. Update Layout to accept props
+const Layout = ({ wallpapers, selectedWallpaper, onSelect }) => {
   return (
     <div className="app-container">
       <ScrollToTop />
       <NavBar />
+      {/* Now these variables are defined! */}
+      <WallpaperSelector
+        wallpapers={wallpapers}
+        currentWallpaper={selectedWallpaper}
+        onSelect={onSelect}
+      />
       <main className="main-content">
         <Outlet />
       </main>
@@ -36,52 +44,58 @@ const Layout = () => {
 };
 
 function App() {
+  const [wallpapers] = useState([
+    { id: 1, url: '/bg-dark.jpg', name: 'Jury Night' },
+    { id: 2, url: '/bg-light.jpg', name: 'Emerald Day' },
+  ]);
+
+  const [selectedWallpaper, setSelectedWallpaper] = useState(() => {
+    const saved = localStorage.getItem('user-wallpaper');
+    return saved ? JSON.parse(saved) : wallpapers[0];
+  });
+
+  useEffect(() => {
+    if (selectedWallpaper) {
+      localStorage.setItem('user-wallpaper', JSON.stringify(selectedWallpaper));
+      document.body.style.backgroundImage = `url(${selectedWallpaper.url})`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundAttachment = 'fixed';
+    }
+  }, [selectedWallpaper]);
+
+  const handleSelect = (wallpaper) => {
+    setSelectedWallpaper(wallpaper);
+  };
+
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        {/* Public Routes */}
+      {/* 2. Pass the props into the Layout element here */}
+      <Route
+        path="/"
+        element={
+          <Layout
+            wallpapers={wallpapers}
+            selectedWallpaper={selectedWallpaper}
+            onSelect={handleSelect}
+          />
+        }
+      >
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="companies/:id" element={<CompanyDetail />} />
 
-        {/* Protected Company Routes */}
-        <Route
-          path="register-company"
-          element={
-            <ProtectedRoute>
-              <CompanyRegistration />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="register-company" element={
+          <ProtectedRoute>
+            <CompanyRegistration />
+          </ProtectedRoute>
+        } />
 
-        {/* Protected Review Actions */}
-        <Route
-          path="companies/:companyId/add-review"
-          element={
-            <ProtectedRoute>
-              <div className="page-content">
-                <h2>Submit Your Verdict</h2>
-                {/* Your review form component would go here */}
-              </div>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Admin Routes */}
-        <Route element={<AdminRoute />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        </Route>
-
-        {/* 404 Route */}
-        <Route
-          path="*"
-          element={
-            <div className="page-content">
-              <h2>404: Verdict Not Found</h2>
-            </div>
-          }
-        />
+        <Route path="*" element={
+          <div className="page-content">
+            <h2>404: Verdict Not Found</h2>
+          </div>
+        } />
       </Route>
     </Routes>
   );
