@@ -52,10 +52,29 @@ function App() {
   const { pathname } = useLocation();
 
   const [wallpapers] = useState([
-    { id: 1, url: 'assets/wallpaper_backgrounds/brick-on-building.jpg', name: 'Brick on Building' },
-    { id: 2, url: 'assets/wallpaper_backgrounds/cardboard-bg.jpg', name: 'Cardboard Background' },
-    { id: 3, url: 'assets/wallpaper_backgrounds/clear-blue-bg.jpg', name: 'Clear Blue' },
-    { id: 4, url: 'assets/wallpaper_backgrounds/crumbled-notebook-paper.jpg', name: 'Crumpled Notebook' },
+    { id: 1, url: 'assets/wallpaper_backgrounds/brick-on-building.jpg', name: 'Urban Brick' },
+  { id: 2, url: 'assets/wallpaper_backgrounds/cardboard-bg.jpg', name: 'Textured Cardboard' },
+  { id: 3, url: 'assets/wallpaper_backgrounds/clear-blue-bg.jpg', name: 'Clear Blue Sky' },
+  { id: 4, url: 'assets/wallpaper_backgrounds/crumbled-notebook-paper.jpg', name: 'Drafting Paper' },
+  { id: 5, url: 'assets/wallpaper_backgrounds/evening-clouds-bg.jpg', name: 'Evening Dusk' },
+  { id: 6, url: 'assets/wallpaper_backgrounds/grey-color-bg.jpg', name: 'Minimalist Grey' },
+  { id: 7, url: 'assets/wallpaper_backgrounds/horizontal-hardwood-bg.jpg', name: 'Horizontal Hardwood' },
+  { id: 8, url: 'assets/wallpaper_backgrounds/light-cloud-sky-bg.jpg', name: 'Morning Clouds' },
+  { id: 9, url: 'assets/wallpaper_backgrounds/light-colored-brick-bg.jpg', name: 'Light Brick' },
+  { id: 10, url: 'assets/wallpaper_backgrounds/light-hardwood-bg.jpg', name: 'Light Hardwood' },
+  { id: 11, url: 'assets/wallpaper_backgrounds/light-sky-bg.jpg', name: 'Bright Sky' },
+  { id: 12, url: 'assets/wallpaper_backgrounds/minimal-office-bg.jpg', name: 'Minimal Office' },
+  { id: 13, url: 'assets/wallpaper_backgrounds/old-used-hardwood-bg.jpg', name: 'Vintage Hardwood' },
+  { id: 14, url: 'assets/wallpaper_backgrounds/perfect-aligned-brick-bg.jpg', name: 'Aligned Brick' },
+  { id: 15, url: 'assets/wallpaper_backgrounds/personal-office-alternate-bg.jpg', name: 'Executive Suite' },
+  { id: 16, url: 'assets/wallpaper_backgrounds/personal-office-bg.jpg', name: 'Personal Office' },
+  { id: 17, url: 'assets/wallpaper_backgrounds/pink-clouds-bg.jpg', name: 'Pink Clouds' },
+  { id: 18, url: 'assets/wallpaper_backgrounds/red-orange-bg.jpg', name: 'Vibrant Sunset' },
+  { id: 19, url: 'assets/wallpaper_backgrounds/red-orange-pastel-bg.jpg', name: 'Pastel Sunset' },
+  { id: 20, url: 'assets/wallpaper_backgrounds/sand-ripples-bg.jpg', name: 'Sand Ripples' },
+  { id: 21, url: 'assets/wallpaper_backgrounds/siding.jpg', name: 'Classic Siding' },
+  { id: 22, url: 'assets/wallpaper_backgrounds/water-bubbles-bg.jpg', name: 'Water Bubbles' },
+  { id: 23, url: 'assets/wallpaper_backgrounds/yellow-pastel-color.jpg', name: 'Mellow Yellow' }
   ]);
 
   const [selectedWallpaper, setSelectedWallpaper] = useState(() => {
