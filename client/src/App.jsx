@@ -52,9 +52,10 @@ function App() {
   const { pathname } = useLocation();
 
   const [wallpapers] = useState([
-    { id: 1, url: '/bg-dark.jpg', name: 'Jury Night' },
-    { id: 2, url: '/bg-light.jpg', name: 'Emerald Day' },
-    { id: 3, url: '/bg-office.jpg', name: 'The Breakroom' }
+    { id: 1, url: 'assets/wallpaper_backgrounds/brick-on-building.jpg', name: 'Brick on Building' },
+    { id: 2, url: 'assets/wallpaper_backgrounds/cardboard-bg.jpg', name: 'Cardboard Background' },
+    { id: 3, url: 'assets/wallpaper_backgrounds/clear-blue-bg.jpg', name: 'Clear Blue' },
+    { id: 4, url: 'assets/wallpaper_backgrounds/crumbled-notebook-paper.jpg', name: 'Crumpled Notebook' },
   ]);
 
   const [selectedWallpaper, setSelectedWallpaper] = useState(() => {
