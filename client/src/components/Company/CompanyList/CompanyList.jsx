@@ -73,33 +73,30 @@ const CompanyList = () => {
       </div>
     <hr className="company-list-divider" />
       <div className="company-grid">
-        {localLoading ? (
-          // Display 6 skeletons while loading
-          [...Array(6)].map((_, index) => (
-            <div key={index} className="skeleton-card">
-              <div className="skeleton-pulse"></div>
-            </div>
-          ))
-        ) : filteredCompanies.length > 0 ? (
-          // Display the filtered results
-          filteredCompanies.map((company) => (
-            <CompanyCard key={company._id} company={company} />
-          ))
-        ) : (
-          // Display empty state if search finds nothing
-          <div className="no-results-container">
-            <p className="no-results-text">
-              No verdicts found for "<strong>{searchTerm}</strong>"
-            </p>
-            <button
-              onClick={() => setSearchTerm('')}
-              className="clear-search-btn"
-            >
-              Clear Search
-            </button>
-          </div>
-        )}
+  {localLoading ? (
+    /* Skeletons */
+    [...Array(6)].map((_, index) => (
+      <div key={index} className="skeleton-card">
+        <div className="skeleton-pulse"></div>
       </div>
+    ))
+  ) : filteredCompanies.length > 0 ? (
+    /* Real Cards with Staggered Delay */
+    filteredCompanies.map((company, index) => (
+      <div
+        key={company._id}
+        className="staggered-card"
+        style={{ '--index': index }} /* This is the "magic" variable */
+      >
+        <CompanyCard company={company} />
+      </div>
+    ))
+  ) : (
+    <div className="no-results-container">
+      <p>No verdicts found.</p>
+    </div>
+  )}
+</div>
     </section>
   );
 };
