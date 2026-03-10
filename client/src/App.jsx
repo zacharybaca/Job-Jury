@@ -85,6 +85,10 @@ function App() {
   useEffect(() => {
     const isAuthPage = ['/login', '/register'].includes(pathname);
 
+    if (selectedWallpaper) {
+      localStorage.setItem('user-wallpaper', JSON.stringify(selectedWallpaper));
+    };
+
     if (selectedWallpaper && !isAuthPage) {
       document.body.style.backgroundImage = `url(${selectedWallpaper.url})`;
       document.body.style.backgroundSize = 'cover';
