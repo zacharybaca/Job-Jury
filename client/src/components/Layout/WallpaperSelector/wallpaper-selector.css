@@ -1,0 +1,49 @@
+.wallpaper-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.wallpaper-option {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 4px solid transparent; /* Prevents layout jump when border appears */
+  transition: all 0.2s ease-in-out;
+  aspect-ratio: 16 / 9;
+}
+
+.wallpaper-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* The Active "Selected" State */
+.wallpaper-option.active {
+  border-color: #10b981; /* Emerald Green */
+  transform: scale(1.02);
+}
+
+.wallpaper-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.active-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #10b981;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
