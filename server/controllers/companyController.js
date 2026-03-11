@@ -153,30 +153,36 @@ const updateMyCompany = asyncHandler(async (req, res) => {
     throw new Error("Company not found");
   }
 
-  // Security Check 1: Does this user own this submission?
   if (company.createdBy.toString() !== req.user._id.toString()) {
     res.status(403);
     throw new Error("You are not authorized to edit this company.");
   }
 
-  // Security Check 2: Is it already approved?
   if (company.isApproved) {
     res.status(400);
     throw new Error("Cannot edit an approved company. Please contact an admin.");
   }
 
-  // NEW: Security Check 3: Duplicate Name Validation
-  // Only run this query if they are actually changing the name
   if (req.body.name && req.body.name !== company.name) {
     const nameExists = await Company.findOne({ name: req.body.name });
-
     if (nameExists) {
       res.status(400);
       throw new Error("Another company is already registered or pending review with that exact name.");
     }
   }
 
-  // Update fields
+  // NEW: Handle Cloudinary Image Replacement
+  if (req.file) {
+    // 1. If an old image exists, destroy it in Cloudinary to prevent orphaned files
+    if (company.imagePublicId) {
+      await cloudinary.uploader.destroy(company.imagePublicId);
+    }
+    // 2. Attach the new Cloudinary URLs provided by the Multer middleware
+    company.imageUrl = req.file.path;
+    company.imagePublicId = req.file.filename;
+  }
+
+  // Update text fields
   company.name = req.body.name || company.name;
   company.industry = req.body.industry || company.industry;
   company.location = req.body.location || company.location;
