@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../CompanyRegistration/company-registration.css';
+import '../CompanyImageUpload/CompanyImageUpload';
 
 export const EditCompanySkeleton = () => {
   return (
@@ -39,6 +40,11 @@ const EditCompany = () => {
   const [formData, setFormData] = useState({
     name: '', industry: '', location: '', description: '',
   });
+
+  // NEW: State for the image file and the existing image URL
+  const [imageFile, setImageFile] = useState(null);
+  const [existingImageUrl, setExistingImageUrl] = useState('');
+
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ type: '', text: '' });
 
@@ -46,7 +52,6 @@ const EditCompany = () => {
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const fetchCompany = async () => {
-      // Fetch data and enforce a minimum 800ms delay for the skeleton
       const [response] = await Promise.all([
         fetcher(`/api/companies/${id}`),
         delay(800)
@@ -62,6 +67,8 @@ const EditCompany = () => {
             location: response.data.data.location,
             description: response.data.data.description,
           });
+          // Set the existing image so the user knows what is currently saved
+          setExistingImageUrl(response.data.data.imageUrl);
         }
       }
       setLoading(false);
@@ -79,9 +86,21 @@ const EditCompany = () => {
     e.preventDefault();
     setMessage({ type: 'info', text: 'Updating your submission...' });
 
+    // NEW: Use FormData instead of JSON to handle the file upload
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('industry', formData.industry);
+    data.append('location', formData.location);
+    data.append('description', formData.description);
+
+    // Only append the image if the user actually selected a new one
+    if (imageFile) {
+      data.append('image', imageFile);
+    }
+
     const response = await fetcher(`/api/companies/my-submissions/${id}`, {
       method: 'PUT',
-      body: JSON.stringify(formData),
+      body: data, // Send the FormData object
     });
 
     if (response.success) {
@@ -91,7 +110,6 @@ const EditCompany = () => {
     }
   };
 
-  // Trigger the skeleton if loading is true
   if (loading) return <EditCompanySkeleton />;
 
   return (
@@ -102,6 +120,17 @@ const EditCompany = () => {
         {message.text && (
           <div className={`alert ${message.type}`}>{message.text}</div>
         )}
+
+        {/* Display existing image hint */}
+        {existingImageUrl && !imageFile && (
+          <div className="current-image-preview">
+            <p className="preview-label">Current Company Logo:</p>
+            <img src={existingImageUrl} alt="Current Logo" className="preview-thumbnail" />
+          </div>
+        )}
+
+        {/* The Uploader Component */}
+        <CompanyImageUpload onImageSelect={(file) => setImageFile(file)} />
 
         <div className="form-group">
           <label>Company Name</label>
