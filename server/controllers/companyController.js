@@ -165,7 +165,18 @@ const updateMyCompany = asyncHandler(async (req, res) => {
     throw new Error("Cannot edit an approved company. Please contact an admin.");
   }
 
-  // Update fields (leaving image out for simplicity of the edit form)
+  // NEW: Security Check 3: Duplicate Name Validation
+  // Only run this query if they are actually changing the name
+  if (req.body.name && req.body.name !== company.name) {
+    const nameExists = await Company.findOne({ name: req.body.name });
+
+    if (nameExists) {
+      res.status(400);
+      throw new Error("Another company is already registered or pending review with that exact name.");
+    }
+  }
+
+  // Update fields
   company.name = req.body.name || company.name;
   company.industry = req.body.industry || company.industry;
   company.location = req.body.location || company.location;
