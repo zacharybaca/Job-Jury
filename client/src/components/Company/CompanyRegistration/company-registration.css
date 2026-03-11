@@ -72,3 +72,44 @@
   background: #e0f2fe;
   color: #075985;
 }
+
+/* Form Skeleton Specifics */
+.skeleton-title {
+  height: 36px;
+  width: 60%;
+  margin: 0 auto 30px auto; /* Centers the title */
+  border-radius: 6px;
+}
+
+.skeleton-label {
+  height: 18px;
+  width: 25%;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.skeleton-input {
+  height: 48px; /* Should match the height of your actual text inputs */
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-textarea {
+  height: 120px; /* Should match the height of your actual textarea */
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Reusing your global shimmer animation */
+.shimmer {
+  background: #f1f5f9;
+  background-image: linear-gradient(
+    90deg,
+    #1e293b 0%, /* Dark navy to match your theme */
+    #334155 50%,
+    #1e293b 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  animation: shimmerMove 1.5s infinite linear;
+}
