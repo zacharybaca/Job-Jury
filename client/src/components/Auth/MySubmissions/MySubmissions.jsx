@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './my-submissions.css';
 
 const MySubmissions = () => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMyCompanies = async () => {
@@ -21,9 +22,22 @@ const MySubmissions = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) {
-    return <div className="submissions-loading">Retrieving your submissions...</div>;
-  }
+  // NEW: Delete Function
+  const handleDelete = async (id, name) => {
+    if (window.confirm(`Are you sure you want to withdraw your submission for ${name}?`)) {
+      const response = await fetcher(`/api/companies/my-submissions/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.success) {
+        // Remove it from the UI instantly
+        setCompanies(companies.filter(c => c._id !== id));
+      } else {
+        alert(response.error || 'Failed to delete submission.');
+      }
+    }
+  };
+
+  if (loading) return <div className="submissions-loading">Retrieving your submissions...</div>;
 
   return (
     <div className="submissions-container">
@@ -47,15 +61,30 @@ const MySubmissions = () => {
                   {company.isApproved ? 'Approved' : 'Pending Review'}
                 </span>
               </div>
+
               <div className="card-body">
                 <p><strong>Industry:</strong> {company.industry}</p>
                 <p><strong>Location:</strong> {company.location}</p>
               </div>
+
               <div className="card-footer">
                 {company.isApproved ? (
                   <Link to={`/companies/${company._id}`} className="view-link">View Public Page</Link>
                 ) : (
-                  <span className="pending-note">Awaiting Admin Approval</span>
+                  <div className="pending-actions">
+                    <button
+                      className="edit-btn"
+                      onClick={() => navigate(`/edit-company/${company._id}`)}
+                    >
+                      Edit Details
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(company._id, company.name)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
