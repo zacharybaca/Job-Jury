@@ -3,6 +3,7 @@ import {
   createCompany,
   getCompanies,
   getCompany,
+  getMyCompanies,
   getTopCompanies,
   deleteCompany,
   getAllCompaniesAdmin, // NEW
@@ -20,6 +21,8 @@ router.get("/top", getTopCompanies);
 
 // NEW: Admin route to get all companies (Must be BEFORE /:id)
 router.get("/all-admin", protect, admin, getAllCompaniesAdmin);
+
+router.get("/my-submissions", protect, getMyCompanies);
 
 router.get("/:id", getCompany);
 
