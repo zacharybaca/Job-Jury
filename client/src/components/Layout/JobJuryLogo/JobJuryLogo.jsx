@@ -3,15 +3,15 @@ import React from 'react';
 const JobJuryLogo = ({ className }) => {
   return (
     <svg
-      viewBox="0 0 300 80"
+      /* Increased width to 320 to prevent text clipping on font fallback */
+      viewBox="0 0 320 80"
+      preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
       {/* 1. THE GAVEL (Judgment) */}
       <g className="gavel-icon">
-        {/* Gavel Head */}
         <rect x="20" y="25" width="45" height="20" rx="3" fill="white" />
-        {/* Gavel Handle */}
         <line
           x1="42"
           y1="45"
@@ -25,7 +25,6 @@ const JobJuryLogo = ({ className }) => {
 
       {/* 2. THE MAGNIFYING GLASS (Investigation) */}
       <g className="search-icon">
-        {/* The Glass Ring */}
         <circle
           cx="55"
           cy="40"
@@ -34,7 +33,6 @@ const JobJuryLogo = ({ className }) => {
           strokeWidth="5"
           fill="none"
         />
-        {/* The Glass Handle */}
         <line
           x1="72"
           y1="56"
