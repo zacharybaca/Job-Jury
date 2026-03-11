@@ -9,9 +9,9 @@ const AdminDashboard = () => {
 
   const loadCompanies = async () => {
     setLoading(true);
-    const response = await fetcher('/api/companies');
+    // 1. UPDATE: Fetch from the admin-only route to see pending companies
+    const response = await fetcher('/api/companies/all-admin');
     if (response.success) {
-      // Accessing response.data (fetcher) -> data (controller array)
       setCompanies(response.data.data);
     }
     setLoading(false);
@@ -19,7 +19,26 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     loadCompanies();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // 2. NEW: Function to handle approvals
+  const handleApprove = async (id, name) => {
+    if (window.confirm(`Are you sure you want to approve ${name} for public listing?`)) {
+      const response = await fetcher(`/api/companies/${id}/approve`, {
+        method: 'PATCH',
+      });
+
+      if (response.success) {
+        // Optimistic UI update: Flip the isApproved status without reloading the page
+        setCompanies(companies.map(company =>
+          company._id === id ? { ...company, isApproved: true } : company
+        ));
+      } else {
+        alert(response.error || 'Failed to approve company.');
+      }
+    }
+  };
 
   const handleDelete = async (id, name) => {
     if (
@@ -31,7 +50,6 @@ const AdminDashboard = () => {
         method: 'DELETE',
       });
       if (response.success) {
-        // Optimistic UI update: remove from state without a full reload
         setCompanies(companies.filter((company) => company._id !== id));
       } else {
         alert(response.error || 'Failed to delete company.');
@@ -57,6 +75,8 @@ const AdminDashboard = () => {
           <thead>
             <tr>
               <th>Company Name</th>
+              {/* 3. NEW: Status Header */}
+              <th>Status</th>
               <th>Industry</th>
               <th>Location</th>
               <th>Actions</th>
@@ -66,9 +86,28 @@ const AdminDashboard = () => {
             {companies.map((company) => (
               <tr key={company._id}>
                 <td>{company.name}</td>
+
+                {/* 4. NEW: Status Badge */}
+                <td>
+                  <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
+                    {company.isApproved ? 'Active' : 'Pending'}
+                  </span>
+                </td>
+
                 <td>{company.industry}</td>
                 <td>{company.location}</td>
                 <td className="admin-actions">
+
+                  {/* 5. NEW: Conditionally render the Approve button */}
+                  {!company.isApproved && (
+                    <button
+                      className="approve-btn"
+                      onClick={() => handleApprove(company._id, company.name)}
+                    >
+                      Approve
+                    </button>
+                  )}
+
                   <button
                     className="view-btn"
                     onClick={() =>
