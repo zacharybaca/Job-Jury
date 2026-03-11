@@ -3,6 +3,34 @@ import { useFetcher } from '../../../hooks/useFetcher';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../CompanyRegistration/company-registration.css';
 
+export const EditCompanySkeleton = () => {
+  return (
+    <div className="registration-container">
+      <div className="registration-form">
+        {/* Title Placeholder */}
+        <div className="skeleton-title shimmer"></div>
+
+        {/* Generate 3 standard input placeholders (Name, Industry, Location) */}
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="form-group">
+            <div className="skeleton-label shimmer"></div>
+            <div className="skeleton-input shimmer"></div>
+          </div>
+        ))}
+
+        {/* Description Textarea Placeholder */}
+        <div className="form-group">
+          <div className="skeleton-label shimmer"></div>
+          <div className="skeleton-textarea shimmer"></div>
+        </div>
+
+        {/* Submit Button Placeholder */}
+        <div className="skeleton-button shimmer" style={{ marginTop: '30px' }}></div>
+      </div>
+    </div>
+  );
+};
+
 const EditCompany = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,12 +42,17 @@ const EditCompany = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  // Load existing data
   useEffect(() => {
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
     const fetchCompany = async () => {
-      const response = await fetcher(`/api/companies/${id}`);
+      // Fetch data and enforce a minimum 800ms delay for the skeleton
+      const [response] = await Promise.all([
+        fetcher(`/api/companies/${id}`),
+        delay(800)
+      ]);
+
       if (response.success) {
-        // Prevent editing if it's already approved
         if (response.data.data.isApproved) {
           navigate('/my-submissions');
         } else {
@@ -33,6 +66,7 @@ const EditCompany = () => {
       }
       setLoading(false);
     };
+
     fetchCompany();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -57,7 +91,8 @@ const EditCompany = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  // Trigger the skeleton if loading is true
+  if (loading) return <EditCompanySkeleton />;
 
   return (
     <div className="registration-container">
