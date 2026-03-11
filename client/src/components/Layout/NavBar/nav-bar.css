@@ -1,68 +1,172 @@
+/* =========================================
+   1. BASE NAVBAR LAYOUT & LOGO SIZING
+   ========================================= */
 .main-nav {
-  background-color: #0f172a;
-  border-bottom: 1px solid #e2e8f0;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  width: 100%;
+  background-color: #0f172a; /* Jury Navy Blue */
+  border-bottom: 1px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .nav-container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 15px 30px;
   display: flex;
-  justify-content: space-between; /* Pushes logo to left, links to right */
-  align-items: center;
+  justify-content: space-between; /* Pushes logo left, links right */
+  align-items: center; /* Vertically centers everything */
 }
 
-.nav-logo-img {
-  height: 55px; /* Adjust based on your visual preference */
+/* Taming the Giant SVG Logo */
+.nav-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo-svg {
+  height: 40px; /* Restricts the height so it doesn't take over the screen */
   width: auto;
+  max-width: 250px;
   display: block;
 }
 
+/* Base Links */
 .nav-links {
-  display: flex; /* Aligns <li> items horizontally */
-  list-style: none; /* Removes bullet points */
+  display: flex;
+  align-items: center;
+  gap: 24px; /* Creates even spacing between your links */
+  list-style: none;
   margin: 0;
   padding: 0;
-  gap: 30px; /* Space between links */
 }
 
 .nav-item {
+  color: #f8fafc;
   text-decoration: none;
-  color: whitesmoke;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 500;
   transition: color 0.2s;
-}
-
-.nav-item:hover {
-  color: #10b981; /* Emerald green on hover */
-}
-
-.logout-button {
-  background: none;
+  background: transparent;
   border: none;
-  padding: 0;
-  font-family: inherit; /* Ensures it uses the same font as the links */
+  font-size: 1rem;
   cursor: pointer;
 }
 
-/* Ensure the hover state still works for the button */
-.logout-button:hover {
-  color: #10b981;
+.nav-item:hover {
+  color: #10b981; /* Jury Emerald */
 }
 
-.nav-logo-link {
-  display: block;
-  width: 200px; /* Control the overall size here */
-  height: auto;
+
+/* =========================================
+   2. USER DROPDOWN MENU (Your Existing Code)
+   ========================================= */
+
+/* Container must be relative so the absolute menu positions itself against it */
+.user-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.nav-logo-svg:hover .search-icon {
-  transform: scale(1.1) translate(-5px, -5px);
+.dropdown-toggle {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.dropdown-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #10b981; /* Emerald hover state */
+}
+
+.chevron {
+  font-size: 0.7rem;
   transition: transform 0.3s ease;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* The Menu Itself */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px); /* Pushes it just below the toggle button */
+  right: 0; /* Aligns to the right edge of the button */
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensures it stays on top of page content */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Keeps hover states inside the rounded borders */
+  animation: slideDown 0.2s ease-out;
+}
+
+.dropdown-header {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.dropdown-header strong {
+  color: #f8fafc;
+  display: block;
+  margin-top: 4px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #334155;
+  margin: 4px 0;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #10b981; /* Jury Emerald */
+}
+
+/* Specific styling for the logout button */
+.logout-item {
+  color: #ef4444; /* Red to signify destructive action */
+}
+
+.logout-item:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+/* Smooth entry animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
