@@ -26,7 +26,7 @@ router.get("/all-admin", protect, admin, getAllCompaniesAdmin);
 
 router.get("/my-submissions", protect, getMyCompanies);
 
-router.put("/my-submissions/:id", protect, updateMyCompany);
+router.put("/my-submissions/:id", protect, upload.single("image"), updateMyCompany);
 
 router.delete("/my-submissions/:id", protect, deleteMyCompany);
 
