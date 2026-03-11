@@ -1,0 +1,88 @@
+.submissions-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.submissions-header h2 {
+  color: #f8fafc;
+  margin-bottom: 8px;
+}
+
+.submissions-header p {
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+
+.submissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.submission-card {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge.approved {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981; /* Jury Emerald */
+}
+
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b; /* Amber/Warning */
+}
+
+.card-body p {
+  margin: 5px 0;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.card-footer {
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid #334155;
+}
+
+.view-link {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+
+.pending-note {
+  color: #94a3b8;
+  font-style: italic;
+  font-size: 0.9rem;
+}
