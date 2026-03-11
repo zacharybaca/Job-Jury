@@ -134,6 +134,15 @@ const deleteCompany = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Company and assets removed." });
 });
 
+// @desc    Get logged in user's submitted companies
+// @route   GET /api/companies/my-submissions
+const getMyCompanies = asyncHandler(async (req, res) => {
+  // Find companies where the creator matches the logged-in user
+  const companies = await Company.find({ createdBy: req.user._id }).sort({ createdAt: -1 });
+
+  res.status(200).json({ success: true, count: companies.length, data: companies });
+});
+
 export {
   createCompany,
   getCompanies,
@@ -142,4 +151,5 @@ export {
   getTopCompanies,
   deleteCompany,
   approveCompany,
+  getMyCompanies,
 };
