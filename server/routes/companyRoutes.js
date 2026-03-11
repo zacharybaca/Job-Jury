@@ -8,6 +8,8 @@ import {
   deleteCompany,
   getAllCompaniesAdmin, // NEW
   approveCompany,       // NEW
+  updateMyCompany,     // NEW
+  deleteMyCompany,     // NEW
 } from "../controllers/companyController.js";
 import { upload } from "../middleware/cloudinary.js";
 import { admin, protect } from "../middleware/authMiddleware.js";
@@ -23,6 +25,10 @@ router.get("/top", getTopCompanies);
 router.get("/all-admin", protect, admin, getAllCompaniesAdmin);
 
 router.get("/my-submissions", protect, getMyCompanies);
+
+router.put("/my-submissions/:id", protect, updateMyCompany);
+
+router.delete("/my-submissions/:id", protect, deleteMyCompany);
 
 router.get("/:id", getCompany);
 
