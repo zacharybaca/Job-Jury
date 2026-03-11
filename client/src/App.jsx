@@ -11,6 +11,7 @@ import Register from './components/Auth/Register/Register';
 import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
 import MySubmissions from './components/Auth/MySubmissions/MySubmissions';
+import EditCompany from './components/Company/EditCompany/EditCompany';
 import Home from './components/Pages/Home/Home';
 import WallpaperSelector from './components/Layout/WallpaperSelector/WallpaperSelector';
 import './App.css';
@@ -214,6 +215,11 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="companies/:id" element={<CompanyDetail />} />
+        <Route path="edit-company/:id" element={
+          <ProtectedRoute>
+            <EditCompany />
+          </ProtectedRoute>
+        } />
 
         <Route
           path="register-company"
@@ -230,7 +236,7 @@ function App() {
           </ProtectedRoute>
         }
         />
-        
+
         <Route element={<AdminRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
