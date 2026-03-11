@@ -143,6 +143,63 @@ const getMyCompanies = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, count: companies.length, data: companies });
 });
 
+// @desc    Update a user's pending company
+// @route   PUT /api/companies/my-submissions/:id
+const updateMyCompany = asyncHandler(async (req, res) => {
+  const company = await Company.findById(req.params.id);
+
+  if (!company) {
+    res.status(404);
+    throw new Error("Company not found");
+  }
+
+  // Security Check 1: Does this user own this submission?
+  if (company.createdBy.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("You are not authorized to edit this company.");
+  }
+
+  // Security Check 2: Is it already approved?
+  if (company.isApproved) {
+    res.status(400);
+    throw new Error("Cannot edit an approved company. Please contact an admin.");
+  }
+
+  // Update fields (leaving image out for simplicity of the edit form)
+  company.name = req.body.name || company.name;
+  company.industry = req.body.industry || company.industry;
+  company.location = req.body.location || company.location;
+  company.description = req.body.description || company.description;
+
+  const updatedCompany = await company.save();
+  res.status(200).json({ success: true, data: updatedCompany });
+});
+
+// @desc    Delete a user's pending company
+// @route   DELETE /api/companies/my-submissions/:id
+const deleteMyCompany = asyncHandler(async (req, res) => {
+  const company = await Company.findById(req.params.id);
+
+  if (!company) {
+    res.status(404);
+    throw new Error("Company not found");
+  }
+
+  if (company.createdBy.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("You are not authorized to delete this company.");
+  }
+
+  if (company.isApproved) {
+    res.status(400);
+    throw new Error("Cannot delete an approved company. Please contact an admin.");
+  }
+
+  await company.deleteOne();
+  res.status(200).json({ success: true, message: "Pending submission removed." });
+});
+
+
 export {
   createCompany,
   getCompanies,
@@ -152,4 +209,6 @@ export {
   deleteCompany,
   approveCompany,
   getMyCompanies,
+  updateMyCompany,
+  deleteMyCompany,
 };
