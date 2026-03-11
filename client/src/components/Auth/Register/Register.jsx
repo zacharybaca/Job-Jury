@@ -5,6 +5,7 @@ import '../auth-forms.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    name: '',
     username: '',
     email: '',
     password: '',
@@ -31,6 +32,17 @@ const Register = () => {
       <div className="auth-card">
         <h2 className="auth-title">Join the Jury</h2>
         <form onSubmit={handleSubmit}>
+          <div className="auth-form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
+          </div>
           <div className="auth-form-group">
             <label>Username</label>
             <input
