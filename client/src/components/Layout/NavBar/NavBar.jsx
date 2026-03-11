@@ -57,6 +57,11 @@ const NavBar = () => {
                   Register Company
                 </Link>
               </li>
+              <li>
+                <Link to="/my-submissions" className="nav-item">
+                  My Submissions
+                </Link>
+              </li>
             </>
           )}
 
@@ -65,11 +70,7 @@ const NavBar = () => {
               Browse Companies
             </Link>
           </li>
-          <li>
-            <Link to="/my-submissions" className="nav-item">
-              My Submissions
-            </Link>
-          </li>
+
         </ul>
       </div>
     </nav>
