@@ -10,6 +10,7 @@ import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
 import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
+import MySubmissions from './components/Auth/MySubmissions/MySubmissions';
 import Home from './components/Pages/Home/Home';
 import WallpaperSelector from './components/Layout/WallpaperSelector/WallpaperSelector';
 import './App.css';
@@ -223,6 +224,13 @@ function App() {
           }
         />
 
+        <Route path="my-submissions" element={
+          <ProtectedRoute>
+            <MySubmissions />
+          </ProtectedRoute>
+        }
+        />
+        
         <Route element={<AdminRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
