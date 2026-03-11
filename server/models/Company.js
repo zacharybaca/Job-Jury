@@ -47,6 +47,10 @@ const companySchema = new mongoose.Schema(
         ref: "Review",
       },
     ],
+    isApproved: {
+      type: Boolean,
+      default: false // All new registrations default to pending
+    }
   },
   { timestamps: true },
 );
