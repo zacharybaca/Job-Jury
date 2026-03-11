@@ -113,3 +113,24 @@
   background-size: 200% 100%;
   animation: shimmerMove 1.5s infinite linear;
 }
+
+.current-image-preview {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px dashed #475569;
+}
+
+.preview-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.preview-thumbnail {
+  max-width: 150px;
+  max-height: 100px;
+  border-radius: 4px;
+  object-fit: contain;
+}
