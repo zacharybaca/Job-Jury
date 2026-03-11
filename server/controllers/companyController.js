@@ -34,27 +34,38 @@ const createCompany = asyncHandler(async (req, res) => {
 // @desc    Get top rated companies for featured section
 // @route   GET /api/companies/top
 const getTopCompanies = asyncHandler(async (req, res) => {
-  // 1. Find companies with at least one review
+  // 1. Find companies with at least one review AND are approved
   // 2. Sort by averageRating (-1 for descending)
   // 3. Limit to 3 results
-  const topCompanies = await Company.find({ averageRating: { $gt: 0 } })
+  const topCompanies = await Company.find({ averageRating: { $gt: 0 }, isApproved: true })
     .sort({ averageRating: -1 })
     .limit(3);
 
   res.status(200).json({ success: true, data: topCompanies });
 });
 
-// @desc    Get all companies
+// @desc    Get all approved companies (PUBLIC)
 // @route   GET /api/companies
 const getCompanies = asyncHandler(async (req, res) => {
-  const companies = await Company.find().sort({ createdAt: -1 });
+  // Only return approved companies to the frontend Browse page
+  const companies = await Company.find({ isApproved: true }).sort({ createdAt: -1 });
+
   res
     .status(200)
     .json({ success: true, count: companies.length, data: companies });
 });
 
-// @desc    Get single company
-// @route   GET /api/companies/:id
+// @desc    Get ALL companies (ADMIN ONLY)
+// @route   GET /api/companies/all-admin
+const getAllCompaniesAdmin = asyncHandler(async (req, res) => {
+  // Bypasses the isApproved filter so the admin sees both pending and approved
+  const companies = await Company.find().sort({ createdAt: -1 });
+
+  res
+    .status(200)
+    .json({ success: true, count: companies.length, data: companies });
+});
+
 // @desc    Get single company
 // @route   GET /api/companies/:id
 const getCompany = asyncHandler(async (req, res) => {
@@ -83,6 +94,23 @@ const getCompany = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: company });
 });
 
+// @desc    Approve a pending company
+// @route   PATCH /api/companies/:id/approve
+const approveCompany = asyncHandler(async (req, res) => {
+  const company = await Company.findById(req.params.id);
+
+  if (!company) {
+    res.status(404);
+    throw new Error("Company not found");
+  }
+
+  // Flip the approval switch to true
+  company.isApproved = true;
+  const updatedCompany = await company.save();
+
+  res.status(200).json({ success: true, data: updatedCompany });
+});
+
 // @desc    Delete a company
 // @route   DELETE /api/companies/:id
 const deleteCompany = asyncHandler(async (req, res) => {
@@ -109,7 +137,9 @@ const deleteCompany = asyncHandler(async (req, res) => {
 export {
   createCompany,
   getCompanies,
+  getAllCompaniesAdmin,
   getCompany,
   getTopCompanies,
   deleteCompany,
+  approveCompany,
 };
