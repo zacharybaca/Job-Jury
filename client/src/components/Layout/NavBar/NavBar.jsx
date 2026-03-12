@@ -54,8 +54,16 @@ const NavBar = () => {
 
           {!user && (
             <>
-              <li><Link to="/register" className="nav-item">Sign Up</Link></li>
-              <li><Link to="/login" className="nav-item">Login</Link></li>
+              <li>
+                <Link to="/register" className="nav-item">
+                  Sign Up
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" className="nav-item">
+                  Login
+                </Link>
+              </li>
             </>
           )}
 
@@ -67,7 +75,9 @@ const NavBar = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
                 {user.name || user.username}
-                <span className={`chevron ${isDropdownOpen ? 'open' : ''}`}>▼</span>
+                <span className={`chevron ${isDropdownOpen ? 'open' : ''}`}>
+                  ▼
+                </span>
               </button>
 
               {/* NEW: The Dropdown Menu */}
@@ -79,23 +89,38 @@ const NavBar = () => {
 
                   <div className="dropdown-divider"></div>
 
-                  <Link to="/register-company" className="dropdown-item" onClick={closeMenu}>
+                  <Link
+                    to="/register-company"
+                    className="dropdown-item"
+                    onClick={closeMenu}
+                  >
                     Register Company
                   </Link>
-                  <Link to="/my-submissions" className="dropdown-item" onClick={closeMenu}>
+                  <Link
+                    to="/my-submissions"
+                    className="dropdown-item"
+                    onClick={closeMenu}
+                  >
                     My Submissions
                   </Link>
 
                   {/* Optional: Only show Admin Dashboard link if user is an admin */}
                   {user.isAdmin && (
-                    <Link to="/admin/dashboard" className="dropdown-item" onClick={closeMenu}>
+                    <Link
+                      to="/admin/dashboard"
+                      className="dropdown-item"
+                      onClick={closeMenu}
+                    >
                       Admin Dashboard
                     </Link>
                   )}
 
                   <div className="dropdown-divider"></div>
 
-                  <button onClick={handleLogout} className="dropdown-item logout-item">
+                  <button
+                    onClick={handleLogout}
+                    className="dropdown-item logout-item"
+                  >
                     Logout
                   </button>
                 </div>

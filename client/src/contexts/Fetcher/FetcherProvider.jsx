@@ -5,7 +5,8 @@ export const FetcherProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Pull backend URL from environment variables
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+  const backendUrl =
+    import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
   const fetcher = async (
     url,

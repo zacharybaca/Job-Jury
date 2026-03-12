@@ -26,7 +26,10 @@ export const EditCompanySkeleton = () => {
         </div>
 
         {/* Submit Button Placeholder */}
-        <div className="skeleton-button shimmer" style={{ marginTop: '30px' }}></div>
+        <div
+          className="skeleton-button shimmer"
+          style={{ marginTop: '30px' }}
+        ></div>
       </div>
     </div>
   );
@@ -38,7 +41,10 @@ const EditCompany = () => {
   const { fetcher } = useFetcher();
 
   const [formData, setFormData] = useState({
-    name: '', industry: '', location: '', description: '',
+    name: '',
+    industry: '',
+    location: '',
+    description: '',
   });
 
   // NEW: State for the image file and the existing image URL
@@ -49,12 +55,12 @@ const EditCompany = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const fetchCompany = async () => {
       const [response] = await Promise.all([
         fetcher(`/api/companies/${id}`),
-        delay(800)
+        delay(800),
       ]);
 
       if (response.success) {
@@ -75,7 +81,7 @@ const EditCompany = () => {
     };
 
     fetchCompany();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -104,7 +110,9 @@ const EditCompany = () => {
     });
 
     if (response.success) {
-      navigate('/my-submissions', { state: { message: 'Submission updated successfully!' } });
+      navigate('/my-submissions', {
+        state: { message: 'Submission updated successfully!' },
+      });
     } else {
       setMessage({ type: 'error', text: response.error });
     }
@@ -125,7 +133,11 @@ const EditCompany = () => {
         {existingImageUrl && !imageFile && (
           <div className="current-image-preview">
             <p className="preview-label">Current Company Logo:</p>
-            <img src={existingImageUrl} alt="Current Logo" className="preview-thumbnail" />
+            <img
+              src={existingImageUrl}
+              alt="Current Logo"
+              className="preview-thumbnail"
+            />
           </div>
         )}
 
@@ -134,22 +146,43 @@ const EditCompany = () => {
 
         <div className="form-group">
           <label>Company Name</label>
-          <input name="name" value={formData.name} onChange={handleInputChange} required />
+          <input
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label>Industry</label>
-          <input name="industry" value={formData.industry} onChange={handleInputChange} required />
+          <input
+            name="industry"
+            value={formData.industry}
+            onChange={handleInputChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label>Location</label>
-          <input name="location" value={formData.location} onChange={handleInputChange} required />
+          <input
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label>Description</label>
-          <textarea name="description" value={formData.description} onChange={handleInputChange} />
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+          />
         </div>
 
-        <button type="submit" className="submit-btn">Save Changes</button>
+        <button type="submit" className="submit-btn">
+          Save Changes
+        </button>
       </form>
     </div>
   );

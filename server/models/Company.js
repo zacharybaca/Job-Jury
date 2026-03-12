@@ -49,8 +49,8 @@ const companySchema = new mongoose.Schema(
     ],
     isApproved: {
       type: Boolean,
-      default: false // All new registrations default to pending
-    }
+      default: false, // All new registrations default to pending
+    },
   },
   { timestamps: true },
 );

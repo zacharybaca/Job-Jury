@@ -215,11 +215,14 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="companies/:id" element={<CompanyDetail />} />
-        <Route path="edit-company/:id" element={
-          <ProtectedRoute>
-            <EditCompany />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="edit-company/:id"
+          element={
+            <ProtectedRoute>
+              <EditCompany />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="register-company"
@@ -230,11 +233,13 @@ function App() {
           }
         />
 
-        <Route path="my-submissions" element={
-          <ProtectedRoute>
-            <MySubmissions />
-          </ProtectedRoute>
-        }
+        <Route
+          path="my-submissions"
+          element={
+            <ProtectedRoute>
+              <MySubmissions />
+            </ProtectedRoute>
+          }
         />
 
         <Route element={<AdminRoute />}>

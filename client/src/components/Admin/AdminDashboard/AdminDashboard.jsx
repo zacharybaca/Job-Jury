@@ -19,21 +19,27 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     loadCompanies();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 2. NEW: Function to handle approvals
   const handleApprove = async (id, name) => {
-    if (window.confirm(`Are you sure you want to approve ${name} for public listing?`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to approve ${name} for public listing?`
+      )
+    ) {
       const response = await fetcher(`/api/companies/${id}/approve`, {
         method: 'PATCH',
       });
 
       if (response.success) {
         // Optimistic UI update: Flip the isApproved status without reloading the page
-        setCompanies(companies.map(company =>
-          company._id === id ? { ...company, isApproved: true } : company
-        ));
+        setCompanies(
+          companies.map((company) =>
+            company._id === id ? { ...company, isApproved: true } : company
+          )
+        );
       } else {
         alert(response.error || 'Failed to approve company.');
       }
@@ -89,7 +95,9 @@ const AdminDashboard = () => {
 
                 {/* 4. NEW: Status Badge */}
                 <td>
-                  <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
+                  <span
+                    className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}
+                  >
                     {company.isApproved ? 'Active' : 'Pending'}
                   </span>
                 </td>
@@ -97,7 +105,6 @@ const AdminDashboard = () => {
                 <td>{company.industry}</td>
                 <td>{company.location}</td>
                 <td className="admin-actions">
-
                   {/* 5. NEW: Conditionally render the Approve button */}
                   {!company.isApproved && (
                     <button

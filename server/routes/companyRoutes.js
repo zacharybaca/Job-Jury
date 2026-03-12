@@ -7,9 +7,9 @@ import {
   getTopCompanies,
   deleteCompany,
   getAllCompaniesAdmin, // NEW
-  approveCompany,       // NEW
-  updateMyCompany,     // NEW
-  deleteMyCompany,     // NEW
+  approveCompany, // NEW
+  updateMyCompany, // NEW
+  deleteMyCompany, // NEW
 } from "../controllers/companyController.js";
 import { upload } from "../middleware/cloudinary.js";
 import { admin, protect } from "../middleware/authMiddleware.js";
@@ -26,7 +26,12 @@ router.get("/all-admin", protect, admin, getAllCompaniesAdmin);
 
 router.get("/my-submissions", protect, getMyCompanies);
 
-router.put("/my-submissions/:id", protect, upload.single("image"), updateMyCompany);
+router.put(
+  "/my-submissions/:id",
+  protect,
+  upload.single("image"),
+  updateMyCompany,
+);
 
 router.delete("/my-submissions/:id", protect, deleteMyCompany);
 

@@ -37,7 +37,10 @@ const getTopCompanies = asyncHandler(async (req, res) => {
   // 1. Find companies with at least one review AND are approved
   // 2. Sort by averageRating (-1 for descending)
   // 3. Limit to 3 results
-  const topCompanies = await Company.find({ averageRating: { $gt: 0 }, isApproved: true })
+  const topCompanies = await Company.find({
+    averageRating: { $gt: 0 },
+    isApproved: true,
+  })
     .sort({ averageRating: -1 })
     .limit(3);
 
@@ -48,7 +51,9 @@ const getTopCompanies = asyncHandler(async (req, res) => {
 // @route   GET /api/companies
 const getCompanies = asyncHandler(async (req, res) => {
   // Only return approved companies to the frontend Browse page
-  const companies = await Company.find({ isApproved: true }).sort({ createdAt: -1 });
+  const companies = await Company.find({ isApproved: true }).sort({
+    createdAt: -1,
+  });
 
   res
     .status(200)
@@ -138,9 +143,13 @@ const deleteCompany = asyncHandler(async (req, res) => {
 // @route   GET /api/companies/my-submissions
 const getMyCompanies = asyncHandler(async (req, res) => {
   // Find companies where the creator matches the logged-in user
-  const companies = await Company.find({ createdBy: req.user._id }).sort({ createdAt: -1 });
+  const companies = await Company.find({ createdBy: req.user._id }).sort({
+    createdAt: -1,
+  });
 
-  res.status(200).json({ success: true, count: companies.length, data: companies });
+  res
+    .status(200)
+    .json({ success: true, count: companies.length, data: companies });
 });
 
 // @desc    Update a user's pending company
@@ -160,14 +169,18 @@ const updateMyCompany = asyncHandler(async (req, res) => {
 
   if (company.isApproved) {
     res.status(400);
-    throw new Error("Cannot edit an approved company. Please contact an admin.");
+    throw new Error(
+      "Cannot edit an approved company. Please contact an admin.",
+    );
   }
 
   if (req.body.name && req.body.name !== company.name) {
     const nameExists = await Company.findOne({ name: req.body.name });
     if (nameExists) {
       res.status(400);
-      throw new Error("Another company is already registered or pending review with that exact name.");
+      throw new Error(
+        "Another company is already registered or pending review with that exact name.",
+      );
     }
   }
 
@@ -209,13 +222,16 @@ const deleteMyCompany = asyncHandler(async (req, res) => {
 
   if (company.isApproved) {
     res.status(400);
-    throw new Error("Cannot delete an approved company. Please contact an admin.");
+    throw new Error(
+      "Cannot delete an approved company. Please contact an admin.",
+    );
   }
 
   await company.deleteOne();
-  res.status(200).json({ success: true, message: "Pending submission removed." });
+  res
+    .status(200)
+    .json({ success: true, message: "Pending submission removed." });
 });
-
 
 export {
   createCompany,
