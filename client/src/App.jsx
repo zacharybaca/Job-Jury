@@ -14,6 +14,7 @@ import MySubmissions from './components/Auth/MySubmissions/MySubmissions';
 import EditCompany from './components/Company/EditCompany/EditCompany';
 import Home from './components/Pages/Home/Home';
 import WallpaperSelector from './components/Layout/WallpaperSelector/WallpaperSelector';
+import ProfileSettings from './components/Auth/ProfileSettings/ProfileSettings';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -242,6 +243,15 @@ function App() {
           }
         />
 
+        <Route
+          path="settings"
+          element={
+            <ProtectedRoute>
+              <ProfileSettings />
+            </ProtectedRoute>
+          }
+        />
+        
         <Route element={<AdminRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
