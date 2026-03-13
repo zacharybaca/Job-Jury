@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     avatar: { type: String },
-    imagePublicId: { type: String }, // For Cloudinary cleanup
+    imagePublicId: { type: String, default: "" }, // For Cloudinary cleanup
     savedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
     isAdmin: { type: Boolean, default: false },
   },
