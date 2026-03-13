@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     avatar: { type: String },
-    imagePublicId: { type: String, default: "" }, // For Cloudinary cleanup
+    // UPDATE 1: Renamed to match the controller
+    avatarPublicId: { type: String, default: "" },
     savedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
     isAdmin: { type: Boolean, default: false },
   },
@@ -33,9 +34,8 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 /**
  * PRE-DELETE MIDDLEWARE
  * Triggers on user.deleteOne()
- * Handles both Cloudinary asset removal and Review cascade deletion.
+ * Handles Cloudinary asset removal, Review cascade deletion, and Pending Company cleanup.
  */
-
 userSchema.pre(
   "deleteOne",
   { document: true, query: false },
@@ -44,24 +44,29 @@ userSchema.pre(
       const userId = this._id;
 
       // 1. Cleanup Cloudinary Image
-      if (this.imagePublicId) {
-        await cloudinary.uploader.destroy(this.imagePublicId);
-        console.log(`✅ Cloudinary image removed: ${this.imagePublicId}`);
+      if (this.avatarPublicId) {
+        await cloudinary.uploader.destroy(this.avatarPublicId);
+        console.log(`✅ Cloudinary avatar removed: ${this.avatarPublicId}`);
       }
 
       // 2. Cascade Delete Reviews
-      // We access the Review model via mongoose to avoid circular dependency errors
+      // Make sure '{ author: userId }' matches the field name in your Review model!
       const Review = mongoose.model("Review");
-      const deleteResult = await Review.deleteMany({ user: userId });
+      const deletedReviews = await Review.deleteMany({ author: userId });
+      console.log(`✅ Cascade delete: Removed ${deletedReviews.deletedCount} reviews for user ${this.username}`);
 
-      console.log(
-        `✅ Cascade delete: Removed ${deleteResult.deletedCount} reviews for user ${this.name}`,
-      );
+      // 3. NEW: Cleanup Pending Company Submissions
+      const Company = mongoose.model("Company");
+      const deletedCompanies = await Company.deleteMany({
+        createdBy: userId,
+        isApproved: false // Only delete if it hasn't been approved yet
+      });
+      console.log(`✅ Cascade delete: Removed ${deletedCompanies.deletedCount} pending companies for user ${this.username}`);
 
       next();
     } catch (error) {
       console.error("❌ Middleware Cleanup Error:", error);
-      // We call next() anyway so the primary record is still deleted
+      // We call next() anyway so the primary user record is still deleted
       next();
     }
   },
