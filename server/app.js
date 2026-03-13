@@ -11,7 +11,10 @@ const app = express();
 
 const corsOptions = {
   // Allow requests from your Vite frontend
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173', // Your local React development server
+    process.env.FRONTEND_URL // Your live Render production server
+  ],
   credentials: true, // Critical for cookies/sessions
 };
 
