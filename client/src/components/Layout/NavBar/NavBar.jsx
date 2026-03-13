@@ -104,6 +104,10 @@ const NavBar = () => {
                     My Submissions
                   </Link>
 
+                  <Link to="/settings" className="dropdown-item" onClick={closeMenu}>
+                    Profile Settings
+                  </Link>
+                  
                   {/* Optional: Only show Admin Dashboard link if user is an admin */}
                   {user.isAdmin && (
                     <Link
