@@ -58,7 +58,7 @@
 }
 
 /* =========================================
-   2. USER DROPDOWN MENU (Your Existing Code)
+   2. USER DROPDOWN MENU & AVATAR
    ========================================= */
 
 /* Container must be relative so the absolute menu positions itself against it */
@@ -72,8 +72,8 @@
   background: transparent;
   border: 1px solid #334155;
   color: #f8fafc;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 6px 16px 6px 6px; /* Adjusted: less padding on the left to fit the image */
+  border-radius: 30px; /* Made slightly rounder for the avatar */
   cursor: pointer;
   font-weight: 500;
   display: flex;
@@ -87,6 +87,33 @@
   border-color: #10b981; /* Emerald hover state */
 }
 
+/* --- NEW: Avatar Styles --- */
+.nav-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image doesn't stretch */
+  border: 1px solid #334155;
+}
+
+.nav-avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #10b981; /* Jury Emerald */
+  color: #0f172a; /* Dark text for contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.nav-username {
+  margin-left: 2px;
+}
+
+/* --- The Menu Itself --- */
 .chevron {
   font-size: 0.7rem;
   transition: transform 0.3s ease;
@@ -96,7 +123,6 @@
   transform: rotate(180deg);
 }
 
-/* The Menu Itself */
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 10px); /* Pushes it just below the toggle button */
