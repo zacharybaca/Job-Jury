@@ -8,11 +8,11 @@ const NavBar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  // NEW: State and Ref for the dropdown menu
+  // State and Ref for the dropdown menu
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // NEW: Click-outside listener
+  // Click-outside listener
   useEffect(() => {
     const handleClickOutside = (event) => {
       // If the dropdown is open AND the click happened outside our ref, close it
@@ -68,19 +68,32 @@ const NavBar = () => {
           )}
 
           {user && (
-            // NEW: The Dropdown Container
+            // The Dropdown Container
             <li className="user-menu-container" ref={dropdownRef}>
               <button
                 className="dropdown-toggle"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
-                {user.name || user.username}
+                {/* NEW: Dynamic Avatar Rendering */}
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={`${user.username}'s avatar`}
+                    className="nav-avatar"
+                  />
+                ) : (
+                  <div className="nav-avatar-fallback">
+                    {user.username ? user.username.charAt(0).toUpperCase() : '?'}
+                  </div>
+                )}
+
+                <span className="nav-username">{user.name || user.username}</span>
                 <span className={`chevron ${isDropdownOpen ? 'open' : ''}`}>
                   ▼
                 </span>
               </button>
 
-              {/* NEW: The Dropdown Menu */}
+              {/* The Dropdown Menu */}
               {isDropdownOpen && (
                 <div className="dropdown-menu">
                   <div className="dropdown-header">
@@ -104,10 +117,14 @@ const NavBar = () => {
                     My Submissions
                   </Link>
 
-                  <Link to="/settings" className="dropdown-item" onClick={closeMenu}>
+                  <Link
+                    to="/settings"
+                    className="dropdown-item"
+                    onClick={closeMenu}
+                  >
                     Profile Settings
                   </Link>
-                  
+
                   {/* Optional: Only show Admin Dashboard link if user is an admin */}
                   {user.isAdmin && (
                     <Link
