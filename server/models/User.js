@@ -53,15 +53,19 @@ userSchema.pre(
       // Make sure '{ author: userId }' matches the field name in your Review model!
       const Review = mongoose.model("Review");
       const deletedReviews = await Review.deleteMany({ author: userId });
-      console.log(`✅ Cascade delete: Removed ${deletedReviews.deletedCount} reviews for user ${this.username}`);
+      console.log(
+        `✅ Cascade delete: Removed ${deletedReviews.deletedCount} reviews for user ${this.username}`,
+      );
 
       // 3. NEW: Cleanup Pending Company Submissions
       const Company = mongoose.model("Company");
       const deletedCompanies = await Company.deleteMany({
         createdBy: userId,
-        isApproved: false // Only delete if it hasn't been approved yet
+        isApproved: false, // Only delete if it hasn't been approved yet
       });
-      console.log(`✅ Cascade delete: Removed ${deletedCompanies.deletedCount} pending companies for user ${this.username}`);
+      console.log(
+        `✅ Cascade delete: Removed ${deletedCompanies.deletedCount} pending companies for user ${this.username}`,
+      );
 
       next();
     } catch (error) {

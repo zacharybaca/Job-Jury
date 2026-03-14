@@ -91,7 +91,10 @@ const ProfileSettings = () => {
       // Optional: Force a hard reload to refresh the AuthContext globally
       setTimeout(() => window.location.reload(), 1500);
     } else {
-      setMessage({ type: 'error', text: response.error || 'Failed to update profile.' });
+      setMessage({
+        type: 'error',
+        text: response.error || 'Failed to update profile.',
+      });
     }
   };
 
@@ -107,9 +110,14 @@ const ProfileSettings = () => {
 
       if (response.success) {
         await logout();
-        navigate('/', { state: { message: 'Your account has been permanently deleted.' } });
+        navigate('/', {
+          state: { message: 'Your account has been permanently deleted.' },
+        });
       } else {
-        setMessage({ type: 'error', text: response.error || 'Failed to delete account.' });
+        setMessage({
+          type: 'error',
+          text: response.error || 'Failed to delete account.',
+        });
       }
     }
   };
@@ -123,9 +131,7 @@ const ProfileSettings = () => {
         </header>
 
         {message.text && (
-          <div className={`message-banner ${message.type}`}>
-            {message.text}
-          </div>
+          <div className={`message-banner ${message.type}`}>{message.text}</div>
         )}
 
         <form onSubmit={handleSubmit} className="profile-form">
@@ -133,7 +139,11 @@ const ProfileSettings = () => {
           <div className="avatar-section">
             <div className="avatar-preview-container">
               {avatarPreview ? (
-                <img src={avatarPreview} alt="Avatar Preview" className="avatar-image" />
+                <img
+                  src={avatarPreview}
+                  alt="Avatar Preview"
+                  className="avatar-image"
+                />
               ) : (
                 <div className="avatar-placeholder">
                   {formData.username.charAt(0).toUpperCase()}
@@ -212,7 +222,11 @@ const ProfileSettings = () => {
             </div>
           )}
 
-          <button type="submit" className="btn-primary submit-btn" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="btn-primary submit-btn"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? 'Saving Changes...' : 'Save Profile'}
           </button>
         </form>
@@ -220,8 +234,15 @@ const ProfileSettings = () => {
         {/* Danger Zone */}
         <div className="danger-zone">
           <h3>Danger Zone</h3>
-          <p>Once you delete your account, there is no going back. Please be certain.</p>
-          <button type="button" onClick={handleDeleteAccount} className="btn-danger">
+          <p>
+            Once you delete your account, there is no going back. Please be
+            certain.
+          </p>
+          <button
+            type="button"
+            onClick={handleDeleteAccount}
+            className="btn-danger"
+          >
             Delete Account
           </button>
         </div>

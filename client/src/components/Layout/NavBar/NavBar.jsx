@@ -83,11 +83,15 @@ const NavBar = () => {
                   />
                 ) : (
                   <div className="nav-avatar-fallback">
-                    {user.username ? user.username.charAt(0).toUpperCase() : '?'}
+                    {user.username
+                      ? user.username.charAt(0).toUpperCase()
+                      : '?'}
                   </div>
                 )}
 
-                <span className="nav-username">{user.name || user.username}</span>
+                <span className="nav-username">
+                  {user.name || user.username}
+                </span>
                 <span className={`chevron ${isDropdownOpen ? 'open' : ''}`}>
                   ▼
                 </span>

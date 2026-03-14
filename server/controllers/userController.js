@@ -83,7 +83,7 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "User profile and associated avatar removed."
+      message: "User profile and associated avatar removed.",
     });
   } else {
     res.status(404);
@@ -128,5 +128,5 @@ export {
   getUserProfile,
   updateUserProfile,
   deleteUserProfile, // Export the new function
-  toggleSaveCompany
+  toggleSaveCompany,
 };

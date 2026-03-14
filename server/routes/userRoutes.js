@@ -18,7 +18,8 @@ router.get("/me", protect, (req, res) => {
 // Apply protection to everything below it
 router.use(protect);
 
-router.route("/profile")
+router
+  .route("/profile")
   .get(getUserProfile)
   .put(upload.single("avatar"), updateUserProfile) // <-- INJECTED HERE
   .delete(deleteUserProfile);
