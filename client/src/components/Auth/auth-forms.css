@@ -31,7 +31,7 @@
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #475569;
+  color: whitesmoke;
 }
 
 .auth-form-group input {
@@ -63,7 +63,7 @@
   margin-top: 20px;
   text-align: center;
   font-size: 0.9rem;
-  color: #64748b;
+  color: whitesmoke;
 }
 
 .auth-link {
