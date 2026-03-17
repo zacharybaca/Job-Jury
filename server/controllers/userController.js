@@ -162,6 +162,29 @@ const makeUserAdmin = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Remove admin privileges from a user
+// @route   PATCH /api/users/:id/demote
+// @access  Private/Admin
+const demoteUserAdmin = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  // Prevent admins from demoting themselves and locking everyone out
+  if (user._id.toString() === req.user._id.toString()) {
+    res.status(400);
+    throw new Error('You cannot demote yourself.');
+  }
+
+  user.isAdmin = false;
+  const updatedUser = await user.save();
+
+  res.status(200).json({ success: true, data: updatedUser });
+});
+
 export {
   getUserProfile,
   updateUserProfile,
@@ -169,4 +192,6 @@ export {
   toggleSaveCompany,
   getUsers,
   makeUserAdmin,
+  demoteUserAdmin,
+
 };
