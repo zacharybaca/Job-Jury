@@ -5,6 +5,8 @@ import {
   updateUserProfile,
   toggleSaveCompany,
   deleteUserProfile,
+  demoteUserAdmin,
+
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
@@ -31,5 +33,6 @@ router.post("/save/:companyId", toggleSaveCompany);
 router.use(admin);
 router.get("/", getUsers);
 router.patch("/:id/admin", makeUserAdmin);
+router.route("/:id/demote").patch(protect, admin, demoteUserAdmin);
 
 export default router;
