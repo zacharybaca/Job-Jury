@@ -38,6 +38,22 @@ const UserManagement = () => {
     }
   };
 
+  const handleDemote = async (id, username) => {
+    if (window.confirm(`Are you sure you want to revoke Admin privileges from ${username}?`)) {
+      const response = await fetcher(`/api/users/${id}/demote`, {
+        method: 'PATCH',
+      });
+
+      if (response.success) {
+        setUsers(users.map(user =>
+          user._id === id ? { ...user, isAdmin: false } : user
+        ));
+      } else {
+        alert(response.error || 'Failed to demote user.');
+      }
+    }
+  };
+
   if (loading) {
     return <div className="admin-loading">Loading user database...</div>;
   }
@@ -80,12 +96,19 @@ const UserManagement = () => {
                   </span>
                 </td>
                 <td className="admin-actions">
-                  {!user.isAdmin && (
+                  {!user.isAdmin ? (
                     <button
                       className="approve-btn"
                       onClick={() => handlePromote(user._id, user.username)}
                     >
-                      Promote to Admin
+                      Promote
+                    </button>
+                  ) : (
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDemote(user._id, user.username)}
+                    >
+                      Demote
                     </button>
                   )}
                 </td>
