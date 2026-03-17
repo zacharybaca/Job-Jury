@@ -11,7 +11,7 @@ const UserManagement = () => {
     setLoading(true);
     const response = await fetcher('/api/users');
     if (response.success) {
-      setUsers(response.data);
+      setUsers(response.data.data);
     }
     setLoading(false);
   };
