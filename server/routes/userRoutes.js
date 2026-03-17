@@ -6,8 +6,9 @@ import {
   toggleSaveCompany,
   deleteUserProfile,
 } from "../controllers/userController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, admin } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
+import { getUsers, makeUserAdmin } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -25,5 +26,10 @@ router
   .delete(deleteUserProfile);
 
 router.post("/save/:companyId", toggleSaveCompany);
+
+// Admin routes
+router.use(admin);
+router.get("/", getUsers);
+router.patch("/:id/admin", makeUserAdmin);
 
 export default router;

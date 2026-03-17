@@ -124,9 +124,49 @@ const toggleSaveCompany = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+  // .select('-password') ensures we don't accidentally send hashed passwords to the frontend
+  const users = await User.find({}).select("-password").sort({ createdAt: -1 });
+  res.status(200).json({ success: true, data: users });
+});
+
+// @desc    Make a user an admin
+// @route   PATCH /api/users/:id/admin
+// @access  Private/Admin
+const makeUserAdmin = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  if (user.isAdmin) {
+    res.status(400);
+    throw new Error("User is already an admin");
+  }
+
+  user.isAdmin = true;
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+    success: true,
+    data: {
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      isAdmin: updatedUser.isAdmin,
+    },
+  });
+});
+
 export {
   getUserProfile,
   updateUserProfile,
   deleteUserProfile, // Export the new function
   toggleSaveCompany,
+  getUsers,
+  makeUserAdmin,
 };
