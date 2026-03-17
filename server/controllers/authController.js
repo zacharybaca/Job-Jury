@@ -1,8 +1,8 @@
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
-import crypto from 'crypto';
-import sendEmail from '../utils/sendEmail.js';
+import crypto from "crypto";
+import sendEmail from "../utils/sendEmail.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, username, email, password } = req.body;
@@ -78,7 +78,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(404);
-    throw new Error('There is no user registered with that email address.');
+    throw new Error("There is no user registered with that email address.");
   }
 
   // 1. Get reset token from the method we just wrote
@@ -104,11 +104,11 @@ const forgotPassword = asyncHandler(async (req, res) => {
     // 4. Send the email!
     await sendEmail({
       email: user.email,
-      subject: 'Job Jury - Password Reset Request',
+      subject: "Job Jury - Password Reset Request",
       message: message,
     });
 
-    res.status(200).json({ success: true, message: 'Email sent successfully' });
+    res.status(200).json({ success: true, message: "Email sent successfully" });
   } catch (error) {
     // If the email fails to send, we MUST clear the token from the database for security
     console.error("Email sending failed:", error);
@@ -117,7 +117,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     await user.save({ validateBeforeSave: false });
 
     res.status(500);
-    throw new Error('Email could not be sent. Please try again later.');
+    throw new Error("Email could not be sent. Please try again later.");
   }
 });
 
@@ -127,9 +127,9 @@ const forgotPassword = asyncHandler(async (req, res) => {
 const resetPassword = asyncHandler(async (req, res) => {
   // 1. Get the hashed version of the token sent in the URL
   const resetPasswordToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(req.params.resettoken)
-    .digest('hex');
+    .digest("hex");
 
   // 2. Find the user with this matching token AND ensure it hasn't expired
   // $gt means "Greater Than" - so the expiration time must be greater than right now
@@ -140,7 +140,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(400);
-    throw new Error('Invalid or expired password reset token.');
+    throw new Error("Invalid or expired password reset token.");
   }
 
   // 3. Set the new password.
@@ -155,8 +155,16 @@ const resetPassword = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'Password reset successful. You can now log in with your new password.',
+    message:
+      "Password reset successful. You can now log in with your new password.",
   });
 });
 
-export { registerUser, loginUser, logoutUser, isUserAdmin, forgotPassword, resetPassword };
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  isUserAdmin,
+  forgotPassword,
+  resetPassword,
+};

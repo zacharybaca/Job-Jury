@@ -170,13 +170,13 @@ const demoteUserAdmin = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   // Prevent admins from demoting themselves and locking everyone out
   if (user._id.toString() === req.user._id.toString()) {
     res.status(400);
-    throw new Error('You cannot demote yourself.');
+    throw new Error("You cannot demote yourself.");
   }
 
   user.isAdmin = false;
@@ -193,5 +193,4 @@ export {
   getUsers,
   makeUserAdmin,
   demoteUserAdmin,
-
 };

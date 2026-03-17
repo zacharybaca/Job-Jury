@@ -225,6 +225,6 @@
 }
 
 /* Example: Make the green background rect even more vibrant on hover */
-.nav-logo-link:hover .nav-logo-svg rect[fill="#34a853"] {
+.nav-logo-link:hover .nav-logo-svg rect[fill='#34a853'] {
   fill: #10b981;
 }

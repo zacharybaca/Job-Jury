@@ -18,20 +18,26 @@ const UserManagement = () => {
 
   useEffect(() => {
     loadUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlePromote = async (id, username) => {
-    if (window.confirm(`Are you sure you want to grant Admin privileges to ${username}?`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to grant Admin privileges to ${username}?`
+      )
+    ) {
       const response = await fetcher(`/api/users/${id}/admin`, {
         method: 'PATCH',
       });
 
       if (response.success) {
         // Optimistic UI update: Flip the isAdmin status without reloading
-        setUsers(users.map(user =>
-          user._id === id ? { ...user, isAdmin: true } : user
-        ));
+        setUsers(
+          users.map((user) =>
+            user._id === id ? { ...user, isAdmin: true } : user
+          )
+        );
       } else {
         alert(response.error || 'Failed to promote user.');
       }
@@ -39,15 +45,21 @@ const UserManagement = () => {
   };
 
   const handleDemote = async (id, username) => {
-    if (window.confirm(`Are you sure you want to revoke Admin privileges from ${username}?`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to revoke Admin privileges from ${username}?`
+      )
+    ) {
       const response = await fetcher(`/api/users/${id}/demote`, {
         method: 'PATCH',
       });
 
       if (response.success) {
-        setUsers(users.map(user =>
-          user._id === id ? { ...user, isAdmin: false } : user
-        ));
+        setUsers(
+          users.map((user) =>
+            user._id === id ? { ...user, isAdmin: false } : user
+          )
+        );
       } else {
         alert(response.error || 'Failed to demote user.');
       }
@@ -77,45 +89,75 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.length > 0 ? users.map((user) => (
-              <tr key={user._id}>
-                <td>
-                  {user.avatar ? (
-                    <img src={user.avatar} alt="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} />
-                  ) : (
-                    <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0f172a', fontWeight: 'bold' }}>
-                      {user.username.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                </td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>
-                  <span className={`status-badge ${user.isAdmin ? 'approved' : 'pending'}`}>
-                    {user.isAdmin ? 'Admin' : 'User'}
-                  </span>
-                </td>
-                <td className="admin-actions">
-                  {!user.isAdmin ? (
-                    <button
-                      className="approve-btn"
-                      onClick={() => handlePromote(user._id, user.username)}
+            {users.length > 0 ? (
+              users.map((user) => (
+                <tr key={user._id}>
+                  <td>
+                    {user.avatar ? (
+                      <img
+                        src={user.avatar}
+                        alt="avatar"
+                        style={{
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          backgroundColor: '#10b981',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#0f172a',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {user.username.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <span
+                      className={`status-badge ${user.isAdmin ? 'approved' : 'pending'}`}
                     >
-                      Promote
-                    </button>
-                  ) : (
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDemote(user._id, user.username)}
-                    >
-                      Demote
-                    </button>
-                  )}
-                </td>
-              </tr>
-            )) : (
+                      {user.isAdmin ? 'Admin' : 'User'}
+                    </span>
+                  </td>
+                  <td className="admin-actions">
+                    {!user.isAdmin ? (
+                      <button
+                        className="approve-btn"
+                        onClick={() => handlePromote(user._id, user.username)}
+                      >
+                        Promote
+                      </button>
+                    ) : (
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDemote(user._id, user.username)}
+                      >
+                        Demote
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
               <tr>
-                <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>No users found.</td>
+                <td
+                  colSpan="5"
+                  style={{ textAlign: 'center', padding: '20px' }}
+                >
+                  No users found.
+                </td>
               </tr>
             )}
           </tbody>

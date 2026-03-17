@@ -32,10 +32,14 @@ const ResetPassword = () => {
     if (response.success) {
       setMessage('Password successfully reset! Redirecting to login...');
       setTimeout(() => {
-        navigate('/login', { state: { message: 'Password reset successful. Please log in.' } });
+        navigate('/login', {
+          state: { message: 'Password reset successful. Please log in.' },
+        });
       }, 3000);
     } else {
-      setError(response.error || 'Failed to reset password. The link may have expired.');
+      setError(
+        response.error || 'Failed to reset password. The link may have expired.'
+      );
     }
   };
 

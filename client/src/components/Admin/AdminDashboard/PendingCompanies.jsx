@@ -18,11 +18,15 @@ const PendingCompanies = () => {
 
   useEffect(() => {
     loadCompanies();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleApprove = async (id, name) => {
-    if (window.confirm(`Are you sure you want to approve ${name} for public listing?`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to approve ${name} for public listing?`
+      )
+    ) {
       const response = await fetcher(`/api/companies/${id}/approve`, {
         method: 'PATCH',
       });
@@ -40,7 +44,11 @@ const PendingCompanies = () => {
   };
 
   const handleDelete = async (id, name) => {
-    if (window.confirm(`Are you sure you want to remove ${name}? This action cannot be undone.`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to remove ${name}? This action cannot be undone.`
+      )
+    ) {
       const response = await fetcher(`/api/companies/${id}`, {
         method: 'DELETE',
       });
@@ -53,7 +61,9 @@ const PendingCompanies = () => {
   };
 
   if (loading) {
-    return <div className="admin-loading">Consulting the Jury's records...</div>;
+    return (
+      <div className="admin-loading">Consulting the Jury's records...</div>
+    );
   }
 
   // Notice we stripped the <header> out, returning just the table!
@@ -74,7 +84,9 @@ const PendingCompanies = () => {
             <tr key={company._id}>
               <td>{company.name}</td>
               <td>
-                <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
+                <span
+                  className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}
+                >
                   {company.isApproved ? 'Active' : 'Pending'}
                 </span>
               </td>
@@ -91,7 +103,9 @@ const PendingCompanies = () => {
                 )}
                 <button
                   className="view-btn"
-                  onClick={() => window.open(`/companies/${company._id}`, '_blank')}
+                  onClick={() =>
+                    window.open(`/companies/${company._id}`, '_blank')
+                  }
                 >
                   View
                 </button>
