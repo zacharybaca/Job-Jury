@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PendingCompanies from './PendingCompanies';
-import UserManagement from './UserManagement';
+import UserManagement from '../UserManagement/UserManagement';
 import './admin-dashboard.css';
 
 const AdminDashboard = () => {
