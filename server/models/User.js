@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { v2 as cloudinary } from "cloudinary";
+import crypto from "crypto";
 
 const userSchema = mongoose.Schema(
   {
@@ -13,6 +14,8 @@ const userSchema = mongoose.Schema(
     avatarPublicId: { type: String, default: "" },
     savedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
     isAdmin: { type: Boolean, default: false },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   { timestamps: true },
 );
@@ -29,6 +32,24 @@ userSchema.pre("save", async function (next) {
 // Method to compare passwords
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.methods.getResetPasswordToken = function () {
+  // 1. Generate a raw 20-character hex token
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  // 2. Hash the token and set it to the database field
+  // We hash it in the DB so if your database is ever compromised, hackers can't use the tokens
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // 3. Set expiration to 10 minutes from right now
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+  // 4. Return the RAW token (this is what we email to the user)
+  return resetToken;
 };
 
 /**
