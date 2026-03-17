@@ -102,3 +102,54 @@
 .admin-actions .approve-btn:hover {
   background-color: #059669;
 }
+
+/* Tab Navigation Container */
+.tab-navigation {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #1e293b;
+  padding-bottom: 12px;
+}
+
+/* Base Tab Button */
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover State for inactive tabs */
+.tab-btn:hover:not(.active) {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Active State (The currently selected tab) */
+.tab-btn.active {
+  background: #10b981; /* Jury Emerald */
+  color: #0f172a; /* Dark text for contrast */
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+}
+
+/* Content Area transition buffer */
+.tab-content-area {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
