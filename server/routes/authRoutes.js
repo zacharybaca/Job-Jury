@@ -5,6 +5,7 @@ import {
   logoutUser,
   isUserAdmin,
   forgotPassword,
+  resetPassword,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/is-admin", isUserAdmin); // Route to check if the user is an admin
 router.post('/forgotpassword', forgotPassword);
+router.put('/resetpassword/:resettoken', resetPassword);
 
 export default router;
