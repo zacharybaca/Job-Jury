@@ -121,4 +121,42 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, logoutUser, isUserAdmin, forgotPassword };
+// @desc    Reset password
+// @route   PUT /api/auth/resetpassword/:resettoken
+// @access  Public
+const resetPassword = asyncHandler(async (req, res) => {
+  // 1. Get the hashed version of the token sent in the URL
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.resettoken)
+    .digest('hex');
+
+  // 2. Find the user with this matching token AND ensure it hasn't expired
+  // $gt means "Greater Than" - so the expiration time must be greater than right now
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error('Invalid or expired password reset token.');
+  }
+
+  // 3. Set the new password.
+  // (Your existing User model pre-save hook will automatically encrypt this before saving!)
+  user.password = req.body.password;
+
+  // 4. Clear the reset token fields so they can never be reused
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: 'Password reset successful. You can now log in with your new password.',
+  });
+});
+
+export { registerUser, loginUser, logoutUser, isUserAdmin, forgotPassword, resetPassword };
