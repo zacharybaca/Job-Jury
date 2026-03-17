@@ -15,6 +15,7 @@ import EditCompany from './components/Company/EditCompany/EditCompany';
 import Home from './components/Pages/Home/Home';
 import WallpaperSelector from './components/Layout/WallpaperSelector/WallpaperSelector';
 import ProfileSettings from './components/Auth/ProfileSettings/ProfileSettings';
+import ResetPassword from './components/Auth/ResetPassword';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -212,6 +213,7 @@ function App() {
           />
         }
       >
+        <Route path="/resetpassword/:resetToken" element={<ResetPassword />} />
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
