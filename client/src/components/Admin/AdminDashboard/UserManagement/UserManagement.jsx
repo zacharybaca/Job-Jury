@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
-import './user-management.css'; // You can reuse your admin-dashboard.css styles here
+import '../AdminDashboard/admin-dashboard.css'; // You can reuse your admin-dashboard.css styles here
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
