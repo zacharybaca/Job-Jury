@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
+import crypto from 'crypto';
+import sendEmail from '../utils/sendEmail.js';
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, username, email, password } = req.body;
@@ -68,4 +70,55 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "User logged out" });
 });
 
-export { registerUser, loginUser, logoutUser, isUserAdmin };
+// @desc    Forgot password
+// @route   POST /api/auth/forgotpassword
+// @access  Public
+const forgotPassword = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    res.status(404);
+    throw new Error('There is no user registered with that email address.');
+  }
+
+  // 1. Get reset token from the method we just wrote
+  const resetToken = user.getResetPasswordToken();
+
+  // 2. Save the hashed token and expiration to the database
+  // We pass { validateBeforeSave: false } so it doesn't demand a password update right now
+  await user.save({ validateBeforeSave: false });
+
+  // 3. Construct the reset URL (points to your React frontend)
+  // We use the environment variable so it works locally and on Render
+  const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+
+  const message = `
+    You are receiving this email because you (or someone else) requested a password reset for your Job Jury account.
+
+    Please click the link below to reset your password. This link will expire in 10 minutes:
+    \n\n ${resetUrl}
+    \n\nIf you did not request this, please ignore this email and your password will remain unchanged.
+  `;
+
+  try {
+    // 4. Send the email!
+    await sendEmail({
+      email: user.email,
+      subject: 'Job Jury - Password Reset Request',
+      message: message,
+    });
+
+    res.status(200).json({ success: true, message: 'Email sent successfully' });
+  } catch (error) {
+    // If the email fails to send, we MUST clear the token from the database for security
+    console.error("Email sending failed:", error);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    res.status(500);
+    throw new Error('Email could not be sent. Please try again later.');
+  }
+});
+
+export { registerUser, loginUser, logoutUser, isUserAdmin, forgotPassword };
