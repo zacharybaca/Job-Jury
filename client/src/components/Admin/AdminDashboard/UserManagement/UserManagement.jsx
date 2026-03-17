@@ -77,7 +77,7 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.length > 0 ? users.map((user) => (
               <tr key={user._id}>
                 <td>
                   {user.avatar ? (
@@ -113,7 +113,11 @@ const UserManagement = () => {
                   )}
                 </td>
               </tr>
-            ))}
+            )) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>No users found.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
