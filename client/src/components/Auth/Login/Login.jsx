@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom'; // Added Link here
 import { useFetcher } from '../../../hooks/useFetcher.js';
 import { useAuth } from '../../../hooks/useAuth.js';
 import Toast from '../../Layout/Toast/Toast.jsx';
@@ -74,8 +74,28 @@ const Login = () => {
               required
             />
           </div>
+
           <div className="auth-form-group">
-            <label>Password</label>
+            {/* NEW: Flex container to align the label and the forgot password link */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <label>Password</label>
+              <Link
+                to="/forgot-password"
+                style={{
+                  fontSize: '0.85rem',
+                  color: '#10b981',
+                  textDecoration: 'none',
+                }}
+              >
+                Forgot Password?
+              </Link>
+            </div>
             <input
               type="password"
               value={password}
@@ -83,6 +103,7 @@ const Login = () => {
               required
             />
           </div>
+
           <button type="submit" className="auth-submit-btn">
             Login to Job Jury
           </button>
