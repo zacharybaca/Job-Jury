@@ -4,7 +4,7 @@ const sendEmail = async (options) => {
   // 1. Create a transporter (The Postman)
   // For development, Gmail is easiest. In production, you'd swap this for SendGrid or AWS SES.
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "icloud",
     auth: {
       user: process.env.EMAIL_USERNAME, // e.g., your personal gmail
       pass: process.env.EMAIL_PASSWORD, // An App Password, NOT your real password
