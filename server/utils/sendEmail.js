@@ -1,23 +1,23 @@
 import nodemailer from "nodemailer";
 
 const sendEmail = async (options) => {
-  // 1. Create a transporter (The Postman)
-  // For development, Gmail is easiest. In production, you'd swap this for SendGrid or AWS SES.
+  // 1. Create a transporter using Apple's explicit server settings
   const transporter = nodemailer.createTransport({
-    service: "icloud",
+    host: 'smtp.mail.me.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports (587 uses STARTTLS)
     auth: {
-      user: process.env.EMAIL_USERNAME, // e.g., your personal gmail
-      pass: process.env.EMAIL_PASSWORD, // An App Password, NOT your real password
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   // 2. Define the email details
   const message = {
     from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
-    to: options.email, // This is where your testmail.app address will go during testing!
+    to: options.email,
     subject: options.subject,
     text: options.message,
-    // Optional: You can pass html: options.html to make it look pretty later
   };
 
   // 3. Send the email
