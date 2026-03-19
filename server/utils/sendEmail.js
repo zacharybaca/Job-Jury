@@ -1,4 +1,4 @@
-import sgMail from '@sendgrid/mail';
+import sgMail from "@sendgrid/mail";
 
 const sendEmail = async (options) => {
   // 1. Initialize SendGrid with your API Key
@@ -15,13 +15,13 @@ const sendEmail = async (options) => {
   try {
     // 3. Send the email
     await sgMail.send(msg);
-    console.log('✉️ Email sent successfully via SendGrid');
+    console.log("✉️ Email sent successfully via SendGrid");
   } catch (error) {
-    console.error('SendGrid Error:', error);
+    console.error("SendGrid Error:", error);
     if (error.response) {
       console.error(error.response.body); // Prints detailed error if it fails
     }
-    throw new Error('Email could not be sent.');
+    throw new Error("Email could not be sent.");
   }
 };
 

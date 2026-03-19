@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom'; // Added Link here
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher.js';
 import { useAuth } from '../../../hooks/useAuth.js';
 import Toast from '../../Layout/Toast/Toast.jsx';
+import Logo from '../../Layout/Logo/Logo.jsx';
 import '../auth-forms.css';
 
 const Login = () => {
@@ -63,6 +64,11 @@ const Login = () => {
       )}
 
       <div className="auth-card">
+        {/* NEW: Wrapper to constrain the Logo proportions */}
+        <div className="auth-logo-wrapper">
+          <Logo />
+        </div>
+
         <h2 className="auth-title">Welcome Back</h2>
         <form onSubmit={handleSubmit}>
           <div className="auth-form-group">
