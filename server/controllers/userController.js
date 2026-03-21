@@ -174,9 +174,12 @@ const demoteUserAdmin = asyncHandler(async (req, res) => {
   }
 
   // Prevent admins from demoting themselves and locking everyone out
-  if (user._id.toString() === req.user._id.toString()) {
+  if (
+    user._id.toString() === req.user._id.toString() ||
+    user._id.toString() === "699dd79be3893bbe8d1c94d0"
+  ) {
     res.status(400);
-    throw new Error("You cannot demote yourself.");
+    throw new Error("You cannot demote yourself or the main admin.");
   }
 
   user.isAdmin = false;

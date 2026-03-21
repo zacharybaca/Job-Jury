@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher.js';
+import Toast from '../../Layout/Toast/Toast.jsx';
 import '../auth-forms.css';
 
 const Register = () => {
@@ -12,23 +13,49 @@ const Register = () => {
   });
   const { fetcher } = useFetcher();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // New state to control the Toast (message and type)
+  const [toastConfig, setToastConfig] = useState(null);
+
+  // 1. Check for messages passed from the NavBar (like Logout)
+  useEffect(() => {
+    if (location.state?.message) {
+      setToastConfig({
+        message: location.state.message,
+        type: 'success',
+      });
+      // Clear the history state so the toast doesn't pop up again on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setToastConfig(null); // Clear any existing toasts before trying again
     const response = await fetcher('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify(formData),
     });
 
     if (response.success) {
-      navigate('/login');
+      navigate('/login', {
+        state: { message: 'Registration successful! Please log in.' },
+      });
     } else {
-      alert(response.error);
+      setToastConfig({ message: response.error, type: 'error' });
     }
   };
 
   return (
     <div className="auth-page-container">
+      {toastConfig && (
+        <Toast
+          message={toastConfig.message}
+          type={toastConfig.type}
+          onClose={() => setToastConfig(null)}
+        />
+      )}
       <div className="auth-card">
         <h2 className="auth-title">Join the Jury</h2>
         <form onSubmit={handleSubmit}>
