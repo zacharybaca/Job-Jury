@@ -4,6 +4,7 @@ import { useFetcher } from '../../../hooks/useFetcher.js';
 import { useAuth } from '../../../hooks/useAuth.js';
 import Toast from '../../Layout/Toast/Toast.jsx';
 import Logo from '../../Layout/Logo/Logo.jsx';
+import AlternateLogo from '../../Layout/AlternateLogo/AlternateLogo.jsx';
 import '../auth-forms.css';
 
 const Login = () => {
@@ -66,7 +67,7 @@ const Login = () => {
       <div className="auth-card">
         {/* NEW: Wrapper to constrain the Logo proportions */}
         <div className="auth-logo-wrapper">
-          <Logo />
+          <AlternateLogo />
         </div>
 
         <h2 className="auth-title">Welcome Back</h2>
