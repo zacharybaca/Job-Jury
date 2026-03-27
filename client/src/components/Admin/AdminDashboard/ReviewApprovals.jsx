@@ -42,6 +42,7 @@ const ReviewApprovals = () => {
       });
 
       if (response.success) {
+        console.log('Review deleted:', flaggedReviews.filter((review) => review._id !== id));
         setFlaggedReviews(flaggedReviews.filter((review) => review._id !== id));
       } else {
         alert(response.error || 'Failed to delete review.');
