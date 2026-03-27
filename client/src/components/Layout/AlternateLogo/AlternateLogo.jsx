@@ -1,9 +1,15 @@
-
 const AlternateLogo = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.00 0.00 1024.00 480.00">
-<g stroke-width="2.00" fill="none" stroke-linecap="butt">
-<path stroke="#e6e8e3" vector-effect="non-scaling-stroke" d="
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      viewBox="0.00 0.00 1024.00 480.00"
+    >
+      <g stroke-width="2.00" fill="none" stroke-linecap="butt">
+        <path
+          stroke="#e6e8e3"
+          vector-effect="non-scaling-stroke"
+          d="
   M 709.74 0.00
   C 710.46 18.10 708.96 33.90 707.63 54.48
   C 706.36 74.21 692.01 92.48 671.44 93.59
@@ -19,27 +25,39 @@ const AlternateLogo = () => {
   C 626.68 204.14 620.40 197.42 615.91 190.15
   A 1.66 1.58 30.1 0 1 615.66 189.29
   L 615.65 179.05"
-/>
-<path stroke="#85a288" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#85a288"
+          vector-effect="non-scaling-stroke"
+          d="
   M 615.65 179.05
   Q 615.28 171.28 613.72 163.75
   Q 611.54 153.26 601.95 149.51
   C 599.57 148.58 595.29 151.76 593.53 153.03
   Q 583.01 160.61 572.77 169.01
   Q 566.96 173.77 562.45 180.82"
-/>
-<path stroke="#e6e8e3" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#e6e8e3"
+          vector-effect="non-scaling-stroke"
+          d="
   M 562.45 180.82
   Q 558.39 182.41 555.17 180.60
   C 549.36 177.34 547.09 162.00 546.16 155.88
   C 545.64 152.53 545.93 148.85 545.64 145.27"
-/>
-<path stroke="#8ead8b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8ead8b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 545.64 145.27
   Q 545.29 117.47 552.91 92.18
   Q 555.53 83.46 560.78 73.43"
-/>
-<path stroke="#859d87" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#859d87"
+          vector-effect="non-scaling-stroke"
+          d="
   M 560.78 73.43
   L 566.62 63.88
   A 0.69 0.69 0.0 0 0 566.47 62.99
@@ -50,12 +68,18 @@ const AlternateLogo = () => {
   Q 500.47 63.19 493.05 60.74
   Q 483.67 57.64 477.24 56.86
   Q 457.91 54.53 440.78 65.46"
-/>
-<path stroke="#e6e8e3" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#e6e8e3"
+          vector-effect="non-scaling-stroke"
+          d="
   M 440.78 65.46
   C 430.49 65.77 419.91 65.12 411.07 59.29"
-/>
-<path stroke="#8ead8b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8ead8b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 411.07 59.29
   C 405.71 41.12 387.91 38.09 372.52 45.49
   Q 355.93 53.47 342.50 66.23
@@ -67,12 +91,18 @@ const AlternateLogo = () => {
   A 1.65 1.65 0.0 0 0 311.30 97.99
   Q 313.66 108.19 314.22 119.88
   Q 315.19 139.98 314.27 159.51"
-/>
-<path stroke="#bfbfbb" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bfbfbb"
+          vector-effect="non-scaling-stroke"
+          d="
   M 314.27 159.51
   Q 308.65 161.45 302.38 162.06"
-/>
-<path stroke="#8ead8b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8ead8b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 302.38 162.06
   Q 304.13 160.43 303.94 159.46
   A 0.79 0.78 -14.0 0 0 302.95 158.87
@@ -119,8 +149,11 @@ const AlternateLogo = () => {
   L 224.34 190.13
   A 0.02 0.01 90.0 0 1 224.35 190.15
   L 225.80 204.77"
-/>
-<path stroke="#bfbfbb" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bfbfbb"
+          vector-effect="non-scaling-stroke"
+          d="
   M 225.80 204.77
   L 225.40 209.19
   A 3.45 3.43 57.9 0 1 225.19 210.12
@@ -128,8 +161,11 @@ const AlternateLogo = () => {
   Q 223.54 219.01 222.29 227.83
   Q 221.87 230.82 221.73 238.19
   Q 221.64 243.37 221.10 248.57"
-/>
-<path stroke="#859d87" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#859d87"
+          vector-effect="non-scaling-stroke"
+          d="
   M 221.10 248.57
   Q 219.24 224.42 217.68 200.47
   Q 217.35 195.36 216.62 187.43
@@ -142,8 +178,11 @@ const AlternateLogo = () => {
   Q 195.28 161.65 194.28 166.43
   A 0.34 0.34 0.0 0 1 193.89 166.69
   Q 188.22 165.56 184.25 166.24"
-/>
-<path stroke="#e6e8e3" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#e6e8e3"
+          vector-effect="non-scaling-stroke"
+          d="
   M 184.25 166.24
   L 178.75 166.80
   A 1.44 1.41 -65.1 0 0 178.09 167.05
@@ -153,8 +192,11 @@ const AlternateLogo = () => {
   Q 138.56 233.23 133.06 230.45
   A 2.60 2.51 58.3 0 0 132.01 230.18
   L 124.47 229.91"
-/>
-<path stroke="#8ead8b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8ead8b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 124.47 229.91
   Q 118.18 228.30 109.75 228.01
   Q 80.58 227.00 57.39 241.18
@@ -162,23 +204,35 @@ const AlternateLogo = () => {
   Q 24.13 270.44 21.72 274.21
   Q 14.11 286.16 11.97 290.72
   Q 6.00 303.47 4.42 319.92"
-/>
-<path stroke="#e6e8e3" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#e6e8e3"
+          vector-effect="non-scaling-stroke"
+          d="
   M 4.42 319.92
   Q 2.52 322.32 0.00 323.76"
-/>
-<path stroke="#dfe2da" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#dfe2da"
+          vector-effect="non-scaling-stroke"
+          d="
   M 1024.00 244.99
   Q 1023.67 228.45 1023.63 211.91
   C 1023.59 199.67 1022.69 186.98 1022.53 177.98
   C 1022.45 173.64 1022.61 170.63 1022.80 165.72
   Q 1022.98 161.13 1020.83 156.93"
-/>
-<path stroke="#819f83" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819f83"
+          vector-effect="non-scaling-stroke"
+          d="
   M 1020.83 156.93
   Q 1023.98 151.59 1023.44 147.50"
-/>
-<path stroke="#dfe2da" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#dfe2da"
+          vector-effect="non-scaling-stroke"
+          d="
   M 1023.44 147.50
   Q 1023.82 133.78 1023.73 119.44
   Q 1023.56 93.79 1023.56 93.70
@@ -195,18 +249,27 @@ const AlternateLogo = () => {
   C 894.65 117.73 889.54 119.39 880.84 123.81
   C 871.20 128.70 863.49 136.77 852.97 146.95
   C 844.59 155.06 834.71 157.82 822.99 158.74"
-/>
-<path stroke="#819f83" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819f83"
+          vector-effect="non-scaling-stroke"
+          d="
   M 822.99 158.74
   Q 820.14 153.56 814.85 149.63
   A 1.06 1.05 45.5 0 0 813.61 149.61
   C 803.19 157.02 792.65 164.13 783.77 173.43"
-/>
-<path stroke="#dfe2da" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#dfe2da"
+          vector-effect="non-scaling-stroke"
+          d="
   M 783.77 173.43
   Q 775.63 172.35 769.15 167.07"
-/>
-<path stroke="#819f83" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819f83"
+          vector-effect="non-scaling-stroke"
+          d="
   M 769.15 167.07
   Q 770.61 159.59 774.29 152.51
   Q 776.17 148.90 773.59 146.83
@@ -244,8 +307,11 @@ const AlternateLogo = () => {
   C 619.85 279.12 614.61 272.09 612.71 264.48
   Q 610.35 255.01 611.22 244.74
   C 613.04 223.23 615.04 201.01 615.65 179.05"
-/>
-<path stroke="#7d9c7f" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#7d9c7f"
+          vector-effect="non-scaling-stroke"
+          d="
   M 1023.44 147.50
   Q 1019.95 146.93 1015.97 149.85
   Q 1010.91 153.57 1010.64 153.71
@@ -301,8 +367,11 @@ const AlternateLogo = () => {
   Q 1018.88 274.94 1015.96 254.67
   Q 1011.70 225.00 1013.26 192.25
   Q 1014.08 174.89 1020.83 156.93"
-/>
-<path stroke="#dfe2da" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#dfe2da"
+          vector-effect="non-scaling-stroke"
+          d="
   M 831.88 480.00
   C 827.70 478.97 818.39 476.41 819.80 470.46
   C 821.29 464.15 831.60 462.52 833.96 456.57
@@ -311,23 +380,32 @@ const AlternateLogo = () => {
   A 0.80 0.79 -79.3 0 1 816.33 447.76
   C 816.24 443.23 815.61 438.66 810.53 437.66
   C 805.13 436.61 798.20 437.84 792.59 438.30"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 792.59 438.30
   Q 792.60 432.46 792.98 431.02
   C 793.73 428.13 797.56 424.83 800.02 428.16
   A 0.87 0.86 35.6 0 0 801.54 427.91
   Q 802.52 424.82 801.48 423.05"
-/>
-<path stroke="#dfe2da" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#dfe2da"
+          vector-effect="non-scaling-stroke"
+          d="
   M 801.48 423.05
   C 804.05 414.64 805.82 405.67 802.32 397.38
   C 798.23 387.71 793.13 383.12 784.11 372.39
   C 776.30 363.10 775.96 353.73 774.69 342.17
   Q 772.69 323.96 756.84 314.28
   Q 749.87 310.03 741.38 307.68"
-/>
-<path stroke="#7d9c7f" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#7d9c7f"
+          vector-effect="non-scaling-stroke"
+          d="
   M 741.38 307.68
   Q 746.58 305.47 749.61 302.48
   A 0.73 0.72 42.6 0 1 750.59 302.44
@@ -372,8 +450,11 @@ const AlternateLogo = () => {
   A 0.27 0.27 0.0 0 1 826.16 190.51
   Q 826.48 178.12 825.44 166.54
   Q 825.16 163.40 822.99 158.74"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 837.04 448.63
   L 847.13 448.63
   A 0.69 0.69 0.0 0 0 847.61 447.44
@@ -404,8 +485,11 @@ const AlternateLogo = () => {
   Q 837.45 436.90 837.74 443.39
   C 837.81 445.17 837.44 446.01 836.45 447.55
   A 0.70 0.70 0.0 0 0 837.04 448.63"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 1005.09 436.95
   Q 1006.02 436.95 1006.50 436.18
   A 1.87 1.81 -29.1 0 0 1006.79 435.23
@@ -419,8 +503,11 @@ const AlternateLogo = () => {
   Q 1003.23 429.63 1003.38 435.23
   A 1.87 1.81 29.1 0 0 1003.67 436.18
   Q 1004.15 436.95 1005.09 436.95"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 923.22 411.94
   L 910.93 411.94
   A 0.74 0.73 -19.1 0 0 910.35 413.13
@@ -437,8 +524,11 @@ const AlternateLogo = () => {
   Q 920.86 429.58 921.04 419.31
   Q 921.11 415.53 923.74 413.35
   A 0.80 0.80 0.0 0 0 923.22 411.94"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 827.62 426.78
   L 832.47 426.78
   A 1.25 1.24 0.0 0 0 833.72 425.54
@@ -461,8 +551,11 @@ const AlternateLogo = () => {
   Q 826.92 441.67 826.81 438.77
   Q 826.57 432.41 826.80 427.57
   A 0.83 0.82 -88.5 0 1 827.62 426.78"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 890.47 430.62
   C 888.84 422.22 879.16 420.04 872.70 423.85
   C 864.73 428.54 864.55 437.79 869.17 445.05
@@ -475,8 +568,11 @@ const AlternateLogo = () => {
   L 889.83 435.96
   A 0.77 0.77 0.0 0 0 890.60 435.26
   Q 890.83 432.44 890.47 430.62"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 959.66 425.74
   L 959.33 423.20
   A 0.77 0.76 -8.9 0 0 958.43 422.55
@@ -512,8 +608,11 @@ const AlternateLogo = () => {
   Q 964.88 421.86 961.95 423.74
   C 961.42 424.08 960.80 425.12 960.19 425.89
   A 0.30 0.30 0.0 0 1 959.66 425.74"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 985.31 438.05
   L 981.37 426.32
   A 0.85 0.84 -39.3 0 1 981.44 425.63
@@ -538,15 +637,21 @@ const AlternateLogo = () => {
   C 990.56 426.05 989.58 427.45 988.97 429.42
   Q 987.55 434.00 985.89 438.07
   A 0.31 0.31 0.0 0 1 985.31 438.05"
-/>
-<path stroke="#adada4" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#adada4"
+          vector-effect="non-scaling-stroke"
+          d="
   M 1009.6661 444.2123
   A 4.51 4.35 -8.0 0 0 1004.5946 440.5323
   A 4.51 4.35 -8.0 0 0 1000.7339 445.4677
   A 4.51 4.35 -8.0 0 0 1005.8054 449.1477
   A 4.51 4.35 -8.0 0 0 1009.6661 444.2123"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 411.07 59.29
   Q 414.90 77.55 407.46 93.45
   Q 401.04 107.17 389.13 119.32
@@ -564,14 +669,20 @@ const AlternateLogo = () => {
   C 405.48 158.15 413.40 158.60 420.59 156.91
   A 0.51 0.51 0.0 0 1 421.20 157.54
   Q 420.14 161.78 415.97 165.36"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 415.97 165.36
   L 406.31 172.24
   A 0.67 0.66 63.7 0 0 406.06 172.99
   L 408.35 179.79"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 408.35 179.79
   Q 410.26 184.42 411.53 190.44
   C 416.50 214.06 416.19 238.54 408.42 261.68
@@ -586,12 +697,18 @@ const AlternateLogo = () => {
   C 304.18 288.64 310.50 284.67 312.56 279.03
   Q 314.23 274.44 314.24 267.74
   Q 314.37 217.32 314.38 167.00"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 314.38 167.00
   L 314.27 159.51"
-/>
-<path stroke="#8ead8b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8ead8b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 344.59 143.43
   Q 345.22 143.35 346.00 142.98
   Q 369.66 131.71 385.97 110.72
@@ -601,8 +718,11 @@ const AlternateLogo = () => {
   Q 345.99 90.14 345.00 105.01
   Q 343.82 122.79 344.13 143.03
   A 0.41 0.41 0.0 0 0 344.59 143.43"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 341.79 271.09
   C 349.03 270.16 354.43 273.70 360.09 278.39
   Q 363.93 281.57 368.40 284.46
@@ -619,13 +739,19 @@ const AlternateLogo = () => {
   Q 343.99 254.86 343.22 260.52
   C 342.77 263.90 341.31 268.15 341.23 270.58
   A 0.50 0.50 0.0 0 0 341.79 271.09"
-/>
-<path stroke="#29602a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#29602a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 560.78 73.43
   Q 557.04 73.36 553.88 76.13
   Q 550.74 78.87 543.40 84.46"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 543.40 84.46
   Q 539.69 86.09 533.35 89.34
   C 523.52 94.38 511.13 97.67 499.90 96.53
@@ -642,14 +768,20 @@ const AlternateLogo = () => {
   Q 407.38 109.45 411.64 98.92
   Q 415.30 89.84 423.73 80.01
   Q 431.06 71.46 440.78 65.46"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 543.40 84.46
   Q 536.10 93.81 533.72 98.75
   Q 529.70 107.10 525.65 115.43
   Q 523.82 119.20 520.40 132.92"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 520.40 132.92
   Q 519.30 132.19 518.51 130.81
   Q 517.58 129.16 517.24 128.87
@@ -657,8 +789,11 @@ const AlternateLogo = () => {
   A 0.93 0.93 0.0 0 0 514.08 128.26
   Q 510.02 137.19 509.94 147.01
   Q 509.90 152.20 506.96 163.67"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 506.96 163.67
   Q 505.42 146.11 510.93 130.15
   C 512.55 125.45 514.31 119.90 516.57 115.33
@@ -667,8 +802,11 @@ const AlternateLogo = () => {
   Q 518.92 105.20 517.78 105.32
   A 1.48 1.47 -65.5 0 0 517.07 105.59
   L 511.61 109.54"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 511.61 109.54
   C 507.34 110.94 502.58 112.21 498.84 114.05
   Q 487.63 119.56 477.94 127.93
@@ -683,14 +821,20 @@ const AlternateLogo = () => {
   Q 458.26 174.57 455.24 174.28
   C 444.55 173.23 433.96 170.97 423.59 167.62
   Q 419.91 166.43 415.97 165.36"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 302.38 162.06
   L 295.87 168.23
   A 1.61 1.60 75.1 0 0 295.41 169.03
   Q 294.78 171.88 296.46 173.50"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 296.46 173.50
   Q 309.33 206.51 304.46 240.52
   Q 302.27 255.80 297.60 264.63
@@ -708,8 +852,11 @@ const AlternateLogo = () => {
   Q 119.09 422.79 84.41 416.00
   C 59.76 411.17 36.78 398.27 21.53 378.54
   C 8.44 361.59 2.86 341.25 4.42 319.92"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 124.47 229.91
   C 153.91 236.16 178.65 260.67 175.51 292.31
   C 173.23 315.33 156.38 333.82 134.50 341.01
@@ -735,19 +882,28 @@ const AlternateLogo = () => {
   Q 206.84 355.69 209.14 352.63
   C 213.33 347.05 216.57 338.92 219.26 332.78
   Q 222.93 324.36 224.52 315.63"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 224.52 315.63
   Q 227.09 309.53 228.33 301.31
   Q 232.10 276.31 230.06 253.05
   Q 229.71 249.01 229.35 244.97
   Q 227.59 224.89 225.80 204.77"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 255.82 187.16
   Q 255.71 194.82 257.46 202.98"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 257.46 202.98
   Q 258.31 213.02 259.17 223.51
   C 260.74 242.61 260.51 262.52 257.40 281.10
@@ -756,59 +912,89 @@ const AlternateLogo = () => {
   Q 272.77 276.78 273.19 273.97
   C 275.98 255.43 275.21 237.34 273.52 218.26
   Q 272.29 204.44 267.05 189.49"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 267.05 189.49
   Q 266.12 186.26 263.51 182.72"
-/>
-<path stroke="#87a882" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#87a882"
+          vector-effect="non-scaling-stroke"
+          d="
   M 263.51 182.72
   Q 260.17 176.91 255.42 173.64
   A 0.40 0.40 0.0 0 0 254.80 174.00
   L 255.82 187.16"
-/>
-<path stroke="#b7bab2" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b7bab2"
+          vector-effect="non-scaling-stroke"
+          d="
   M 263.51 182.72
   L 255.82 187.16"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 267.05 189.49
   Q 260.87 194.88 257.46 202.98"
-/>
-<path stroke="#8aab86" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#8aab86"
+          vector-effect="non-scaling-stroke"
+          d="
   M 545.64 145.27
   Q 545.05 171.97 552.11 197.81
   Q 555.49 210.18 556.07 212.15
   C 558.97 222.14 560.61 230.78 561.57 240.00
   C 564.13 264.55 557.99 289.39 542.89 309.40
   Q 529.71 326.86 510.97 339.24"
-/>
-<path stroke="#29602a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#29602a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 510.97 339.24
   Q 508.92 336.06 505.22 334.26"
-/>
-<path stroke="#87a882" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#87a882"
+          vector-effect="non-scaling-stroke"
+          d="
   M 505.22 334.26
   Q 510.21 330.55 511.44 329.17
   C 516.06 323.99 521.76 315.30 524.68 308.14
   C 529.47 296.43 532.98 283.28 532.92 270.25
   Q 532.80 241.06 524.44 211.41"
-/>
-<path stroke="#63825e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#63825e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 524.44 211.41
   Q 516.39 186.82 516.14 161.53
   Q 516.08 154.93 516.89 150.40
   Q 517.95 144.50 518.59 138.76
   A 4.82 4.36 -35.8 0 1 518.78 137.87
   L 520.40 132.92"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 506.96 163.67
   Q 507.50 179.64 512.23 195.82
   C 513.80 201.19 514.04 206.54 515.75 212.20
   Q 517.17 216.91 518.57 221.55"
-/>
-<path stroke="#7d977e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#7d977e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 518.57 221.55
   Q 519.82 226.66 520.91 231.72
   Q 525.12 251.31 523.82 271.25
@@ -818,8 +1004,11 @@ const AlternateLogo = () => {
   C 509.41 321.92 504.02 327.70 497.81 334.62
   A 0.89 0.89 0.0 0 0 498.14 336.04
   C 500.45 337.00 502.96 335.68 505.22 334.26"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 510.97 339.24
   C 501.06 346.47 491.51 353.50 480.49 359.51
   Q 478.43 360.64 475.79 361.36
@@ -828,14 +1017,20 @@ const AlternateLogo = () => {
   Q 460.04 348.95 440.48 339.29
   Q 432.27 335.23 422.90 327.33
   C 414.80 320.49 410.48 310.48 407.59 300.61"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 407.59 300.61
   Q 411.71 294.47 416.63 288.30
   Q 416.79 288.10 420.70 282.62
   Q 422.73 279.78 425.40 277.45"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 425.40 277.45
   Q 427.66 286.90 432.54 294.25
   C 434.77 297.60 436.83 300.57 439.88 302.89
@@ -852,37 +1047,52 @@ const AlternateLogo = () => {
   C 464.62 199.81 478.15 194.73 488.78 198.10
   A 0.54 0.53 0.1 0 0 489.46 197.43
   C 487.16 190.33 483.89 184.52 476.84 181.08"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 476.84 181.08
   C 472.58 178.60 468.00 178.44 463.34 179.26
   A 1.75 1.75 0.0 0 1 461.30 177.34
   Q 461.78 173.09 464.09 168.56
   A 3.29 3.20 83.3 0 1 464.79 167.65
   Q 469.82 163.13 476.34 162.15"
-/>
-<path stroke="#7d977e" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#7d977e"
+          vector-effect="non-scaling-stroke"
+          d="
   M 476.34 162.15
   L 483.46 162.18
   A 0.99 0.98 -85.3 0 0 484.44 161.34
   Q 486.22 149.70 491.40 139.36"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 491.40 139.36
   Q 494.98 129.10 499.81 123.33
   Q 504.08 118.24 507.93 112.85
   A 3.75 3.21 -6.8 0 1 508.41 112.33
   L 511.61 109.54"
-/>
-<path stroke="#b7bab2" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b7bab2"
+          vector-effect="non-scaling-stroke"
+          d="
   M 491.40 139.36
   L 491.22 138.86
   A 0.42 0.42 0.0 0 0 490.56 138.66
   Q 490.24 138.90 489.97 139.24
   Q 483.75 147.33 477.32 158.06
   Q 475.65 160.85 476.34 162.15"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 476.84 181.08
   Q 472.01 183.01 467.30 184.94
   C 464.08 186.26 463.29 187.57 462.02 190.54
@@ -907,8 +1117,11 @@ const AlternateLogo = () => {
   Q 433.12 267.25 430.43 271.13
   A 5.74 5.64 87.8 0 1 429.34 272.33
   Q 426.40 274.77 425.40 277.45"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 407.59 300.61
   Q 399.68 308.57 394.30 312.81
   Q 381.25 323.09 363.69 329.93
@@ -921,14 +1134,20 @@ const AlternateLogo = () => {
   Q 370.60 311.65 383.69 304.04
   C 389.21 300.83 393.44 297.41 400.00 292.50
   Q 405.35 288.50 405.98 283.65"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 405.98 283.65
   Q 405.64 284.96 406.10 285.66
   A 0.53 0.53 0.0 0 0 406.87 285.78
   Q 417.40 277.53 422.55 265.88"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 422.55 265.88
   Q 424.50 263.13 425.97 260.31
   Q 428.36 255.70 429.05 254.58
@@ -940,17 +1159,26 @@ const AlternateLogo = () => {
   C 429.28 185.43 423.92 184.15 419.88 183.30
   A 7.95 7.76 -26.4 0 1 418.15 182.74
   Q 413.56 180.65 408.35 179.79"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 221.10 248.57
   L 222.18 272.66"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 222.18 272.66
   Q 221.33 276.86 221.17 283.75
   Q 220.64 307.22 212.08 330.93"
-/>
-<path stroke="#59725a" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59725a"
+          vector-effect="non-scaling-stroke"
+          d="
   M 212.08 330.93
   C 210.09 335.82 208.19 340.33 205.33 344.96
   Q 200.94 352.04 198.76 355.21
@@ -960,8 +1188,11 @@ const AlternateLogo = () => {
   A 0.56 0.56 0.0 0 1 180.76 369.51
   C 182.61 365.20 183.93 362.00 186.71 357.59
   Q 191.00 350.81 193.68 343.24"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 193.68 343.24
   Q 195.44 339.17 196.01 337.25
   Q 202.32 315.99 201.28 293.75
@@ -977,13 +1208,19 @@ const AlternateLogo = () => {
   A 0.53 0.53 0.0 0 1 167.73 187.58
   Q 167.52 184.97 168.28 182.85
   Q 172.58 170.80 184.25 166.24"
-/>
-<path stroke="#b7bab2" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b7bab2"
+          vector-effect="non-scaling-stroke"
+          d="
   M 524.44 211.41
   Q 523.15 211.47 523.10 211.61
   Q 521.28 216.65 518.57 221.55"
-/>
-<path stroke="#819f83" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819f83"
+          vector-effect="non-scaling-stroke"
+          d="
   M 562.45 180.82
   C 561.89 183.47 564.58 186.27 566.78 183.77
   C 568.34 182.01 572.20 177.71 575.24 177.17
@@ -1010,8 +1247,11 @@ const AlternateLogo = () => {
   Q 719.51 279.29 720.72 284.59
   Q 721.96 290.06 725.10 295.82
   Q 731.12 306.88 741.38 307.68"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 801.48 423.05
   Q 795.87 421.44 792.96 426.61
   A 0.32 0.32 0.0 0 1 792.36 426.41
@@ -1029,12 +1269,18 @@ const AlternateLogo = () => {
   L 793.00 445.99
   A 1.73 1.70 -67.4 0 1 792.50 444.75
   L 792.59 438.30"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 296.46 173.50
   Q 304.93 169.47 314.38 167.00"
-/>
-<path stroke="#819a82" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#819a82"
+          vector-effect="non-scaling-stroke"
+          d="
   M 422.55 265.88
   Q 423.19 252.20 427.53 240.25
   Q 431.70 228.79 437.37 217.64
@@ -1044,8 +1290,11 @@ const AlternateLogo = () => {
   Q 421.13 232.04 414.38 246.56
   C 411.25 253.30 409.44 261.00 407.91 267.88
   Q 406.23 275.49 405.98 283.65"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 651.60 447.34
   A 0.67 0.67 0.0 0 0 652.25 448.02
   Q 654.61 448.09 657.62 448.76
@@ -1061,8 +1310,11 @@ const AlternateLogo = () => {
   C 650.94 413.65 651.30 414.15 651.40 415.59
   C 651.89 422.38 651.24 429.94 651.47 435.81
   Q 651.67 441.06 651.60 447.34"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 282.38 421.74
   A 0.62 0.61 -69.8 0 0 282.80 422.66
   Q 283.24 422.74 283.52 422.54
@@ -1072,8 +1324,11 @@ const AlternateLogo = () => {
   L 283.83 415.69
   A 2.40 2.39 37.6 0 1 284.21 418.57
   L 282.38 421.74"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 468.63 436.41
   A 0.33 0.33 0.0 0 1 469.22 436.21
   L 478.40 447.88
@@ -1106,8 +1361,11 @@ const AlternateLogo = () => {
   L 469.06 446.22
   A 1.47 1.47 0.0 0 1 468.63 445.18
   L 468.63 436.41"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 547.14 425.49
   L 547.14 410.56
   A 0.72 0.71 80.7 0 0 546.20 409.88
@@ -1138,8 +1396,11 @@ const AlternateLogo = () => {
   C 555.44 422.41 550.87 422.40 548.69 424.63
   Q 547.91 425.42 547.57 425.69
   A 0.27 0.26 -19.5 0 1 547.14 425.49"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 192.77 411.99
   A 0.63 0.63 0.0 0 0 192.47 413.18
   C 194.81 414.45 194.41 416.16 194.48 418.46
@@ -1152,8 +1413,11 @@ const AlternateLogo = () => {
   C 225.12 431.61 225.80 424.64 223.13 420.87
   Q 216.62 411.71 205.03 411.85
   Q 192.97 411.99 192.77 411.99"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 334.32 412.94
   A 0.57 0.57 0.0 0 0 333.92 411.97
   L 325.54 411.97
@@ -1171,8 +1435,11 @@ const AlternateLogo = () => {
   Q 332.36 424.84 332.54 415.39
   A 1.67 1.65 -22.0 0 1 333.04 414.23
   L 334.32 412.94"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 412.69 418.75
   A 0.36 0.35 -26.7 0 0 413.33 418.96
   L 415.60 415.94
@@ -1198,8 +1465,11 @@ const AlternateLogo = () => {
   L 413.48 412.02
   A 0.79 0.79 0.0 0 0 412.69 412.81
   L 412.69 418.75"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 618.65 412.95
   A 0.57 0.57 0.0 0 0 618.25 411.97
   L 609.87 411.95
@@ -1217,8 +1487,11 @@ const AlternateLogo = () => {
   Q 616.66 424.85 616.86 415.39
   A 1.67 1.65 -21.9 0 1 617.37 414.23
   L 618.65 412.95"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 732.44 412.00
   L 723.96 412.00
   A 0.60 0.60 0.0 0 0 723.66 413.11
@@ -1260,8 +1533,11 @@ const AlternateLogo = () => {
   A 1.24 1.22 -26.8 0 1 731.12 414.98
   L 732.82 412.76
   A 0.48 0.47 19.0 0 0 732.44 412.00"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 298.16 417.00
   A 0.44 0.43 60.1 0 0 297.35 416.78
   Q 294.61 421.54 290.32 424.51
@@ -1283,8 +1559,11 @@ const AlternateLogo = () => {
   L 298.72 423.18
   A 0.57 0.56 -90.0 0 1 298.16 422.61
   L 298.16 417.00"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 384.68 426.23
   L 386.56 426.23
   A 0.69 0.68 -89.6 0 1 387.24 426.93
@@ -1306,8 +1585,11 @@ const AlternateLogo = () => {
   A 0.74 0.74 0.0 0 0 390.39 417.15
   Q 388.14 421.76 384.12 424.29
   A 1.05 1.05 0.0 0 0 384.68 426.23"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 537.60 444.83
   Q 537.42 444.83 535.85 445.56
   C 531.95 447.38 530.73 443.65 530.95 440.60
@@ -1332,14 +1614,20 @@ const AlternateLogo = () => {
   C 525.26 445.25 526.56 449.82 532.96 449.43
   Q 537.97 449.12 538.19 445.48
   A 0.62 0.62 0.0 0 0 537.60 444.83"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 257.53 426.51
   L 257.90 445.29
   A 1.84 1.83 -36.0 0 1 257.79 445.97
   L 257.45 446.97"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 257.45 446.97
   Q 256.95 447.43 256.88 447.87
   A 0.83 0.82 4.3 0 0 257.72 448.83
@@ -1366,15 +1654,21 @@ const AlternateLogo = () => {
   L 256.82 424.24
   A 0.80 0.80 0.0 0 0 256.53 425.59
   L 257.53 426.51"
-/>
-<path stroke="#74746b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#74746b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 257.45 446.97
   Q 258.27 446.65 258.31 445.84
   Q 258.50 441.63 258.43 427.47
   A 0.85 0.85 0.0 0 0 257.94 426.70
   L 257.53 426.51"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 365.46 442.36
   L 365.46 447.04
   A 0.80 0.79 11.9 0 0 365.94 447.77
@@ -1392,8 +1686,11 @@ const AlternateLogo = () => {
   C 378.43 440.55 378.44 445.36 375.08 446.20
   Q 369.36 447.64 366.61 442.10
   A 0.61 0.60 32.0 0 0 365.46 442.36"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 507.15 444.23
   A 0.72 0.72 0.0 0 0 506.03 443.56
   C 498.45 449.00 491.36 444.78 490.58 436.34
@@ -1404,8 +1701,11 @@ const AlternateLogo = () => {
   C 504.14 422.01 496.17 420.57 490.60 424.66
   C 480.58 432.02 485.20 450.48 498.66 449.52
   C 501.45 449.32 506.78 447.38 507.15 444.23"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 742.60 435.89
   L 758.00 435.89
   A 0.85 0.85 0.0 0 0 758.84 434.93
@@ -1418,15 +1718,21 @@ const AlternateLogo = () => {
   C 753.50 446.30 747.73 447.30 744.84 443.37
   Q 742.52 440.21 741.97 436.63
   A 0.64 0.64 0.0 0 1 742.60 435.89"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 240.3864 422.3925
   A 13.73 12.87 -91.1 0 0 227.7824 436.3671
   A 13.73 12.87 -91.1 0 0 240.9136 449.8475
   A 13.73 12.87 -91.1 0 0 253.5176 435.8729
   A 13.73 12.87 -91.1 0 0 240.3864 422.3925"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 355.40 446.02
   Q 355.37 447.96 355.67 448.54
   A 1.08 1.08 0.0 0 0 356.85 449.09
@@ -1451,8 +1757,11 @@ const AlternateLogo = () => {
   Q 339.48 438.30 339.59 441.70
   C 339.90 450.54 350.21 451.96 354.84 445.83
   A 0.31 0.31 0.0 0 1 355.40 446.02"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 452.65 446.92
   Q 454.02 450.28 459.10 448.52
   A 0.96 0.96 0.0 0 0 459.35 446.83
@@ -1467,8 +1776,11 @@ const AlternateLogo = () => {
   C 447.67 433.34 439.33 435.35 438.10 440.08
   C 435.89 448.58 446.11 452.48 451.81 446.75
   A 0.52 0.51 56.1 0 1 452.65 446.92"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 589.49 444.26
   A 0.72 0.72 0.0 0 0 588.37 443.58
   C 580.76 448.97 573.71 444.70 572.98 436.27
@@ -1479,15 +1791,21 @@ const AlternateLogo = () => {
   C 586.63 422.04 578.67 420.54 573.08 424.59
   C 563.02 431.88 567.51 450.36 580.97 449.49
   C 583.76 449.31 589.10 447.40 589.49 444.26"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 635.1292 422.2184
   A 13.73 12.62 -88.0 0 0 622.0377 435.4996
   A 13.73 12.62 -88.0 0 0 634.1708 449.6616
   A 13.73 12.62 -88.0 0 0 647.2623 436.3804
   A 13.73 12.62 -88.0 0 0 635.1292 422.2184"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 776.00 446.92
   Q 777.34 450.26 782.39 448.55
   A 0.96 0.95 -36.3 0 0 782.65 446.87
@@ -1502,8 +1820,11 @@ const AlternateLogo = () => {
   C 771.15 433.40 762.86 435.34 761.61 440.03
   C 759.36 448.45 769.47 452.39 775.17 446.74
   A 0.51 0.51 0.0 0 1 776.00 446.92"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 677.80 454.82
   A 0.77 0.77 0.0 0 0 678.67 455.94
   C 682.89 454.77 684.62 449.02 683.99 445.29
@@ -1512,8 +1833,11 @@ const AlternateLogo = () => {
   L 679.25 448.52
   A 1.91 1.90 -60.0 0 1 679.94 451.12
   L 677.80 454.82"
-/>
-<path stroke="#7d9c7f" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#7d9c7f"
+          vector-effect="non-scaling-stroke"
+          d="
   M 769.15 167.07
   Q 767.07 175.35 766.85 181.22
   Q 766.05 202.67 766.87 239.56
@@ -1522,14 +1846,20 @@ const AlternateLogo = () => {
   Q 785.57 283.29 791.38 278.61
   Q 792.42 277.77 793.74 275.17
   Q 795.04 272.60 797.30 270.53"
-/>
-<path stroke="#59775b" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#59775b"
+          vector-effect="non-scaling-stroke"
+          d="
   M 797.30 270.53
   Q 798.30 266.10 798.06 261.01
   Q 797.65 252.02 797.65 251.46
   Q 797.72 241.83 797.42 232.19"
-/>
-<path stroke="#7d9c7f" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#7d9c7f"
+          vector-effect="non-scaling-stroke"
+          d="
   M 797.42 232.19
   Q 797.45 222.82 797.26 213.43
   Q 797.10 205.43 797.39 199.59
@@ -1539,8 +1869,11 @@ const AlternateLogo = () => {
   Q 784.06 181.48 781.01 182.87
   A 1.43 1.43 0.0 0 1 779.01 181.83
   C 778.50 179.05 781.94 175.42 783.77 173.43"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 193.68 343.24
   Q 191.95 345.32 188.40 348.66
   C 176.35 359.97 161.90 367.98 145.49 369.69
@@ -1572,19 +1905,28 @@ const AlternateLogo = () => {
   Q 202.19 357.93 204.53 354.69
   Q 208.47 349.25 208.92 348.22
   Q 212.48 340.06 212.08 330.93"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 222.18 272.66
   L 224.52 315.63"
-/>
-<path stroke="#b7bab2" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b7bab2"
+          vector-effect="non-scaling-stroke"
+          d="
   M 797.42 232.19
   Q 797.23 239.04 796.81 245.83
   C 796.61 248.92 797.18 252.67 796.83 255.51
   C 796.35 259.37 795.89 263.53 795.97 266.26
   Q 796.04 268.73 797.30 270.53"
-/>
-<path stroke="#bbbdb6" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#bbbdb6"
+          vector-effect="non-scaling-stroke"
+          d="
   M 367.53 185.94
   Q 366.53 186.28 365.50 187.74
   Q 362.41 192.11 359.35 199.78
@@ -1597,8 +1939,11 @@ const AlternateLogo = () => {
   C 370.72 235.32 367.53 223.05 367.35 210.38
   Q 367.16 197.90 369.03 187.23
   A 1.15 1.15 0.0 0 0 367.53 185.94"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 663.34 445.61
   C 668.80 445.09 668.85 435.13 668.52 431.51
   Q 668.33 429.48 666.08 427.40
@@ -1606,8 +1951,11 @@ const AlternateLogo = () => {
   A 2.75 2.74 56.8 0 0 657.18 430.92
   Q 657.58 435.43 657.22 442.08
   C 657.03 445.66 660.72 445.86 663.34 445.61"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 199.77 415.56
   L 199.71 445.44
   A 0.46 0.46 0.0 0 0 200.17 445.90
@@ -1617,8 +1965,11 @@ const AlternateLogo = () => {
   A 13.72 13.34 -89.9 0 0 205.89 415.11
   L 200.23 415.10
   A 0.46 0.46 0.0 0 0 199.77 415.56"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 491.70 432.43
   L 501.98 432.49
   A 0.62 0.62 0.0 0 0 502.60 431.87
@@ -1627,8 +1978,11 @@ const AlternateLogo = () => {
   A 5.77 5.76 -89.7 0 0 491.09 431.18
   L 491.08 431.81
   A 0.62 0.62 0.0 0 0 491.70 432.43"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 742.73 432.59
   L 752.91 432.39
   A 0.80 0.80 0.0 0 0 753.69 431.58
@@ -1637,8 +1991,11 @@ const AlternateLogo = () => {
   A 5.89 5.88 -1.1 0 0 741.91 431.44
   L 741.91 431.80
   A 0.80 0.80 0.0 0 0 742.73 432.59"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 876.00 432.55
   L 881.78 432.45
   A 1.21 1.21 0.0 0 0 882.97 431.22
@@ -1648,22 +2005,31 @@ const AlternateLogo = () => {
   A 5.03 3.94 89.0 0 0 874.76 431.00
   L 874.77 431.36
   A 1.21 1.21 0.0 0 0 876.00 432.55"
-/>
-<path stroke="#a6aaa1" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a6aaa1"
+          vector-effect="non-scaling-stroke"
+          d="
   M 240.3038 425.1841
   A 10.61 7.30 -91.6 0 0 233.3028 435.9938
   A 10.61 7.30 -91.6 0 0 240.8962 446.3959
   A 10.61 7.30 -91.6 0 0 247.8972 435.5862
   A 10.61 7.30 -91.6 0 0 240.3038 425.1841"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 451.48 435.54
   C 448.56 435.98 443.70 437.94 443.16 441.10
   C 442.07 447.38 451.26 447.43 451.82 441.71
   Q 452.25 437.38 452.09 436.02
   A 0.55 0.55 0.0 0 0 451.48 435.54"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 574.20 432.45
   L 584.24 432.45
   A 0.83 0.83 0.0 0 0 585.07 431.62
@@ -1672,23 +2038,31 @@ const AlternateLogo = () => {
   A 5.85 5.85 0.0 0 0 573.37 431.26
   L 573.37 431.62
   A 0.83 0.83 0.0 0 0 574.20 432.45"
-/>
-<path stroke="#b0b0a8" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#b0b0a8"
+          vector-effect="non-scaling-stroke"
+          d="
   M 634.4326 425.3142
   A 10.65 7.36 -91.6 0 0 627.3729 436.1655
   A 10.65 7.36 -91.6 0 0 635.0274 446.6058
   A 10.65 7.36 -91.6 0 0 642.0871 435.7545
   A 10.65 7.36 -91.6 0 0 634.4326 425.3142"
-/>
-<path stroke="#a3a79d" vector-effect="non-scaling-stroke" d="
+        />
+        <path
+          stroke="#a3a79d"
+          vector-effect="non-scaling-stroke"
+          d="
   M 775.28 435.40
   C 772.26 435.80 767.21 437.75 766.60 441.01
   C 765.38 447.48 774.87 447.67 775.54 441.77
   Q 776.05 437.31 775.91 435.90
   A 0.56 0.56 0.0 0 0 775.28 435.40"
-/>
-</g>
-<path fill="#eaeae8" d="
+        />
+      </g>
+      <path
+        fill="#eaeae8"
+        d="
   M 709.74 0.00
   C 710.46 18.10 708.96 33.90 707.63 54.48
   C 706.36 74.21 692.01 92.48 671.44 93.59
@@ -1815,8 +2189,10 @@ const AlternateLogo = () => {
   L 0.00 0.00
   L 709.74 0.00
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 1024.00 0.00
   L 1024.00 244.99
   Q 1023.67 228.45 1023.63 211.91
@@ -1895,8 +2271,10 @@ const AlternateLogo = () => {
   C 708.96 33.90 710.46 18.10 709.74 0.00
   L 1024.00 0.00
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 1023.44 147.50
   Q 1019.95 146.93 1015.97 149.85
   Q 1010.91 153.57 1010.64 153.71
@@ -2198,8 +2576,10 @@ const AlternateLogo = () => {
   A 4.51 4.35 -8.0 0 0 1005.8054 449.1477
   A 4.51 4.35 -8.0 0 0 1009.6661 444.2123
   Z"
-/>
-<path fill="#32702d" d="
+      />
+      <path
+        fill="#32702d"
+        d="
   M 411.07 59.29
   Q 414.90 77.55 407.46 93.45
   Q 401.04 107.17 389.13 119.32
@@ -2272,8 +2652,10 @@ const AlternateLogo = () => {
   C 342.77 263.90 341.31 268.15 341.23 270.58
   A 0.50 0.50 0.0 0 0 341.79 271.09
   Z"
-/>
-<path fill="#eaeae8" d="
+      />
+      <path
+        fill="#eaeae8"
+        d="
   M 344.59 143.43
   A 0.41 0.41 0.0 0 1 344.13 143.03
   Q 343.82 122.79 345.00 105.01
@@ -2284,8 +2666,10 @@ const AlternateLogo = () => {
   Q 369.66 131.71 346.00 142.98
   Q 345.22 143.35 344.59 143.43
   Z"
-/>
-<path fill="#1f4f26" d="
+      />
+      <path
+        fill="#1f4f26"
+        d="
   M 560.78 73.43
   Q 557.04 73.36 553.88 76.13
   Q 550.74 78.87 543.40 84.46
@@ -2314,8 +2698,10 @@ const AlternateLogo = () => {
   A 0.69 0.69 0.0 0 1 566.62 63.88
   L 560.78 73.43
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 440.78 65.46
   Q 431.06 71.46 423.73 80.01
   Q 415.30 89.84 411.64 98.92
@@ -2379,8 +2765,10 @@ const AlternateLogo = () => {
   Q 414.90 77.55 411.07 59.29
   C 419.91 65.12 430.49 65.77 440.78 65.46
   Z"
-/>
-<path fill="#32702d" d="
+      />
+      <path
+        fill="#32702d"
+        d="
   M 302.38 162.06
   L 295.87 168.23
   A 1.61 1.60 75.1 0 0 295.41 169.03
@@ -2495,8 +2883,10 @@ const AlternateLogo = () => {
   A 0.40 0.40 0.0 0 0 254.80 174.00
   L 255.82 187.16
   Z"
-/>
-<path fill="#32702d" d="
+      />
+      <path
+        fill="#32702d"
+        d="
   M 560.78 73.43
   Q 555.53 83.46 552.91 92.18
   Q 545.29 117.47 545.64 145.27
@@ -2521,8 +2911,10 @@ const AlternateLogo = () => {
   Q 550.74 78.87 553.88 76.13
   Q 557.04 73.36 560.78 73.43
   Z"
-/>
-<path fill="#1f4f26" d="
+      />
+      <path
+        fill="#1f4f26"
+        d="
   M 506.96 163.67
   Q 507.50 179.64 512.23 195.82
   C 513.80 201.19 514.04 206.54 515.75 212.20
@@ -2581,8 +2973,10 @@ const AlternateLogo = () => {
   C 514.31 119.90 512.55 125.45 510.93 130.15
   Q 505.42 146.11 506.96 163.67
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 511.61 109.54
   L 508.41 112.33
   A 3.75 3.21 -6.8 0 0 507.93 112.85
@@ -2665,8 +3059,10 @@ const AlternateLogo = () => {
   Q 487.63 119.56 498.84 114.05
   C 502.58 112.21 507.34 110.94 511.61 109.54
   Z"
-/>
-<path fill="#1f4f26" d="
+      />
+      <path
+        fill="#1f4f26"
+        d="
   M 221.10 248.57
   L 222.18 272.66
   Q 221.33 276.86 221.17 283.75
@@ -2705,8 +3101,10 @@ const AlternateLogo = () => {
   Q 217.35 195.36 217.68 200.47
   Q 219.24 224.42 221.10 248.57
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 520.40 132.92
   L 518.78 137.87
   A 4.82 4.36 -35.8 0 0 518.59 138.76
@@ -2725,8 +3123,10 @@ const AlternateLogo = () => {
   Q 517.58 129.16 518.51 130.81
   Q 519.30 132.19 520.40 132.92
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 491.40 139.36
   Q 486.22 149.70 484.44 161.34
   A 0.99 0.98 -85.3 0 1 483.46 162.18
@@ -2737,8 +3137,10 @@ const AlternateLogo = () => {
   A 0.42 0.42 0.0 0 1 491.22 138.86
   L 491.40 139.36
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 562.45 180.82
   C 561.89 183.47 564.58 186.27 566.78 183.77
   C 568.34 182.01 572.20 177.71 575.24 177.17
@@ -3306,8 +3708,10 @@ const AlternateLogo = () => {
   A 1.91 1.90 -60.0 0 1 679.94 451.12
   L 677.80 454.82
   Z"
-/>
-<path fill="#1f5927" d="
+      />
+      <path
+        fill="#1f5927"
+        d="
   M 769.15 167.07
   Q 767.07 175.35 766.85 181.22
   Q 766.05 202.67 766.87 239.56
@@ -3440,8 +3844,10 @@ const AlternateLogo = () => {
   Q 776.17 148.90 774.29 152.51
   Q 770.61 159.59 769.15 167.07
   Z"
-/>
-<path fill="#1f5927" d="
+      />
+      <path
+        fill="#1f5927"
+        d="
   M 1023.44 147.50
   Q 1023.98 151.59 1020.83 156.93
   Q 1014.08 174.89 1013.26 192.25
@@ -3499,8 +3905,10 @@ const AlternateLogo = () => {
   Q 1010.91 153.57 1015.97 149.85
   Q 1019.95 146.93 1023.44 147.50
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 314.27 159.51
   L 314.38 167.00
   Q 304.93 169.47 296.46 173.50
@@ -3509,8 +3917,10 @@ const AlternateLogo = () => {
   L 302.38 162.06
   Q 308.65 161.45 314.27 159.51
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 184.25 166.24
   Q 172.58 170.80 168.28 182.85
   Q 167.52 184.97 167.73 187.58
@@ -3592,8 +4002,10 @@ const AlternateLogo = () => {
   A 1.44 1.41 -65.1 0 1 178.75 166.80
   L 184.25 166.24
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 769.15 167.07
   Q 775.63 172.35 783.77 173.43
   C 781.94 175.42 778.50 179.05 779.01 181.83
@@ -3616,16 +4028,20 @@ const AlternateLogo = () => {
   Q 766.05 202.67 766.85 181.22
   Q 767.07 175.35 769.15 167.07
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 263.51 182.72
   L 255.82 187.16
   L 254.80 174.00
   A 0.40 0.40 0.0 0 1 255.42 173.64
   Q 260.17 176.91 263.51 182.72
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 341.23 270.58
   C 341.31 268.15 342.77 263.90 343.22 260.52
   Q 343.99 254.86 345.21 237.25
@@ -3656,8 +4072,10 @@ const AlternateLogo = () => {
   Q 367.16 197.90 369.03 187.23
   A 1.15 1.15 0.0 0 0 367.53 185.94
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 476.84 181.08
   C 483.89 184.52 487.16 190.33 489.46 197.43
   A 0.54 0.53 0.1 0 1 488.78 198.10
@@ -3698,16 +4116,20 @@ const AlternateLogo = () => {
   C 463.29 187.57 464.08 186.26 467.30 184.94
   Q 472.01 183.01 476.84 181.08
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 267.05 189.49
   Q 260.87 194.88 257.46 202.98
   Q 255.71 194.82 255.82 187.16
   L 263.51 182.72
   Q 266.12 186.26 267.05 189.49
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 367.53 185.94
   A 1.15 1.15 0.0 0 1 369.03 187.23
   Q 367.16 197.90 367.35 210.38
@@ -3721,8 +4143,10 @@ const AlternateLogo = () => {
   Q 362.41 192.11 365.50 187.74
   Q 366.53 186.28 367.53 185.94
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 267.05 189.49
   Q 272.29 204.44 273.52 218.26
   C 275.21 237.34 275.98 255.43 273.19 273.97
@@ -3733,8 +4157,10 @@ const AlternateLogo = () => {
   Q 258.31 213.02 257.46 202.98
   Q 260.87 194.88 267.05 189.49
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 224.52 315.63
   L 222.18 272.66
   L 221.10 248.57
@@ -3749,8 +4175,10 @@ const AlternateLogo = () => {
   Q 232.10 276.31 228.33 301.31
   Q 227.09 309.53 224.52 315.63
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 524.44 211.41
   Q 532.80 241.06 532.92 270.25
   C 532.98 283.28 529.47 296.43 524.68 308.14
@@ -3767,8 +4195,10 @@ const AlternateLogo = () => {
   Q 521.28 216.65 523.10 211.61
   Q 523.15 211.47 524.44 211.41
   Z"
-/>
-<path fill="#1f4f26" d="
+      />
+      <path
+        fill="#1f4f26"
+        d="
   M 422.55 265.88
   Q 417.40 277.53 406.87 285.78
   A 0.53 0.53 0.0 0 1 406.10 285.66
@@ -3782,8 +4212,10 @@ const AlternateLogo = () => {
   Q 431.70 228.79 427.53 240.25
   Q 423.19 252.20 422.55 265.88
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 797.30 270.53
   Q 796.04 268.73 795.97 266.26
   C 795.89 263.53 796.35 259.37 796.83 255.51
@@ -3793,8 +4225,10 @@ const AlternateLogo = () => {
   Q 797.65 252.02 798.06 261.01
   Q 798.30 266.10 797.30 270.53
   Z"
-/>
-<path fill="#93948e" d="
+      />
+      <path
+        fill="#93948e"
+        d="
   M 193.68 343.24
   Q 191.00 350.81 186.71 357.59
   C 183.93 362.00 182.61 365.20 180.76 369.51
@@ -3835,8 +4269,10 @@ const AlternateLogo = () => {
   C 161.90 367.98 176.35 359.97 188.40 348.66
   Q 191.95 345.32 193.68 343.24
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 651.60 447.34
   Q 651.67 441.06 651.47 435.81
   C 651.24 429.94 651.89 422.38 651.40 415.59
@@ -3861,8 +4297,10 @@ const AlternateLogo = () => {
   Q 657.58 435.43 657.22 442.08
   C 657.03 445.66 660.72 445.86 663.34 445.61
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 837.04 448.63
   A 0.70 0.70 0.0 0 1 836.45 447.55
   C 837.44 446.01 837.81 445.17 837.74 443.39
@@ -3894,8 +4332,10 @@ const AlternateLogo = () => {
   A 0.69 0.69 0.0 0 1 847.13 448.63
   L 837.04 448.63
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 282.38 421.74
   L 284.21 418.57
   A 2.40 2.39 37.6 0 0 283.83 415.69
@@ -3906,8 +4346,10 @@ const AlternateLogo = () => {
   Q 283.24 422.74 282.80 422.66
   A 0.62 0.61 -69.8 0 1 282.38 421.74
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 468.63 436.41
   L 468.63 445.18
   A 1.47 1.47 0.0 0 0 469.06 446.22
@@ -3941,8 +4383,10 @@ const AlternateLogo = () => {
   L 469.22 436.21
   A 0.33 0.33 0.0 0 0 468.63 436.41
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 547.57 425.69
   Q 547.91 425.42 548.69 424.63
   C 550.87 422.40 555.44 422.41 557.75 423.31
@@ -3974,8 +4418,10 @@ const AlternateLogo = () => {
   L 547.14 425.49
   A 0.27 0.26 -19.5 0 0 547.57 425.69
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 1005.09 411.36
   Q 1006.69 411.36 1007.30 411.52
   A 2.67 2.66 2.8 0 1 1009.27 413.69
@@ -3990,8 +4436,10 @@ const AlternateLogo = () => {
   A 2.67 2.66 -2.8 0 1 1002.87 411.52
   Q 1003.48 411.36 1005.09 411.36
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 192.77 411.99
   Q 192.97 411.99 205.03 411.85
   Q 216.62 411.71 223.13 420.87
@@ -4015,8 +4463,10 @@ const AlternateLogo = () => {
   L 200.23 415.10
   A 0.46 0.46 0.0 0 0 199.77 415.56
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 923.22 411.94
   A 0.80 0.80 0.0 0 1 923.74 413.35
   Q 921.11 415.53 921.04 419.31
@@ -4034,8 +4484,10 @@ const AlternateLogo = () => {
   A 0.74 0.73 -19.1 0 1 910.93 411.94
   L 923.22 411.94
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 334.32 412.94
   L 333.04 414.23
   A 1.67 1.65 -22.0 0 0 332.54 415.39
@@ -4054,8 +4506,10 @@ const AlternateLogo = () => {
   L 333.92 411.97
   A 0.57 0.57 0.0 0 1 334.32 412.94
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 412.69 418.75
   L 412.69 412.81
   A 0.79 0.79 0.0 0 1 413.48 412.02
@@ -4082,8 +4536,10 @@ const AlternateLogo = () => {
   L 413.33 418.96
   A 0.36 0.35 -26.7 0 1 412.69 418.75
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 618.65 412.95
   L 617.37 414.23
   A 1.67 1.65 -21.9 0 0 616.86 415.39
@@ -4102,8 +4558,10 @@ const AlternateLogo = () => {
   L 618.25 411.97
   A 0.57 0.57 0.0 0 1 618.65 412.95
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 732.44 412.00
   A 0.48 0.47 56.0 0 1 732.82 412.76
   L 731.12 414.98
@@ -4146,8 +4604,10 @@ const AlternateLogo = () => {
   A 0.60 0.60 0.0 0 1 723.96 412.00
   L 732.44 412.00
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 199.77 415.56
   A 0.46 0.46 0.0 0 1 200.23 415.10
   L 205.89 415.11
@@ -4158,8 +4618,10 @@ const AlternateLogo = () => {
   A 0.46 0.46 0.0 0 1 199.71 445.44
   L 199.77 415.56
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 827.62 426.78
   A 0.83 0.82 -88.5 0 0 826.80 427.57
   Q 826.57 432.41 826.81 438.77
@@ -4183,8 +4645,10 @@ const AlternateLogo = () => {
   A 1.25 1.24 -0.0 0 1 832.47 426.78
   L 827.62 426.78
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 298.16 417.00
   L 298.16 422.61
   A 0.57 0.56 -90.0 0 0 298.72 423.18
@@ -4207,8 +4671,10 @@ const AlternateLogo = () => {
   Q 294.61 421.54 297.35 416.78
   A 0.44 0.43 60.1 0 1 298.16 417.00
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 384.68 426.23
   A 1.05 1.05 0.0 0 1 384.12 424.29
   Q 388.14 421.76 390.39 417.15
@@ -4231,8 +4697,10 @@ const AlternateLogo = () => {
   A 0.69 0.68 -89.6 0 0 386.56 426.23
   L 384.68 426.23
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 538.19 445.48
   Q 537.97 449.12 532.96 449.43
   C 526.56 449.82 525.26 445.25 525.47 439.75
@@ -4258,8 +4726,10 @@ const AlternateLogo = () => {
   Q 537.42 444.83 537.60 444.83
   A 0.62 0.62 0.0 0 1 538.19 445.48
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 257.45 446.97
   Q 258.27 446.65 258.31 445.84
   Q 258.50 441.63 258.43 427.47
@@ -4291,8 +4761,10 @@ const AlternateLogo = () => {
   A 0.83 0.82 4.3 0 1 256.88 447.87
   Q 256.95 447.43 257.45 446.97
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 365.46 442.36
   A 0.61 0.60 32.0 0 1 366.61 442.10
   Q 369.36 447.64 375.08 446.20
@@ -4311,8 +4783,10 @@ const AlternateLogo = () => {
   A 0.80 0.79 11.9 0 1 365.46 447.04
   L 365.46 442.36
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 507.15 444.23
   C 506.78 447.38 501.45 449.32 498.66 449.52
   C 485.20 450.48 480.58 432.02 490.60 424.66
@@ -4333,8 +4807,10 @@ const AlternateLogo = () => {
   L 491.08 431.81
   A 0.62 0.62 0.0 0 0 491.70 432.43
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 742.60 435.89
   A 0.64 0.64 0.0 0 0 741.97 436.63
   Q 742.52 440.21 744.84 443.37
@@ -4357,8 +4833,10 @@ const AlternateLogo = () => {
   L 741.91 431.80
   A 0.80 0.80 0.0 0 0 742.73 432.59
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 890.47 430.62
   Q 890.83 432.44 890.60 435.26
   A 0.77 0.77 0.0 0 1 889.83 435.96
@@ -4382,8 +4860,10 @@ const AlternateLogo = () => {
   L 874.77 431.36
   A 1.21 1.21 0.0 0 0 876.00 432.55
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 240.3864 422.3925
   A 13.73 12.87 -91.1 0 1 253.5176 435.8729
   A 13.73 12.87 -91.1 0 1 240.9136 449.8475
@@ -4396,8 +4876,10 @@ const AlternateLogo = () => {
   A 10.61 7.30 -91.6 0 0 247.8972 435.5862
   A 10.61 7.30 -91.6 0 0 240.3038 425.1841
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 355.40 446.02
   A 0.31 0.31 0.0 0 0 354.84 445.83
   C 350.21 451.96 339.90 450.54 339.59 441.70
@@ -4423,8 +4905,10 @@ const AlternateLogo = () => {
   A 1.08 1.08 0.0 0 1 355.67 448.54
   Q 355.37 447.96 355.40 446.02
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 451.81 446.75
   C 446.11 452.48 435.89 448.58 438.10 440.08
   C 439.33 435.35 447.67 433.34 451.74 432.51
@@ -4446,8 +4930,10 @@ const AlternateLogo = () => {
   Q 452.25 437.38 452.09 436.02
   A 0.55 0.55 0.0 0 0 451.48 435.54
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 589.49 444.26
   C 589.10 447.40 583.76 449.31 580.97 449.49
   C 567.51 450.36 563.02 431.88 573.08 424.59
@@ -4468,8 +4954,10 @@ const AlternateLogo = () => {
   L 573.37 431.62
   A 0.83 0.83 0.0 0 0 574.20 432.45
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 635.1292 422.2184
   A 13.73 12.62 -88.0 0 1 647.2623 436.3804
   A 13.73 12.62 -88.0 0 1 634.1708 449.6616
@@ -4482,8 +4970,10 @@ const AlternateLogo = () => {
   A 10.65 7.36 -91.6 0 0 642.0871 435.7545
   A 10.65 7.36 -91.6 0 0 634.4326 425.3142
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 776.00 446.92
   A 0.51 0.51 0.0 0 0 775.17 446.74
   C 769.47 452.39 759.36 448.45 761.61 440.03
@@ -4505,8 +4995,10 @@ const AlternateLogo = () => {
   Q 776.05 437.31 775.91 435.90
   A 0.56 0.56 0.0 0 0 775.28 435.40
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 960.19 425.89
   C 960.80 425.12 961.42 424.08 961.95 423.74
   Q 964.88 421.86 968.59 422.96
@@ -4543,8 +5035,10 @@ const AlternateLogo = () => {
   L 959.66 425.74
   A 0.30 0.30 0.0 0 0 960.19 425.89
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 801.48 423.05
   Q 802.52 424.82 801.54 427.91
   A 0.87 0.86 35.6 0 1 800.02 428.16
@@ -4567,8 +5061,10 @@ const AlternateLogo = () => {
   A 0.32 0.32 0.0 0 0 792.96 426.61
   Q 795.87 421.44 801.48 423.05
   Z"
-/>
-<path fill="#6a6e64" d="
+      />
+      <path
+        fill="#6a6e64"
+        d="
   M 985.31 438.05
   A 0.31 0.31 0.0 0 0 985.89 438.07
   Q 987.55 434.00 988.97 429.42
@@ -4594,8 +5090,10 @@ const AlternateLogo = () => {
   A 0.85 0.84 -39.3 0 0 981.37 426.32
   L 985.31 438.05
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 574.20 432.45
   A 0.83 0.83 0.0 0 1 573.37 431.62
   L 573.37 431.26
@@ -4605,9 +5103,18 @@ const AlternateLogo = () => {
   A 0.83 0.83 0.0 0 1 584.24 432.45
   L 574.20 432.45
   Z"
-/>
-<ellipse fill="#e2e5de" cx="0.00" cy="0.00" transform="translate(240.60,435.79) rotate(-91.6)" rx="10.61" ry="7.30"/>
-<path fill="#e2e5de" d="
+      />
+      <ellipse
+        fill="#e2e5de"
+        cx="0.00"
+        cy="0.00"
+        transform="translate(240.60,435.79) rotate(-91.6)"
+        rx="10.61"
+        ry="7.30"
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 491.70 432.43
   A 0.62 0.62 0.0 0 1 491.08 431.81
   L 491.09 431.18
@@ -4617,9 +5124,18 @@ const AlternateLogo = () => {
   A 0.62 0.62 0.0 0 1 501.98 432.49
   L 491.70 432.43
   Z"
-/>
-<ellipse fill="#e2e5de" cx="0.00" cy="0.00" transform="translate(634.73,435.96) rotate(-91.6)" rx="10.65" ry="7.36"/>
-<path fill="#e2e5de" d="
+      />
+      <ellipse
+        fill="#e2e5de"
+        cx="0.00"
+        cy="0.00"
+        transform="translate(634.73,435.96) rotate(-91.6)"
+        rx="10.65"
+        ry="7.36"
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 742.73 432.59
   A 0.80 0.80 0.0 0 1 741.91 431.80
   L 741.91 431.44
@@ -4629,8 +5145,10 @@ const AlternateLogo = () => {
   A 0.80 0.80 0.0 0 1 752.91 432.39
   L 742.73 432.59
   Z"
-/>
-<path fill="#e2e5de" d="
+      />
+      <path
+        fill="#e2e5de"
+        d="
   M 663.34 445.61
   C 660.72 445.86 657.03 445.66 657.22 442.08
   Q 657.58 435.43 657.18 430.92
@@ -4639,8 +5157,10 @@ const AlternateLogo = () => {
   Q 668.33 429.48 668.52 431.51
   C 668.85 435.13 668.80 445.09 663.34 445.61
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 876.00 432.55
   A 1.21 1.21 0.0 0 1 874.77 431.36
   L 874.76 431.00
@@ -4651,8 +5171,10 @@ const AlternateLogo = () => {
   A 1.21 1.21 0.0 0 1 881.78 432.45
   L 876.00 432.55
   Z"
-/>
-<path fill="#7e7a72" d="
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 257.45 446.97
   L 257.79 445.97
   A 1.84 1.83 -36.0 0 0 257.90 445.29
@@ -4662,25 +5184,38 @@ const AlternateLogo = () => {
   Q 258.50 441.63 258.31 445.84
   Q 258.27 446.65 257.45 446.97
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 775.28 435.40
   A 0.56 0.56 0.0 0 1 775.91 435.90
   Q 776.05 437.31 775.54 441.77
   C 774.87 447.67 765.38 447.48 766.60 441.01
   C 767.21 437.75 772.26 435.80 775.28 435.40
   Z"
-/>
-<path fill="#dbdfd6" d="
+      />
+      <path
+        fill="#dbdfd6"
+        d="
   M 451.48 435.54
   A 0.55 0.55 0.0 0 1 452.09 436.02
   Q 452.25 437.38 451.82 441.71
   C 451.26 447.43 442.07 447.38 443.16 441.10
   C 443.70 437.94 448.56 435.98 451.48 435.54
   Z"
-/>
-<ellipse fill="#7e7a72" cx="0.00" cy="0.00" transform="translate(1005.20,444.84) rotate(-8.0)" rx="4.51" ry="4.35"/>
-<path fill="#7e7a72" d="
+      />
+      <ellipse
+        fill="#7e7a72"
+        cx="0.00"
+        cy="0.00"
+        transform="translate(1005.20,444.84) rotate(-8.0)"
+        rx="4.51"
+        ry="4.35"
+      />
+      <path
+        fill="#7e7a72"
+        d="
   M 677.80 454.82
   L 679.94 451.12
   A 1.91 1.90 -60.0 0 0 679.25 448.52
@@ -4690,8 +5225,8 @@ const AlternateLogo = () => {
   C 684.62 449.02 682.89 454.77 678.67 455.94
   A 0.77 0.77 0.0 0 1 677.80 454.82
   Z"
-/>
-</svg>
+      />
+    </svg>
   );
 };
 
