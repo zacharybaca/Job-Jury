@@ -60,9 +60,16 @@ reviewSchema.post("deleteOne", { document: true, query: false }, function () {
 });
 
 // --- YOUR EXISTING ANONYMITY HOOKS ---
+// Change this in Review.js to check if the author is an object already
+// Updated Review.js hook
 reviewSchema.post("findOne", function (doc, next) {
   if (doc && doc.isAnonymous && doc.author) {
-    doc.author = { username: "Anonymous User" };
+    // Keep the ID accessible for controllers while hiding it from standard UI view
+    const originalId = doc.author;
+    doc.author = {
+      username: "Anonymous User",
+      _id: originalId
+    };
   }
   next();
 });
@@ -70,7 +77,11 @@ reviewSchema.post("findOne", function (doc, next) {
 reviewSchema.post("find", function (docs, next) {
   docs.forEach((doc) => {
     if (doc.isAnonymous && doc.author) {
-      doc.author = { username: "Anonymous User" };
+      const originalId = doc.author;
+      doc.author = {
+        username: "Anonymous User",
+        _id: originalId
+      };
     }
   });
   next();
