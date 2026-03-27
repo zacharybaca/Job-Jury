@@ -69,3 +69,16 @@ export const deleteReview = asyncHandler(async (req, res) => {
 
   res.status(200).json({ success: true, message: "Review removed." });
 });
+
+export const flagReview = asyncHandler(async (req, res) => {
+  const review = await Review.findById(req.params.id);
+  if (!review) {
+    res.status(404);
+    throw new Error("Review not found");
+  }
+
+  review.isFlagged = true;
+  await review.save();
+
+  res.status(200).json({ success: true, data: review });
+};
