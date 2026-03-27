@@ -2,161 +2,102 @@ import React, { useEffect, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
 import './admin-dashboard.css';
 
-const UserManagement = () => {
-  const [users, setUsers] = useState([]);
+const ReviewApprovals = () => {
+  const [flaggedReviews, setFlaggedReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
 
-  const loadUsers = async () => {
+  const loadFlaggedReviews = async () => {
     setLoading(true);
-    const response = await fetcher('/api/users');
+    const response = await fetcher('/api/reviews/flagged');
     if (response.success) {
-      setUsers(response.data.data);
+      setFlaggedReviews(response.data.data);
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    loadUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    loadFlaggedReviews();
   }, []);
 
-  const handlePromote = async (id, username) => {
-    if (
-      window.confirm(
-        `Are you sure you want to grant Admin privileges to ${username}?`
-      )
-    ) {
-      const response = await fetcher(`/api/users/${id}/admin`, {
+  const handleApprove = async (id) => {
+    if (window.confirm('Clear the flag and approve this review?')) {
+      const response = await fetcher(`/api/reviews/${id}/approve`, {
         method: 'PATCH',
       });
 
       if (response.success) {
-        // Optimistic UI update: Flip the isAdmin status without reloading
-        setUsers(
-          users.map((user) =>
-            user._id === id ? { ...user, isAdmin: true } : user
-          )
-        );
+        setFlaggedReviews(flaggedReviews.filter((review) => review._id !== id));
       } else {
-        alert(response.error || 'Failed to promote user.');
+        alert(response.error || 'Failed to approve review.');
       }
     }
   };
 
-  const handleDemote = async (id, username) => {
-    if (
-      window.confirm(
-        `Are you sure you want to revoke Admin privileges from ${username}?`
-      )
-    ) {
-      const response = await fetcher(`/api/users/${id}/demote`, {
-        method: 'PATCH',
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to permanently delete this review?')) {
+      const response = await fetcher(`/api/reviews/${id}`, {
+        method: 'DELETE',
       });
 
       if (response.success) {
-        setUsers(
-          users.map((user) =>
-            user._id === id ? { ...user, isAdmin: false } : user
-          )
-        );
+        setFlaggedReviews(flaggedReviews.filter((review) => review._id !== id));
       } else {
-        alert(response.error || 'Failed to demote user.');
+        alert(response.error || 'Failed to delete review.');
       }
     }
   };
 
   if (loading) {
-    return <div className="admin-loading">Loading user database...</div>;
+    return <div className="admin-loading">Checking Jury reports...</div>;
   }
 
   return (
     <div className="admin-container">
       <header className="admin-header">
-        <h1>User Management</h1>
-        <p>View registered users and manage administrative privileges.</p>
+        <h1>Review Approvals</h1>
+        <p>Review content flagged by the Jury for inappropriate content.</p>
       </header>
 
       <div className="table-wrapper">
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Avatar</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>Rating</th>
+              <th>Job Title</th>
+              <th>Review Content</th>
+              <th>Author</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.length > 0 ? (
-              users.map((user) => (
-                <tr key={user._id}>
-                  <td>
-                    {user.avatar ? (
-                      <img
-                        src={user.avatar}
-                        alt="avatar"
-                        style={{
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                    ) : (
-                      <div
-                        style={{
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          backgroundColor: '#10b981',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#0f172a',
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        {user.username.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                  </td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <span
-                      className={`status-badge ${user.isAdmin ? 'approved' : 'pending'}`}
-                    >
-                      {user.isAdmin ? 'Admin' : 'User'}
-                    </span>
-                  </td>
+            {flaggedReviews.length > 0 ? (
+              flaggedReviews.map((review) => (
+                <tr key={review._id}>
+                  <td>{review.rating} ★</td>
+                  <td>{review.jobTitle}</td>
+                  <td className="review-body-cell">{review.body}</td>
+                  <td>{review.author?.username || 'Anonymous'}</td>
                   <td className="admin-actions">
-                    {!user.isAdmin ? (
-                      <button
-                        className="approve-btn"
-                        onClick={() => handlePromote(user._id, user.username)}
-                      >
-                        Promote
-                      </button>
-                    ) : (
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDemote(user._id, user.username)}
-                      >
-                        Demote
-                      </button>
-                    )}
+                    <button
+                      className="approve-btn"
+                      onClick={() => handleApprove(review._id)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(review._id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td
-                  colSpan="5"
-                  style={{ textAlign: 'center', padding: '20px' }}
-                >
-                  No users found.
+                <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>
+                  No flagged reviews found. The Jury is satisfied.
                 </td>
               </tr>
             )}
@@ -167,4 +108,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default ReviewApprovals;
