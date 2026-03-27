@@ -5,7 +5,6 @@ import asyncHandler from "express-async-handler";
 // @desc    Create a new review and update company average
 // @route   POST /api/reviews
 export const createReview = asyncHandler(async (req, res) => {
-  // Destructure isAnonymous here
   const { companyId, rating, body, jobTitle, isAnonymous } = req.body;
 
   const company = await Company.findById(companyId);
@@ -19,11 +18,11 @@ export const createReview = asyncHandler(async (req, res) => {
     rating: Number(rating),
     body,
     jobTitle,
-    // Use the destructured variable
     isAnonymous: isAnonymous !== undefined ? isAnonymous : true,
     author: req.user._id,
   });
 
+  // Manually update company average rating and reviews array
   const allReviews = await Review.find({ company: companyId });
   const total = allReviews.reduce((sum, item) => sum + item.rating, 0);
   const updatedAverage = (total / allReviews.length).toFixed(1);
@@ -47,29 +46,39 @@ export const deleteReview = asyncHandler(async (req, res) => {
 
   if (!review) {
     res.status(404);
-    throw new Error("Review not found");
+    throw new Error(`Review not found with id of ${req.params.id}`);
   }
 
-  if (
-    review.author.toString() !== req.user._id.toString() &&
-    !req.user.isAdmin
-  ) {
+  // Permission Logic: Check if user is an Admin or the Author
+  const isAdmin = req.user && req.user.isAdmin === true;
+  const userId = req.user?._id?.toString();
+
+  // Safeguard against missing author field or transformed anonymity objects
+  const authorId = review.author?._id?.toString() || review.author?.toString();
+  const isAuthor = authorId && userId && authorId === userId;
+
+  if (!isAdmin && !isAuthor) {
     res.status(403);
-    throw new Error("Not authorized to delete this review");
+    throw new Error("Not authorized to delete this verdict");
   }
 
-  // 1. Remove review ID from Company array
-  // FIX: Use the 'Company' import you already have at the top
+  // 1. Remove review ID from the Company's reviews array
   await Company.findByIdAndUpdate(review.company, {
     $pull: { reviews: review._id },
   });
 
-  // 2. Trigger the automated calculation via the model hook
+  // 2. Trigger the automated calculation via the model hook in Review.js
+  // Note: Your schema requires .deleteOne() on the instance to trigger the middleware
   await review.deleteOne();
 
-  res.status(200).json({ success: true, message: "Review removed." });
+  res.status(200).json({
+    success: true,
+    message: "Review removed and company ratings updated."
+  });
 });
 
+// @desc    Flag a review as inappropriate
+// @route   PATCH /api/reviews/:id/inappropriate
 export const flagReview = asyncHandler(async (req, res) => {
   const review = await Review.findById(req.params.id);
   if (!review) {
@@ -83,26 +92,35 @@ export const flagReview = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: review });
 });
 
-// Fetch all flagged reviews for the admin dashboard
-export const getFlaggedReviews = async (req, res) => {
-  try {
-    const reviews = await Review.find({ markedInappropriate: true }).populate('author', 'username');
-    res.status(200).json({ success: true, data: reviews });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
+// @desc    Fetch all flagged reviews for admin approval
+// @route   GET /api/reviews/flagged
+export const getFlaggedReviews = asyncHandler(async (req, res) => {
+  const reviews = await Review.find({ markedInappropriate: true })
+    .populate("author", "username")
+    .populate("company", "name");
 
-// Clear markedInappropriate status without deleting the review
-export const approveReview = async (req, res) => {
-  try {
-    const review = await Review.findByIdAndUpdate(
-      req.params.id,
-      { markedInappropriate: false },
-      { new: true }
-    );
-    res.status(200).json({ success: true, data: review });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+  res.status(200).json({
+    success: true,
+    data: reviews
+  });
+});
+
+// @desc    Approve a flagged review (clear the flag)
+// @route   PATCH /api/reviews/:id/approve
+export const approveReview = asyncHandler(async (req, res) => {
+  const review = await Review.findById(req.params.id);
+
+  if (!review) {
+    res.status(404);
+    throw new Error("Review not found");
   }
-};
+
+  review.markedInappropriate = false;
+  await review.save();
+
+  res.status(200).json({
+    success: true,
+    data: review,
+    message: "Review cleared and approved."
+  });
+});
