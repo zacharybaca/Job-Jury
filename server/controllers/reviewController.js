@@ -82,3 +82,27 @@ export const flagReview = asyncHandler(async (req, res) => {
 
   res.status(200).json({ success: true, data: review });
 });
+
+// Fetch all flagged reviews for the admin dashboard
+export const getFlaggedReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find({ isFlagged: true }).populate('author', 'username');
+    res.status(200).json({ success: true, data: reviews });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Clear isFlagged status without deleting the review
+export const approveReview = async (req, res) => {
+  try {
+    const review = await Review.findByIdAndUpdate(
+      req.params.id,
+      { isFlagged: false },
+      { new: true }
+    );
+    res.status(200).json({ success: true, data: review });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
