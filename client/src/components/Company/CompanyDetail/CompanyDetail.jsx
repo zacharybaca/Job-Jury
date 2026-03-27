@@ -20,19 +20,19 @@ const CompanyDetail = () => {
   const [showForm, setShowForm] = useState(false);
 
   const getCompanyData = useCallback(async () => {
-  setCompanyLoading(true);
-  const response = await fetcher(`/api/companies/${id}`);
+    setCompanyLoading(true);
+    const response = await fetcher(`/api/companies/${id}`);
 
-  if (response.success) {
-    // Handle both nested and flat response structures
-    const companyData = response.data?.data || response.data;
-    console.log('Fetched Company Data:', companyData); // Debugging line
-    setCompany(companyData);
-  } else {
-    console.error('API Error:', response.error);
-  }
-  setCompanyLoading(false);
-}, [id, fetcher]);
+    if (response.success) {
+      // Handle both nested and flat response structures
+      const companyData = response.data?.data || response.data;
+      console.log('Fetched Company Data:', companyData); // Debugging line
+      setCompany(companyData);
+    } else {
+      console.error('API Error:', response.error);
+    }
+    setCompanyLoading(false);
+  }, [id, fetcher]);
 
   useEffect(() => {
     getCompanyData();

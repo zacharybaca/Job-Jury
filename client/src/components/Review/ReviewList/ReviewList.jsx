@@ -65,10 +65,15 @@ const ReviewList = ({ reviews }) => {
             <div className="review-footer">
               <span className="review-author">
                 Contributed by:{' '}
-                <strong>{review.author?.username || 'Member of the Jury'}</strong>
+                <strong>
+                  {review.author?.username || 'Member of the Jury'}
+                </strong>
               </span>
               {review.isAnonymous && (
-                <span className="anonymous-tag" title="Identity protected by the Jury">
+                <span
+                  className="anonymous-tag"
+                  title="Identity protected by the Jury"
+                >
                   (Anonymous)
                 </span>
               )}
@@ -80,13 +85,17 @@ const ReviewList = ({ reviews }) => {
                 id={`flag-${review._id}`}
                 checked={isFlagged}
                 disabled={isFlagged || isLoading}
-                onChange={(e) => handleToggleInappropriate(review._id, e.target.checked)}
+                onChange={(e) =>
+                  handleToggleInappropriate(review._id, e.target.checked)
+                }
               />
               <label htmlFor={`flag-${review._id}`}>
                 {isFlagged ? 'Reported for Review' : 'Mark as inappropriate?'}
                 <span className="checkbox-hint">
                   {isLoading ? ' (Processing...)' : ''}
-                  {isFlagged && !isLoading ? ' (The Jury is reviewing this content)' : ''}
+                  {isFlagged && !isLoading
+                    ? ' (The Jury is reviewing this content)'
+                    : ''}
                 </span>
               </label>
             </div>

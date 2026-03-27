@@ -36,13 +36,18 @@ const ReviewApprovals = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to permanently delete this review?')) {
+    if (
+      window.confirm('Are you sure you want to permanently delete this review?')
+    ) {
       const response = await fetcher(`/api/reviews/${id}`, {
         method: 'DELETE',
       });
 
       if (response.success) {
-        console.log('Review deleted:', flaggedReviews.filter((review) => review._id !== id));
+        console.log(
+          'Review deleted:',
+          flaggedReviews.filter((review) => review._id !== id)
+        );
         setFlaggedReviews(flaggedReviews.filter((review) => review._id !== id));
       } else {
         alert(response.error || 'Failed to delete review.');
@@ -98,7 +103,10 @@ const ReviewApprovals = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>
+                <td
+                  colSpan="5"
+                  style={{ textAlign: 'center', padding: '20px' }}
+                >
                   No flagged reviews found. The Jury is satisfied.
                 </td>
               </tr>

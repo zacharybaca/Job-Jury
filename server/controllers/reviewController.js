@@ -73,7 +73,7 @@ export const deleteReview = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "Review removed and company ratings updated."
+    message: "Review removed and company ratings updated.",
   });
 });
 
@@ -101,7 +101,7 @@ export const getFlaggedReviews = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    data: reviews
+    data: reviews,
   });
 });
 
@@ -121,6 +121,6 @@ export const approveReview = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     data: review,
-    message: "Review cleared and approved."
+    message: "Review cleared and approved.",
   });
 });

@@ -68,7 +68,7 @@ reviewSchema.post("findOne", function (doc, next) {
     const originalId = doc.author;
     doc.author = {
       username: "Anonymous User",
-      _id: originalId
+      _id: originalId,
     };
   }
   next();
@@ -80,7 +80,7 @@ reviewSchema.post("find", function (docs, next) {
       const originalId = doc.author;
       doc.author = {
         username: "Anonymous User",
-        _id: originalId
+        _id: originalId,
       };
     }
   });
