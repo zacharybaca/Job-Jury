@@ -7,18 +7,19 @@ const ReviewApprovals = () => {
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
 
-  const loadFlaggedReviews = async () => {
-    setLoading(true);
-    const response = await fetcher('/api/reviews/flagged');
-    if (response.success) {
-      setFlaggedReviews(response.data.data);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const loadFlaggedReviews = async () => {
+      setLoading(true);
+      const response = await fetcher('/api/reviews/flagged');
+      if (response.success) {
+        console.log('Flagged reviews loaded:', response.data.data);
+        setFlaggedReviews(response.data.data);
+      }
+      setLoading(false);
+    };
+
     loadFlaggedReviews();
-  }, []);
+  }, [fetcher]);
 
   const handleApprove = async (id) => {
     if (window.confirm('Clear the flag and approve this review?')) {
