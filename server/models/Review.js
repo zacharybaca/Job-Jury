@@ -12,6 +12,7 @@ const reviewSchema = mongoose.Schema(
     salary: { type: Number },
     jobTitle: { type: String },
     isAnonymous: { type: Boolean, default: true },
+    markedInappropriate: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
