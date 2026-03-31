@@ -42,4 +42,19 @@ const admin = (req, res, next) => {
   }
 };
 
-export { protect, admin };
+export const requireTier = (minTier) => (req, res, next) => {
+  const tiers = ['free', 'juror', 'judge', 'firm'];
+  const userTierIndex = tiers.indexOf(req.user.subscriptionTier);
+  const requiredTierIndex = tiers.indexOf(minTier);
+
+  if (userTierIndex >= requiredTierIndex) {
+    next();
+  } else {
+    res.status(403).json({
+      success: false,
+      error: `This feature requires a ${minTier} subscription.`
+    });
+  }
+};
+
+export { protect, admin, requireTier };
