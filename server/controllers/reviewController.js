@@ -22,6 +22,16 @@ export const createReview = asyncHandler(async (req, res) => {
     author: req.user._id,
   });
 
+  const watchers = await User.find({
+  watchlist: companyId,
+  subscriptionTier: { $in: ['juror', 'judge'] }
+});
+
+  watchers.forEach(watcher => {
+    // Implement email or push notification logic here
+    console.log(`Alert: New verdict for company ${companyId} sent to ${watcher.email}`);
+  });
+
   // Manually update company average rating and reviews array
   const allReviews = await Review.find({ company: companyId });
   const total = allReviews.reduce((sum, item) => sum + item.rating, 0);
