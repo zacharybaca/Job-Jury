@@ -42,7 +42,7 @@ const admin = (req, res, next) => {
   }
 };
 
-export const requireTier = (minTier) => (req, res, next) => {
+const requireTier = (minTier) => (req, res, next) => {
   const tiers = ['free', 'juror', 'judge', 'firm'];
   const userTierIndex = tiers.indexOf(req.user.subscriptionTier);
   const requiredTierIndex = tiers.indexOf(minTier);
