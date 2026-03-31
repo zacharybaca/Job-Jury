@@ -10,9 +10,10 @@ import {
   approveCompany, // NEW
   updateMyCompany, // NEW
   deleteMyCompany, // NEW
+  getCompanyTrends, // NEW
 } from "../controllers/companyController.js";
 import { upload } from "../middleware/cloudinary.js";
-import { admin, protect } from "../middleware/authMiddleware.js";
+import { admin, protect, requireTier } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -36,6 +37,8 @@ router.put(
 router.delete("/my-submissions/:id", protect, deleteMyCompany);
 
 router.get("/:id", getCompany);
+
+router.get("/:id/trends", protect, requireTier('judge'), getCompanyTrends);
 
 // NEW: Admin route to approve a company
 router.patch("/:id/approve", protect, admin, approveCompany);
