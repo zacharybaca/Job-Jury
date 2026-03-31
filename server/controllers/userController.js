@@ -188,7 +188,7 @@ const demoteUserAdmin = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: updatedUser });
 });
 
-export const toggleWatchlist = asyncHandler(async (req, res) => {
+const toggleWatchlist = asyncHandler(async (req, res) => {
   const { companyId } = req.body;
   const user = await User.findById(req.user._id);
 
