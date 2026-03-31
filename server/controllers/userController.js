@@ -188,6 +188,21 @@ const demoteUserAdmin = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: updatedUser });
 });
 
+export const toggleWatchlist = asyncHandler(async (req, res) => {
+  const { companyId } = req.body;
+  const user = await User.findById(req.user._id);
+
+  const index = user.watchlist.indexOf(companyId);
+  if (index > -1) {
+    user.watchlist.splice(index, 1);
+  } else {
+    user.watchlist.push(companyId);
+  }
+
+  await user.save();
+  res.status(200).json({ success: true, watchlist: user.watchlist });
+});
+
 export {
   getUserProfile,
   updateUserProfile,
@@ -196,4 +211,5 @@ export {
   getUsers,
   makeUserAdmin,
   demoteUserAdmin,
+  toggleWatchlist,
 };
