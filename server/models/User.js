@@ -16,7 +16,16 @@ const userSchema = mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-  },
+    isPremium: { type: Boolean, default: false },
+    subscriptionTier: {
+      type: String,
+      enum: ['free', 'juror', 'judge', 'firm'],
+      default: 'free'
+    },
+    stripeCustomerId: { type: String },
+    subscriptionId: { type: String },
+    watchlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }]
+    },
   { timestamps: true },
 );
 
