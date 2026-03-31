@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import paymentRoutes from "./routes/paymentRoute.js";
 import userRoutes from "./routes/userRoutes.js"; // New Import
 import { errorHandler } from "./middleware/errorHandler.js";
 import { stripeWebhook } from "./controllers/paymentController.js";
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes); // New Route Base
+app.use("/api/payments", paymentRoutes);
 
 // Error handling (Must be the last middleware)
 app.use(errorHandler);
