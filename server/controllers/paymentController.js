@@ -31,21 +31,23 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
   }
 
   if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
-    const userId = session.client_reference_id;
+  const session = event.data.object;
+  const userId = session.client_reference_id;
 
-    // Determine tier based on amount or metadata
-    const amount = session.amount_total;
-    let tier = 'free';
-    if (amount === 999) tier = 'juror';
-    if (amount === 1999) tier = 'judge';
+  const amount = session.amount_total;
+  let tier = 'free';
+  if (amount === 999) tier = 'juror';
+  if (amount === 1999) tier = 'judge';
+  // Add firm tier if amount matches (e.g., $49.99)
+  if (amount === 4999) tier = 'firm';
 
-    await User.findByIdAndUpdate(userId, {
-      subscriptionTier: tier,
-      stripeCustomerId: session.customer,
-      stripeSubscriptionId: session.subscription,
-    });
-  }
+  await User.findByIdAndUpdate(userId, {
+    isPremium: tier !== 'free',
+    subscriptionTier: tier,
+    stripeCustomerId: session.customer,
+    stripeSubscriptionId: session.subscription, // Matches current User.js field name
+  });
+}
 
   res.json({ received: true });
 });
