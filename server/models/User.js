@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema(
       default: 'free'
     },
     stripeCustomerId: { type: String },
-    subscriptionId: { type: String },
+    stripeSubscriptionId: { type: String },
     watchlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }]
     },
   { timestamps: true },
