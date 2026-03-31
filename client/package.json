@@ -14,6 +14,8 @@
     "reset": "rm -rf node_modules package-lock.json && npm cache clean --force && npm install"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^6.1.0",
+    "@stripe/stripe-js": "^9.0.1",
     "bootstrap": "^5.3.3",
     "modern-normalize": "^2.0.0",
     "react": "^19.0.0",
