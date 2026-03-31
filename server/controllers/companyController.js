@@ -233,6 +233,27 @@ const deleteMyCompany = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Pending submission removed." });
 });
 
+const getCompanyTrends = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const trends = await Review.aggregate([
+    { $match: { company: new mongoose.Types.ObjectId(id) } },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$createdAt" },
+          month: { $month: "$createdAt" }
+        },
+        avgRating: { $avg: "$rating" },
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { "_id.year": 1, "_id.month": 1 } }
+  ]);
+
+  res.status(200).json({ success: true, data: trends });
+});
+
 export {
   createCompany,
   getCompanies,
@@ -244,4 +265,5 @@ export {
   getMyCompanies,
   updateMyCompany,
   deleteMyCompany,
+  getCompanyTrends,
 };
