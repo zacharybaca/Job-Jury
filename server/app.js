@@ -21,6 +21,28 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 app.use(cookieParser()); // Must come before routes to parse JWT cookies
+app.post('/api/payments/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    // Update user in database using session.client_reference_id
+    console.log('Payment successful for User:', session.client_reference_id);
+  }
+
+  res.json({ received: true });
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
