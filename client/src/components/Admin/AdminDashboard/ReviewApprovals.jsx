@@ -61,11 +61,6 @@ const ReviewApprovals = () => {
 
   return (
     <div className="admin-container">
-      <header className="admin-header">
-        <h1>Review Approvals</h1>
-        <p>Review content flagged by the Jury for inappropriate content.</p>
-      </header>
-
       <div className="table-wrapper">
         <table className="admin-table">
           <thead>
