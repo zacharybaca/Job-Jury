@@ -72,11 +72,6 @@ const UserManagement = () => {
 
   return (
     <div className="admin-container">
-      <header className="admin-header">
-        <h1>User Management</h1>
-        <p>View registered users and manage administrative privileges.</p>
-      </header>
-
       <div className="table-wrapper">
         <table className="admin-table">
           <thead>
