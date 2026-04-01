@@ -193,8 +193,10 @@ function App() {
       document.body.style.backgroundPosition = 'center';
     } else {
       // Clean slate for Auth pages
-      document.body.style.backgroundImage = 'none';
-      document.body.style.backgroundColor = '#0f172a';
+      document.body.style.backgroundImage = `url(assets/wallpaper_backgrounds/light-sky-bg.jpg)`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundPosition = 'center';
     }
   }, [selectedWallpaper, pathname]);
 
