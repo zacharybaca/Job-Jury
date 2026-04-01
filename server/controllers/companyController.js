@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+import Review from "../models/Review.js";
 import Company from "../models/Company.js";
 import asyncHandler from "express-async-handler";
 import { v2 as cloudinary } from "cloudinary"; // Import to handle image deletion
