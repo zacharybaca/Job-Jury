@@ -139,3 +139,52 @@
   padding: 1.5rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
+.evidence-locker {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a "Premium" indicator strip at the top */
+.evidence-locker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  color: #111827;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Label for the Judge Tier context */
+.chart-title::after {
+  content: "JUDGE ANALYTICS";
+  font-size: 0.65rem;
+  background: #ecfdf5;
+  color: #059669;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.chart-container {
+  width: 100%;
+  /* Ensure the container has enough space for X-axis labels */
+  padding-bottom: 10px;
+}
