@@ -7,7 +7,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const EvidenceLocker = ({ trends }) => {
+const EvidenceLocker = ({ trends = [] }) => {
   const chartData = trends.map((t) => ({
     date: `${t._id.month}/${t._id.year}`,
     rating: parseFloat(t.avgRating.toFixed(2)),
