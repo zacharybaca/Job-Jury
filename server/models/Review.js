@@ -38,7 +38,7 @@ reviewSchema.statics.calculateAverage = async function (companyId) {
       });
     } else {
       await Company.findByIdAndUpdate(companyId, {
-        averageRating: 0,
+        averageRating: parseFloat(stats[0].avgRating.toFixed(1)),
       });
     }
   } catch (error) {
@@ -77,7 +77,8 @@ reviewSchema.post("findOne", function (doc, next) {
 reviewSchema.post("find", function (docs, next) {
   docs.forEach((doc) => {
     if (doc.isAnonymous && doc.author) {
-      const originalId = doc.author;
+      // If author is an object (populated), grab the ID from it
+      const originalId = doc.author._id || doc.author;
       doc.author = {
         username: "Anonymous User",
         _id: originalId,
