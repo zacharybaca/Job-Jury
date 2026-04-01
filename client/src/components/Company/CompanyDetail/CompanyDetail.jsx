@@ -7,6 +7,7 @@ import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
+import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
 import './company-detail.css';
 
 const CompanyDetail = () => {
@@ -86,6 +87,11 @@ const CompanyDetail = () => {
     <main className="company-detail-page">
       <CompanyHeader company={company} />
 
+      {/* Analytics Section: Positioned before reviews for high-level context */}
+      <section className="section-container analytics-section">
+        <JudgeAnalyticsSection companyId={id} />
+      </section>
+
       <section className="section-container">
         <div className="reviews-header">
           <h2>Employee Reviews</h2>
@@ -119,7 +125,6 @@ const CompanyDetail = () => {
           </div>
         )}
 
-        {/* ADMIN SECTION: This will now update instantly because of the Login.jsx changes */}
         {user && isUserAdmin && (
           <div className="button-container">
             <SaveButton
