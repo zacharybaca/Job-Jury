@@ -9,7 +9,10 @@ import {
 } from "recharts";
 
 const EvidenceLocker = ({ trends = [] }) => {
-  const chartData = trends.map((t) => ({
+  console.log("Current Trends Data:", trends);
+  const dataArray = Array.isArray(trends) ? trends : (trends.data || []);
+
+  const chartData = dataArray.map((t) => ({
     date: `${t._id.month}/${t._id.year}`,
     rating: parseFloat(t.avgRating.toFixed(2)),
   }));
