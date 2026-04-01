@@ -23,13 +23,15 @@ export const createReview = asyncHandler(async (req, res) => {
   });
 
   const watchers = await User.find({
-  watchlist: companyId,
-  subscriptionTier: { $in: ['juror', 'judge'] }
-});
+    watchlist: companyId,
+    subscriptionTier: { $in: ["juror", "judge"] },
+  });
 
-  watchers.forEach(watcher => {
+  watchers.forEach((watcher) => {
     // Implement email or push notification logic here
-    console.log(`Alert: New verdict for company ${companyId} sent to ${watcher.email}`);
+    console.log(
+      `Alert: New verdict for company ${companyId} sent to ${watcher.email}`,
+    );
   });
 
   // Manually update company average rating and reviews array

@@ -19,13 +19,13 @@ const userSchema = mongoose.Schema(
     isPremium: { type: Boolean, default: false },
     subscriptionTier: {
       type: String,
-      enum: ['free', 'juror', 'judge', 'firm'],
-      default: 'free'
+      enum: ["free", "juror", "judge", "firm"],
+      default: "free",
     },
     stripeCustomerId: { type: String },
     stripeSubscriptionId: { type: String },
-    watchlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }]
-    },
+    watchlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
+  },
   { timestamps: true },
 );
 

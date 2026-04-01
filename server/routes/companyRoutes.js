@@ -38,7 +38,7 @@ router.delete("/my-submissions/:id", protect, deleteMyCompany);
 
 router.get("/:id", getCompany);
 
-router.get("/:id/trends", protect, requireTier('judge'), getCompanyTrends);
+router.get("/:id/trends", protect, requireTier("judge"), getCompanyTrends);
 
 // NEW: Admin route to approve a company
 router.patch("/:id/approve", protect, admin, approveCompany);

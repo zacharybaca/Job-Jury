@@ -1,9 +1,16 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 const EvidenceLocker = ({ trends }) => {
-  const chartData = trends.map(t => ({
+  const chartData = trends.map((t) => ({
     date: `${t._id.month}/${t._id.year}`,
-    rating: parseFloat(t.avgRating.toFixed(2))
+    rating: parseFloat(t.avgRating.toFixed(2)),
   }));
 
   return (
@@ -14,7 +21,12 @@ const EvidenceLocker = ({ trends }) => {
           <XAxis dataKey="date" />
           <YAxis domain={[0, 5]} />
           <Tooltip />
-          <Line type="monotone" dataKey="rating" stroke="#10b981" strokeWidth={2} />
+          <Line
+            type="monotone"
+            dataKey="rating"
+            stroke="#10b981"
+            strokeWidth={2}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

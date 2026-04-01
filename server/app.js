@@ -23,7 +23,11 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 app.use(cookieParser()); // Must come before routes to parse JWT cookies
-app.post('/api/payments/webhook', express.raw({ type: 'application/json' }), stripeWebhook);
+app.post(
+  "/api/payments/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook,
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

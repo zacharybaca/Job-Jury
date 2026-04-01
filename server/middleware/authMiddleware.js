@@ -43,7 +43,7 @@ const admin = (req, res, next) => {
 };
 
 const requireTier = (minTier) => (req, res, next) => {
-  const tiers = ['free', 'juror', 'judge', 'firm'];
+  const tiers = ["free", "juror", "judge", "firm"];
   const userTierIndex = tiers.indexOf(req.user.subscriptionTier);
   const requiredTierIndex = tiers.indexOf(minTier);
 
@@ -52,7 +52,7 @@ const requireTier = (minTier) => (req, res, next) => {
   } else {
     res.status(403).json({
       success: false,
-      error: `This feature requires a ${minTier} subscription.`
+      error: `This feature requires a ${minTier} subscription.`,
     });
   }
 };
