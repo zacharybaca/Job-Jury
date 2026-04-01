@@ -124,3 +124,18 @@
   margin-top: 10px;
   transition: background 0.2s;
 }
+
+.analytics-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 20px;
+}
+
+/* Optional: Add a subtle border or background to make it feel like a 'Case File' */
+.evidence-locker {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
