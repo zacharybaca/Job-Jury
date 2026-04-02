@@ -11,6 +11,7 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
+  background-color: beige;
 }
 
 .form-title {
@@ -31,13 +32,17 @@
   color: #475569;
 }
 
-.form-group input,
+.form-group input[type="text"],
 .form-group textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   font-family: inherit;
+  font-weight: 600;
+  color: black;
+  background-color: gray;
+  transition: border-color 0.3s;
 }
 
 .submit-btn {
