@@ -5,7 +5,7 @@
 }
 
 .submissions-header h2 {
-  color: #f8fafc;
+  color: black;
   margin-bottom: 8px;
 }
 
@@ -21,12 +21,20 @@
 }
 
 .submission-card {
-  background: #1e293b;
-  border-radius: 8px;
+  background: green;
+  border-radius: 12px;
   padding: 20px;
   border: 1px solid #334155;
   display: flex;
   flex-direction: column;
+}
+
+.no-submissions p {
+  color: black;
+}
+
+.submissions-header p {
+  color: black;
 }
 
 .card-header {
