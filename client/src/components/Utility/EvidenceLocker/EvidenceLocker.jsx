@@ -6,11 +6,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
 const EvidenceLocker = ({ trends = [] }) => {
-  console.log("Current Trends Data:", trends);
-  const dataArray = Array.isArray(trends) ? trends : (trends.data || []);
+  console.log('Current Trends Data:', trends);
+  const dataArray = Array.isArray(trends) ? trends : trends.data || [];
 
   const chartData = dataArray.map((t) => ({
     date: `${t._id.month}/${t._id.year}`,
@@ -22,9 +22,16 @@ const EvidenceLocker = ({ trends = [] }) => {
       <h3 className="chart-title">Historical Verdict Trends</h3>
       <div className="chart-container">
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <LineChart
+            data={chartData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
             {/* Add a subtle dashed grid */}
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              stroke="#e5e7eb"
+            />
 
             <XAxis
               dataKey="date"
@@ -46,7 +53,7 @@ const EvidenceLocker = ({ trends = [] }) => {
               contentStyle={{
                 borderRadius: '8px',
                 border: 'none',
-                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
               }}
             />
 
@@ -55,7 +62,7 @@ const EvidenceLocker = ({ trends = [] }) => {
               dataKey="rating"
               stroke="#10b981"
               strokeWidth={3}
-              dot={{ r: 4, fill: "#10b981", strokeWidth: 2, stroke: "#fff" }}
+              dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#fff' }}
               activeDot={{ r: 6, strokeWidth: 0 }}
               animationDuration={1500}
             />
