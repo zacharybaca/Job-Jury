@@ -1,45 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import './wallpaper-selector.css';
 
 const WallpaperSelector = ({ wallpapers, onSelect, currentWallpaper }) => {
-  // 1. Helper function to handle the dropdown selection
-  const handleDropdownChange = (e) => {
-    const selectedUrl = e.target.value;
-    if (!selectedUrl) return;
+  // Explicit state to control the menu visibility
+  const [show, setShow] = useState(false);
 
-    // Find the full wallpaper object based on the URL selected
-    const selectedObj = wallpapers.find((w) => w.url === selectedUrl);
-    if (selectedObj) {
+  const handleSelect = (url) => {
+    const selectedObj = wallpapers.find((w) => w.url === url);
+    if (selectedObj && onSelect) {
       onSelect(selectedObj);
     }
+    // FORCE the menu to close immediately after state update
+    setShow(false);
   };
 
   return (
     <div className="wallpaper-selector">
-      {/* 2. Fixed 'htmFor' to React's 'htmlFor' */}
-      <label htmlFor="wallpaper-selector" className="selector-label">
-        Choose Your Background:
-      </label>
+      <label className="selector-label mb-2">Choose Your Background:</label>
 
-      <div className="wallpaper-grid">
-        {/* 3. The Controlled Dropdown */}
-        <select
-          name="wallpaper"
-          id="wallpaper-selector"
-          className="wallpaper-dropdown"
-          value={currentWallpaper?.url || ''} // Keeps dropdown in sync with state
-          onChange={handleDropdownChange}
-        >
-          <option value="" disabled>
-            -- Select a Wallpaper --
-          </option>
-          {wallpapers.map((wallpaper) => (
-            <option key={`opt-${wallpaper.id}`} value={wallpaper.url}>
-              {wallpaper.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      <DropdownButton
+        id="wallpaper-dropdown-button"
+        title={currentWallpaper ? currentWallpaper.name : '-- Select a Wallpaper --'}
+        show={show}
+        onToggle={(isOpen) => setShow(isOpen)}
+        onSelect={handleSelect}
+        variant="outline-success"
+        className="w-100"
+      >
+        {wallpapers.map((wallpaper) => (
+          <Dropdown.Item
+            key={wallpaper.id}
+            eventKey={wallpaper.url}
+            active={currentWallpaper?.url === wallpaper.url}
+          >
+            {wallpaper.name}
+          </Dropdown.Item>
+        ))}
+      </DropdownButton>
     </div>
   );
 };
