@@ -113,3 +113,53 @@
   display: flex;
   gap: 2px;
 }
+
+/* Ensure the modal doesn't inherit transparency */
+.jury-modal-content {
+  background-color: #ffffff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: none !important;
+}
+
+.modal-logo-frame {
+  width: 70px;
+  height: 70px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.verdict-data-box {
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-emerald {
+  background-color: #10b981 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-emerald:hover {
+  background-color: #059669 !important;
+  transform: translateY(-1px);
+}
+
+/* Fix for the stars in the modal */
+.stars-row {
+  display: flex;
+  gap: 2px;
+}
+
+.star.filled {
+  color: #fbbf24; /* Gold stars */
+}
+
+.star {
+  color: #d1d5db;
+}
