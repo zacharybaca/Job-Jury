@@ -18,6 +18,7 @@ import ProfileSettings from './components/Auth/ProfileSettings/ProfileSettings';
 import ResetPassword from './components/Auth/ResetPassword';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import PricingPage from './components/Pages/PricingPage';
+import MyFavorites from './components/Auth/MyFavorites/MyFavorites';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -251,6 +252,15 @@ function App() {
           }
         />
 
+        <Route
+          path="my-favorites"
+          element={
+            <ProtectedRoute>
+              <MyFavorites />
+            </ProtectedRoute>
+          }
+        />
+        
         <Route
           path="settings"
           element={
