@@ -1,4 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
+import CompanyCard from '../../Company/CompanyCard/CompanyCard.jsx';
 import { useSavedCompanies } from '../../../hooks/useSavedCompanies.js';
 import './my-favorites.css';
 
@@ -10,14 +11,19 @@ const MyFavorites = () => {
             <Carousel>
                 {savedCompanies.map((company) => (
                     <Carousel.Item key={company._id} interval={1000}>
-                        <ExampleCarouselImage text={company.name} />
-                        <Carousel.Caption>
-                            <h3>{company.name}</h3>
-                            <p>{company.industry} - {company.location}</p>
-                        </Carousel.Caption>
+                        <div className="company-card-wrapper">
+                            <CompanyCard company={company} />
+                        </div>
+
+                        <div className="carousel-caption-wrapper">
+                            <Carousel.Caption>
+                                <h3>{company.name}</h3>
+                                <p>{company.industry} - {company.location}</p>
+                            </Carousel.Caption>
+                        </div>
+
                     </Carousel.Item>
                 ))}
-
             </Carousel>
         </div>
     );
