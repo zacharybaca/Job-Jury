@@ -1,5 +1,4 @@
 import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage from 'components/ExampleCarouselImage';
 import { useSavedCompanies } from '../../../contexts/SavedCompanies/SavedCompaniesContext.jsx';
 import './my-favorites.css';
 
