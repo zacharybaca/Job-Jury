@@ -98,66 +98,66 @@ const NavBar = () => {
               </button>
 
               {/* The Dropdown Menu */}
-              {isDropdownOpen && (
-                <div className="dropdown-menu">
-                  <div className="dropdown-header">
-                    Signed in as <strong>{user.username}</strong>
-                  </div>
+             {/* The Dropdown Menu */}
+{isDropdownOpen && (
+  <div className="nav-user-dropdown"> {/* Renamed */}
+    <div className="nav-user-header"> {/* Renamed */}
+      Signed in as <strong>{user.username}</strong>
+    </div>
 
-                  <div className="dropdown-divider"></div>
+    <div className="nav-user-divider"></div> {/* Renamed */}
 
-                  <Link
-                    to="/register-company"
-                    className="dropdown-item"
-                    onClick={closeMenu}
-                  >
-                    Register Company
-                  </Link>
-                  <Link
-                    to="/my-submissions"
-                    className="dropdown-item"
-                    onClick={closeMenu}
-                  >
-                    My Submissions
-                  </Link>
+    <Link
+      to="/register-company"
+      className="nav-user-item" // Renamed
+      onClick={closeMenu}
+    >
+      Register Company
+    </Link>
+    <Link
+      to="/my-submissions"
+      className="nav-user-item" // Renamed
+      onClick={closeMenu}
+    >
+      My Submissions
+    </Link>
 
-                  <Link
-                    to="/my-favorites"
-                    className="dropdown-item"
-                    onClick={closeMenu}
-                    >
-                      My Favorites
-                  </Link>
+    <Link
+      to="/my-favorites"
+      className="nav-user-item" // Renamed
+      onClick={closeMenu}
+    >
+      My Favorites
+    </Link>
 
-                  <Link
-                    to="/settings"
-                    className="dropdown-item"
-                    onClick={closeMenu}
-                  >
-                    Profile Settings
-                  </Link>
+    <Link
+      to="/settings"
+      className="nav-user-item" // Renamed
+      onClick={closeMenu}
+    >
+      Profile Settings
+    </Link>
 
-                  {/* Optional: Only show Admin Dashboard link if user is an admin */}
-                  {user.isAdmin && (
-                    <Link
-                      to="/admin/dashboard"
-                      className="dropdown-item"
-                      onClick={closeMenu}
-                    >
-                      Admin Dashboard
-                    </Link>
-                  )}
+    {user.isAdmin && (
+      <Link
+        to="/admin/dashboard"
+        className="nav-user-item" // Renamed
+        onClick={closeMenu}
+      >
+        Admin Dashboard
+      </Link>
+    )}
 
-                  <div className="dropdown-divider"></div>
+    <div className="nav-user-divider"></div> {/* Renamed */}
 
-                  <button
-                    onClick={handleLogout}
-                    className="dropdown-item logout-item"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+    <button
+      onClick={handleLogout}
+      className="nav-user-item logout-item" // Renamed
+    >
+      Logout
+    </button>
+  </div>
+)}
             </li>
           )}
         </ul>
