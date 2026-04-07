@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import { useSavedCompanies } from '../../../contexts/SavedCompanies/SavedCompaniesContext.jsx';
+import { useSavedCompanies } from '../../../hooks/useSavedCompanies.js';
 import './my-favorites.css';
 
 const MyFavorites = () => {
