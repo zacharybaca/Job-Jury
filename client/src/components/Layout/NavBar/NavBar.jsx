@@ -122,6 +122,14 @@ const NavBar = () => {
                   </Link>
 
                   <Link
+                    to="/my-favorites"
+                    className="dropdown-item"
+                    onClick={closeMenu}
+                    >
+                      My Favorites
+                  </Link>
+
+                  <Link
                     to="/settings"
                     className="dropdown-item"
                     onClick={closeMenu}
