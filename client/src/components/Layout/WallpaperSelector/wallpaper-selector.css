@@ -1,56 +1,83 @@
-.wallpaper-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-
-.wallpaper-option {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 4px solid transparent; /* Prevents layout jump when border appears */
-  transition: all 0.2s ease-in-out;
-  aspect-ratio: 16 / 9;
-}
-
-.wallpaper-option:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-/* The Active "Selected" State */
-.wallpaper-option.active {
-  border-color: #10b981; /* Emerald Green */
-  transform: scale(1.02);
-}
-
-.wallpaper-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.active-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background-color: #10b981;
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
+/* Container Layout */
 .wallpaper-selector {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Typography */
+.selector-label {
+  font-weight: 700;
+  color: #1e293b; /* Navy */
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+/* Bootstrap DropdownButton Customization */
+/* Matches id="wallpaper-dropdown-button" in the component */
+#wallpaper-dropdown-button {
+  background-color: #ffffff !important;
+  border: 2px solid #10b981 !important; /* Emerald Green */
+  color: #10b981 !important;
+  padding: 12px 20px;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+}
+
+#wallpaper-dropdown-button:hover,
+#wallpaper-dropdown-button:focus {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  background-color: #ffffff !important; /* Ensure solid background */
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  padding: 8px !important;
+  margin-top: 8px !important;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%; /* Match button width */
+}
+
+/* Individual Dropdown Items */
+.dropdown-item {
+  border-radius: 8px;
+  padding: 10px 15px !important;
+  color: #475569 !important;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #10b981 !important;
+}
+
+/* Selected/Active State */
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+/* --- THE FIX --- */
+/* Ensures that when the 'show' class is removed by React,
+  Bootstrap actually hides the menu. Some global styles
+  can accidentally keep it visible.
+*/
+.dropdown-menu:not(.show) {
+  display: none !important;
 }
