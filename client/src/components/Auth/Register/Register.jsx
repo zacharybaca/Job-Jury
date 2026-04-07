@@ -58,7 +58,10 @@ const Register = () => {
       )}
       <div className="auth-card">
         <div className="auth-logo-wrapper-alt">
-           <img src="/assets/icons/job_jury_banner_brick_logo.png" alt="Join the Jury Banner" />
+          <img
+            src="/assets/icons/job_jury_banner_brick_logo.png"
+            alt="Join the Jury Banner"
+          />
         </div>
         <h2 className="auth-title">Join the Jury</h2>
         <form onSubmit={handleSubmit}>

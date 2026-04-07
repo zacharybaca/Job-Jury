@@ -21,7 +21,9 @@ const WallpaperSelector = ({ wallpapers, onSelect, currentWallpaper }) => {
 
       <DropdownButton
         id="wallpaper-dropdown-button"
-        title={currentWallpaper ? currentWallpaper.name : '-- Select a Wallpaper --'}
+        title={
+          currentWallpaper ? currentWallpaper.name : '-- Select a Wallpaper --'
+        }
         show={show}
         onToggle={(isOpen) => setShow(isOpen)}
         onSelect={handleSelect}

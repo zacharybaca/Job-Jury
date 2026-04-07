@@ -17,7 +17,8 @@ function CompanyDetailsModal({ show, onHide, company, renderStars }) {
     >
       <Modal.Header closeButton className="border-0 pb-0">
         <Modal.Title className="fw-bold">
-          {company.name} <span className="text-success fs-5 ms-2">| Quick Verdict</span>
+          {company.name}{' '}
+          <span className="text-success fs-5 ms-2">| Quick Verdict</span>
         </Modal.Title>
       </Modal.Header>
 
@@ -28,7 +29,11 @@ function CompanyDetailsModal({ show, onHide, company, renderStars }) {
             <Col xs="auto">
               <div className="modal-logo-frame">
                 {company.imageUrl ? (
-                  <img src={company.imageUrl} alt={company.name} className="img-fluid" />
+                  <img
+                    src={company.imageUrl}
+                    alt={company.name}
+                    className="img-fluid"
+                  />
                 ) : (
                   <span className="text-muted small">No Logo</span>
                 )}
@@ -44,16 +49,21 @@ function CompanyDetailsModal({ show, onHide, company, renderStars }) {
           <div className="verdict-data-box p-4 rounded-4 mb-4">
             <Row className="text-center g-0">
               <Col md={6} className="border-end">
-                <p className="text-uppercase small fw-bold text-muted mb-1">Jury Standing</p>
+                <p className="text-uppercase small fw-bold text-muted mb-1">
+                  Jury Standing
+                </p>
                 <div className="d-flex justify-content-center mb-1">
                   {renderStars(company.averageRating)}
                 </div>
                 <h3 className="fw-bold mb-0 text-success">
-                  {company.averageRating || '0.0'} <span className="text-muted fs-6">/ 5.0</span>
+                  {company.averageRating || '0.0'}{' '}
+                  <span className="text-muted fs-6">/ 5.0</span>
                 </h3>
               </Col>
               <Col md={6}>
-                <p className="text-uppercase small fw-bold text-muted mb-1">Evidence Count</p>
+                <p className="text-uppercase small fw-bold text-muted mb-1">
+                  Evidence Count
+                </p>
                 <h3 className="fw-bold mb-0 text-dark">
                   {company.reviews?.length || 0}
                 </h3>
@@ -65,7 +75,9 @@ function CompanyDetailsModal({ show, onHide, company, renderStars }) {
           {/* Bottom Section: Summary */}
           {company.description && (
             <div>
-              <h6 className="fw-bold text-uppercase small text-muted mb-2">Case Summary</h6>
+              <h6 className="fw-bold text-uppercase small text-muted mb-2">
+                Case Summary
+              </h6>
               <p className="text-secondary mb-0" style={{ lineHeight: '1.6' }}>
                 {company.description}
               </p>
@@ -78,7 +90,10 @@ function CompanyDetailsModal({ show, onHide, company, renderStars }) {
         <Button variant="light" onClick={onHide} className="text-muted">
           Close Briefing
         </Button>
-        <Link to={`/companies/${company._id}`} className="btn btn-emerald px-4 fw-bold">
+        <Link
+          to={`/companies/${company._id}`}
+          className="btn btn-emerald px-4 fw-bold"
+        >
           Read Full Evidence
         </Link>
       </Modal.Footer>
@@ -95,7 +110,9 @@ const CompanyCard = ({ company }) => {
     const roundedRating = Math.round(rating || 0);
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <span key={i} className={i <= roundedRating ? 'star filled' : 'star'}>★</span>
+        <span key={i} className={i <= roundedRating ? 'star filled' : 'star'}>
+          ★
+        </span>
       );
     }
     return stars;
@@ -106,7 +123,11 @@ const CompanyCard = ({ company }) => {
       <div className="company-card shadow-sm">
         <div className="card-image-container">
           {company.imageUrl ? (
-            <img src={company.imageUrl} alt={company.name} className="company-logo" />
+            <img
+              src={company.imageUrl}
+              alt={company.name}
+              className="company-logo"
+            />
           ) : (
             <div className="no-image">No Logo</div>
           )}
@@ -115,15 +136,21 @@ const CompanyCard = ({ company }) => {
         <div className="card-body">
           <h3 className="company-name">{company.name}</h3>
           <p className="company-meta">
-            {company.industry} <span className="separator">•</span> {company.location}
+            {company.industry} <span className="separator">•</span>{' '}
+            {company.location}
           </p>
 
           <div className="rating-container">
-            <div className="stars-row">{renderStars(company.averageRating)}</div>
+            <div className="stars-row">
+              {renderStars(company.averageRating)}
+            </div>
             <div className="rating-stats">
-              <span className="rating-badge">{company.averageRating || '0.0'}</span>
+              <span className="rating-badge">
+                {company.averageRating || '0.0'}
+              </span>
               <span className="review-count">
-                ({company.reviews?.length || 0} {company.reviews?.length === 1 ? 'Verdict' : 'Verdicts'})
+                ({company.reviews?.length || 0}{' '}
+                {company.reviews?.length === 1 ? 'Verdict' : 'Verdicts'})
               </span>
             </div>
           </div>

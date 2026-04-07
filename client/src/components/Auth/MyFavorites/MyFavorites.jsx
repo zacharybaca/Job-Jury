@@ -4,29 +4,30 @@ import { useSavedCompanies } from '../../../hooks/useSavedCompanies.js';
 import './my-favorites.css';
 
 const MyFavorites = () => {
-    const { savedCompanies } = useSavedCompanies();
+  const { savedCompanies } = useSavedCompanies();
 
-    return (
-        <div className="my-favorites-container">
-            <Carousel>
-                {savedCompanies.map((company) => (
-                    <Carousel.Item key={company._id} interval={1000}>
-                        <div className="company-card-wrapper">
-                            <CompanyCard company={company} />
-                        </div>
+  return (
+    <div className="my-favorites-container">
+      <Carousel>
+        {savedCompanies.map((company) => (
+          <Carousel.Item key={company._id} interval={1000}>
+            <div className="company-card-wrapper">
+              <CompanyCard company={company} />
+            </div>
 
-                        <div className="carousel-caption-wrapper">
-                            <Carousel.Caption>
-                                <h3>{company.name}</h3>
-                                <p>{company.industry} - {company.location}</p>
-                            </Carousel.Caption>
-                        </div>
-
-                    </Carousel.Item>
-                ))}
-            </Carousel>
-        </div>
-    );
-}
+            <div className="carousel-caption-wrapper">
+              <Carousel.Caption>
+                <h3>{company.name}</h3>
+                <p>
+                  {company.industry} - {company.location}
+                </p>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
+  );
+};
 
 export default MyFavorites;

@@ -98,66 +98,63 @@ const NavBar = () => {
               </button>
 
               {/* The Dropdown Menu */}
-             {/* The Dropdown Menu */}
-{isDropdownOpen && (
-  <div className="nav-user-dropdown"> {/* Renamed */}
-    <div className="nav-user-header"> {/* Renamed */}
-      Signed in as <strong>{user.username}</strong>
-    </div>
-
-    <div className="nav-user-divider"></div> {/* Renamed */}
-
-    <Link
-      to="/register-company"
-      className="nav-user-item" // Renamed
-      onClick={closeMenu}
-    >
-      Register Company
-    </Link>
-    <Link
-      to="/my-submissions"
-      className="nav-user-item" // Renamed
-      onClick={closeMenu}
-    >
-      My Submissions
-    </Link>
-
-    <Link
-      to="/my-favorites"
-      className="nav-user-item" // Renamed
-      onClick={closeMenu}
-    >
-      My Favorites
-    </Link>
-
-    <Link
-      to="/settings"
-      className="nav-user-item" // Renamed
-      onClick={closeMenu}
-    >
-      Profile Settings
-    </Link>
-
-    {user.isAdmin && (
-      <Link
-        to="/admin/dashboard"
-        className="nav-user-item" // Renamed
-        onClick={closeMenu}
-      >
-        Admin Dashboard
-      </Link>
-    )}
-
-    <div className="nav-user-divider"></div> {/* Renamed */}
-
-    <button
-      onClick={handleLogout}
-      className="nav-user-item logout-item" // Renamed
-    >
-      Logout
-    </button>
-  </div>
-)}
+              {/* The Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="nav-user-dropdown">
+                  {' '}
+                  {/* Renamed */}
+                  <div className="nav-user-header">
+                    {' '}
+                    {/* Renamed */}
+                    Signed in as <strong>{user.username}</strong>
+                  </div>
+                  <div className="nav-user-divider"></div> {/* Renamed */}
+                  <Link
+                    to="/register-company"
+                    className="nav-user-item" // Renamed
+                    onClick={closeMenu}
+                  >
+                    Register Company
+                  </Link>
+                  <Link
+                    to="/my-submissions"
+                    className="nav-user-item" // Renamed
+                    onClick={closeMenu}
+                  >
+                    My Submissions
+                  </Link>
+                  <Link
+                    to="/my-favorites"
+                    className="nav-user-item" // Renamed
+                    onClick={closeMenu}
+                  >
+                    My Favorites
+                  </Link>
+                  <Link
+                    to="/settings"
+                    className="nav-user-item" // Renamed
+                    onClick={closeMenu}
+                  >
+                    Profile Settings
+                  </Link>
+                  {user.isAdmin && (
+                    <Link
+                      to="/admin/dashboard"
+                      className="nav-user-item" // Renamed
+                      onClick={closeMenu}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  <div className="nav-user-divider"></div> {/* Renamed */}
+                  <button
+                    onClick={handleLogout}
+                    className="nav-user-item logout-item" // Renamed
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </li>
           )}
         </ul>
