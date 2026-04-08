@@ -1,4 +1,6 @@
 .leak-form-card {
+  width: 75%;
+  margin: 2rem auto;
   border-radius: 16px;
   background-color: #ffffff;
 }
