@@ -43,7 +43,7 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
     };
 
     try {
-      const response = await fetch('/api/interviews/leak', {
+      const response = await fetch('/api/interviews/submit-leak', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
