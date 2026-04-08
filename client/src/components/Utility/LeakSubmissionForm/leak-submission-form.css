@@ -1,33 +1,70 @@
 .leak-form-card {
-  width: 75%;
+  width: 95%; /* Occupies most of the screen on mobile */
+  max-width: 900px; /* Limits width on large screens for readability */
   margin: 2rem auto;
   border-radius: 16px;
   background-color: #ffffff;
 }
 
+/* REMOVED: display: flex and centering on the form tag
+   as it interferes with Bootstrap's grid system */
+.leak-form-card form {
+  width: 100%;
+}
+
 .question-entry {
   transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
 }
 
 .question-entry:hover {
   border-color: #10b981 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .btn-emerald {
   background-color: #10b981;
   color: white;
   border: none;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-emerald:hover {
   background-color: #059669;
+  transform: translateY(-1px);
 }
 
 .form-label {
   color: #1e293b;
+  font-size: 0.95rem;
 }
 
 textarea.form-control {
   resize: none;
+}
+
+.input-fields {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%; /* Changed from -webkit-fill-available for better stability */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-fields:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .leak-form-card {
+    width: 100%;
+    margin: 1rem 0;
+    border-radius: 0; /* Flat look on mobile is often cleaner */
+  }
+
+  .question-entry .btn-outline-danger {
+    margin-top: 10px;
+  }
 }
