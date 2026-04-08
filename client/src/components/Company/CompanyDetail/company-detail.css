@@ -11,6 +11,19 @@
   padding: 40px 20px;
 }
 
+.interview-leak-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-bottom: 2%;
+  padding: 40px 20px;
+  border: 2px solid black;
+  border-radius: 12px;
+}
+
 .reviews-header {
   display: flex;
   justify-content: space-between;
