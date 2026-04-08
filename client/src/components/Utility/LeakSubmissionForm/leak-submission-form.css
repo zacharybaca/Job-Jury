@@ -1,0 +1,31 @@
+.leak-form-card {
+  border-radius: 16px;
+  background-color: #ffffff;
+}
+
+.question-entry {
+  transition: all 0.2s ease;
+}
+
+.question-entry:hover {
+  border-color: #10b981 !important;
+}
+
+.btn-emerald {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-emerald:hover {
+  background-color: #059669;
+}
+
+.form-label {
+  color: #1e293b;
+}
+
+textarea.form-control {
+  resize: none;
+}
