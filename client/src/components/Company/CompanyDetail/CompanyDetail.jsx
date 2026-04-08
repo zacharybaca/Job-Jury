@@ -125,16 +125,6 @@ const CompanyDetail = () => {
             />
           </div>
         )}
-
-        {user && isUserAdmin && (
-          <div className="button-container">
-            <SaveButton
-              onSave={() => alert('Admin remove functionality coming soon!')}
-              title="Remove Company From List"
-              classTitle="admin-remove-btn"
-            />
-          </div>
-        )}
       </section>
 
       {user && (
