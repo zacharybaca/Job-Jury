@@ -1,5 +1,6 @@
 import Interview from '../models/Interview.js';
 import Company from '../models/Company.js';
+import User from '../models/User.js';
 import asyncHandler from 'express-async-handler';
 
 // @desc    Create a new interview
