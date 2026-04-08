@@ -8,6 +8,7 @@ import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
 import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
+import LeakSubmissionForm from "../../Utility/LeakSubmissionForm/LeakSubmissionForm";
 import './company-detail.css';
 
 const CompanyDetail = () => {
@@ -135,6 +136,13 @@ const CompanyDetail = () => {
           </div>
         )}
       </section>
+
+      {user && (
+        <section className="interview-leak-section">
+          <h2>Submit Interview Leak</h2>
+          <LeakSubmissionForm companyId={id} companyName={company.name} />
+        </section>
+      )}
     </main>
   );
 };
