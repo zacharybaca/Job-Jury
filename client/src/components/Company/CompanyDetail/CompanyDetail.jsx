@@ -85,65 +85,75 @@ const CompanyDetail = () => {
   return (
     <main className="company-detail-page">
       <CompanyHeader company={company} />
-
+      <section className="header-section text-center mb-5">
+          <h2 className="fw-bold mb-3">Company Analytics</h2>
+          <p className="text-muted mb-4">
+            Dive into the Jury's analysis of this company's interview performance and employee feedback.
+          </p>
+      </section>
       {/* Unified Analytics Dashboard */}
-      <section className="section-container analytics-dashboard">
-        <div className="analytics-grid">
-          <JudgeAnalyticsSection companyId={id} />
-          <LeakAnalyticsSection companyId={id} />
-        </div>
-      </section>
-
-      {/* Qualitative Reviews Section */}
-      <section className="section-container reviews-section">
-        <div className="reviews-header">
-          <h2>Employee Reviews</h2>
-          <div className="action-buttons">
-            {user && (
-              <>
-                <button
-                  className="add-review-btn"
-                  onClick={() => setShowForm(!showForm)}
-                >
-                  {showForm ? 'Cancel Review' : 'Submit a Review'}
-                </button>
-                <button
-                  className="add-leak-btn"
-                  onClick={() => setShowLeakForm(!showLeakForm)}
-                >
-                  {showLeakForm ? 'Cancel Leak' : 'Add Leak'}
-                </button>
-              </>
-            )}
+      <div className="analytics-container">
+        <section className="section-container analytics-dashboard">
+          <div className="analytics-grid">
+            <section className="judge-analytics-container">
+              <JudgeAnalyticsSection companyId={id} />
+            </section>
+            <section className="leak-analytics-container">
+              <LeakAnalyticsSection companyId={id} />
+            </section>
           </div>
-        </div>
-
-        {showForm && (
-          <div className="form-wrapper">
-            <ReviewForm companyId={id} onReviewAdded={handleReviewAdded} />
+        </section>
+        {/* Qualitative Reviews Section */}
+        <section className="section-container reviews-section">
+          <div className="reviews-header">
+            <h2>Employee Reviews</h2>
+            <div className="action-buttons">
+              {user && (
+                <>
+                  <button
+                    className="add-review-btn"
+                    onClick={() => setShowForm(!showForm)}
+                  >
+                    {showForm ? 'Cancel Review' : 'Submit a Review'}
+                  </button>
+                  <button
+                    className="add-leak-btn"
+                    onClick={() => setShowLeakForm(!showLeakForm)}
+                  >
+                    {showLeakForm ? 'Cancel Leak' : 'Add Leak'}
+                  </button>
+                </>
+              )}
+            </div>
           </div>
-        )}
 
-        {showLeakForm && (
-          <div className="form-wrapper">
-            <LeakSubmissionForm companyId={id} companyName={company.name} />
+          {showForm && (
+            <div className="form-wrapper">
+              <ReviewForm companyId={id} onReviewAdded={handleReviewAdded} />
+            </div>
+          )}
+
+          {showLeakForm && (
+            <div className="form-wrapper">
+              <LeakSubmissionForm companyId={id} companyName={company.name} />
+            </div>
+          )}
+
+          <div className="verdict-list-container">
+            <ReviewList reviews={company.reviews} />
           </div>
-        )}
 
-        <div className="verdict-list-container">
-          <ReviewList reviews={company.reviews} />
-        </div>
-
-        {user && (
-          <div className="button-container">
-            <SaveButton
-              onSave={handleToggleSave}
-              title={isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
-              classTitle="add-fav-btn"
-            />
-          </div>
-        )}
-      </section>
+          {user && (
+            <div className="button-container">
+              <SaveButton
+                onSave={handleToggleSave}
+                title={isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
+                classTitle="add-fav-btn"
+              />
+            </div>
+          )}
+        </section>
+      </div>
     </main>
   );
 };
