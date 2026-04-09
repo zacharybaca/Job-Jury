@@ -32,14 +32,24 @@
   border-radius: 16px;
 }
 
-.judge-analytics-container, .leak-analytics-container {
+.leak-analytics-container {
   display: flex;
   align-items: center;
   flex: 1;
   border: 2px solid red;
-  padding: 5%;
-  height: 100%;
-  width: 100%;
+  height: fit-content;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+.judge-analytics-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  border: 2px solid red;
+  height: fit-content;
+  width: fit-content;
+  box-sizing: border-box;
 }
 
 .header-section {
