@@ -1,4 +1,8 @@
 .company-detail-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -13,12 +17,41 @@
   background-color: rgba(248, 250, 252, 0.5);
   border-radius: 16px;
   padding: 20px;
+  height: 100%;
 }
 
 .analytics-grid {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  border: 2px solid yellow;
+  gap: 5rem;
+}
+
+.analytics-container {
+  display: flex;
+  border: 2px solid black;
+  border-radius: 16px;
+}
+
+.judge-analytics-container, .leak-analytics-container {
+  flex: 1;
+  border: 2px solid red;
+  padding: 5%;
+}
+
+.header-section {
+  padding-top: 3%;
+}
+
+.analytics-container h2, .analytics-container p {
+  text-align: center;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.verdict-list-container {
+  background-color: #84D9BE;
+  border-radius: 12px;
+  padding: 5%;
 }
 
 @media (min-width: 992px) {
