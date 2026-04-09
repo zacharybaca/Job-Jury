@@ -64,6 +64,19 @@ textarea.form-control {
   padding: 40px 20px;
 }
 
+.analytics-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.evidence-locker {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  border: 2px solid orange;
+}
+
 .add-evidence-button {
   background-color: #10b981;
   color: white;
@@ -83,6 +96,7 @@ textarea.form-control {
   width: 100%;
   padding-bottom: 10px;
   border-bottom: 1px solid #e2e8f0;
+  border: 2px solid yellow;
 }
 
 /* Mobile adjustments */
