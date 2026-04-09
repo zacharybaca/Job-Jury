@@ -18,7 +18,7 @@ const LeakAnalyticsSection = ({ companyId }) => {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetcher(`/api/interviews/company/${companyId}/analytics`);
+        const data = await fetcher(`/api/interviews/company/${companyId}`);
         setAnalytics(data);
       } catch (err) {
         setError(`Failed to load historical trends. ${err.message}`);
@@ -81,16 +81,17 @@ const LeakAnalyticsSection = ({ companyId }) => {
 
       <div className="leak-trends-container">
         <h5 className="fw-bold mb-3">Recent Activity Feed</h5>
-        {analytics?.recentLeaks?.length === 0 ? (
-          <p className="text-muted">No data available for this company.</p>
+        {/* Ensure analytics and recentLeaks exist before calling .map() */}
+        {(!analytics || !analytics.recentLeaks || analytics.recentLeaks.length === 0) ? (
+        <p className="text-muted">No data available for this company.</p>
         ) : (
-          <ul className="list-group list-group-flush">
-            {analytics?.recentLeaks.map((leak, index) => (
-              <li key={index} className="list-group-item bg-transparent px-0 border-bottom">
+        <ul className="list-group list-group-flush">
+            {analytics.recentLeaks.map((leak, index) => (
+            <li key={`leak-${index}`} className="list-group-item bg-transparent px-0 border-bottom">
                 {leak}
-              </li>
+            </li>
             ))}
-          </ul>
+        </ul>
         )}
       </div>
     </section>
