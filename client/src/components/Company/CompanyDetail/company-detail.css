@@ -1,203 +1,121 @@
 .company-detail-page {
-  background-color: #f8fafc;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .section-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  margin-bottom: 40px;
 }
 
-.interview-leak-section {
+/* Analytics Dashboard Layout */
+.analytics-dashboard {
+  background-color: rgba(248, 250, 252, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.analytics-grid {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
-  margin-bottom: 2%;
-  padding: 40px 20px;
-  border: 2px solid black;
-  border-radius: 12px;
+  gap: 24px;
 }
 
+@media (min-width: 992px) {
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* Header and Action Buttons */
 .reviews-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .reviews-header h2 {
+  font-weight: 700;
   color: #1e293b;
-  font-size: 1.75rem;
   margin: 0;
 }
 
-.add-review-btn {
-  background-color: #10b981;
-  color: white;
-  border: none;
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.add-review-btn, .add-leak-btn {
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.add-review-btn {
+  background-color: #0f172a;
+  color: #f8fafc;
 }
 
 .add-review-btn:hover {
+  background-color: #1e293b;
+}
+
+.add-leak-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.add-leak-btn:hover {
   background-color: #059669;
 }
 
-.review-item {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+/* Form Management */
+.form-wrapper {
+  margin-bottom: 30px;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.review-top {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.review-rating {
-  background: #fef3c7;
-  color: #92400e;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 6px;
-}
-
-.review-job {
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.review-date {
-  color: #94a3b8;
-  font-size: 0.85rem;
-  margin-left: auto;
-}
-
-.review-content {
-  color: #475569;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.empty-reviews {
-  text-align: center;
-  padding: 60px;
-  background: white;
-  border-radius: 12px;
-  color: #64748b;
-  border: 2px dashed #e2e8f0;
-}
-
-.detail-error,
-.detail-loading {
+/* Status Containers */
+.loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
-  font-size: 1.2rem;
+  height: 80vh;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #1e293b;
-  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.error-container {
+  text-align: center;
+  padding: 80px 0;
+  color: #ef4444;
+  font-weight: 700;
 }
 
 .button-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
-.button-container button {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  font-size: 1.5rem;
-  color: whitesmoke;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+.add-fav-btn {
+  padding: 12px 30px;
+  border-radius: 30px;
   font-weight: 700;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.2s;
-}
-
-.analytics-wrapper {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 20px;
-}
-
-/* Optional: Add a subtle border or background to make it feel like a 'Case File' */
-.evidence-locker {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.evidence-locker {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 2rem 0;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Add a "Premium" indicator strip at the top */
-.evidence-locker::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #10b981, #3b82f6);
-}
-
-.chart-title {
-  font-size: 1.1rem;
-  color: #111827;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Label for the Judge Tier context */
-.chart-title::after {
-  content: 'JUDGE ANALYTICS';
-  font-size: 0.65rem;
-  background: #ecfdf5;
-  color: #059669;
-  padding: 2px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-}
-
-.chart-container {
-  width: 100%;
-  /* Ensure the container has enough space for X-axis labels */
-  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
