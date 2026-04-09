@@ -21,7 +21,7 @@ const LeakAnalyticsSection = ({ companyId }) => {
         const data = await fetcher(`/api/interviews/company/${companyId}/analytics`);
         setAnalytics(data);
       } catch (err) {
-        setError('Failed to load historical trends.');
+        setError(`Failed to load historical trends. ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -53,7 +53,7 @@ const LeakAnalyticsSection = ({ companyId }) => {
     return (
       <div className="text-center py-5">
         <Spinner animation="border" variant="success" />
-        <p className="mt-2 text-muted">Analyzing repository data...</p>
+        <p className="mt-2 text-muted">Analyzing leak data...</p>
       </div>
     );
   }
@@ -63,7 +63,7 @@ const LeakAnalyticsSection = ({ companyId }) => {
   return (
     <section className="section-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold m-0">Repository Analytics</h2>
+        <h2 className="fw-bold m-0">Leak Analytics</h2>
         <span className="badge bg-soft-emerald text-emerald">Judge Access</span>
       </div>
 
