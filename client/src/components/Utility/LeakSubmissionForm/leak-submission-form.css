@@ -58,6 +58,33 @@ textarea.form-control {
   box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15);
 }
 
+.section-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.add-evidence-button {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-evidence-button:hover {
+  background-color: #059669;
+}
+
+.leak-trends-container {
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .leak-form-card {
@@ -69,4 +96,48 @@ textarea.form-control {
   .question-entry .btn-outline-danger {
     margin-top: 10px;
   }
+}
+
+/* Premium Lockout Styling */
+.premium-lockout-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.lock-icon {
+  font-size: 2.5rem;
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+/* Analytics Cards */
+.analytics-stat-card {
+  border-radius: 12px;
+  background-color: #ffffff;
+  transition: transform 0.2s;
+}
+
+.analytics-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.text-emerald {
+  color: #10b981 !important;
+}
+
+.bg-soft-emerald {
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+/* Feed List Styling */
+.list-group-item {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+/* Ensure global consistency */
+.section-container h2 {
+  color: #1e293b;
+  letter-spacing: -0.02em;
 }
