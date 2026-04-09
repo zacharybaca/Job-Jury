@@ -33,9 +33,13 @@
 }
 
 .judge-analytics-container, .leak-analytics-container {
+  display: flex;
+  align-items: center;
   flex: 1;
   border: 2px solid red;
   padding: 5%;
+  height: 100%;
+  width: 100%;
 }
 
 .header-section {
@@ -98,11 +102,11 @@
 }
 
 .add-review-btn:hover {
-  background-color: #1e293b;
+  background-color: #059669;
 }
 
 .add-leak-btn {
-  background-color: #10b981;
+  background-color: #1e293b;
   color: white;
 }
 
@@ -145,10 +149,11 @@
   margin-top: 40px;
 }
 
-.add-fav-btn {
+.add-favorite-btn {
   padding: 12px 30px;
   border-radius: 30px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  background-color: #1e293b;
 }
