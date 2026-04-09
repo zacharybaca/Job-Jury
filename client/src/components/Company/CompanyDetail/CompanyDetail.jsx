@@ -8,27 +8,27 @@ import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
 import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
+import LeakAnalyticsSection from '../../Utility/LeakAnalyticsSection/LeakAnalyticsSection';
 import LeakSubmissionForm from '../../Utility/LeakSubmissionForm/LeakSubmissionForm';
 import './company-detail.css';
 
 const CompanyDetail = () => {
   const { id } = useParams();
   const { fetcher } = useFetcher();
-  const { user, loading: authLoading, isUserAdmin } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { savedCompanies, fetchSavedCompanies } = useSavedCompanies();
 
   const [company, setCompany] = useState(null);
   const [companyLoading, setCompanyLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showLeakForm, setShowLeakForm] = useState(false);
 
   const getCompanyData = useCallback(async () => {
     setCompanyLoading(true);
     const response = await fetcher(`/api/companies/${id}`);
 
     if (response.success) {
-      // Handle both nested and flat response structures
       const companyData = response.data?.data || response.data;
-      console.log('Fetched Company Data:', companyData); // Debugging line
       setCompany(companyData);
     } else {
       console.error('API Error:', response.error);
@@ -58,19 +58,17 @@ const CompanyDetail = () => {
     return savedId === company?._id;
   });
 
-  // 1. STRICT AUTH GUARD: Wait for AuthProvider to finish background checks
   if (authLoading) {
     return (
-      <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
+      <div className="loading-container">
         Verifying credentials with the Jury...
       </div>
     );
   }
 
-  // 2. DATA GUARD: Wait for the specific company data
   if (companyLoading) {
     return (
-      <div className="flex justify-center items-center h-screen text-xl font-semibold text-jury-navy">
+      <div className="loading-container">
         Gathering the Jury's findings on this company...
       </div>
     );
@@ -78,7 +76,7 @@ const CompanyDetail = () => {
 
   if (!company) {
     return (
-      <div className="text-center py-20 text-red-600 font-bold">
+      <div className="error-container">
         Company not found in the Jury's records.
       </div>
     );
@@ -88,27 +86,47 @@ const CompanyDetail = () => {
     <main className="company-detail-page">
       <CompanyHeader company={company} />
 
-      {/* Analytics Section: Positioned before reviews for high-level context */}
-      <section className="section-container analytics-section">
-        <JudgeAnalyticsSection companyId={id} />
+      {/* Unified Analytics Dashboard */}
+      <section className="section-container analytics-dashboard">
+        <div className="analytics-grid">
+          <JudgeAnalyticsSection companyId={id} />
+          <LeakAnalyticsSection companyId={id} />
+        </div>
       </section>
 
-      <section className="section-container">
+      {/* Qualitative Reviews Section */}
+      <section className="section-container reviews-section">
         <div className="reviews-header">
           <h2>Employee Reviews</h2>
-          {user && (
-            <button
-              className="add-review-btn"
-              onClick={() => setShowForm(!showForm)}
-            >
-              {showForm ? 'Cancel' : 'Submit a Review'}
-            </button>
-          )}
+          <div className="action-buttons">
+            {user && (
+              <>
+                <button
+                  className="add-review-btn"
+                  onClick={() => setShowForm(!showForm)}
+                >
+                  {showForm ? 'Cancel Review' : 'Submit a Review'}
+                </button>
+                <button
+                  className="add-leak-btn"
+                  onClick={() => setShowLeakForm(!showLeakForm)}
+                >
+                  {showLeakForm ? 'Cancel Leak' : 'Add Leak'}
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
         {showForm && (
           <div className="form-wrapper">
             <ReviewForm companyId={id} onReviewAdded={handleReviewAdded} />
+          </div>
+        )}
+
+        {showLeakForm && (
+          <div className="form-wrapper">
+            <LeakSubmissionForm companyId={id} companyName={company.name} />
           </div>
         )}
 
@@ -126,13 +144,6 @@ const CompanyDetail = () => {
           </div>
         )}
       </section>
-
-      {user && (
-        <section className="interview-leak-section">
-          <h2>Submit Interview Leak</h2>
-          <LeakSubmissionForm companyId={id} companyName={company.name} />
-        </section>
-      )}
     </main>
   );
 };
