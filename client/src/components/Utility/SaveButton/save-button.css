@@ -18,6 +18,18 @@
   background-color: #059669;
 }
 
+.add-favorite-company-btn {
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
 .admin-remove-btn {
   background-color: #dc2626; /* Deep Red */
   color: white;
