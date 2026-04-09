@@ -1,7 +1,7 @@
-import Interview from '../models/Interview.js';
-import Company from '../models/Company.js';
-import User from '../models/User.js';
-import asyncHandler from 'express-async-handler';
+import Interview from "../models/Interview.js";
+import Company from "../models/Company.js";
+import User from "../models/User.js";
+import asyncHandler from "express-async-handler";
 
 // @desc    Create a new interview
 // @route   POST /api/interviews
@@ -20,7 +20,7 @@ export const createInterview = asyncHandler(async (req, res) => {
     role,
     questions,
     difficulty,
-    outcome
+    outcome,
   });
 
   const watchers = await User.find({
@@ -29,7 +29,9 @@ export const createInterview = asyncHandler(async (req, res) => {
   });
 
   watchers.forEach((watcher) => {
-    console.log( `Alert: New interview for company ${companyId} sent to ${watcher.email}` );
+    console.log(
+      `Alert: New interview for company ${companyId} sent to ${watcher.email}`,
+    );
   });
 
   res.status(201).json({
@@ -83,10 +85,10 @@ export const deleteInterview = asyncHandler(async (req, res) => {
     throw new Error("Interview not found");
   }
 
-   // Permission Logic: Check if user is an Admin or the Author
+  // Permission Logic: Check if user is an Admin or the Author
   const isAdmin = req.user && req.user.isAdmin === true;
   const userId = req.user?._id?.toString();
-    if (!isAdmin && interview.user.toString() !== userId) {
+  if (!isAdmin && interview.user.toString() !== userId) {
     res.status(403);
     throw new Error("Not authorized to delete this interview");
   }
@@ -111,10 +113,10 @@ export const updateInterview = asyncHandler(async (req, res) => {
     throw new Error("Interview not found");
   }
 
-   // Permission Logic: Check if user is an Admin or the Author
+  // Permission Logic: Check if user is an Admin or the Author
   const isAdmin = req.user && req.user.isAdmin === true;
   const userId = req.user?._id?.toString();
-    if (!isAdmin && interview.user.toString() !== userId) {
+  if (!isAdmin && interview.user.toString() !== userId) {
     res.status(403);
     throw new Error("Not authorized to update this interview");
   }

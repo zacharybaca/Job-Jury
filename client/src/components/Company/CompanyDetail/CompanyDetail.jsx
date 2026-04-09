@@ -8,7 +8,7 @@ import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
 import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
-import LeakSubmissionForm from "../../Utility/LeakSubmissionForm/LeakSubmissionForm";
+import LeakSubmissionForm from '../../Utility/LeakSubmissionForm/LeakSubmissionForm';
 import './company-detail.css';
 
 const CompanyDetail = () => {

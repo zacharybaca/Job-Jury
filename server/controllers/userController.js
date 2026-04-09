@@ -103,18 +103,17 @@ const toggleSaveCompany = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const isSaved = user.savedCompanies.some(id => id.toString() === companyId);
+  const isSaved = user.savedCompanies.some((id) => id.toString() === companyId);
 
   // atomic update: prevents full document validation
   const update = isSaved
     ? { $pull: { savedCompanies: companyId } }
     : { $addToSet: { savedCompanies: companyId } };
 
-  const updatedUser = await User.findByIdAndUpdate(
-    req.user._id,
-    update,
-    { new: true, runValidators: true }
-  );
+  const updatedUser = await User.findByIdAndUpdate(req.user._id, update, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     success: true,

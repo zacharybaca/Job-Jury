@@ -39,7 +39,7 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
     const submissionData = {
       ...formData,
       company: companyId,
-      questions: questions.filter(q => q.text.trim() !== ''),
+      questions: questions.filter((q) => q.text.trim() !== ''),
     };
 
     try {
@@ -57,20 +57,28 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
         throw new Error(data.message || 'Submission failed.');
       }
 
-      setStatus({ type: 'success', message: 'Interview leak successfully logged in the repository.' });
+      setStatus({
+        type: 'success',
+        message: 'Interview leak successfully logged in the repository.',
+      });
 
       // Optional: Reset form after success
       setFormData({ role: '', difficulty: 3, outcome: 'Pending' });
       setQuestions([{ text: '', type: 'Technical' }]);
     } catch (err) {
-      setStatus({ type: 'danger', message: err.message || 'Submission failed.' });
+      setStatus({
+        type: 'danger',
+        message: err.message || 'Submission failed.',
+      });
     }
   };
 
   return (
     <Card className="leak-form-card shadow-sm border-0">
       <Card.Body className="p-4">
-        <h3 className="fw-bold mb-4 text-dark text-center">Log Interview Evidence: {companyName}</h3>
+        <h3 className="fw-bold mb-4 text-dark text-center">
+          Log Interview Evidence: {companyName}
+        </h3>
 
         {status.message && (
           <Alert variant={status.type} className="mb-4">
@@ -104,7 +112,11 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
                   onChange={handleInputChange}
                   className="input-fields"
                 >
-                  {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n}</option>)}
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -130,16 +142,23 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
           <h5 className="fw-bold mb-3">Interview Questions</h5>
 
           {questions.map((q, index) => (
-            <div key={index} className="question-entry p-3 rounded-3 mb-3 bg-light border">
+            <div
+              key={index}
+              className="question-entry p-3 rounded-3 mb-3 bg-light border"
+            >
               <Row className="align-items-end">
                 <Col xs={12} md={7} className="mb-3 mb-md-0">
                   <Form.Group>
-                    <Form.Label className="small fw-bold text-muted">Question Text</Form.Label>
+                    <Form.Label className="small fw-bold text-muted">
+                      Question Text
+                    </Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={2}
                       value={q.text}
-                      onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
+                      onChange={(e) =>
+                        handleQuestionChange(index, 'text', e.target.value)
+                      }
                       placeholder="What was asked?"
                       className="input-fields"
                       required
@@ -148,10 +167,14 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
                 </Col>
                 <Col xs={8} md={3}>
                   <Form.Group>
-                    <Form.Label className="small fw-bold text-muted">Type</Form.Label>
+                    <Form.Label className="small fw-bold text-muted">
+                      Type
+                    </Form.Label>
                     <Form.Select
                       value={q.type}
-                      onChange={(e) => handleQuestionChange(index, 'type', e.target.value)}
+                      onChange={(e) =>
+                        handleQuestionChange(index, 'type', e.target.value)
+                      }
                       className="input-fields"
                     >
                       <option value="Technical">Technical</option>

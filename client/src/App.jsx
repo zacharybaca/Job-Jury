@@ -19,7 +19,7 @@ import ResetPassword from './components/Auth/ResetPassword';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import PricingPage from './components/Pages/PricingPage';
 import MyFavorites from './components/Auth/MyFavorites/MyFavorites';
-import LeakSubmissionForm from "./components/Utility/LeakSubmissionForm/LeakSubmissionForm";
+import LeakSubmissionForm from './components/Utility/LeakSubmissionForm/LeakSubmissionForm';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -279,7 +279,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        
+
         <Route element={<AdminRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
