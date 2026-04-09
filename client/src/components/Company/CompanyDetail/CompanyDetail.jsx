@@ -148,7 +148,7 @@ const CompanyDetail = () => {
               <SaveButton
                 onSave={handleToggleSave}
                 title={isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
-                classTitle="add-fav-btn"
+                classTitle="add-favorite-company-btn"
               />
             </div>
           )}
