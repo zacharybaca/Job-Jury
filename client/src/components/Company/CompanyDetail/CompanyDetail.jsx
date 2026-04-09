@@ -6,7 +6,6 @@ import { useSavedCompanies } from '../../../hooks/useSavedCompanies.js';
 import CompanyHeader from '../CompanyHeader/CompanyHeader';
 import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
-import SaveButton from '../../Utility/SaveButton/SaveButton';
 import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
 import LeakAnalyticsSection from '../../Utility/LeakSubmissionForm/LeakAnalyticsSection';
 import LeakSubmissionForm from '../../Utility/LeakSubmissionForm/LeakSubmissionForm';
@@ -145,11 +144,12 @@ const CompanyDetail = () => {
 
           {user && (
             <div className="button-container">
-              <SaveButton
-                onSave={handleToggleSave}
-                title={isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
-                classTitle="add-favorite-company-btn"
-              />
+              <button
+                className="add-favorite-btn"
+                onClick={() => handleToggleSave()}
+              >
+                {isSaved ? 'Remove From Favorites' : 'Add To Favorites'}
+              </button>
             </div>
           )}
         </section>
