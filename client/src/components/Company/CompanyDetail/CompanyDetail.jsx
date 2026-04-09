@@ -8,7 +8,7 @@ import ReviewForm from '../../Review/ReviewForm/ReviewForm';
 import ReviewList from '../../Review/ReviewList/ReviewList';
 import SaveButton from '../../Utility/SaveButton/SaveButton';
 import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
-import LeakAnalyticsSection from '../../Utility/LeakAnalyticsSection/LeakAnalyticsSection';
+import LeakAnalyticsSection from '../../Utility/LeakSubmissionForm/LeakAnalyticsSection';
 import LeakSubmissionForm from '../../Utility/LeakSubmissionForm/LeakSubmissionForm';
 import './company-detail.css';
 
