@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import '../LeakSubmissionForm/leak-submission-form.css';
 
 const EvidenceLocker = ({ trends = [] }) => {
   console.log('Current Trends Data:', trends);
