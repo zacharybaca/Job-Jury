@@ -61,15 +61,15 @@ const LeakAnalyticsSection = ({ companyId }) => {
   if (error) return <div className="alert alert-danger">{error}</div>;
 
   return (
-    <section className="section-container">
+    <section className="section-leaks-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold m-0">Leak Analytics</h2>
         <span className="badge bg-soft-emerald text-emerald">Judge Access</span>
       </div>
 
-      <Row className="g-4 mb-4">
-        <Col md={4}>
-          <Card className="analytics-stat-card border-0 shadow-sm">
+      <Row className="g-4 mb-4 avg-metrics-row">
+        <Col lg>
+          <Card className="analytics-stat-card border-0 shadow-sm data-card">
             <Card.Body>
               <h6 className="text-muted text-uppercase small fw-bold">Avg. Difficulty</h6>
               <h2 className="fw-bold m-0">{analytics?.avgDifficulty || 'N/A'}</h2>
