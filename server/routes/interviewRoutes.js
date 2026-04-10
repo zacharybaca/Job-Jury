@@ -5,15 +5,19 @@ import {
   getInterviewsByUser,
   deleteInterview,
   updateInterview,
+  getInterviewAnalytics, // Import the new analytics controller
 } from "../controllers/interviewController.js";
-import { protect, admin } from "../middleware/authMiddleware.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// User Routes
-router.post("/submit-leak", protect, createInterview);
+// Public Routes
 router.get("/company/:companyId", getInterviewsByCompany);
+router.get("/company/:companyId/analytics", getInterviewAnalytics); // New Endpoint
 router.get("/user/:userId", getInterviewsByUser);
+
+// Protected Routes
+router.post("/submit-leak", protect, createInterview);
 router.delete("/:id", protect, deleteInterview);
 router.put("/:id", protect, updateInterview);
 
