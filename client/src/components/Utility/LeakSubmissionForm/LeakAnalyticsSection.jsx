@@ -18,10 +18,10 @@ const LeakAnalyticsSection = ({ companyId }) => {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetcher(`/api/interviews/company/${companyId}`);
-        setAnalytics(data);
+        const response = await fetcher(`/api/interviews/company/${companyId}/analytics`);
+        setAnalytics(response.success ? response : null);
       } catch (err) {
-        setError(`Failed to load historical trends. ${err.message}`);
+        setError(`Failed to load historical trends.`);
       } finally {
         setLoading(false);
       }
@@ -38,11 +38,11 @@ const LeakAnalyticsSection = ({ companyId }) => {
         <Card.Body className="text-center py-5">
           <div className="lock-icon mb-3">🔒</div>
           <h4 className="fw-bold">Judge Tier Required</h4>
-          <p className="text-muted">
-            Gain access to historical rating trends, difficulty volatility, and role-specific outcome ratios.
+          <p className="text-muted mx-auto mb-4" style={{ maxWidth: '300px' }}>
+            Unlock interview difficulty trends and offer ratios for this firm.
           </p>
           <Button variant="success" className="btn-emerald px-4" onClick={() => (window.location.href = '/subscribe')}>
-            Upgrade Now
+            Upgrade
           </Button>
         </Card.Body>
       </Card>
@@ -51,9 +51,9 @@ const LeakAnalyticsSection = ({ companyId }) => {
 
   if (loading) {
     return (
-      <div className="text-center py-5">
+      <div className="section-leaks-container d-flex flex-column align-items-center justify-content-center py-5">
         <Spinner animation="border" variant="success" />
-        <p className="mt-2 text-muted">Analyzing leak data...</p>
+        <p className="mt-3 text-muted">Analyzing the Repository...</p>
       </div>
     );
   }
@@ -61,40 +61,50 @@ const LeakAnalyticsSection = ({ companyId }) => {
   if (error) return <div className="alert alert-danger">{error}</div>;
 
   return (
-    <section className="section-leaks-container">
-      <div className="d-flex justify-content-between align-items-center mb-4 leak-analytics-header-container">
-        <h2 className="fw-bold m-0">Leak Analytics</h2>
+    <div className="section-leaks-container">
+      <div className="leak-analytics-header mb-4">
+        <div>
+          <h4 className="fw-bold m-0">Leak Analytics</h4>
+          <p className="text-muted smallest m-0 text-uppercase ls-wide">Intelligence Report</p>
+        </div>
         <span className="badge bg-soft-emerald text-emerald">Judge Access</span>
       </div>
 
-      <Row className="g-4 mb-4 avg-metrics-row">
-        <Col lg>
-          <Card className="analytics-stat-card border-0 shadow-sm data-card">
-            <Card.Body>
-              <h6 className="text-muted text-uppercase small fw-bold">Avg. Difficulty</h6>
-              <h2 className="fw-bold m-0">{analytics?.avgDifficulty || 'N/A'}</h2>
-            </Card.Body>
-          </Card>
-        </Col>
-        {/* Additional Metric Cards */}
-      </Row>
+      <Card className="analytics-hero-card border-0 mb-4">
+        <Card.Body className="d-flex align-items-center justify-content-between p-4">
+          <div className="hero-label">
+            <h6 className="text-muted text-uppercase small fw-bold mb-1">Avg. Difficulty</h6>
+            <p className="smallest text-muted m-0">Scale: 1.0 (Easy) - 5.0 (Hard)</p>
+          </div>
+          <div className="hero-value">
+            <span className="display-5 fw-bold text-emerald">{analytics?.avgDifficulty || '0.0'}</span>
+          </div>
+        </Card.Body>
+      </Card>
 
-      <div className="leak-trends-container">
-        <h5 className="fw-bold mb-3">Recent Activity Feed</h5>
-        {/* Ensure analytics and recentLeaks exist before calling .map() */}
-        {(!analytics || !analytics.recentLeaks || analytics.recentLeaks.length === 0) ? (
-        <p className="text-muted">No data available for this company.</p>
+      <div className="recent-activity-section">
+        <h6 className="fw-bold mb-3 text-muted text-uppercase small">Recent Repository Activity</h6>
+        {!analytics?.recentLeaks || analytics.recentLeaks.length === 0 ? (
+          <div className="text-center py-3 bg-light rounded-3">
+            <p className="text-muted small m-0">No data logged yet.</p>
+          </div>
         ) : (
-        <ul className="list-group list-group-flush">
-            {analytics.recentLeaks.map((leak, index) => (
-            <li key={`leak-${index}`} className="list-group-item bg-transparent px-0 border-bottom">
-                {leak}
-            </li>
-            ))}
-        </ul>
+          <div className="activity-list">
+            {analytics.recentLeaks.map((leak, index) => {
+               const [role, outcome] = leak.split(' - ');
+               return (
+                <div key={index} className="activity-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                  <span className="small text-dark fw-medium">{role}</span>
+                  <span className={`badge-pill-sm ${outcome === 'Offer' ? 'bg-offer' : 'bg-rejection'}`}>
+                    {outcome}
+                  </span>
+                </div>
+               );
+            })}
+          </div>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
