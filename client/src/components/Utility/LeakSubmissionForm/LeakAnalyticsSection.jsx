@@ -19,7 +19,7 @@ const LeakAnalyticsSection = ({ companyId }) => {
       setError(null);
       try {
         const response = await fetcher(`/api/interviews/company/${companyId}/analytics`);
-        setAnalytics(response.success ? response : null);
+        setAnalytics(response.success ? response.data : null);
       } catch (err) {
         setError(`Failed to load historical trends.`);
       } finally {
