@@ -1,192 +1,59 @@
-.leak-form-card {
-  width: 95%; /* Occupies most of the screen on mobile */
-  max-width: 900px; /* Limits width on large screens for readability */
-  margin: 2rem auto;
-  border-radius: 16px;
-  background-color: #ffffff;
-}
-
-/* REMOVED: display: flex and centering on the form tag
-   as it interferes with Bootstrap's grid system */
-.leak-form-card form {
+/* Container: Remove fixed width and justify-center to allow natural expansion */
+.section-leaks-container {
   width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-.leak-analytics-header-container {
+.leak-analytics-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 10px;
 }
 
-.question-entry {
-  transition: all 0.2s ease;
-  border: 1px solid #e2e8f0;
-}
+.ls-wide { letter-spacing: 0.05em; }
+.smallest { font-size: 0.75rem; }
 
-.question-entry:hover {
-  border-color: #10b981 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.btn-emerald {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  transition: all 0.2s;
-}
-
-.btn-emerald:hover {
-  background-color: #059669;
-  transform: translateY(-1px);
-}
-
-.form-label {
-  color: #1e293b;
-  font-size: 0.95rem;
-}
-
-textarea.form-control {
-  resize: none;
-}
-
-.input-fields {
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
-  width: 100%; /* Changed from -webkit-fill-available for better stability */
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-}
-
-.input-fields:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15);
-}
-
-.section-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.analytics-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.evidence-locker {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  border-radius: 16px;
-  border: 2px solid black;
-}
-
-.chart-title {
-  text-align: center;
-  margin: 0 auto 20px;
-  padding: 40px 20px 20px 20px;
-  color: #1e293b;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.add-evidence-button {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.add-evidence-button:hover {
-  background-color: #059669;
-}
-
-.leak-trends-container {
-  width: 100%;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.evidence-locker {
-  height: fit-content;
-  width: 400px;
-}
-
-.section-leaks-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  border-radius: 16px;
-  border: 2px solid black;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .leak-form-card {
-    width: 100%;
-    margin: 1rem 0;
-    border-radius: 0; /* Flat look on mobile is often cleaner */
-  }
-
-  .question-entry .btn-outline-danger {
-    margin-top: 10px;
-  }
-}
-
-/* Premium Lockout Styling */
-.premium-lockout-card {
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-  border-radius: 20px;
-  border: 1px solid #e2e8f0;
-}
-
-.lock-icon {
-  font-size: 2.5rem;
-  filter: grayscale(1);
-  opacity: 0.5;
-}
-
-/* Analytics Cards */
-.analytics-stat-card {
+/* Horizontal Hero Card */
+.analytics-hero-card {
+  background-color: #f8fafc;
+  border-left: 4px solid #10b981 !important;
   border-radius: 12px;
-  background-color: #ffffff;
-  transition: transform 0.2s;
 }
 
-.analytics-stat-card:hover {
-  transform: translateY(-4px);
+.hero-value .display-5 {
+  line-height: 1;
 }
 
-.text-emerald {
-  color: #10b981 !important;
+/* Activity Items */
+.activity-item {
+  border-color: #f1f5f9 !important;
 }
 
-.bg-soft-emerald {
-  background-color: rgba(16, 185, 129, 0.1);
+.activity-item:last-child {
+  border-bottom: none !important;
 }
 
-/* Feed List Styling */
-.list-group-item {
-  color: #475569;
-  font-size: 0.95rem;
+/* Outcome Pills */
+.badge-pill-sm {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-/* Ensure global consistency */
-.section-container h2 {
-  color: #1e293b;
-  letter-spacing: -0.02em;
+.bg-offer { background-color: #dcfce7; color: #166534; }
+.bg-rejection { background-color: #fee2e2; color: #991b1b; }
+
+/* Fix for the grid squishing in CompanyDetail */
+@media (min-width: 992px) {
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Gives the chart slightly more room than the stats */
+    gap: 30px;
+  }
 }
