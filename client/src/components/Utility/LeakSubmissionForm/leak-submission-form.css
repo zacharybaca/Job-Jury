@@ -79,9 +79,22 @@ textarea.form-control {
 }
 
 .evidence-locker {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
+  border-radius: 16px;
+  border: 2px solid black;
+}
+
+.chart-title {
+  text-align: center;
+  margin: 0 auto 20px;
+  padding: 40px 20px 20px 20px;
+  color: #1e293b;
+  border-bottom: 2px solid #e2e8f0;
 }
 
 .add-evidence-button {
@@ -108,6 +121,17 @@ textarea.form-control {
 .evidence-locker {
   height: fit-content;
   width: 400px;
+}
+
+.section-leaks-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  border-radius: 16px;
+  border: 2px solid black;
 }
 
 /* Mobile adjustments */
