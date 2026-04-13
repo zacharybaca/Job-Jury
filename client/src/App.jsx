@@ -175,6 +175,11 @@ function App() {
       url: 'assets/wallpaper_backgrounds/yellow-pastel-color.jpg',
       name: 'Mellow Yellow',
     },
+    {
+      id: 24,
+      url: 'assets/wallpaper_backgrounds/default-background-image.png',
+      name: 'Default',
+    },
   ]);
 
   const [selectedWallpaper, setSelectedWallpaper] = useState(() => {
@@ -183,9 +188,9 @@ function App() {
   });
 
   useEffect(() => {
-    const isAuthPage = ['/login', '/register'].includes(pathname);
+    const isAuthPage = ['/login', '/register', '/forgot-password'].includes(pathname);
 
-    if (selectedWallpaper) {
+    if (selectedWallpaper && !isAuthPage) {
       localStorage.setItem('user-wallpaper', JSON.stringify(selectedWallpaper));
     }
 
@@ -196,7 +201,7 @@ function App() {
       document.body.style.backgroundPosition = 'center';
     } else {
       // Clean slate for Auth pages
-      document.body.style.backgroundImage = `url(assets/wallpaper_backgrounds/light-sky-bg.jpg)`;
+      document.body.style.backgroundImage = `url(assets/wallpaper_backgrounds/default-background-image.png)`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundAttachment = 'fixed';
       document.body.style.backgroundPosition = 'center';

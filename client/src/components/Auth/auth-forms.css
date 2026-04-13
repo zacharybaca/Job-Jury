@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  background-color: #f8fafc; /* Adjust this if you want the whole page background darker */
   min-height: calc(100vh - 150px);
 }
 
