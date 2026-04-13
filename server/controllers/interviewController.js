@@ -39,7 +39,9 @@ export const createInterview = asyncHandler(async (req, res) => {
   });
 
   watchers.forEach((watcher) => {
-    console.log(`Alert: New interview for ${company.name} sent to ${watcher.email}`);
+    console.log(
+      `Alert: New interview for ${company.name} sent to ${watcher.email}`,
+    );
   });
 
   res.status(201).json({
@@ -60,7 +62,10 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   const interviews = await Interview.find({ company: companyId });
 
   const avgDifficulty = interviews.length
-    ? (interviews.reduce((acc, curr) => acc + curr.difficulty, 0) / interviews.length).toFixed(1)
+    ? (
+        interviews.reduce((acc, curr) => acc + curr.difficulty, 0) /
+        interviews.length
+      ).toFixed(1)
     : 0;
 
   const recentLeaks = interviews
@@ -81,7 +86,10 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
  */
 export const getInterviewsByCompany = asyncHandler(async (req, res) => {
   const { companyId } = req.params;
-  const interviews = await Interview.find({ company: companyId }).populate("user", "username avatar");
+  const interviews = await Interview.find({ company: companyId }).populate(
+    "user",
+    "username avatar",
+  );
 
   res.status(200).json({
     success: true,

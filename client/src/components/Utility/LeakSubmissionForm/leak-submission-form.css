@@ -14,8 +14,12 @@
   align-items: center;
 }
 
-.ls-wide { letter-spacing: 0.05em; }
-.smallest { font-size: 0.75rem; }
+.ls-wide {
+  letter-spacing: 0.05em;
+}
+.smallest {
+  font-size: 0.75rem;
+}
 
 /* Horizontal Hero Card */
 .analytics-hero-card {
@@ -46,8 +50,14 @@
   text-transform: uppercase;
 }
 
-.bg-offer { background-color: #dcfce7; color: #166534; }
-.bg-rejection { background-color: #fee2e2; color: #991b1b; }
+.bg-offer {
+  background-color: #dcfce7;
+  color: #166534;
+}
+.bg-rejection {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
 
 /* Fix for the grid squishing in CompanyDetail */
 @media (min-width: 992px) {

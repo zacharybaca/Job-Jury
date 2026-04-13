@@ -85,10 +85,11 @@ const CompanyDetail = () => {
     <main className="company-detail-page">
       <CompanyHeader company={company} />
       <section className="header-section text-center mb-5">
-          <h2 className="fw-bold mb-3">Company Analytics</h2>
-          <p className="text-muted mb-4">
-            Dive into the Jury's analysis of this company's interview performance and employee feedback.
-          </p>
+        <h2 className="fw-bold mb-3">Company Analytics</h2>
+        <p className="text-muted mb-4">
+          Dive into the Jury's analysis of this company's interview performance
+          and employee feedback.
+        </p>
       </section>
       {/* Unified Analytics Dashboard */}
       <div className="analytics-container">

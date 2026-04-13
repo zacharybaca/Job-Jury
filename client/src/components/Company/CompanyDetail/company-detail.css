@@ -68,14 +68,15 @@
   padding-top: 3%;
 }
 
-.analytics-container h2, .analytics-container p {
+.analytics-container h2,
+.analytics-container p {
   text-align: center;
   font-weight: 700;
   color: #1e293b;
 }
 
 .verdict-list-container {
-  background-color: #84D9BE;
+  background-color: #84d9be;
   border-radius: 12px;
   padding: 5%;
 }
@@ -110,7 +111,8 @@
   gap: 12px;
 }
 
-.add-review-btn, .add-leak-btn {
+.add-review-btn,
+.add-leak-btn {
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 600;
@@ -144,8 +146,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Status Containers */
