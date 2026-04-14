@@ -1,5 +1,6 @@
 import Review from "../models/Review.js";
 import Company from "../models/Company.js";
+import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
 
 // @desc    Create a new review and update company average
