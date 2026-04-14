@@ -33,57 +33,58 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus({ type: 'info', message: 'Submitting evidence...' });
+  e.preventDefault();
+  setStatus({ type: 'info', message: 'Submitting evidence...' });
 
-    // Ensure companyId is mapped to the 'company' key to match backend destructuring
-    const submissionData = {
-      ...formData,
-      company: companyId,
-      questions: questions.filter((q) => q.text.trim() !== ''),
-    };
-
-    try {
-      // Configuration for cross-environment compatibility
-      const API_URL = import.meta.env.VITE_API_URL || '';
-
-      const response = await fetch(`${API_URL}/api/interviews/submit-leak`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // CRITICAL: Required for production JWT cookie transmission
-        credentials: 'include',
-        body: JSON.stringify(submissionData),
-      });
-
-      // Guard against non-JSON responses (prevents "Unexpected end of JSON" error)
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        const textError = await response.text();
-        throw new Error(textError || 'Server returned non-JSON response.');
-      }
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Submission failed.');
-      }
-
-      setStatus({
-        type: 'success',
-        message: 'Interview leak successfully logged in the repository.',
-      });
-
-      setFormData({ role: '', difficulty: 3, outcome: 'Pending' });
-      setQuestions([{ text: '', type: 'Technical' }]);
-    } catch (err) {
-      setStatus({
-        type: 'danger',
-        message: err.message || 'Submission failed.',
-      });
-    }
+  const submissionData = {
+    ...formData,
+    company: companyId,
+    questions: questions.filter((q) => q.text.trim() !== ''),
   };
+
+  try {
+    // 1. Use the Absolute Production URL
+    // Ensure VITE_API_URL is set to "https://your-backend.onrender.com" in Render/Vercel
+    const API_BASE = import.meta.env.VITE_API_URL || '';
+
+    const response = await fetch(`${API_BASE}/api/interviews/submit-leak`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // 2. CRITICAL: Pass cookies in production cross-site requests
+      credentials: 'include',
+      body: JSON.stringify(submissionData),
+    });
+
+    // 3. Defensive check: Ensure the response is actually JSON before parsing
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await response.text();
+      console.error("Non-JSON response received:", text);
+      throw new Error(`Server returned ${response.status}: ${text || 'Empty response'}`);
+    }
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Submission failed.');
+    }
+
+    setStatus({
+      type: 'success',
+      message: 'Interview leak successfully logged in the repository.',
+    });
+
+    setFormData({ role: '', difficulty: 3, outcome: 'Pending' });
+    setQuestions([{ text: '', type: 'Technical' }]);
+  } catch (err) {
+    setStatus({
+      type: 'danger',
+      message: err.message || 'Submission failed.',
+    });
+  }
+};
 
   return (
     <Card className="leak-form-card shadow-sm border-0">
