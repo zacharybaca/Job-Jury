@@ -1,14 +1,28 @@
+// Handles routes that don't exist
+const notFound = (req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error);
+};
+
+// Global Error Handler
 const errorHandler = (err, req, res, next) => {
-  // If the status code is 200 (OK) but there's an error, default to 500 (Server Error)
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  let message = err.message;
 
-  res.status(statusCode);
+  // Handle Mongoose CastError (Bad ID format)
+  if (err.name === "CastError" && err.kind === "ObjectId") {
+    statusCode = 404;
+    message = "Resource not found (Invalid ID format)";
+  }
 
-  res.json({
-    message: err.message,
-    // Only show the scary stack trace if we are in development mode
+  console.error(`[ERROR] ${req.method} ${req.originalUrl}:`, err.message);
+
+  res.status(statusCode).json({
+    success: false,
+    message: message,
     stack: process.env.NODE_ENV === "production" ? null : err.stack,
   });
 };
 
-export { errorHandler };
+export { notFound, errorHandler };
