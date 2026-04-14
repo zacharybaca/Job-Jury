@@ -10,19 +10,17 @@ import asyncHandler from "express-async-handler";
 export const createInterview = asyncHandler(async (req, res) => {
   const { company: companyId, role, questions, difficulty, outcome } = req.body;
 
-  // 1. DEFENSIVE CHECK: Ensure req.user exists from the protect middleware
-  if (!req.user || !req.user._id) {
+  if (!req.user) {
     res.status(401);
-    throw new Error("User session is invalid or undefined. Please log out and log back in.");
+    throw new Error("Unauthorized: User session not found.");
   }
 
   const company = await Company.findById(companyId);
   if (!company) {
     res.status(404);
-    throw new Error("Company not found");
+    throw new Error("Company not found.");
   }
 
-  // 2. Create the Interview
   const newInterview = await Interview.create({
     company: companyId,
     user: req.user._id,
@@ -32,8 +30,6 @@ export const createInterview = asyncHandler(async (req, res) => {
     outcome,
   });
 
-  // 3. Alert Logic: Using a try/catch here so if your 'watchlist' is still
-  // corrupted, it won't crash the whole submission.
   try {
     const watchers = await User.find({
       watchlist: companyId,
@@ -41,10 +37,10 @@ export const createInterview = asyncHandler(async (req, res) => {
     });
 
     watchers.forEach((watcher) => {
-      console.log(`Alert: New leak for ${company.name} sent to ${watcher.email}`);
+      console.log(`Notification trigger: ${watcher.email} for ${company.name}`);
     });
   } catch (error) {
-    console.error("Non-critical Alert Error (likely corrupted watchlist data):", error.message);
+    console.error("Non-blocking watcher lookup failure:", error.message);
   }
 
   res.status(201).json({
@@ -54,8 +50,10 @@ export const createInterview = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Get interview analytics for a company
-// @route   GET /api/interviews/company/:companyId/analytics
+/**
+ * @desc    Get interview analytics
+ * @route   GET /api/interviews/company/:companyId/analytics
+ */
 export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   const { companyId } = req.params;
 
@@ -63,7 +61,7 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
 
   const avgDifficulty = interviews.length
     ? (interviews.reduce((acc, curr) => acc + curr.difficulty, 0) / interviews.length).toFixed(1)
-    : 0;
+    : "0.0";
 
   const recentLeaks = interviews
     .sort((a, b) => b.createdAt - a.createdAt)
@@ -77,11 +75,14 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Get all interviews for a company
-// @route   GET /api/interviews/company/:companyId
+/**
+ * @desc    Get all interviews for a company
+ * @route   GET /api/interviews/company/:companyId
+ */
 export const getInterviewsByCompany = asyncHandler(async (req, res) => {
-  const { companyId } = req.params;
-  const interviews = await Interview.find({ company: companyId }).populate("user", "username avatar");
+  const interviews = await Interview.find({ company: req.params.companyId })
+    .populate("user", "username avatar")
+    .sort("-createdAt");
 
   res.status(200).json({
     success: true,
@@ -89,58 +90,70 @@ export const getInterviewsByCompany = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Delete an interview
-// @route   DELETE /api/interviews/:id
+/**
+ * @desc    Get interviews by user
+ * @route   GET /api/interviews/user/:userId
+ */
+export const getInterviewsByUser = asyncHandler(async (req, res) => {
+  const interviews = await Interview.find({ user: req.params.userId })
+    .populate("company", "name")
+    .sort("-createdAt");
+
+  res.status(200).json({
+    success: true,
+    data: interviews,
+  });
+});
+
+/**
+ * @desc    Update an interview
+ * @route   PUT /api/interviews/:id
+ */
+export const updateInterview = asyncHandler(async (req, res) => {
+  const interview = await Interview.findById(req.params.id);
+
+  if (!interview) {
+    res.status(404);
+    throw new Error("Interview record not found.");
+  }
+
+  const isAdmin = req.user && req.user.isAdmin;
+  if (!isAdmin && interview.user.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("Unauthorized to modify this record.");
+  }
+
+  Object.assign(interview, req.body);
+  const updatedInterview = await interview.save();
+
+  res.status(200).json({
+    success: true,
+    data: updatedInterview,
+  });
+});
+
+/**
+ * @desc    Delete an interview
+ * @route   DELETE /api/interviews/:id
+ */
 export const deleteInterview = asyncHandler(async (req, res) => {
   const interview = await Interview.findById(req.params.id);
 
   if (!interview) {
     res.status(404);
-    throw new Error("Interview not found");
+    throw new Error("Interview record not found.");
   }
 
-  const isAdmin = req.user && req.user.isAdmin === true;
-  const userId = req.user?._id?.toString();
-  if (!isAdmin && interview.user.toString() !== userId) {
+  const isAdmin = req.user && req.user.isAdmin;
+  if (!isAdmin && interview.user.toString() !== req.user._id.toString()) {
     res.status(403);
-    throw new Error("Not authorized to delete this interview");
+    throw new Error("Unauthorized to delete this record.");
   }
 
-  // Fix: Use deleteOne() to replace deprecated remove()
   await Interview.deleteOne({ _id: req.params.id });
 
   res.status(200).json({
     success: true,
-    message: "Interview deleted successfully",
+    message: "Interview deleted successfully.",
   });
-});
-
-export const getInterviewsByUser = asyncHandler(async (req, res) => {
-  const { userId } = req.params;
-  const interviews = await Interview.find({ user: userId });
-  res.status(200).json({ success: true, data: interviews });
-});
-
-export const updateInterview = asyncHandler(async (req, res) => {
-  const { role, questions, difficulty, outcome } = req.body;
-  const interview = await Interview.findById(req.params.id);
-
-  if (!interview) {
-    res.status(404);
-    throw new Error("Interview not found");
-  }
-
-  const isAdmin = req.user && req.user.isAdmin === true;
-  if (!isAdmin && interview.user.toString() !== req.user._id.toString()) {
-    res.status(403);
-    throw new Error("Not authorized to update this interview");
-  }
-
-  interview.role = role || interview.role;
-  interview.questions = questions || interview.questions;
-  interview.difficulty = difficulty || interview.difficulty;
-  interview.outcome = outcome || interview.outcome;
-
-  const updatedInterview = await interview.save();
-  res.status(200).json({ success: true, data: updatedInterview });
 });
