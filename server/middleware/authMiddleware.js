@@ -8,14 +8,20 @@ const protect = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      // Attach user to request, excluding password
       req.user = await User.findById(decoded.userId).select("-password");
 
-      // If a user was actually found, move to next
-      if (req.user) return next();
+      if (req.user) {
+        return next();
+      }
 
-      // If token was valid but user no longer exists in DB, fall through to soft-fail
+      // If token is valid but user was deleted from DB
+      if (req.originalUrl !== "/api/users/me") {
+        res.status(401);
+        throw new Error("User not found");
+      }
     } catch (error) {
-      // For any route OTHER than /me, a failed token is a hard 401
       if (req.originalUrl !== "/api/users/me") {
         res.status(401);
         throw new Error("Not authorized, token failed");
@@ -23,9 +29,9 @@ const protect = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // SOFT-FAIL: If we are checking auth status (/me), allow the request
-  // to continue even if token is missing or invalid. req.user will just be null.
+  // SOFT-FAIL for the /me endpoint only
   if (req.originalUrl === "/api/users/me") {
+    req.user = null;
     return next();
   }
 
@@ -37,14 +43,23 @@ const admin = (req, res, next) => {
   if (req.user && (req.user.isAdmin || req.user.role === "admin")) {
     next();
   } else {
-    res.status(403); // Forbidden
+    res.status(403);
     throw new Error("Not authorized as an admin");
   }
 };
 
 const requireTier = (minTier) => (req, res, next) => {
+  // 1. Safety Check: If protect failed or was skipped, req.user won't exist
+  if (!req.user) {
+    res.status(401);
+    throw new Error("Authentication required. Please log in.");
+  }
+
   const tiers = ["free", "juror", "judge", "firm"];
-  const userTierIndex = tiers.indexOf(req.user.subscriptionTier);
+
+  // 2. Default to 'free' if subscriptionTier is somehow missing
+  const userTier = req.user.subscriptionTier || "free";
+  const userTierIndex = tiers.indexOf(userTier);
   const requiredTierIndex = tiers.indexOf(minTier);
 
   if (userTierIndex >= requiredTierIndex) {
@@ -52,7 +67,7 @@ const requireTier = (minTier) => (req, res, next) => {
   } else {
     res.status(403).json({
       success: false,
-      error: `This feature requires a ${minTier} subscription.`,
+      error: `The ${minTier} tier is required to access this intelligence.`,
     });
   }
 };
