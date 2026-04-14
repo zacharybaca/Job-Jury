@@ -5,19 +5,21 @@ import {
   getInterviewsByUser,
   deleteInterview,
   updateInterview,
-  getInterviewAnalytics, // Import the new analytics controller
+  getInterviewAnalytics,
 } from "../controllers/interviewController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, requireTier } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Public Routes
+// Public Access
 router.get("/company/:companyId", getInterviewsByCompany);
-router.get("/company/:companyId/analytics", getInterviewAnalytics); // New Endpoint
+router.get("/company/:companyId/analytics", getInterviewAnalytics);
 router.get("/user/:userId", getInterviewsByUser);
 
-// Protected Routes
-router.post("/submit-leak", protect, createInterview);
+// Protected Access: User must be logged in AND have at least a 'juror' tier
+router.post("/submit-leak", protect, requireTier("juror"), createInterview);
+
+// Protected Management
 router.delete("/:id", protect, deleteInterview);
 router.put("/:id", protect, updateInterview);
 
