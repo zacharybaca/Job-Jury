@@ -44,13 +44,12 @@ app.use("/api/payments", paymentRoutes);
 // Static Asset Handling for Production (Render)
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  // Navigates up from 'server' to find 'frontend' at the project root
-  const frontendPath = path.join(__dirname, "..", "frontend", "dist");
+  const clientPath = path.join(__dirname, "client", "dist");
 
-  app.use(express.static(frontendPath));
+  app.use(express.static(clientPath));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(frontendPath, "index.html"))
+    res.sendFile(path.resolve(clientPath, "index.html"))
   );
 }
 
