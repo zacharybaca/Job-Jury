@@ -11,16 +11,14 @@ import { protect, requireTier } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Public Access
+// Public data retrieval
 router.get("/company/:companyId", getInterviewsByCompany);
 router.get("/company/:companyId/analytics", getInterviewAnalytics);
 router.get("/user/:userId", getInterviewsByUser);
 
-// Protected Access: User must be logged in AND have at least a 'juror' tier
+// Protected submission and management
 router.post("/submit-leak", protect, requireTier("juror"), createInterview);
-
-// Protected Management
-router.delete("/:id", protect, deleteInterview);
 router.put("/:id", protect, updateInterview);
+router.delete("/:id", protect, deleteInterview);
 
 export default router;
