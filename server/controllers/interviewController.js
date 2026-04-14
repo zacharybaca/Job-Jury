@@ -26,6 +26,7 @@ export const createInterview = asyncHandler(async (req, res) => {
     outcome,
   });
 
+  // Wrapped in try/catch to prevent corrupted watchlist data from crashing the server
   try {
     const watchers = await User.find({
       watchlist: companyId,
@@ -43,6 +44,7 @@ export const createInterview = asyncHandler(async (req, res) => {
   });
 });
 
+// Analytics Handler
 export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   const { companyId } = req.params;
   const interviews = await Interview.find({ company: companyId });
@@ -56,9 +58,14 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
     .slice(0, 5)
     .map((i) => `${i.role} - ${i.outcome}`);
 
-  res.status(200).json({ success: true, avgDifficulty, recentLeaks });
+  res.status(200).json({
+    success: true,
+    avgDifficulty,
+    recentLeaks,
+  });
 });
 
+// CRUD Handlers
 export const getInterviewsByCompany = asyncHandler(async (req, res) => {
   const interviews = await Interview.find({ company: req.params.companyId })
     .populate("user", "username avatar")
@@ -73,33 +80,12 @@ export const getInterviewsByUser = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: interviews });
 });
 
-export const updateInterview = asyncHandler(async (req, res) => {
-  const interview = await Interview.findById(req.params.id);
-  if (!interview) {
-    res.status(404);
-    throw new Error("Interview record not found.");
-  }
-  const isAdmin = req.user && req.user.isAdmin;
-  if (!isAdmin && interview.user.toString() !== req.user._id.toString()) {
-    res.status(403);
-    throw new Error("Unauthorized.");
-  }
-  Object.assign(interview, req.body);
-  const updatedInterview = await interview.save();
-  res.status(200).json({ success: true, data: updatedInterview });
-});
-
 export const deleteInterview = asyncHandler(async (req, res) => {
   const interview = await Interview.findById(req.params.id);
-  if (!interview) {
-    res.status(404);
-    throw new Error("Interview record not found.");
-  }
-  const isAdmin = req.user && req.user.isAdmin;
-  if (!isAdmin && interview.user.toString() !== req.user._id.toString()) {
+  if (!interview || (interview.user.toString() !== req.user._id.toString() && !req.user.isAdmin)) {
     res.status(403);
     throw new Error("Unauthorized.");
   }
   await Interview.deleteOne({ _id: req.params.id });
-  res.status(200).json({ success: true, message: "Interview deleted." });
+  res.status(200).json({ success: true, message: "Deleted." });
 });
