@@ -4,19 +4,17 @@ import { FetcherContext } from './FetcherContext.jsx';
 export const FetcherProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Pull backend URL from environment variables
+  // Consistency Check: Ensure this matches the key in your Render/Vite .env
   const backendUrl =
-    import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+    import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   const fetcher = async (
     url,
     options = {},
     fallbackError = 'An error occurred.'
   ) => {
-    // 1. Construct final URL
     const finalUrl = url.startsWith('/') ? `${backendUrl}${url}` : url;
 
-    // 2. SMART HEADERS: Check if we are sending a file (FormData)
     const isFormData = options.body instanceof FormData;
 
     const headers = {
@@ -24,10 +22,9 @@ export const FetcherProvider = ({ children }) => {
       ...(options.headers || {}),
     };
 
-    // 3. Config (Ensuring credentials are sent for JWT cookies)
     const config = {
-      credentials: 'include',
-      ...options,
+      ...options, // Spread first...
+      credentials: 'include', // ...then force credentials so they aren't overridden
       headers,
     };
 
@@ -45,8 +42,6 @@ export const FetcherProvider = ({ children }) => {
       }
 
       // 🛑 2. Handle Unauthorized (401)
-      // Note: We return the status so AuthProvider can decide if this is a "hard" error
-      // or just a guest user session.
       if (response.status === 401) {
         return {
           success: false,
@@ -55,21 +50,30 @@ export const FetcherProvider = ({ children }) => {
         };
       }
 
-      // 3. Parse JSON safely
-      const data = await response.json().catch(() => ({}));
+      // 🛑 3. Parse JSON safely + check Content-Type
+      const contentType = response.headers.get("content-type");
+      let data = {};
 
-      // 4. Handle other errors (400, 404, 500)
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json().catch(() => ({}));
+      } else {
+        // If it's not JSON (like the "1" or empty response you saw), 
+        // read as text to debug
+        const textData = await response.text();
+        data = { message: textData || fallbackError };
+      }
+
+      // 🛑 4. Handle other errors (400, 404, 500)
       if (!response.ok || data.success === false) {
-        const errorMessage = data?.message || fallbackError;
         return {
           success: false,
-          error: errorMessage,
+          error: data?.message || fallbackError,
           status: response.status,
-          data: data, // Keep data in case we need to see why it failed
+          data: data,
         };
       }
 
-      // 5. Success
+      // ✅ 5. Success
       return { success: true, data };
     } catch (err) {
       console.error('Fetcher error:', err);
@@ -79,7 +83,6 @@ export const FetcherProvider = ({ children }) => {
         status: null,
       };
     } finally {
-      // Move this to finally to ensure isLoaded is always true after a call finishes
       setIsLoaded(true);
     }
   };
