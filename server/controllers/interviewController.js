@@ -10,17 +10,20 @@ import asyncHandler from "express-async-handler";
 export const createInterview = asyncHandler(async (req, res) => {
   const { company: companyId, role, questions, difficulty, outcome } = req.body;
 
+  // 1. Guard against missing user session
   if (!req.user) {
-    res.status(401);
-    throw new Error("Unauthorized: User session not found.");
+    console.error("AUTH ERROR: req.user is undefined in production.");
+    return res.status(401).json({ success: false, message: "Session expired. Please log in again." });
   }
 
+  // 2. Guard against missing Company
   const company = await Company.findById(companyId);
   if (!company) {
-    res.status(404);
-    throw new Error("Company not found.");
+    console.error(`DB ERROR: Company ${companyId} not found in Production.`);
+    return res.status(404).json({ success: false, message: "Target company does not exist in production database." });
   }
 
+  // 3. Save the Leak
   const newInterview = await Interview.create({
     company: companyId,
     user: req.user._id,
@@ -30,23 +33,22 @@ export const createInterview = asyncHandler(async (req, res) => {
     outcome,
   });
 
+  // 4. Side-effects (Wrapped so they CANNOT crash the response)
   try {
     const watchers = await User.find({
       watchlist: companyId,
       subscriptionTier: { $in: ["juror", "judge"] },
     });
-
-    watchers.forEach((watcher) => {
-      console.log(`Notification trigger: ${watcher.email} for ${company.name}`);
-    });
-  } catch (error) {
-    console.error("Non-blocking watcher lookup failure:", error.message);
+    watchers.forEach(w => console.log(`Notified: ${w.email}`));
+  } catch (err) {
+    console.error("ALERT ERROR: Notification logic failed, but leak was saved:", err.message);
   }
 
-  res.status(201).json({
+  // 5. Explicit JSON Response
+  return res.status(201).json({
     success: true,
     data: newInterview,
-    message: "Interview submitted successfully",
+    message: "Evidence successfully logged.",
   });
 });
 
