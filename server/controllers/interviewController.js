@@ -3,6 +3,10 @@ import Company from "../models/Company.js";
 import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
 
+/**
+ * @desc    Create a new interview (Leak Submission)
+ * @route   POST /api/interviews/submit-leak
+ */
 export const createInterview = asyncHandler(async (req, res) => {
   const { company: companyId, role, questions, difficulty, outcome } = req.body;
 
@@ -26,13 +30,12 @@ export const createInterview = asyncHandler(async (req, res) => {
     outcome,
   });
 
-  // Wrapped in try/catch to prevent corrupted watchlist data from crashing the server
   try {
     const watchers = await User.find({
       watchlist: companyId,
       subscriptionTier: { $in: ["juror", "judge"] },
     });
-    watchers.forEach(w => console.log(`Notification trigger: ${w.email}`));
+    watchers.forEach((w) => console.log(`Notification trigger: ${w.email}`));
   } catch (err) {
     console.error("Non-blocking notification failure:", err.message);
   }
@@ -44,7 +47,48 @@ export const createInterview = asyncHandler(async (req, res) => {
   });
 });
 
-// Analytics Handler
+/**
+ * @desc    Update an existing interview leak
+ * @route   PUT /api/interviews/:id
+ */
+export const updateInterview = asyncHandler(async (req, res) => {
+  const { role, questions, difficulty, outcome } = req.body;
+
+  const interview = await Interview.findById(req.params.id);
+
+  if (!interview) {
+    res.status(404);
+    throw new Error("Interview record not found.");
+  }
+
+  // Authorization: Only the author or an admin can update
+  const isAuthor = interview.user.toString() === req.user._id.toString();
+  const isAdmin = req.user && req.user.isAdmin;
+
+  if (!isAuthor && !isAdmin) {
+    res.status(403);
+    throw new Error("Unauthorized to modify this record.");
+  }
+
+  // Update fields
+  interview.role = role || interview.role;
+  interview.difficulty = difficulty !== undefined ? difficulty : interview.difficulty;
+  interview.outcome = outcome || interview.outcome;
+  interview.questions = questions || interview.questions;
+
+  const updatedInterview = await interview.save();
+
+  res.status(200).json({
+    success: true,
+    data: updatedInterview,
+    message: "Interview updated successfully.",
+  });
+});
+
+/**
+ * @desc    Get interview analytics
+ * @route   GET /api/interviews/company/:companyId/analytics
+ */
 export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   const { companyId } = req.params;
   const interviews = await Interview.find({ company: companyId });
@@ -65,7 +109,10 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   });
 });
 
-// CRUD Handlers
+/**
+ * @desc    Get all interviews for a specific company
+ * @route   GET /api/interviews/company/:companyId
+ */
 export const getInterviewsByCompany = asyncHandler(async (req, res) => {
   const interviews = await Interview.find({ company: req.params.companyId })
     .populate("user", "username avatar")
@@ -73,6 +120,10 @@ export const getInterviewsByCompany = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: interviews });
 });
 
+/**
+ * @desc    Get all interviews submitted by a specific user
+ * @route   GET /api/interviews/user/:userId
+ */
 export const getInterviewsByUser = asyncHandler(async (req, res) => {
   const interviews = await Interview.find({ user: req.params.userId })
     .populate("company", "name")
@@ -80,12 +131,27 @@ export const getInterviewsByUser = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: interviews });
 });
 
+/**
+ * @desc    Delete an interview leak
+ * @route   DELETE /api/interviews/:id
+ */
 export const deleteInterview = asyncHandler(async (req, res) => {
   const interview = await Interview.findById(req.params.id);
-  if (!interview || (interview.user.toString() !== req.user._id.toString() && !req.user.isAdmin)) {
+
+  if (!interview) {
+    res.status(404);
+    throw new Error("Interview record not found.");
+  }
+
+  // Authorization: Only the author or an admin can delete
+  const isAuthor = interview.user.toString() === req.user._id.toString();
+  const isAdmin = req.user && req.user.isAdmin;
+
+  if (!isAuthor && !isAdmin) {
     res.status(403);
     throw new Error("Unauthorized.");
   }
+
   await Interview.deleteOne({ _id: req.params.id });
   res.status(200).json({ success: true, message: "Deleted." });
 });
