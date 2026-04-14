@@ -201,6 +201,17 @@ const toggleWatchlist = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, watchlist: user.watchlist });
 });
 
+const fixCorruptedData = asyncHandler(async (req, res) => {
+  // This forcefully clears the watchlist and savedCompanies for ALL users
+  // to remove the code strings that are crashing your app.
+  await User.updateMany({}, {
+    $set: {
+      watchlist: [],
+      savedCompanies: []
+    }
+  });
+  res.send("Database sanitized: All corrupted watchlist strings removed.");
+});
 export {
   getUserProfile,
   updateUserProfile,
@@ -210,4 +221,5 @@ export {
   makeUserAdmin,
   demoteUserAdmin,
   toggleWatchlist,
+  fixCorruptedData, // Export the new function
 };
