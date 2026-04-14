@@ -1,46 +1,73 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
-import userRoutes from "./routes/userRoutes.js"; // New Import
+import userRoutes from "./routes/userRoutes.js";
 import interviewRoutes from "./routes/interviewRoutes.js";
-import { errorHandler } from "./middleware/errorHandler.js";
+import { errorHandler, notFound } from "./middleware/errorHandler.js"; // Added notFound
 import { stripeWebhook } from "./controllers/paymentController.js";
 
 const app = express();
 
+// Refined CORS for Production
 const corsOptions = {
-  // Allow requests from your Vite frontend
-  origin: [
-    "http://localhost:5173", // Your local React development server
-    process.env.FRONTEND_URL, // Your live Render production server
-  ],
-  credentials: true, // Critical for cookies/sessions
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      "http://localhost:5173",
+      process.env.FRONTEND_URL?.replace(/\/$/, ""), // Remove trailing slash if present
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// Middleware
 app.use(cors(corsOptions));
-app.use(cookieParser()); // Must come before routes to parse JWT cookies
+
+// Stripe Webhook MUST come before express.json()
 app.post(
   "/api/payments/webhook",
   express.raw({ type: "application/json" }),
   stripeWebhook,
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/users", userRoutes); // New Route Base
+app.use("/api/users", userRoutes);
 app.use("/api/interviews", interviewRoutes);
 app.use("/api/payments", paymentRoutes);
 
-// Error handling (Must be the last middleware)
-app.use(errorHandler);
+// Static Asset Handling for Production (Render)
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
+
+// Error handling
+app.use(notFound); // Handles 404s
+app.use(errorHandler); // Handles server errors
 
 export default app;
