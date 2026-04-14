@@ -36,6 +36,7 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
     e.preventDefault();
     setStatus({ type: 'info', message: 'Submitting evidence...' });
 
+    // Ensure companyId is mapped to the 'company' key to match backend destructuring
     const submissionData = {
       ...formData,
       company: companyId,
@@ -43,13 +44,25 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
     };
 
     try {
-      const response = await fetch('/api/interviews/submit-leak', {
+      // Configuration for cross-environment compatibility
+      const API_URL = import.meta.env.VITE_API_URL || '';
+
+      const response = await fetch(`${API_URL}/api/interviews/submit-leak`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        // CRITICAL: Required for production JWT cookie transmission
+        credentials: 'include',
         body: JSON.stringify(submissionData),
       });
+
+      // Guard against non-JSON responses (prevents "Unexpected end of JSON" error)
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const textError = await response.text();
+        throw new Error(textError || 'Server returned non-JSON response.');
+      }
 
       const data = await response.json();
 
@@ -62,7 +75,6 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
         message: 'Interview leak successfully logged in the repository.',
       });
 
-      // Optional: Reset form after success
       setFormData({ role: '', difficulty: 3, outcome: 'Pending' });
       setQuestions([{ text: '', type: 'Technical' }]);
     } catch (err) {
@@ -87,7 +99,6 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
         )}
 
         <Form onSubmit={handleSubmit}>
-          {/* Main Info Row */}
           <Row>
             <Col xs={12} md={6}>
               <Form.Group className="mb-3">
