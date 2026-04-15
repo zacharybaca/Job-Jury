@@ -1,10 +1,29 @@
 import Card from 'react-bootstrap/Card';
+import { useEffect, useState } from 'react';
 
-const InterviewQuestions = ({ questions, variant }) => {
+const InterviewQuestions = ({ companyId, variant }) => {
+    const [questions, setQuestions] = useState([]);
+
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch(`/api/interviews/company/${companyId}/questions`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
+                setQuestions(data.questions || []);
+            } catch (error) {
+                console.error('Error fetching interview questions:', error);
+            }
+        };
+        fetchQuestions();
+    }, [companyId]);
 
   return (
     <div className="interview-questions">
-      {questions && questions.length > 0 ? (
+      {companyId ? (
         <Card
           bg={variant.toLowerCase()}
           key={variant}
@@ -12,13 +31,17 @@ const InterviewQuestions = ({ questions, variant }) => {
           style={{ width: '18rem' }}
           className="mb-2"
         >
-          <Card.Header>{variant} Interview Questions</Card.Header>
+          <Card.Header>Interview Questions</Card.Header>
           <Card.Body>
-            <Card.Title> Card Title </Card.Title>
+            <Card.Title> Interview Questions </Card.Title>
             <Card.Text>
-              {questions.map((question, index) => (
-                <div key={index}>{question}</div>
-              ))}
+              {questions.length > 0 ? (
+                questions.map((question, index) => (
+                  <div key={index}>{question}</div>
+                ))
+              ) : (
+                <p>No questions available for this company.</p>
+              )}
             </Card.Text>
           </Card.Body>
         </Card>
