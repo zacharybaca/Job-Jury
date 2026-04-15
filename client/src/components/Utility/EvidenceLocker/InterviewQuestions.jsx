@@ -32,7 +32,7 @@ const InterviewQuestions = ({ companyId, variant }) => {
               key={index}
               text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
               style={{ width: '18rem' }}
-              className="mb-2"
+              className="mb-2 question-card"
             >
               <Card.Header className="card-header">Question {index + 1}</Card.Header>
               <Card.Body>
