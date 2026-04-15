@@ -1,26 +1,26 @@
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from 'react';
+import { useFetcher } from '../../../hooks/useFetcher';
 import './interview-questions.css';
 
 const InterviewQuestions = ({ companyId, variant }) => {
-    const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const { fetcher } = useFetcher();
 
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const response = await fetch(`/api/interviews/company/${companyId}/questions`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const data = await response.json();
-                setQuestions(data.questions || []);
-            } catch (error) {
-                console.error('Error fetching interview questions:', error);
-            }
-        };
-        fetchQuestions();
-    }, [companyId]);
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      if (!companyId) return;
+
+      const response = await fetcher(`/api/interviews/company/${companyId}/questions`);
+
+      if (response.success) {
+        setQuestions(response.data.questions || []);
+      } else {
+        console.error('Error fetching interview questions:', response.error);
+      }
+    };
+    fetchQuestions();
+  }, [companyId, fetcher]);
 
   return (
     <div className="interview-questions">
