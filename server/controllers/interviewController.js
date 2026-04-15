@@ -110,6 +110,27 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc    Get all questions that were asked for a specific company and role
+ * @desc    Get all questions that were asked for a specific company and role
+ * @route   GET /api/interviews/company/:companyId/questions?role=Software%20Engineer
+ * @query   role (optional) - filter questions by role
+ */
+export const getInterviewQuestions = asyncHandler(async (req, res) => {
+  const { companyId } = req.params;
+  const { role } = req.query;
+
+  const query = { company: companyId };
+  if (role) query.role = role;
+
+  const questions = await Interview.find(query).select("questions -_id");
+
+  res.status(200).json({
+    success: true,
+    data: questions.flatMap((q) => q.questions),
+  });
+});
+
+/**
  * @desc    Get all interviews for a specific company
  * @route   GET /api/interviews/company/:companyId
  */
