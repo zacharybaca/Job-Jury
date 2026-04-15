@@ -25,27 +25,26 @@ const InterviewQuestions = ({ companyId, variant }) => {
   return (
     <div className="interview-questions">
       {companyId ? (
-        <Card
-          bg={variant.toLowerCase()}
-          key={variant}
-          text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-          style={{ width: '18rem' }}
-          className="mb-2"
-        >
-          <Card.Header className="card-header">Interview Questions</Card.Header>
-          <Card.Body>
-            <Card.Title> Interview Questions </Card.Title>
-            <Card.Text as="div">
-              {questions.length > 0 ? (
-                questions.map((question, index) => (
-                  <div key={index}>{question}</div>
-                ))
-              ) : (
-                <p>No questions available for this company.</p>
-              )}
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        questions.length > 0 ? (
+          questions.map((question, index) => (
+            <Card
+              bg={variant.toLowerCase()}
+              key={index}
+              text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
+              style={{ width: '18rem' }}
+              className="mb-2"
+            >
+              <Card.Header className="card-header">Question {index + 1}</Card.Header>
+              <Card.Body>
+                <Card.Text as="div">
+                  <div>{question}</div>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          ))
+        ) : (
+          <p>No questions available for this company.</p>
+        )
       ) : (
         <p>No questions available.</p>
       )}
