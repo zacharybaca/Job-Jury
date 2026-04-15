@@ -9,6 +9,7 @@ import ReviewList from '../../Review/ReviewList/ReviewList';
 import JudgeAnalyticsSection from '../../Utility/EvidenceLocker/JudgeAnalyticsSection';
 import LeakAnalyticsSection from '../../Utility/LeakSubmissionForm/LeakAnalyticsSection';
 import LeakSubmissionForm from '../../Utility/LeakSubmissionForm/LeakSubmissionForm';
+import InterviewQuestions from '../../Utility/EvidenceLocker/InterviewQuestions';
 import './company-detail.css';
 
 const CompanyDetail = () => {
@@ -100,6 +101,9 @@ const CompanyDetail = () => {
             </section>
             <section className="leak-analytics-container">
               <LeakAnalyticsSection companyId={id} />
+            </section>
+            <section className="interview-questions-container">
+              <InterviewQuestions companyId={id} variant="Light" />
             </section>
           </div>
         </section>
