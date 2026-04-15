@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from 'react';
+import './interview-questions.css';
 
 const InterviewQuestions = ({ companyId, variant }) => {
     const [questions, setQuestions] = useState([]);
@@ -31,7 +32,7 @@ const InterviewQuestions = ({ companyId, variant }) => {
           style={{ width: '18rem' }}
           className="mb-2"
         >
-          <Card.Header>Interview Questions</Card.Header>
+          <Card.Header className="card-header">Interview Questions</Card.Header>
           <Card.Body>
             <Card.Title> Interview Questions </Card.Title>
             <Card.Text as="div">
