@@ -34,7 +34,7 @@ const InterviewQuestions = ({ companyId, variant }) => {
           <Card.Header>Interview Questions</Card.Header>
           <Card.Body>
             <Card.Title> Interview Questions </Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               {questions.length > 0 ? (
                 questions.map((question, index) => (
                   <div key={index}>{question}</div>
