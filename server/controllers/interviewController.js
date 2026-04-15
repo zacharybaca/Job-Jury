@@ -122,11 +122,16 @@ export const getInterviewQuestions = asyncHandler(async (req, res) => {
   const query = { company: companyId };
   if (role) query.role = role;
 
-  const questions = await Interview.find(query).select("questions -_id");
+  const interviews = await Interview.find(query).select("questions");
+
+  // Extract text from nested question objects
+  const questionTexts = interviews.flatMap((interview) =>
+    interview.questions.map((q) => q.text)
+  );
 
   res.status(200).json({
     success: true,
-    data: questions.flatMap((q) => q.questions),
+    questions: questionTexts,
   });
 });
 
