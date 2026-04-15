@@ -16,6 +16,18 @@
   margin-bottom: 40px;
 }
 
+.interview-questions-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: fit-content;
+  width: fit-content;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: rgba(248, 250, 252, 0.5);
+  padding: 20px;
+}
+
 /* Analytics Dashboard Layout */
 .analytics-dashboard {
   background-color: rgba(248, 250, 252, 0.5);
