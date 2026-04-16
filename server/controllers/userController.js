@@ -65,6 +65,31 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Change Subscription Tier
+// @route   PATCH /api/users/profile/subscription
+// @access  Private
+const changeSubscriptionTier = asyncHandler(async (req, res) => {
+  const { subscriptionTier } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  user.subscriptionTier = subscriptionTier || user.subscriptionTier;
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+    success: true,
+    data: {
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      subscriptionTier: updatedUser.subscriptionTier,
+    },
+  });
+});
+
 // NEW: Delete User Profile Function
 // @desc    Delete user profile and avatar
 // @route   DELETE /api/users/profile
@@ -222,4 +247,5 @@ export {
   demoteUserAdmin,
   toggleWatchlist,
   fixCorruptedData, // Export the new function
+  changeSubscriptionTier,
 };
