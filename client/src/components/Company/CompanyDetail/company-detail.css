@@ -8,14 +8,6 @@
   padding: 20px;
 }
 
-.section-leaks-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
 .interview-questions-container {
   display: flex;
   align-items: center;
@@ -27,7 +19,7 @@
   border: 2px solid black;
   max-width: 100%;
   min-width: 100%;
-  overflow: hidden; /* Hide overflow here; let the inner .interview-questions handle the scrollbar */
+  overflow: hidden;
 }
 
 /* Analytics Dashboard Layout */
@@ -36,39 +28,69 @@
   border-radius: 16px;
   padding: 20px;
   height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
 .analytics-grid {
   display: flex;
-  gap: 5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 20px;
+  border: 2px solid yellow;
+  width: 100%;
 }
 
 .analytics-container {
+  border: 2px solid black;
+  padding: 20px;
+  box-sizing: border-box;
   border-radius: 16px;
 }
 
 .leak-analytics-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 auto 40px auto;
+  justify-content: center;
+  align-content: center;
   flex: 1;
   height: fit-content;
-  width: fit-content;
+  width: 100%;
+  max-width: 600px;
   box-sizing: border-box;
+  border: 3px solid gold;
+  background-color: rgba(248, 250, 252, 0.5);
+  border-radius: 16px;
 }
 
 .leak-trends-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(248, 250, 252, 0.5);
+  border-radius: 16px;
 }
 
 .judge-analytics-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 auto 40px auto;
+  justify-content: center;
+  align-content: center;
   flex: 1;
   height: fit-content;
-  width: fit-content;
+  width: 100%;
+  max-width: 600px;
   box-sizing: border-box;
+  border: 3px solid gold;
+  background-color: rgba(248, 250, 252, 0.5);
+  border-radius: 16px;
 }
 
 .avg-metrics-row {
@@ -99,7 +121,12 @@
   .analytics-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: start;
+    justify-items: center;
+    align-content: center;
+  }
+
+  .interview-questions-container {
+    grid-column: 1 / -1;
   }
 }
 
