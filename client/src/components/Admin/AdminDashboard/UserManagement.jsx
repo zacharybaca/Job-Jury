@@ -66,6 +66,14 @@ const UserManagement = () => {
     }
   };
 
+  const formatName = (name) => {
+  if (!name) return "";
+  return name
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+  };
+
   if (loading) {
     return <div className="admin-loading">Loading user database...</div>;
   }
@@ -77,8 +85,10 @@ const UserManagement = () => {
           <thead>
             <tr>
               <th>Avatar</th>
+              <th>Name</th>
               <th>Username</th>
               <th>Email</th>
+              <th>Subscription Tier</th>
               <th>Role</th>
               <th>Actions</th>
             </tr>
@@ -117,8 +127,10 @@ const UserManagement = () => {
                       </div>
                     )}
                   </td>
+                  <td>{formatName(user.name)}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
+                  <td>{user.subscriptionTier[0].toUpperCase() + user.subscriptionTier.slice(1)}</td>
                   <td>
                     <span
                       className={`status-badge ${user.isAdmin ? 'approved' : 'pending'}`}
@@ -148,7 +160,7 @@ const UserManagement = () => {
             ) : (
               <tr>
                 <td
-                  colSpan="5"
+                  colSpan="7"
                   style={{ textAlign: 'center', padding: '20px' }}
                 >
                   No users found.
