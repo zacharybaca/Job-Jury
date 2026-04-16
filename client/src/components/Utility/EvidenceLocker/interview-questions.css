@@ -1,50 +1,50 @@
 .interview-questions {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    border: 2px solid yellow; /* Keep your existing border for debugging */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 2px solid yellow; /* Keep your existing border for debugging */
 }
 
 /* Add this class to prevent the flex children from compressing */
 .question-card {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .card-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #1e293b;
 }
 
 .card-body {
-    font-size: 1rem;
-    color: #334155;
-    text-align: left;
-    padding: 10px;
-    width: 100%;
+  font-size: 1rem;
+  color: #334155;
+  text-align: left;
+  padding: 10px;
+  width: 100%;
 }
 
 .interview-questions-section-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid black;
 }
 
 .questions-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
-    gap: 20px;
-    border: 3px solid red;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 20px;
+  border: 3px solid red;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
 }

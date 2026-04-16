@@ -5,8 +5,7 @@ export const FetcherProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Consistency Check: Ensure this matches the key in your Render/Vite .env
-  const backendUrl =
-    import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   const fetcher = async (
     url,
@@ -51,13 +50,13 @@ export const FetcherProvider = ({ children }) => {
       }
 
       // 🛑 3. Parse JSON safely + check Content-Type
-      const contentType = response.headers.get("content-type");
+      const contentType = response.headers.get('content-type');
       let data = {};
 
-      if (contentType && contentType.includes("application/json")) {
+      if (contentType && contentType.includes('application/json')) {
         data = await response.json().catch(() => ({}));
       } else {
-        // If it's not JSON (like the "1" or empty response you saw), 
+        // If it's not JSON (like the "1" or empty response you saw),
         // read as text to debug
         const textData = await response.text();
         data = { message: textData || fallbackError };

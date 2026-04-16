@@ -72,10 +72,10 @@ const UserManagement = () => {
       user.subscriptionTier === 'free'
         ? 'juror'
         : user.subscriptionTier === 'juror'
-        ? 'judge'
-        : user.subscriptionTier === 'judge'
-        ? 'firm'
-        : 'free';
+          ? 'judge'
+          : user.subscriptionTier === 'judge'
+            ? 'firm'
+            : 'free';
 
     if (newTier !== currentTier) {
       // Modify URL to include target ID
@@ -100,11 +100,11 @@ const UserManagement = () => {
   };
 
   const formatName = (name) => {
-  if (!name) return "";
-  return name
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
+    if (!name) return '';
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   };
 
   if (loading) {
@@ -165,10 +165,21 @@ const UserManagement = () => {
                   <td>{user.email}</td>
                   <td>
                     <select
-                      value={user.subscriptionTier[0].toUpperCase() + user.subscriptionTier.slice(1)}
-                      onChange={() => handleUpdateSubscription(user._id, user.subscriptionTier)}
+                      value={
+                        user.subscriptionTier[0].toUpperCase() +
+                        user.subscriptionTier.slice(1)
+                      }
+                      onChange={() =>
+                        handleUpdateSubscription(
+                          user._id,
+                          user.subscriptionTier
+                        )
+                      }
                     >
-                      <option value={user.subscriptionTier}>{user.subscriptionTier[0].toUpperCase() + user.subscriptionTier.slice(1)}</option>
+                      <option value={user.subscriptionTier}>
+                        {user.subscriptionTier[0].toUpperCase() +
+                          user.subscriptionTier.slice(1)}
+                      </option>
                       <option value="free">Free</option>
                       <option value="juror">Juror</option>
                       <option value="judge">Judge</option>

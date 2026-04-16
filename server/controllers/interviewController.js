@@ -72,7 +72,8 @@ export const updateInterview = asyncHandler(async (req, res) => {
 
   // Update fields
   interview.role = role || interview.role;
-  interview.difficulty = difficulty !== undefined ? difficulty : interview.difficulty;
+  interview.difficulty =
+    difficulty !== undefined ? difficulty : interview.difficulty;
   interview.outcome = outcome || interview.outcome;
   interview.questions = questions || interview.questions;
 
@@ -94,7 +95,10 @@ export const getInterviewAnalytics = asyncHandler(async (req, res) => {
   const interviews = await Interview.find({ company: companyId });
 
   const avgDifficulty = interviews.length
-    ? (interviews.reduce((acc, curr) => acc + curr.difficulty, 0) / interviews.length).toFixed(1)
+    ? (
+        interviews.reduce((acc, curr) => acc + curr.difficulty, 0) /
+        interviews.length
+      ).toFixed(1)
     : "0.0";
 
   const recentLeaks = interviews
@@ -126,7 +130,7 @@ export const getInterviewQuestions = asyncHandler(async (req, res) => {
 
   // Extract text from nested question objects
   const questionTexts = interviews.flatMap((interview) =>
-    interview.questions.map((q) => q.text)
+    interview.questions.map((q) => q.text),
   );
 
   res.status(200).json({

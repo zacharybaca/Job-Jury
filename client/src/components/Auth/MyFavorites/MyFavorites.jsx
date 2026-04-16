@@ -8,7 +8,12 @@ const MyFavorites = () => {
 
   return (
     <div className="my-favorites-container">
-      <Carousel fade interval={null} indicators={true} controls={savedCompanies.length > 1}>
+      <Carousel
+        fade
+        interval={null}
+        indicators={true}
+        controls={savedCompanies.length > 1}
+      >
         {savedCompanies.map((company) => (
           <Carousel.Item key={company._id}>
             <div className="company-card-wrapper">

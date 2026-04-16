@@ -11,7 +11,7 @@ import '../LeakSubmissionForm/leak-submission-form.css';
 
 const EvidenceLocker = ({ trends = [] }) => {
   // Defensive check for data structure
-  const dataArray = Array.isArray(trends) ? trends : (trends?.data || []);
+  const dataArray = Array.isArray(trends) ? trends : trends?.data || [];
 
   // Map data with null-safety for numeric fields
   const chartData = dataArray.map((t) => ({

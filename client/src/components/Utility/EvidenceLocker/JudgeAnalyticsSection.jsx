@@ -39,7 +39,8 @@ const JudgeAnalyticsSection = ({ companyId }) => {
       <div className="premium-lockout">
         <h4>Historical Trends Locked</h4>
         <p>
-          Upgrade to the <strong>Judge Tier</strong> to view historical rating data.
+          Upgrade to the <strong>Judge Tier</strong> to view historical rating
+          data.
         </p>
         <button onClick={() => (window.location.href = '/subscribe')}>
           View Plans
@@ -48,7 +49,8 @@ const JudgeAnalyticsSection = ({ companyId }) => {
     );
   }
 
-  if (loading) return <p className="loading-text">Analyzing historical verdicts...</p>;
+  if (loading)
+    return <p className="loading-text">Analyzing historical verdicts...</p>;
 
   return <EvidenceLocker trends={trends} />;
 };

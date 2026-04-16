@@ -188,7 +188,9 @@ function App() {
   });
 
   useEffect(() => {
-    const isAuthPage = ['/login', '/register', '/forgot-password'].includes(pathname);
+    const isAuthPage = ['/login', '/register', '/forgot-password'].includes(
+      pathname
+    );
 
     if (selectedWallpaper && !isAuthPage) {
       localStorage.setItem('user-wallpaper', JSON.stringify(selectedWallpaper));

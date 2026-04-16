@@ -52,8 +52,8 @@ const LeakSubmissionForm = ({ companyId, companyName }) => {
         body: JSON.stringify(submissionData),
       });
 
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
         throw new Error(text || 'Server error: Empty response');
       }

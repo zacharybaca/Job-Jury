@@ -32,7 +32,8 @@ reviewSchema.statics.calculateAverage = async function (companyId) {
   try {
     const Company = mongoose.model("Company");
     // Fix: If no stats (last review deleted), reset to 0; otherwise, parse the fixed float.
-    const avg = stats.length > 0 ? parseFloat(stats[0].avgRating.toFixed(1)) : 0;
+    const avg =
+      stats.length > 0 ? parseFloat(stats[0].avgRating.toFixed(1)) : 0;
 
     await Company.findByIdAndUpdate(companyId, {
       averageRating: avg,
