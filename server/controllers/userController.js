@@ -66,11 +66,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 // @desc    Change Subscription Tier
-// @route   PATCH /api/users/profile/subscription
-// @access  Private
+// @route   PATCH /api/users/:id/subscription
+// @access  Private/Admin
 const changeSubscriptionTier = asyncHandler(async (req, res) => {
   const { subscriptionTier } = req.body;
-  const user = await User.findById(req.user._id);
+  // Modify query target from req.user._id to req.params.id
+  const user = await User.findById(req.params.id);
 
   if (!user) {
     res.status(404);
