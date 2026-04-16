@@ -32,10 +32,20 @@ const userSchema = mongoose.Schema(
 // Encrypt password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    next();
+    return next();
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Update subscription tier before saving
+userSchema.pre("save", function (next) {
+  if (!this.isModified("subscriptionTier")) {
+    return next();
+  }
+  const tier = this.subscriptionTier;
+  this.isPremium = tier === "juror" || tier === "judge" || tier === "firm";
+  next();
 });
 
 // Method to compare passwords
