@@ -36,7 +36,7 @@ router.get("/", getUsers);
 router.patch("/:id/admin", makeUserAdmin);
 // Add this temporary route
 router.get("/fix-my-account", fixCorruptedData);
-router.patch("/subscription", changeSubscriptionTier);
+router.patch("/:id/subscription", changeSubscriptionTier);
 router.route("/:id/demote").patch(protect, admin, demoteUserAdmin);
 
 export default router;
