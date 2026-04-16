@@ -66,6 +66,29 @@ const UserManagement = () => {
     }
   };
 
+  const handleUpdateSubscription = async (id, currentTier) => {
+
+    if (newTier && newTier !== currentTier) {
+      const response = await fetcher('/api/users/subscription', {
+        method: 'PATCH',
+        body: JSON.stringify({ subscriptionTier: newTier }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.success) {
+        setUsers(
+          users.map((user) =>
+            user._id === id ? { ...user, subscriptionTier: newTier } : user
+          )
+        );
+      } else {
+        alert(response.error || 'Failed to update subscription tier.');
+      }
+    }
+  };
+
   const formatName = (name) => {
   if (!name) return "";
   return name
@@ -130,7 +153,18 @@ const UserManagement = () => {
                   <td>{formatName(user.name)}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{user.subscriptionTier[0].toUpperCase() + user.subscriptionTier.slice(1)}</td>
+                  <td>
+                    <select
+                      value={user.subscriptionTier[0].toUpperCase() + user.subscriptionTier.slice(1)}
+                      onChange={() => handleUpdateSubscription(user._id, user.subscriptionTier)}
+                    >
+                      <option value={user.subscriptionTier}>{user.subscriptionTier[0].toUpperCase() + user.subscriptionTier.slice(1)}</option>
+                      <option value="free">Free</option>
+                      <option value="juror">Juror</option>
+                      <option value="judge">Judge</option>
+                      <option value="firm">Firm</option>
+                    </select>
+                  </td>
                   <td>
                     <span
                       className={`status-badge ${user.isAdmin ? 'approved' : 'pending'}`}
