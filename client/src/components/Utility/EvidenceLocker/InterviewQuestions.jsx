@@ -24,6 +24,12 @@ const InterviewQuestions = ({ companyId, variant }) => {
 
   return (
     <div className="interview-questions">
+        <div className="interview-questions-section-header">
+          <div className="section-header">
+          <h4 className="fw-bold m-0">Interview Questions</h4>
+        </div>
+      </div>
+      <div className="questions-container d-flex flex-wrap justify-content-start gap-3">
       {companyId ? (
         questions.length > 0 ? (
           questions.map((question, index) => (
@@ -48,6 +54,7 @@ const InterviewQuestions = ({ companyId, variant }) => {
       ) : (
         <p>No questions available.</p>
       )}
+      </div>
     </div>
   );
 };
