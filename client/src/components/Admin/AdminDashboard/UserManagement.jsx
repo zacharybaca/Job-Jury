@@ -78,7 +78,8 @@ const UserManagement = () => {
         : 'free';
 
     if (newTier !== currentTier) {
-      const response = await fetcher('/api/users/subscription', {
+      // Modify URL to include target ID
+      const response = await fetcher(`/api/users/${id}/subscription`, {
         method: 'PATCH',
         body: JSON.stringify({ subscriptionTier: newTier }),
         headers: {
