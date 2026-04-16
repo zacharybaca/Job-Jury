@@ -67,8 +67,17 @@ const UserManagement = () => {
   };
 
   const handleUpdateSubscription = async (id, currentTier) => {
+    const user = users.find((u) => u._id === id);
+    const newTier =
+      user.subscriptionTier === 'free'
+        ? 'juror'
+        : user.subscriptionTier === 'juror'
+        ? 'judge'
+        : user.subscriptionTier === 'judge'
+        ? 'firm'
+        : 'free';
 
-    if (newTier && newTier !== currentTier) {
+    if (newTier !== currentTier) {
       const response = await fetcher('/api/users/subscription', {
         method: 'PATCH',
         body: JSON.stringify({ subscriptionTier: newTier }),
