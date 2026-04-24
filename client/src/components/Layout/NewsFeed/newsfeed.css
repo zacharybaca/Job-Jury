@@ -2,6 +2,10 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  overflow-y: scroll;
+  border-radius: 12px;
+  border: 2px solid black;
+  background-color: #84d9be;
 }
 
 .newsfeed-header {
