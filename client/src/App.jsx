@@ -20,6 +20,7 @@ import ForgotPassword from './components/Auth/ForgotPassword';
 import PricingPage from './components/Pages/PricingPage';
 import MyFavorites from './components/Auth/MyFavorites/MyFavorites';
 import LeakSubmissionForm from './components/Utility/LeakSubmissionForm/LeakSubmissionForm';
+import NewsFeed from './components/Layout/NewsFeed/NewsFeed';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -269,6 +270,15 @@ function App() {
           }
         />
 
+        <Route
+          path="newsfeed"
+          element={
+            <ProtectedRoute>
+              <Newsfeed />
+            </ProtectedRoute>
+          }
+        />
+        
         <Route
           path="settings"
           element={
