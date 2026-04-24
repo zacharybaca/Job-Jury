@@ -25,15 +25,6 @@
   background-color: rgba(248, 250, 252, 0.5);
 }
 
-.feed-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #84d9be;
-  font-weight: 700;
-  color: #0f172a;
-}
-
 .feed-timestamp {
   font-size: 0.85rem;
   color: #1e293b;
@@ -65,4 +56,33 @@
   color: #64748b;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.feed-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #84d9be;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.feed-header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dismiss-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #1e293b;
+  cursor: pointer;
+  padding: 0 0 0 15px;
+  transition: color 0.2s ease;
+}
+
+.dismiss-btn:hover {
+  color: #ef4444;
 }
