@@ -19,6 +19,7 @@ const Newsfeed = () => {
       const response = await fetcher('/api/feed');
       if (response.success) {
         setFeedItems(response.data?.data || []);
+        console.log('Fetched feed items:', response.data?.data || []);
       } else {
         console.error('Failed to load feed:', response.error);
       }
@@ -73,6 +74,7 @@ const Newsfeed = () => {
             </div>
 
             <h3 className="article-headline">Evidence Submitted by {item.author?.username}</h3>
+            <img src={item.author?.avatar || 'assets/default-avatar.png'} alt={`${item.author?.username}'s avatar`} className="article-avatar" />
 
             <div className="article-submeta">
               <span className="article-date">{new Date(item.createdAt).toLocaleDateString()}</span>
@@ -80,13 +82,13 @@ const Newsfeed = () => {
             </div>
 
             <p className="article-text">
-              {index === 0 && item.content ? (
+              {index === 0 && item.body ? (
                 <>
-                  <span className="drop-cap">{item.content.charAt(0)}</span>
-                  {item.content.slice(1)}
+                  <span className="drop-cap">{item.body.charAt(0)}</span>
+                  {item.body.slice(1)}
                 </>
               ) : (
-                item.content || "No additional text provided for this update."
+                item.body || "No additional text provided for this update."
               )}
             </p>
           </article>
