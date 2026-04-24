@@ -1,29 +1,49 @@
 .my-favorites-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 75%;
+  width: 100%;
+  max-width: 800px;
   margin: 0 auto;
-  height: 80vh;
+  padding: 40px 20px;
+  min-height: 80vh;
+}
+
+/* Force the Carousel Item to act as a flex column so elements stack neatly */
+.favorites-carousel .carousel-item {
+  display: flex !important; /* Overrides Bootstrap's default display: block */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
 }
 
 .company-card-wrapper {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  margin-bottom: 20px; /* Enforces spacing between the card and the caption */
 }
 
 .carousel-caption-wrapper {
-  margin-top: 50%;
   text-align: center;
+  width: 100%;
 }
 
-.carousel-caption-wrapper h3 {
+/* Nullify Bootstrap's absolute positioning so the text flows naturally */
+.favorites-carousel .carousel-caption {
+  position: static !important;
+  padding: 0;
+}
+
+.favorites-carousel .carousel-caption h3 {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #ffffff; /* Use white text for visibility against dynamic backgrounds */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Adds contrast for readability */
   margin-bottom: 10px;
+}
+
+.favorites-carousel .carousel-caption p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 40px; /* Clears the carousel indicator dots at the bottom */
 }
