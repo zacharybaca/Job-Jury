@@ -13,6 +13,7 @@ const MyFavorites = () => {
         interval={null}
         indicators={true}
         controls={savedCompanies.length > 1}
+        className="favorites-carousel"
       >
         {savedCompanies.map((company) => (
           <Carousel.Item key={company._id}>
