@@ -7,6 +7,8 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   font-family: 'Georgia', 'Times New Roman', serif;
   border: 1px solid #dcd7ca;
+  overflow-y: scroll;
+  height: 80vh;
 }
 
 .newspaper-masthead {
@@ -47,8 +49,14 @@
 .newspaper-article {
   break-inside: avoid; /* Prevents article from splitting awkwardly across columns */
   margin-bottom: 40px;
-  border-bottom: 1px dashed #ccc;
+  border: 1px solid #e0dcd5;
+  padding: 20px;
   padding-bottom: 25px;
+}
+
+.newspaper-article:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 .article-header {
