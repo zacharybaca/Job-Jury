@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useAuth } from '../../../hooks/useAuth';
 import './newsfeed.css';
@@ -36,52 +35,63 @@ const Newsfeed = () => {
   };
 
   const visibleFeedItems = feedItems.filter((item) => !dismissedIds.includes(item._id));
+  const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-  if (loading) return <div className="feed-loading">Gathering the latest evidence...</div>;
+  if (loading) return <div className="feed-loading">Typesetting the latest evidence...</div>;
 
   if (visibleFeedItems.length === 0) {
     return (
       <div className="feed-empty">
-        <p>No new updates available.</p>
+        <p>No new updates for the press at this time.</p>
       </div>
     );
   }
 
   return (
-    <div className="newsfeed-container">
-      <h2 className="newsfeed-header">{user && user.name ? `${user.name}'s Personalized Jury Newsfeed` : 'Newsfeed'}</h2>
-      <div className="newsfeed-list">
-        {visibleFeedItems.map((item) => (
-          <Card key={item._id} className="feed-card shadow-sm mb-3">
-            <Card.Header className="feed-card-header">
-              <div className="feed-header-info">
-                <div className="feed-company">{item.company?.name}</div>
-                <div className="feed-timestamp">
-                  {new Date(item.createdAt).toLocaleDateString()}
-                </div>
-              </div>
+    <div className="newspaper-wrapper">
+      <header className="newspaper-masthead">
+        <h1 className="newspaper-title">THE JURY GAZETTE</h1>
+        <div className="newspaper-meta">
+          <span>{user && user.name ? `EDITION FOR: ${user.name.toUpperCase()}` : 'DAILY EDITION'}</span>
+          <span>{currentDate}</span>
+          <span>VOL. I</span>
+        </div>
+      </header>
+
+      <main className="newspaper-content">
+        {visibleFeedItems.map((item, index) => (
+          <article key={item._id} className="newspaper-article">
+            <div className="article-header">
+              <h2 className="article-company">{item.company?.name}</h2>
               <button
-                className="dismiss-btn"
+                className="newspaper-dismiss"
                 onClick={() => handleDismiss(item._id)}
                 aria-label="Dismiss update"
               >
                 &times;
               </button>
-            </Card.Header>
-            <Card.Body>
-              <Card.Subtitle className="mb-2 text-muted">
-                New Update by {item.author?.username}
-              </Card.Subtitle>
-              <Card.Text as="div" className="feed-content">
-                {item.rating && (
-                  <div className="feed-rating">Rating: {item.rating}/5</div>
-                )}
-                <div className="feed-text">{item.content}</div>
-              </Card.Text>
-            </Card.Body>
-          </Card>
+            </div>
+
+            <h3 className="article-headline">Evidence Submitted by {item.author?.username}</h3>
+
+            <div className="article-submeta">
+              <span className="article-date">{new Date(item.createdAt).toLocaleDateString()}</span>
+              {item.rating && <span className="article-rating">Rating: {item.rating}/5</span>}
+            </div>
+
+            <p className="article-text">
+              {index === 0 && item.content ? (
+                <>
+                  <span className="drop-cap">{item.content.charAt(0)}</span>
+                  {item.content.slice(1)}
+                </>
+              ) : (
+                item.content || "No additional text provided for this update."
+              )}
+            </p>
+          </article>
         ))}
-      </div>
+      </main>
     </div>
   );
 };
