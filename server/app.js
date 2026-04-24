@@ -8,6 +8,7 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import interviewRoutes from "./routes/interviewRoutes.js";
+import feedRoutes from "./routes/feedRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import { stripeWebhook } from "./controllers/paymentController.js";
 
@@ -40,7 +41,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/interviews", interviewRoutes);
 app.use("/api/payments", paymentRoutes);
-
+app.use("/api/feed", feedRoutes);
 // Static Asset Handling for Production (Render)
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
