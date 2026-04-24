@@ -74,7 +74,7 @@ const Newsfeed = () => {
             </div>
 
             <h3 className="article-headline">Evidence Submitted by {item.author?.username}</h3>
-            <img src={item.author?.avatar || 'assets/default-avatar.png'} alt={`${item.author?.username}'s avatar`} className="article-avatar" />
+            <img src={item.author?.avatar || 'assets/icons/anonymous_avatar.png'} alt={`${item.author?.username}'s avatar`} className="article-avatar" />
 
             <div className="article-submeta">
               <span className="article-date">{new Date(item.createdAt).toLocaleDateString()}</span>
