@@ -131,6 +131,14 @@ const NavBar = () => {
                     My Favorites
                   </Link>
                   <Link
+                    to="/newsfeed"
+                    className="nav-user-item" // Renamed
+                    onClick={closeMenu}
+                  >
+                    Newsfeed
+                  </Link>
+
+                  <Link
                     to="/settings"
                     className="nav-user-item" // Renamed
                     onClick={closeMenu}
