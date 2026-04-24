@@ -13,7 +13,8 @@ const Newsfeed = () => {
       setLoading(true);
       const response = await fetcher('/api/feed');
       if (response.success) {
-        setFeedItems(response.data);
+        // Access the nested array and fallback to empty array to prevent map errors
+        setFeedItems(response.data?.data || []);
       } else {
         console.error('Failed to load feed:', response.error);
       }
