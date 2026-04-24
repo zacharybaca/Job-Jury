@@ -1,92 +1,155 @@
-.newsfeed-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  overflow-y: scroll;
-  border-radius: 12px;
-  border: 2px solid black;
-  background-color: #84d9be;
+.newspaper-wrapper {
+  background-color: #f4f1ea; /* Off-white parchment/newsprint color */
+  color: #2b2b2b;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  border: 1px solid #dcd7ca;
 }
 
-.newsfeed-header {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 24px;
+.newspaper-masthead {
   text-align: center;
+  border-bottom: 4px double #2b2b2b;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
 }
 
-.newsfeed-list {
+.newspaper-title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 15px 0;
+  color: #1a1a1a;
+}
+
+.newspaper-meta {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.feed-card {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: rgba(248, 250, 252, 0.5);
-}
-
-.feed-timestamp {
+  justify-content: space-between;
+  border-top: 1px solid #2b2b2b;
+  border-bottom: 1px solid #2b2b2b;
+  padding: 8px 0;
   font-size: 0.85rem;
-  color: #1e293b;
-  font-weight: 600;
-}
-
-.feed-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.feed-rating {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  text-transform: uppercase;
   font-weight: bold;
-  color: #059669;
+  letter-spacing: 1px;
 }
 
-.feed-text {
-  color: #334155;
-  font-size: 1rem;
-  line-height: 1.5;
+.newspaper-content {
+  column-count: 3;
+  column-gap: 40px;
+  column-rule: 1px solid #ccc; /* Vertical line between columns */
+}
+
+.newspaper-article {
+  break-inside: avoid; /* Prevents article from splitting awkwardly across columns */
+  margin-bottom: 40px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 25px;
+}
+
+.article-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.article-company {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.1;
+  color: #000;
+}
+
+.newspaper-dismiss {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+  padding-left: 10px;
+}
+
+.newspaper-dismiss:hover {
+  color: #dc2626; /* Red on hover */
+}
+
+.article-headline {
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 400;
+  margin: 10px 0;
+  color: #444;
+}
+
+.article-submeta {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  display: flex;
+  gap: 15px;
+  font-weight: bold;
+}
+
+.article-text {
+  text-align: justify;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  margin: 0;
+  color: #2b2b2b;
+}
+
+.drop-cap {
+  float: left;
+  font-size: 4rem;
+  line-height: 0.75;
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-left: 2px;
+  font-weight: bold;
+  color: #1a1a1a;
 }
 
 .feed-loading,
 .feed-empty {
   text-align: center;
-  padding: 40px;
-  color: #64748b;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.feed-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background-color: #84d9be;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.feed-header-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.dismiss-btn {
-  background: transparent;
-  border: none;
+  padding: 80px;
+  color: #f8fafc;
   font-size: 1.5rem;
-  line-height: 1;
-  color: #1e293b;
-  cursor: pointer;
-  padding: 0 0 0 15px;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  font-family: 'Georgia', 'Times New Roman', serif;
 }
 
-.dismiss-btn:hover {
-  color: #ef4444;
+/* Responsive Scaling */
+@media (max-width: 992px) {
+  .newspaper-content {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .newspaper-wrapper {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .newspaper-content {
+    column-count: 1;
+  }
+
+  .newspaper-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
 }
