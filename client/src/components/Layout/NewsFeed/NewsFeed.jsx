@@ -6,6 +6,10 @@ import './newsfeed.css';
 const Newsfeed = () => {
   const [feedItems, setFeedItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dismissedIds, setDismissedIds] = useState(() => {
+    const saved = localStorage.getItem('dismissedJuryUpdates');
+    return saved ? JSON.parse(saved) : [];
+  });
   const { fetcher } = useFetcher();
 
   useEffect(() => {
@@ -13,7 +17,6 @@ const Newsfeed = () => {
       setLoading(true);
       const response = await fetcher('/api/feed');
       if (response.success) {
-        // Access the nested array and fallback to empty array to prevent map errors
         setFeedItems(response.data?.data || []);
       } else {
         console.error('Failed to load feed:', response.error);
@@ -24,12 +27,20 @@ const Newsfeed = () => {
     fetchFeed();
   }, [fetcher]);
 
+  const handleDismiss = (id) => {
+    const updatedDismissed = [...dismissedIds, id];
+    setDismissedIds(updatedDismissed);
+    localStorage.setItem('dismissedJuryUpdates', JSON.stringify(updatedDismissed));
+  };
+
+  const visibleFeedItems = feedItems.filter((item) => !dismissedIds.includes(item._id));
+
   if (loading) return <div className="feed-loading">Gathering the latest evidence...</div>;
 
-  if (feedItems.length === 0) {
+  if (visibleFeedItems.length === 0) {
     return (
       <div className="feed-empty">
-        <p>You have no saved companies or there are no recent updates.</p>
+        <p>No new updates available.</p>
       </div>
     );
   }
@@ -38,13 +49,22 @@ const Newsfeed = () => {
     <div className="newsfeed-container">
       <h2 className="newsfeed-header">Jury Updates</h2>
       <div className="newsfeed-list">
-        {feedItems.map((item) => (
+        {visibleFeedItems.map((item) => (
           <Card key={item._id} className="feed-card shadow-sm mb-3">
             <Card.Header className="feed-card-header">
-              <div className="feed-company">{item.company?.name}</div>
-              <div className="feed-timestamp">
-                {new Date(item.createdAt).toLocaleDateString()}
+              <div className="feed-header-info">
+                <div className="feed-company">{item.company?.name}</div>
+                <div className="feed-timestamp">
+                  {new Date(item.createdAt).toLocaleDateString()}
+                </div>
               </div>
+              <button
+                className="dismiss-btn"
+                onClick={() => handleDismiss(item._id)}
+                aria-label="Dismiss update"
+              >
+                &times;
+              </button>
             </Card.Header>
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
