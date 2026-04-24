@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useFetcher } from '../../../hooks/useFetcher';
+import { useAuth } from '../../../hooks/useAuth';
 import './newsfeed.css';
 
 const Newsfeed = () => {
@@ -11,6 +12,7 @@ const Newsfeed = () => {
     return saved ? JSON.parse(saved) : [];
   });
   const { fetcher } = useFetcher();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchFeed = async () => {
@@ -25,7 +27,7 @@ const Newsfeed = () => {
     };
 
     fetchFeed();
-  }, [fetcher]);
+  }, [fetcher, user]);
 
   const handleDismiss = (id) => {
     const updatedDismissed = [...dismissedIds, id];
@@ -47,7 +49,7 @@ const Newsfeed = () => {
 
   return (
     <div className="newsfeed-container">
-      <h2 className="newsfeed-header">Jury Updates</h2>
+      <h2 className="newsfeed-header">{user && user.name ? `${user.name}'s Personalized Jury Newsfeed` : 'Newsfeed'}</h2>
       <div className="newsfeed-list">
         {visibleFeedItems.map((item) => (
           <Card key={item._id} className="feed-card shadow-sm mb-3">
