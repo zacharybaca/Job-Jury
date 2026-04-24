@@ -274,11 +274,11 @@ function App() {
           path="newsfeed"
           element={
             <ProtectedRoute>
-              <Newsfeed />
+              <NewsFeed />
             </ProtectedRoute>
           }
         />
-        
+
         <Route
           path="settings"
           element={
