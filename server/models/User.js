@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
+    isSuspended: { type: Boolean, default: false },
     isPremium: { type: Boolean, default: false },
     subscriptionTier: {
       type: String,
