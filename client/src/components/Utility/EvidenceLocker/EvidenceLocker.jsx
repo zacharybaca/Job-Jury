@@ -1,25 +1,36 @@
+import React from 'react';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
   Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import '../LeakSubmissionForm/leak-submission-form.css';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 const EvidenceLocker = ({ trends = [] }) => {
-  // Defensive check for data structure
   const dataArray = Array.isArray(trends) ? trends : trends?.data || [];
 
-  // Map data with null-safety for numeric fields
-  const chartData = dataArray.map((t) => ({
+  const rawChartData = dataArray.map((t) => ({
     date: t._id ? `${t._id.month}/${t._id.year}` : 'N/A',
     rating: t.avgRating ? parseFloat(t.avgRating.toFixed(2)) : 0,
   }));
 
-  if (chartData.length === 0) {
+  if (rawChartData.length === 0) {
     return (
       <div className="evidence-locker empty-state">
         <h3 className="chart-title">Historical Verdict Trends</h3>
@@ -30,52 +41,80 @@ const EvidenceLocker = ({ trends = [] }) => {
     );
   }
 
+  const chartData = {
+    labels: rawChartData.map((d) => d.date),
+    datasets: [
+      {
+        label: 'Average Rating',
+        data: rawChartData.map((d) => d.rating),
+        borderColor: '#10b981',
+        backgroundColor: '#10b981',
+        borderWidth: 3,
+        pointBackgroundColor: '#10b981',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: '#fff',
+        titleColor: '#000',
+        bodyColor: '#6b7280',
+        borderColor: 'rgba(0,0,0,0.1)',
+        borderWidth: 1,
+        padding: 10,
+        displayColors: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          color: '#6b7280',
+          font: { size: 12 },
+          padding: 10,
+        },
+        border: { display: false },
+      },
+      y: {
+        min: 0,
+        max: 5,
+        grid: {
+          color: '#e5e7eb',
+          tickLength: 0,
+        },
+        border: {
+          display: false,
+          dash: [3, 3],
+        },
+        ticks: {
+          color: '#6b7280',
+          font: { size: 12 },
+          padding: 10,
+        },
+      },
+    },
+  };
+
   return (
     <div className="evidence-locker">
       <h3 className="chart-title">Historical Verdict Trends</h3>
-      <div className="chart-container">
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart
-            data={chartData}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              vertical={false}
-              stroke="#e5e7eb"
-            />
-            <XAxis
-              dataKey="date"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: '#6b7280', fontSize: 12 }}
-              dy={10}
-            />
-            <YAxis
-              domain={[0, 5]}
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: '#6b7280', fontSize: 12 }}
-              dx={-10}
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: '8px',
-                border: 'none',
-                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-              }}
-            />
-            <Line
-              type="monotone"
-              dataKey="rating"
-              stroke="#10b981"
-              strokeWidth={3}
-              dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#fff' }}
-              activeDot={{ r: 6, strokeWidth: 0 }}
-              animationDuration={1500}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+      <div className="chart-container" style={{ height: '300px', width: '100%' }}>
+        <Line data={chartData} options={chartOptions} />
       </div>
     </div>
   );
