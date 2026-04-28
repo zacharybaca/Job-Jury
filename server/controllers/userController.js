@@ -241,11 +241,43 @@ const fixCorruptedData = asyncHandler(async (req, res) => {
   );
   res.send("Database sanitized: All corrupted watchlist strings removed.");
 });
+
+// @desc    Toggle user suspension status
+// @route   PATCH /api/users/:id/suspend
+// @access  Private/Admin
+const toggleUserSuspension = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Prevent admins from suspending themselves
+  if (user._id.toString() === req.user._id.toString() || user._id.toString() === "699dd79be3893bbe8d1c94d0") {
+    res.status(400);
+    throw new Error("You cannot suspend your own account or the main admin.");
+  }
+
+  user.isSuspended = !user.isSuspended;
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+    success: true,
+    data: {
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      isSuspended: updatedUser.isSuspended,
+    },
+  });
+});
+
 export {
   getUserProfile,
   updateUserProfile,
   deleteUserProfile, // Export the new function
   toggleSaveCompany,
+  toggleUserSuspension, // Export the new function
   getUsers,
   makeUserAdmin,
   demoteUserAdmin,
