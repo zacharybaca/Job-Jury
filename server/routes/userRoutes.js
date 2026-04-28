@@ -8,6 +8,7 @@ import {
   demoteUserAdmin,
   fixCorruptedData,
   changeSubscriptionTier,
+  toggleUserSuspension,
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
@@ -37,6 +38,7 @@ router.patch("/:id/admin", makeUserAdmin);
 // Add this temporary route
 router.get("/fix-my-account", fixCorruptedData);
 router.patch("/:id/subscription", changeSubscriptionTier);
+router.patch("/:id/suspend", toggleUserSuspension);
 router.route("/:id/demote").patch(protect, admin, demoteUserAdmin);
 
 export default router;
