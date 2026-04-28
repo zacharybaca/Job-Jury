@@ -7,11 +7,12 @@ import {
   approveReview,
 } from "../controllers/reviewController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
+import { moderateContent } from "../middleware/moderationMiddleware.js";
 
 const router = express.Router();
 
 // User Routes
-router.post("/", protect, createReview);
+router.post("/", protect, moderateContent, createReview);
 router.patch("/:id/inappropriate", protect, flagReview);
 
 // Admin Routes
