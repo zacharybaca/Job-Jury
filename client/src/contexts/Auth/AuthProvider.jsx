@@ -20,12 +20,16 @@ export const AuthProvider = ({ children }) => {
    * Validates the session with the backend on mount.
    */
   const checkUserAuth = async () => {
-    setLoading(true); // Ensure loading is true while checking
+    setLoading(true);
     try {
       const response = await fetcher('/api/users/me');
 
-      // Based on your controller structure: response.data.user
       if (response.success && response.data?.user) {
+        if (response.data.user.isSuspended) {
+          setUser(null);
+          alert('Your account has been suspended. Please contact support for more information.');
+          return; // Terminate execution to prevent overriding the null state
+        }
         setUser(response.data.user);
       } else {
         setUser(null);
