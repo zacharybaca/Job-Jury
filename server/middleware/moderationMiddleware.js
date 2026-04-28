@@ -7,7 +7,7 @@ const openai = new OpenAI({
 
 export const moderateContent = asyncHandler(async (req, res, next) => {
   // Extract text fields based on your specific payload structure
-  const textToModerate = req.body.comment || req.body.content || req.body.text;
+  const textToModerate = req.body.body || req.body.comment || req.body.content || req.body.text;
 
   if (!textToModerate) {
     return next();
