@@ -9,6 +9,7 @@ import {
   getInterviewQuestions,
 } from "../controllers/interviewController.js";
 import { protect, requireTier } from "../middleware/authMiddleware.js";
+import { moderateContent } from "../middleware/moderationMiddleware.js";
 
 const router = express.Router();
 
@@ -18,14 +19,14 @@ router.get("/company/:companyId/analytics", getInterviewAnalytics);
 router.get("/user/:userId", getInterviewsByUser);
 
 // Protected submission and management
-router.post("/submit-leak", protect, requireTier("juror"), createInterview);
+router.post("/submit-leak", protect, requireTier("juror"), moderateContent, createInterview);
 router.get(
   "/company/:companyId/questions",
   protect,
   requireTier("juror"),
   getInterviewQuestions,
 );
-router.put("/:id", protect, updateInterview);
-router.delete("/:id", protect, deleteInterview);
+router.put("/:id", protect, moderateContent, updateInterview);
+router.delete("/:id", protect, moderateContent, deleteInterview);
 
 export default router;
