@@ -32,7 +32,6 @@ const UserManagement = () => {
       });
 
       if (response.success) {
-        // Optimistic UI update: Flip the isAdmin status without reloading
         setUsers(
           users.map((user) =>
             user._id === id ? { ...user, isAdmin: true } : user
@@ -66,6 +65,29 @@ const UserManagement = () => {
     }
   };
 
+  const handleToggleSuspension = async (id, username, isCurrentlySuspended) => {
+    const action = isCurrentlySuspended ? 'restore' : 'suspend';
+    if (
+      window.confirm(
+        `Are you sure you want to ${action} ${username}'s account?`
+      )
+    ) {
+      const response = await fetcher(`/api/users/${id}/suspend`, {
+        method: 'PATCH',
+      });
+
+      if (response.success) {
+        setUsers(
+          users.map((user) =>
+            user._id === id ? { ...user, isSuspended: !isCurrentlySuspended } : user
+          )
+        );
+      } else {
+        alert(response.error || `Failed to ${action} user.`);
+      }
+    }
+  };
+
   const handleUpdateSubscription = async (id, currentTier) => {
     const user = users.find((u) => u._id === id);
     const newTier =
@@ -78,7 +100,6 @@ const UserManagement = () => {
             : 'free';
 
     if (newTier !== currentTier) {
-      // Modify URL to include target ID
       const response = await fetcher(`/api/users/${id}/subscription`, {
         method: 'PATCH',
         body: JSON.stringify({ subscriptionTier: newTier }),
@@ -123,13 +144,14 @@ const UserManagement = () => {
               <th>Email</th>
               <th>Subscription Tier</th>
               <th>Role</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {users.length > 0 ? (
               users.map((user) => (
-                <tr key={user._id}>
+                <tr key={user._id} style={{ opacity: user.isSuspended ? 0.6 : 1 }}>
                   <td>
                     {user.avatar ? (
                       <img
@@ -175,6 +197,7 @@ const UserManagement = () => {
                           user.subscriptionTier
                         )
                       }
+                      disabled={user.isSuspended}
                     >
                       <option value={user.subscriptionTier}>
                         {user.subscriptionTier[0].toUpperCase() +
@@ -193,11 +216,19 @@ const UserManagement = () => {
                       {user.isAdmin ? 'Admin' : 'User'}
                     </span>
                   </td>
+                  <td>
+                    <span
+                      className={`status-badge ${user.isSuspended ? 'rejected' : 'approved'}`}
+                    >
+                      {user.isSuspended ? 'Suspended' : 'Active'}
+                    </span>
+                  </td>
                   <td className="admin-actions">
                     {!user.isAdmin ? (
                       <button
                         className="approve-btn"
                         onClick={() => handlePromote(user._id, user.username)}
+                        disabled={user.isSuspended}
                       >
                         Promote
                       </button>
@@ -209,13 +240,23 @@ const UserManagement = () => {
                         Demote
                       </button>
                     )}
+
+                    {!user.isAdmin && (
+                      <button
+                        className={user.isSuspended ? "approve-btn" : "delete-btn"}
+                        onClick={() => handleToggleSuspension(user._id, user.username, user.isSuspended)}
+                        style={{ marginLeft: '10px' }}
+                      >
+                        {user.isSuspended ? 'Restore' : 'Suspend'}
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td
-                  colSpan="7"
+                  colSpan="8"
                   style={{ textAlign: 'center', padding: '20px' }}
                 >
                   No users found.
