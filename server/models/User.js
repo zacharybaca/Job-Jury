@@ -26,6 +26,7 @@ const userSchema = mongoose.Schema(
     stripeCustomerId: { type: String },
     stripeSubscriptionId: { type: String },
     watchlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
+    notificationsEnabled: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
