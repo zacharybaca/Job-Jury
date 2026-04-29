@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useFetcher } from '../../../hooks/useFetcher';
-import Button from 'react-bootstrap/Button';
 import './profile-settings.css';
 
 const ProfileSettings = () => {
@@ -11,29 +10,27 @@ const ProfileSettings = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
-  // Form State
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
+    notificationsEnabled: false,
   });
 
-  // Image State
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
 
-  // UI State
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  // Populate initial data when component mounts
   useEffect(() => {
     if (user) {
       setFormData((prev) => ({
         ...prev,
         username: user.username || '',
         email: user.email || '',
+        notificationsEnabled: user.notificationsEnabled || false,
       }));
       if (user.avatar) {
         setAvatarPreview(user.avatar);
@@ -49,7 +46,6 @@ const ProfileSettings = () => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
-      // Create a temporary local URL to preview the image before uploading
       setAvatarPreview(URL.createObjectURL(file));
     }
   };
@@ -64,10 +60,10 @@ const ProfileSettings = () => {
 
     setIsSubmitting(true);
 
-    // Build FormData payload for Multer
     const submitData = new FormData();
     submitData.append('username', formData.username);
     submitData.append('email', formData.email);
+    // Note: FormData appends booleans as strings ("true" or "false"). Ensure backend parses this string.
     submitData.append('notificationsEnabled', formData.notificationsEnabled);
 
     if (formData.password) {
@@ -87,10 +83,7 @@ const ProfileSettings = () => {
 
     if (response.success) {
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
-      // Clear password fields after successful update
       setFormData((prev) => ({ ...prev, password: '', confirmPassword: '' }));
-
-      // Optional: Force a hard reload to refresh the AuthContext globally
       setTimeout(() => window.location.reload(), 1500);
     } else {
       setMessage({
@@ -137,7 +130,6 @@ const ProfileSettings = () => {
         )}
 
         <form onSubmit={handleSubmit} className="profile-form">
-          {/* Avatar Section */}
           <div className="avatar-section">
             <div className="avatar-preview-container">
               {avatarPreview ? (
@@ -174,7 +166,6 @@ const ProfileSettings = () => {
 
           <hr className="divider" />
 
-          {/* Account Details */}
           <div className="form-group">
             <label>Username</label>
             <input
@@ -199,7 +190,6 @@ const ProfileSettings = () => {
 
           <hr className="divider" />
 
-          {/* Password Update (Optional) */}
           <div className="form-group">
             <label>New Password (leave blank to keep current)</label>
             <input
@@ -224,6 +214,29 @@ const ProfileSettings = () => {
             </div>
           )}
 
+          <hr className="divider" />
+
+          <div className="form-group notifications-group">
+            <label>Notifications</label>
+            <p className="help-text">Turn Followed Company Updates on or off</p>
+            <div
+              className="notification-toggle-wrapper"
+              onClick={() => setFormData((prev) => ({
+                ...prev,
+                notificationsEnabled: !prev.notificationsEnabled,
+              }))}
+            >
+              <img
+                src={formData.notificationsEnabled
+                  ? "/assets/icons/notifications-on.png"
+                  : "/assets/icons/notifications-off.png"
+                }
+                alt={formData.notificationsEnabled ? "Notifications On" : "Notifications Off"}
+                className="notification-toggle-img"
+              />
+            </div>
+          </div>
+
           <button
             type="submit"
             className="btn-primary submit-btn"
@@ -233,23 +246,7 @@ const ProfileSettings = () => {
           </button>
         </form>
 
-        {/* Danger Zone */}
         <div className="danger-zone">
-          <h3>Notifications</h3>
-          <p>Turn Followed Company Updates on or off</p>
-          {/* NEW: Notifications Toggle */}
-          <Button
-            variant={formData.notificationsEnabled ? 'success' : 'danger'}
-            onClick={() => setFormData((prev) => ({
-              ...prev,
-              notificationsEnabled: !prev.notificationsEnabled,
-            }))}
-          >
-            {formData.notificationsEnabled ? 'Notifications ON' : 'Notifications OFF'}
-          </Button>
-
-          <div className="danger-zone"></div>
-
           <h3>Danger Zone</h3>
           <p>
             Once you delete your account, there is no going back. Please be
