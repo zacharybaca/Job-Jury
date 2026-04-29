@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PendingCompanies from './PendingCompanies';
-import UserManagement from './UserManagement'; // Changed from '../UserManagement/UserManagement'
-import ReviewApprovals from './ReviewApprovals'; // New import for review approvals
+import UserManagement from './UserManagement';
+import ReviewApprovals from './ReviewApprovals';
 import './admin-dashboard.css';
 
 const AdminDashboard = () => {
@@ -14,7 +14,6 @@ const AdminDashboard = () => {
         <p>Manage platform content and administrative privileges.</p>
       </header>
 
-      {/* The Tab Navigation Bar */}
       <div className="tab-navigation">
         <button
           className={`tab-btn ${activeTab === 'companies' ? 'active' : ''}`}
@@ -36,7 +35,6 @@ const AdminDashboard = () => {
         </button>
       </div>
 
-      {/* The Tab Content */}
       <div className="tab-content-area">
         {activeTab === 'companies' && <PendingCompanies />}
         {activeTab === 'users' && <UserManagement />}
