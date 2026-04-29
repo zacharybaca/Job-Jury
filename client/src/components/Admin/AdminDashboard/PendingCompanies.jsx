@@ -83,7 +83,7 @@ const PendingCompanies = () => {
         <tbody>
           {companies.map((company) => (
             <tr key={company._id}>
-              <td>
+              <td className="logo-cell">
                 {company.imageUrl ? (
                   <img
                     src={company.imageUrl}
@@ -95,38 +95,17 @@ const PendingCompanies = () => {
                 )}
               </td>
               <td>{company.name}</td>
-              <td>
-                <span
-                  className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}
-                >
-                  {company.isApproved ? 'Active' : 'Pending'}
-                </span>
-              </td>
               <td>{company.industry}</td>
               <td>{company.location}</td>
+              <td>
+                <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
+                  {company.isApproved ? 'Approved' : 'Pending'}
+                </span>
+              </td>
               <td className="admin-actions">
-                {!company.isApproved && (
-                  <button
-                    className="approve-btn"
-                    onClick={() => handleApprove(company._id, company.name)}
-                  >
-                    Approve
-                  </button>
-                )}
-                <button
-                  className="view-btn"
-                  onClick={() =>
-                    window.open(`/companies/${company._id}`, '_blank')
-                  }
-                >
-                  View
-                </button>
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(company._id, company.name)}
-                >
-                  Delete
-                </button>
+                <button className="view-btn">View</button>
+                <button className="approve-btn">Approve</button>
+                <button className="delete-btn">Delete</button>
               </td>
             </tr>
           ))}
