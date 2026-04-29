@@ -196,3 +196,41 @@
   border: 1px dashed #cbd5e1;
   margin: 0 auto;
 }
+
+/* Logo Column Targeting */
+.admin-table th:first-child,
+.admin-table td.logo-cell {
+  width: 140px;
+  padding: 20px 15px;
+  vertical-align: middle;
+}
+
+/* Image Thumbnail Constraints */
+.admin-company-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 4px; /* Internal padding to prevent logo edge cutoff */
+}
+
+/* Fallback for Companies Without Images */
+.admin-no-image {
+  width: 80px;
+  height: 80px;
+  background-color: #f8fafc;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px dashed #e2e8f0;
+  margin: 0 auto;
+}
