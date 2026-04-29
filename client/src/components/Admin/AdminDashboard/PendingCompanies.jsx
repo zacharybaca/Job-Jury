@@ -72,6 +72,7 @@ const PendingCompanies = () => {
       <table className="admin-table">
         <thead>
           <tr>
+            <th>Logo</th>
             <th>Company Name</th>
             <th>Status</th>
             <th>Industry</th>
@@ -82,6 +83,17 @@ const PendingCompanies = () => {
         <tbody>
           {companies.map((company) => (
             <tr key={company._id}>
+              <td>
+                {company.imageUrl ? (
+                  <img
+                    src={company.imageUrl}
+                    alt={`${company.name} logo`}
+                    className="admin-company-thumbnail"
+                  />
+                ) : (
+                  <div className="admin-no-image">N/A</div>
+                )}
+              </td>
               <td>{company.name}</td>
               <td>
                 <span
