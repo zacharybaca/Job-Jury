@@ -19,7 +19,13 @@ router.get("/company/:companyId/analytics", getInterviewAnalytics);
 router.get("/user/:userId", getInterviewsByUser);
 
 // Protected submission and management
-router.post("/submit-leak", protect, requireTier("juror"), moderateContent, createInterview);
+router.post(
+  "/submit-leak",
+  protect,
+  requireTier("juror"),
+  moderateContent,
+  createInterview,
+);
 router.get(
   "/company/:companyId/questions",
   protect,

@@ -79,7 +79,9 @@ const UserManagement = () => {
       if (response.success) {
         setUsers(
           users.map((user) =>
-            user._id === id ? { ...user, isSuspended: !isCurrentlySuspended } : user
+            user._id === id
+              ? { ...user, isSuspended: !isCurrentlySuspended }
+              : user
           )
         );
       } else {
@@ -151,7 +153,10 @@ const UserManagement = () => {
           <tbody>
             {users.length > 0 ? (
               users.map((user) => (
-                <tr key={user._id} style={{ opacity: user.isSuspended ? 0.6 : 1 }}>
+                <tr
+                  key={user._id}
+                  style={{ opacity: user.isSuspended ? 0.6 : 1 }}
+                >
                   <td>
                     {user.avatar ? (
                       <img
@@ -243,8 +248,16 @@ const UserManagement = () => {
 
                     {!user.isAdmin && (
                       <button
-                        className={user.isSuspended ? "approve-btn" : "delete-btn"}
-                        onClick={() => handleToggleSuspension(user._id, user.username, user.isSuspended)}
+                        className={
+                          user.isSuspended ? 'approve-btn' : 'delete-btn'
+                        }
+                        onClick={() =>
+                          handleToggleSuspension(
+                            user._id,
+                            user.username,
+                            user.isSuspended
+                          )
+                        }
                         style={{ marginLeft: '10px' }}
                       >
                         {user.isSuspended ? 'Restore' : 'Suspend'}

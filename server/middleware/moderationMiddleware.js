@@ -2,33 +2,35 @@ import leoProfanity from "leo-profanity";
 import asyncHandler from "express-async-handler";
 
 // Initialize default English dictionary
-leoProfanity.loadDictionary('en');
+leoProfanity.loadDictionary("en");
 
 // Append custom terms to the active memory array
-leoProfanity.add(['loser',
-  'idiot',
-  'dumb',
-  'ignorant',
-  'stupid',
-  'moron',
-  'fool',
-  'jerk',
-  'sociopath',
-  'slave driver',
-  'bloodsucker',
-  'brownnoser',
-  'kiss-ass',
-  'scam artist',
-  'crook',
-  'extortionist',
-  'nazi',
-  'fascist',
-  'psycho',
-  'bootlicker',
-  'shill',
-  'scab',
-  'brain-dead',
-  'sweatshop', "narcissist",
+leoProfanity.add([
+  "loser",
+  "idiot",
+  "dumb",
+  "ignorant",
+  "stupid",
+  "moron",
+  "fool",
+  "jerk",
+  "sociopath",
+  "slave driver",
+  "bloodsucker",
+  "brownnoser",
+  "kiss-ass",
+  "scam artist",
+  "crook",
+  "extortionist",
+  "nazi",
+  "fascist",
+  "psycho",
+  "bootlicker",
+  "shill",
+  "scab",
+  "brain-dead",
+  "sweatshop",
+  "narcissist",
   "megalomaniac",
   "tyrant",
   "dictator",
@@ -47,10 +49,12 @@ leoProfanity.add(['loser',
   "sycophant",
   "nepo baby",
   "thief",
-  "embezzler"]);
+  "embezzler",
+]);
 
 export const moderateContent = asyncHandler(async (req, res, next) => {
-  const textToModerate = req.body.body || req.body.comment || req.body.content || req.body.text;
+  const textToModerate =
+    req.body.body || req.body.comment || req.body.content || req.body.text;
 
   if (!textToModerate) {
     return next();
@@ -61,7 +65,9 @@ export const moderateContent = asyncHandler(async (req, res, next) => {
 
   if (isFlagged) {
     res.status(400);
-    throw new Error("Content rejected. Violates community guidelines regarding profanity.");
+    throw new Error(
+      "Content rejected. Violates community guidelines regarding profanity.",
+    );
   }
 
   next();

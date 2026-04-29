@@ -32,13 +32,26 @@ const Newsfeed = () => {
   const handleDismiss = (id) => {
     const updatedDismissed = [...dismissedIds, id];
     setDismissedIds(updatedDismissed);
-    localStorage.setItem('dismissedJuryUpdates', JSON.stringify(updatedDismissed));
+    localStorage.setItem(
+      'dismissedJuryUpdates',
+      JSON.stringify(updatedDismissed)
+    );
   };
 
-  const visibleFeedItems = feedItems.filter((item) => !dismissedIds.includes(item._id));
-  const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const visibleFeedItems = feedItems.filter(
+    (item) => !dismissedIds.includes(item._id)
+  );
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
-  if (loading) return <div className="feed-loading">Typesetting the latest evidence...</div>;
+  if (loading)
+    return (
+      <div className="feed-loading">Typesetting the latest evidence...</div>
+    );
 
   if (visibleFeedItems.length === 0) {
     return (
@@ -53,7 +66,11 @@ const Newsfeed = () => {
       <header className="newspaper-masthead">
         <h1 className="newspaper-title">THE JURY GAZETTE</h1>
         <div className="newspaper-meta">
-          <span>{user && user.name ? `EDITION FOR: ${user.name.toUpperCase()}` : 'DAILY EDITION'}</span>
+          <span>
+            {user && user.name
+              ? `EDITION FOR: ${user.name.toUpperCase()}`
+              : 'DAILY EDITION'}
+          </span>
           <span>{currentDate}</span>
           <span>VOL. I</span>
         </div>
@@ -73,12 +90,22 @@ const Newsfeed = () => {
               </button>
             </div>
 
-            <h3 className="article-headline">Evidence Submitted by {item.author?.username}</h3>
-            <img src={item.author?.avatar || 'assets/icons/anonymous_avatar.png'} alt={`${item.author?.username}'s avatar`} className="article-avatar" />
+            <h3 className="article-headline">
+              Evidence Submitted by {item.author?.username}
+            </h3>
+            <img
+              src={item.author?.avatar || 'assets/icons/anonymous_avatar.png'}
+              alt={`${item.author?.username}'s avatar`}
+              className="article-avatar"
+            />
 
             <div className="article-submeta">
-              <span className="article-date">{new Date(item.createdAt).toLocaleDateString()}</span>
-              {item.rating && <span className="article-rating">Rating: {item.rating}/5</span>}
+              <span className="article-date">
+                {new Date(item.createdAt).toLocaleDateString()}
+              </span>
+              {item.rating && (
+                <span className="article-rating">Rating: {item.rating}/5</span>
+              )}
             </div>
 
             <p className="article-text">
@@ -88,7 +115,7 @@ const Newsfeed = () => {
                   {item.body.slice(1)}
                 </>
               ) : (
-                item.body || "No additional text provided for this update."
+                item.body || 'No additional text provided for this update.'
               )}
             </p>
           </article>

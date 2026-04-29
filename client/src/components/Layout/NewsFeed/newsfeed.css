@@ -4,7 +4,7 @@
   max-width: 1200px;
   margin: 40px auto;
   padding: 40px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   font-family: 'Georgia', 'Times New Roman', serif;
   border: 1px solid #dcd7ca;
   overflow-y: scroll;
@@ -55,7 +55,7 @@
 }
 
 .newspaper-article:hover {
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
 

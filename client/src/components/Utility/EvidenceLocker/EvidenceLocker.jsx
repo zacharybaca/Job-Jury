@@ -113,7 +113,10 @@ const EvidenceLocker = ({ trends = [] }) => {
   return (
     <div className="evidence-locker">
       <h3 className="chart-title">Historical Verdict Trends</h3>
-      <div className="chart-container" style={{ height: '300px', width: '100%' }}>
+      <div
+        className="chart-container"
+        style={{ height: '300px', width: '100%' }}
+      >
         <Line data={chartData} options={chartOptions} />
       </div>
     </div>

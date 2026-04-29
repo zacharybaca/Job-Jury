@@ -137,7 +137,6 @@ const NavBar = () => {
                   >
                     Newsfeed
                   </Link>
-
                   <Link
                     to="/settings"
                     className="nav-user-item" // Renamed

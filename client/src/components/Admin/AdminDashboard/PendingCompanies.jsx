@@ -98,7 +98,9 @@ const PendingCompanies = () => {
               <td>{company.industry}</td>
               <td>{company.location}</td>
               <td>
-                <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
+                <span
+                  className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}
+                >
                   {company.isApproved ? 'Approved' : 'Pending'}
                 </span>
               </td>

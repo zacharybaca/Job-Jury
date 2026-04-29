@@ -221,17 +221,24 @@ const ProfileSettings = () => {
             <p className="help-text">Turn Followed Company Updates on or off</p>
             <div
               className="notification-toggle-wrapper"
-              onClick={() => setFormData((prev) => ({
-                ...prev,
-                notificationsEnabled: !prev.notificationsEnabled,
-              }))}
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  notificationsEnabled: !prev.notificationsEnabled,
+                }))
+              }
             >
               <img
-                src={formData.notificationsEnabled
-                  ? "/assets/icons/notifications-on.png"
-                  : "/assets/icons/notifications-off.png"
+                src={
+                  formData.notificationsEnabled
+                    ? '/assets/icons/notifications-on.png'
+                    : '/assets/icons/notifications-off.png'
                 }
-                alt={formData.notificationsEnabled ? "Notifications On" : "Notifications Off"}
+                alt={
+                  formData.notificationsEnabled
+                    ? 'Notifications On'
+                    : 'Notifications Off'
+                }
                 className="notification-toggle-img"
               />
             </div>

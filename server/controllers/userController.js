@@ -33,7 +33,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
-    user.notificationsEnabled = req.body.notificationsEnabled !== undefined ? req.body.notificationsEnabled : user.notificationsEnabled;
+    user.notificationsEnabled =
+      req.body.notificationsEnabled !== undefined
+        ? req.body.notificationsEnabled
+        : user.notificationsEnabled;
 
     // The pre-save hook in your model will handle hashing if the password is changed
     if (req.body.password) {
@@ -257,7 +260,10 @@ const toggleUserSuspension = asyncHandler(async (req, res) => {
   }
 
   // Prevent admins from suspending themselves
-  if (user._id.toString() === req.user._id.toString() || user._id.toString() === "699dd79be3893bbe8d1c94d0") {
+  if (
+    user._id.toString() === req.user._id.toString() ||
+    user._id.toString() === "699dd79be3893bbe8d1c94d0"
+  ) {
     res.status(400);
     throw new Error("You cannot suspend your own account or the main admin.");
   }
