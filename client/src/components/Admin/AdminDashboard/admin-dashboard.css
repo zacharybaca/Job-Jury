@@ -3,7 +3,7 @@
   max-width: 1100px;
   margin: 0 auto;
   margin-bottom: 60px;
-  background-color: beige;
+  background-color: rgba(245, 245, 220, 0.9); /* Beige with 90% opacity */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border: 2px solid black;
