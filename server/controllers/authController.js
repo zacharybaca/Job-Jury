@@ -24,6 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
       username: user.username,
       email: user.email,
       name: user.name,
+      notificationsEnabled: user.notificationsEnabled,
     });
   } else {
     res.status(400);
@@ -55,6 +56,7 @@ const loginUser = asyncHandler(async (req, res) => {
       username: user.username,
       email: user.email,
       name: user.name,
+      notificationsEnabled: user.notificationsEnabled,
     });
   } else {
     res.status(401);
