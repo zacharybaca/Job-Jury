@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useFetcher } from '../../../hooks/useFetcher';
+import Button from 'react-bootstrap/Button';
 import './profile-settings.css';
 
 const ProfileSettings = () => {
@@ -67,6 +68,7 @@ const ProfileSettings = () => {
     const submitData = new FormData();
     submitData.append('username', formData.username);
     submitData.append('email', formData.email);
+    submitData.append('notificationsEnabled', formData.notificationsEnabled);
 
     if (formData.password) {
       submitData.append('password', formData.password);
@@ -233,6 +235,21 @@ const ProfileSettings = () => {
 
         {/* Danger Zone */}
         <div className="danger-zone">
+          <h3>Notifications</h3>
+          <p>Turn Followed Company Updates on or off</p>
+          {/* NEW: Notifications Toggle */}
+          <Button
+            variant={formData.notificationsEnabled ? 'success' : 'danger'}
+            onClick={() => setFormData((prev) => ({
+              ...prev,
+              notificationsEnabled: !prev.notificationsEnabled,
+            }))}
+          >
+            {formData.notificationsEnabled ? 'Notifications ON' : 'Notifications OFF'}
+          </Button>
+
+          <div className="danger-zone"></div>
+
           <h3>Danger Zone</h3>
           <p>
             Once you delete your account, there is no going back. Please be
