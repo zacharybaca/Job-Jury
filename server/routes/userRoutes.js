@@ -12,7 +12,7 @@ import {
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
-import { getUsers, makeUserAdmin } from "../controllers/userController.js";
+import { getUsers, makeUserAdmin, createUserAsAdmin } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -40,5 +40,6 @@ router.get("/fix-my-account", fixCorruptedData);
 router.patch("/:id/subscription", changeSubscriptionTier);
 router.patch("/:id/suspend", toggleUserSuspension);
 router.route("/:id/demote").patch(protect, admin, demoteUserAdmin);
+router.post("/", protect, admin, createUserAsAdmin);
 
 export default router;
