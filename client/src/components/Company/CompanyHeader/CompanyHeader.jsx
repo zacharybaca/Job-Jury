@@ -5,7 +5,7 @@ const CompanyHeader = ({ company }) => {
   if (!company) return null;
 
   // Destructure for cleaner code
-  const { name, industry, location, averageRating, reviews } = company;
+  const { name, industry, location, averageRating, imageUrl, reviews } = company;
 
   const renderStars = (rating) => {
     const stars = [];
@@ -33,6 +33,13 @@ const CompanyHeader = ({ company }) => {
   return (
     <header className="company-header-hero">
       <div className="header-content">
+        <div className="header-image-container">
+          <img
+            src={imageUrl || '/assets/icons/default_company_logo.png'}
+            alt={`${name} Logo`}
+            className="header-image"
+          />
+        </div>
         <h1 className="header-name">{name || 'Name Missing'}</h1>
 
         <div className="header-meta">
