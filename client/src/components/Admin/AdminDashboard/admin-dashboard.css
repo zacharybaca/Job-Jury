@@ -19,8 +19,9 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Enable horizontal scroll instead of clipping */
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto; /* Enable horizontal scroll instead of clipping */
 }
 
 .admin-table {
@@ -157,6 +158,9 @@
 
 /* Content Area transition buffer */
 .tab-content-area {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -169,32 +173,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.admin-company-thumbnail {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  background-color: white;
-  display: block;
-  margin: 0 auto; /* Centers image in the column */
-}
-
-.admin-no-image {
-  width: 50px;
-  height: 50px;
-  background-color: #e2e8f0;
-  color: #64748b;
-  font-size: 0.75rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  border: 1px dashed #cbd5e1;
-  margin: 0 auto;
 }
 
 /* Logo Column Targeting */
@@ -246,6 +224,7 @@
   padding: 30px;
   width: 100%;
   max-width: 500px;
+  margin: 0 auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border: 2px solid black;
 }
