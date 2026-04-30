@@ -171,6 +171,20 @@
   background-color: #059669;
 }
 
+.filter-reviews-btn {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-reviews-btn:hover {
+  background-color: #059669;
+}
+
 .add-leak-btn {
   background-color: #1e293b;
   color: white;
@@ -178,6 +192,53 @@
 
 .add-leak-btn:hover {
   background-color: #059669;
+}
+
+/* --- FILTER DROPDOWN LOGIC --- */
+.filter-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.filter-dropdown-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: rgba(245, 245, 220, 0.95);
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #cbd5e1;
+  color: #0f172a;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(16, 185, 129, 0.15);
+}
+
+.dropdown-item.active {
+  background-color: #10b981;
+  color: white;
 }
 
 /* Form Management */
