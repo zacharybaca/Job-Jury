@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useAuth } from '../../../hooks/useAuth.js';
@@ -23,6 +23,11 @@ const CompanyDetail = () => {
   const [showForm, setShowForm] = useState(false);
   const [showLeakForm, setShowLeakForm] = useState(false);
 
+  // Sorting State
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState('desc');
+  const dropdownRef = useRef(null);
+
   const getCompanyData = useCallback(async () => {
     setCompanyLoading(true);
     const response = await fetcher(`/api/companies/${id}`);
@@ -40,6 +45,16 @@ const CompanyDetail = () => {
     getCompanyData();
   }, [getCompanyData]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleReviewAdded = () => {
     getCompanyData();
     setShowForm(false);
@@ -50,6 +65,23 @@ const CompanyDetail = () => {
     const response = await fetcher(`/api/users/save/${id}`, { method: 'POST' });
     if (response.success) {
       await fetchSavedCompanies();
+    }
+  };
+
+  const handleSortSelection = (order) => {
+    setSortOrder(order);
+    setIsDropdownOpen(false);
+
+    // Create a new sorted array from the existing reviews
+    if (company && company.reviews) {
+      const sortedReviews = [...company.reviews].sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return order === 'desc' ? dateB - dateA : dateA - dateB;
+      });
+
+      // Update local state without re-fetching
+      setCompany({ ...company, reviews: sortedReviews });
     }
   };
 
@@ -92,7 +124,7 @@ const CompanyDetail = () => {
           and employee feedback.
         </p>
       </section>
-      {/* Unified Analytics Dashboard */}
+
       <div className="analytics-container">
         <section className="section-container analytics-dashboard">
           <div className="analytics-grid">
@@ -107,7 +139,7 @@ const CompanyDetail = () => {
             </section>
           </div>
         </section>
-        {/* Qualitative Reviews Section */}
+
         <section className="section-container reviews-section">
           <div className="reviews-header">
             <h2>Employee Reviews</h2>
@@ -126,6 +158,33 @@ const CompanyDetail = () => {
                   >
                     {showLeakForm ? 'Cancel Leak' : 'Add Leak'}
                   </button>
+
+                  {/* Replaced generic button with Dropdown logic */}
+                  <div className="filter-dropdown-container" ref={dropdownRef}>
+                    <button
+                      className="filter-reviews-btn"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                      Sort Reviews: {sortOrder === 'desc' ? 'Newest' : 'Oldest'}
+                    </button>
+
+                    {isDropdownOpen && (
+                      <div className="filter-dropdown-menu">
+                        <button
+                          className={`dropdown-item ${sortOrder === 'desc' ? 'active' : ''}`}
+                          onClick={() => handleSortSelection('desc')}
+                        >
+                          Date: Newest First
+                        </button>
+                        <button
+                          className={`dropdown-item ${sortOrder === 'asc' ? 'active' : ''}`}
+                          onClick={() => handleSortSelection('asc')}
+                        >
+                          Date: Oldest First
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
             </div>
