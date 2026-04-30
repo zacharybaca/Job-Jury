@@ -213,3 +213,8 @@
   height: 4.5vh;
   cursor: pointer;
 }
+
+.notification-bell-off {
+  width: 1.0vw;
+  height: 2.5vh;
+}
