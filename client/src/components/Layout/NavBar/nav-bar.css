@@ -200,3 +200,16 @@
     transform: translateY(0);
   }
 }
+
+/* =========================================
+   3. NOTIFICATION BELL
+   ========================================= */
+.notification-bell-container {
+  position: relative;
+}
+
+.notification-bell {
+  width: 1.5vw;
+  height: 4.5vh;
+  cursor: pointer;
+}
