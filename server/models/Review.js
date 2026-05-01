@@ -13,6 +13,14 @@ const reviewSchema = mongoose.Schema(
     jobTitle: { type: String },
     isAnonymous: { type: Boolean, default: true },
     markedInappropriate: { type: Boolean, default: false },
+    employerResponse: {
+      text: { type: String },
+      respondedAt: { type: Date },
+      respondedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    },
   },
   { timestamps: true },
 );
