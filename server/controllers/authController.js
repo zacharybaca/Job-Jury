@@ -35,7 +35,10 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       name: user.name,
       notificationsEnabled: user.notificationsEnabled,
-      isEmployer: user.isEmployer, // Return it in the payload
+      isEmployer: user.isEmployer,
+      managedCompany: user.managedCompany,
+      verificationStatus: user.verificationStatus,
+      role: user.role,
     });
   } else {
     res.status(400);
@@ -63,13 +66,17 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
     res.status(200).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      name: user.name,
-      notificationsEnabled: user.notificationsEnabled,
-      isEmployer: user.isEmployer, // Return it in the payload
-    });
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    name: user.name,
+    notificationsEnabled: user.notificationsEnabled,
+    isEmployer: user.isEmployer,
+    // NEW FIELDS TO RETURN:
+    managedCompany: user.managedCompany,
+    verificationStatus: user.verificationStatus,
+    role: user.role, // Ensure role is returned if used for admin checks
+  });
   } else {
     res.status(401);
     throw new Error("Invalid email or password");
