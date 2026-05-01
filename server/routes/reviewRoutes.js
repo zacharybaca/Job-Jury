@@ -5,8 +5,9 @@ import {
   flagReview, // Logic should set markedInappropriate: true
   getFlaggedReviews,
   approveReview,
+  addEmployerResponse,
 } from "../controllers/reviewController.js";
-import { protect, admin } from "../middleware/authMiddleware.js";
+import { protect, admin, isEmployer } from "../middleware/authMiddleware.js";
 import { moderateContent } from "../middleware/moderationMiddleware.js";
 
 const router = express.Router();
@@ -14,6 +15,7 @@ const router = express.Router();
 // User Routes
 router.post("/", protect, moderateContent, createReview);
 router.patch("/:id/inappropriate", protect, flagReview);
+router.post("/:id/respond", protect, isEmployer, addEmployerResponse);
 
 // Admin Routes
 router.get("/flagged", protect, admin, getFlaggedReviews);
