@@ -9,11 +9,16 @@ export const AuthProvider = ({ children }) => {
 
   /**
    * DERIVED STATE: isUserAdmin
-   * Using useMemo ensures this value is re-calculated immediately
-   * whenever the 'user' object changes (e.g., after login or checkUserAuth).
    */
   const isUserAdmin = useMemo(() => {
     return user?.isAdmin || user?.role === 'admin';
+  }, [user]);
+
+  /**
+   * DERIVED STATE: isUserEmployer
+   */
+  const isUserEmployer = useMemo(() => {
+    return user?.isEmployer || user?.role === 'employer';
   }, [user]);
 
   /**
@@ -27,10 +32,8 @@ export const AuthProvider = ({ children }) => {
       if (response.success && response.data?.user) {
         if (response.data.user.isSuspended) {
           setUser(null);
-          alert(
-            'Your account has been suspended. Please contact support for more information.'
-          );
-          return; // Terminate execution to prevent overriding the null state
+          alert('Your account has been suspended. Please contact support for more information.');
+          return;
         }
         setUser(response.data.user);
       } else {
@@ -49,17 +52,15 @@ export const AuthProvider = ({ children }) => {
    */
   const logout = async () => {
     try {
-      const response = await fetcher('/api/auth/logout', { method: 'POST' });
-
-      if (response.success) {
-        setUser(null); // This will automatically set isUserAdmin to false
-      }
+      await fetcher('/api/auth/logout', { method: 'POST' });
     } catch (err) {
       console.error('Logout failed:', err);
+    } finally {
+      // Execute clearance regardless of API success/failure
+      setUser(null);
     }
   };
 
-  // Run the auth check once when the provider mounts
   useEffect(() => {
     checkUserAuth();
   }, []);
@@ -73,6 +74,7 @@ export const AuthProvider = ({ children }) => {
         checkUserAuth,
         logout,
         isUserAdmin,
+        isUserEmployer,
       }}
     >
       {children}
