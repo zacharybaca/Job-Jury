@@ -1,4 +1,3 @@
-// server/routes/userRoutes.js
 import express from "express";
 import {
   getUserProfile,
@@ -12,8 +11,11 @@ import {
   getUsers,
   makeUserAdmin,
   createUserAsAdmin,
+  submitCompanyClaim, // NEW
+  getPendingClaims,   // NEW
+  updateClaimStatus,  // NEW
 } from "../controllers/userController.js";
-import { protect, admin } from "../middleware/authMiddleware.js";
+import { protect, admin, isEmployer } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
 
 const router = express.Router();
@@ -33,8 +35,15 @@ router
 
 router.post("/save/:companyId", toggleSaveCompany);
 
+// --- NEW: Employer Specific Routes ---
+router.post("/claim-company", isEmployer, submitCompanyClaim);
+
 // Apply admin access to everything below it
 router.use(admin);
+
+// --- NEW: Admin Claim Management ---
+router.get("/pending-claims", getPendingClaims);
+router.patch("/:id/claim-status", updateClaimStatus);
 
 router.route("/")
   .get(getUsers)
@@ -45,7 +54,6 @@ router.patch("/:id/demote", demoteUserAdmin);
 router.patch("/:id/subscription", changeSubscriptionTier);
 router.patch("/:id/suspend", toggleUserSuspension);
 
-// Temporary route
 router.get("/fix-my-account", fixCorruptedData);
 
 export default router;
