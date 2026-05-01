@@ -10,6 +10,8 @@ import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
 import AdminRoute from './components/Utility/AdminRoute/AdminRoute';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
+import EmployerRoute from './components/Utility/EmployerRoute/EmployerRoute';
+import EmployerDashboard from './components/Employer/EmployerDashboard';
 import MySubmissions from './components/Auth/MySubmissions/MySubmissions';
 import EditCompany from './components/Company/EditCompany/EditCompany';
 import Home from './components/Pages/Home/Home';
@@ -21,7 +23,6 @@ import PricingPage from './components/Pages/PricingPage';
 import MyFavorites from './components/Auth/MyFavorites/MyFavorites';
 import LeakSubmissionForm from './components/Utility/LeakSubmissionForm/LeakSubmissionForm';
 import NewsFeed from './components/Layout/NewsFeed/NewsFeed';
-import EmployerDashboard from './components/Employer/EmployerDashboard';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -302,8 +303,10 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
 
-        <Route path="/employer/dashboard" element={<EmployerDashboard />} />
-        
+        <Route element={<EmployerRoute />}>
+          <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+        </Route>
+
         <Route
           path="*"
           element={
