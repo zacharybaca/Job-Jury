@@ -137,3 +137,29 @@ export const approveReview = asyncHandler(async (req, res) => {
     message: "Review cleared and approved.",
   });
 });
+
+export const addEmployerResponse = asyncHandler(async (req, res) => {
+  const { responseText } = req.body;
+  const review = await Review.findById(req.params.id);
+
+  if (!review) {
+    res.status(404);
+    throw new Error("Review not found.");
+  }
+
+  // Verify the employer is assigned to the company owning this review
+  if (review.company.toString() !== req.user.managedCompany.toString()) {
+    res.status(403);
+    throw new Error("Unauthorized: You do not manage this company's profile.");
+  }
+
+  review.employerResponse = {
+    text: responseText,
+    respondedAt: Date.now(),
+    respondedBy: req.user._id,
+  };
+
+  await review.save();
+
+  res.status(200).json({ success: true, data: review });
+});
