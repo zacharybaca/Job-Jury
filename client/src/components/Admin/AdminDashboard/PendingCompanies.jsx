@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
-// No need to import CSS here if it's imported in the parent AdminDashboard
 
-const PendingCompanies = () => {
+const PendingCompanies = ({ onUpdate }) => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
@@ -37,6 +36,7 @@ const PendingCompanies = () => {
             company._id === id ? { ...company, isApproved: true } : company
           )
         );
+        if (onUpdate) onUpdate(); // Trigger sibling refresh
       } else {
         alert(response.error || 'Failed to approve company.');
       }
@@ -54,6 +54,7 @@ const PendingCompanies = () => {
       });
       if (response.success) {
         setCompanies(companies.filter((company) => company._id !== id));
+        if (onUpdate) onUpdate(); // Trigger sibling refresh
       } else {
         alert(response.error || 'Failed to delete company.');
       }
@@ -66,7 +67,6 @@ const PendingCompanies = () => {
     );
   }
 
-  // Notice we stripped the <header> out, returning just the table!
   return (
     <div className="table-wrapper">
       <table className="admin-table">
@@ -74,9 +74,9 @@ const PendingCompanies = () => {
           <tr>
             <th>Logo</th>
             <th>Company Name</th>
-            <th>Status</th>
             <th>Industry</th>
             <th>Location</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -98,16 +98,14 @@ const PendingCompanies = () => {
               <td>{company.industry}</td>
               <td>{company.location}</td>
               <td>
-                <span
-                  className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}
-                >
+                <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
                   {company.isApproved ? 'Approved' : 'Pending'}
                 </span>
               </td>
               <td className="admin-actions">
                 <button className="view-btn">View</button>
-                <button className="approve-btn">Approve</button>
-                <button className="delete-btn">Delete</button>
+                <button className="approve-btn" onClick={() => handleApprove(company._id, company.name)}>Approve</button>
+                <button className="delete-btn" onClick={() => handleDelete(company._id, company.name)}>Delete</button>
               </td>
             </tr>
           ))}
