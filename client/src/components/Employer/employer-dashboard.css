@@ -1,0 +1,71 @@
+.employer-dashboard-container {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: rgba(245, 245, 220, 0.9);
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.employer-header {
+  margin-bottom: 30px;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 10px;
+}
+
+.employer-review-card {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.official-response-block {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8fafc;
+  border-left: 4px solid #10b981;
+  border-radius: 4px;
+}
+
+.response-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.response-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-respond, .btn-submit {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancel {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
