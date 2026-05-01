@@ -9,10 +9,12 @@ import {
   fixCorruptedData,
   changeSubscriptionTier,
   toggleUserSuspension,
+  getUsers,
+  makeUserAdmin,
+  createUserAsAdmin,
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
-import { getUsers, makeUserAdmin, createUserAsAdmin } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -26,20 +28,24 @@ router.use(protect);
 router
   .route("/profile")
   .get(getUserProfile)
-  .put(upload.single("avatar"), updateUserProfile) // <-- INJECTED HERE
+  .put(upload.single("avatar"), updateUserProfile)
   .delete(deleteUserProfile);
 
 router.post("/save/:companyId", toggleSaveCompany);
 
-// Admin routes
+// Apply admin access to everything below it
 router.use(admin);
-router.get("/", getUsers);
+
+router.route("/")
+  .get(getUsers)
+  .post(createUserAsAdmin);
+
 router.patch("/:id/admin", makeUserAdmin);
-// Add this temporary route
-router.get("/fix-my-account", fixCorruptedData);
+router.patch("/:id/demote", demoteUserAdmin);
 router.patch("/:id/subscription", changeSubscriptionTier);
 router.patch("/:id/suspend", toggleUserSuspension);
-router.route("/:id/demote").patch(protect, admin, demoteUserAdmin);
-router.post("/", protect, admin, createUserAsAdmin);
+
+// Temporary route
+router.get("/fix-my-account", fixCorruptedData);
 
 export default router;
