@@ -79,9 +79,9 @@ const loginUser = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
-    secure: true,      // MUST MATCH generateToken
-    sameSite: "none",  // MUST MATCH generateToken
-    path: "/",         // MUST MATCH generateToken
+    secure: true,
+    sameSite: "none",
+    path: "/",
     expires: new Date(0),
     maxAge: 0,
   });
