@@ -10,29 +10,27 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
+    isEmployer: false, // Added tracking for the employer role
   });
   const { fetcher } = useFetcher();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // New state to control the Toast (message and type)
   const [toastConfig, setToastConfig] = useState(null);
 
-  // 1. Check for messages passed from the NavBar (like Logout)
   useEffect(() => {
     if (location.state?.message) {
       setToastConfig({
         message: location.state.message,
         type: 'success',
       });
-      // Clear the history state so the toast doesn't pop up again on refresh
       window.history.replaceState({}, document.title);
     }
   }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setToastConfig(null); // Clear any existing toasts before trying again
+    setToastConfig(null);
     const response = await fetcher('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify(formData),
@@ -109,6 +107,21 @@ const Register = () => {
               required
             />
           </div>
+
+          {/* NEW: Employer Role Toggle */}
+          <div className="auth-form-group checkbox-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.isEmployer}
+                onChange={(e) =>
+                  setFormData({ ...formData, isEmployer: e.target.checked })
+                }
+              />
+              Register as an Employer / Company Representative
+            </label>
+          </div>
+
           <button type="submit" className="auth-submit-btn">
             Create Account
           </button>
