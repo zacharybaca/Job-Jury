@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Company from "../models/Company.js"; // Import for claim handling
 import asyncHandler from "express-async-handler";
 import { v2 as cloudinary } from "cloudinary"; // Import to handle image deletion
 
@@ -309,6 +310,93 @@ const createUserAsAdmin = asyncHandler(async (req, res) => {
     throw new Error("Invalid user data.");
   }
 });
+
+// @desc    Submit a claim for a company
+// @route   POST /api/users/claim-company
+// @access  Private (Employer Only)
+const submitCompanyClaim = asyncHandler(async (req, res) => {
+  const { companyId } = req.body;
+  const user = await User.findById(req.user._id);
+  const company = await Company.findById(companyId);
+
+  if (!company) {
+    res.status(404);
+    throw new Error("Company not found");
+  }
+
+  // Auto-verification logic via domain matching
+  const userDomain = user.email.split("@")[1].toLowerCase();
+  let isAutoVerified = false;
+
+  if (company.website) {
+    try {
+      const companyUrl = new URL(
+        company.website.startsWith("http") ? company.website : `https://${company.website}`
+      );
+      // Strip 'www.' for cleaner matching
+      const companyDomain = companyUrl.hostname.replace("www.", "").toLowerCase();
+
+      if (userDomain === companyDomain) {
+        isAutoVerified = true;
+      }
+    } catch (error) {
+      console.error("Invalid company URL format for parsing");
+    }
+  }
+
+  // Update user record based on verification result
+  user.managedCompany = companyId;
+  user.verificationStatus = isAutoVerified ? "verified" : "pending";
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    verificationStatus: user.verificationStatus,
+    managedCompany: user.managedCompany,
+    message: isAutoVerified
+      ? "Domain match successful. Company claimed."
+      : "Claim submitted. Pending admin manual review.",
+  });
+});
+
+// @desc    Get all pending employer claims
+// @route   GET /api/users/pending-claims
+// @access  Private/Admin
+const getPendingClaims = asyncHandler(async (req, res) => {
+  const claims = await User.find({ verificationStatus: "pending", isEmployer: true })
+    .populate("managedCompany", "name website location")
+    .select("name email username verificationStatus createdAt");
+
+  res.status(200).json({ success: true, data: claims });
+});
+
+// @desc    Approve or Reject a pending claim
+// @route   PATCH /api/users/:id/claim-status
+// @access  Private/Admin
+const updateClaimStatus = asyncHandler(async (req, res) => {
+  const { status } = req.body; // 'verified' or 'rejected'
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  user.verificationStatus = status;
+  if (status === "rejected") {
+    user.managedCompany = null; // Clear the association on rejection
+  }
+
+  await user.save();
+  res.status(200).json({ success: true, data: user });
+});
+
+export {
+  // ... existing exports ...
+  submitCompanyClaim,
+  getPendingClaims,
+  updateClaimStatus,
+};
 
 export {
   getUserProfile,
