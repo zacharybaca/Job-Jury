@@ -14,6 +14,12 @@ const userSchema = mongoose.Schema(
     avatarPublicId: { type: String, default: "" },
     savedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
     isAdmin: { type: Boolean, default: false },
+    isEmployer: { type: Boolean, default: false },
+    managedCompany: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+      default: null,
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
     isSuspended: { type: Boolean, default: false },
