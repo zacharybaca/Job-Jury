@@ -27,14 +27,18 @@ const EmployerDashboard = () => {
       }
     };
 
-    if (user?.verificationStatus === 'unverified' || user?.verificationStatus === 'rejected') {
+    if (
+      user?.verificationStatus === 'unverified' ||
+      user?.verificationStatus === 'rejected'
+    ) {
       fetchCompaniesForClaim();
     }
   }, [user, fetcher]);
 
   // 2. Fetch reviews for the active dashboard (Verified Only)
   const fetchCompanyReviews = useCallback(async () => {
-    if (!user?.managedCompany || user?.verificationStatus !== 'verified') return;
+    if (!user?.managedCompany || user?.verificationStatus !== 'verified')
+      return;
 
     setLoadingReviews(true);
     const response = await fetcher(`/api/companies/${user.managedCompany}`);
@@ -92,7 +96,8 @@ const EmployerDashboard = () => {
 
   // --- VIEW 1: Verified (Review Management Dashboard) ---
   if (user?.verificationStatus === 'verified') {
-    if (loadingReviews) return <div className="loading-container">Loading Company Data...</div>;
+    if (loadingReviews)
+      return <div className="loading-container">Loading Company Data...</div>;
 
     return (
       <div className="employer-dashboard-container">
@@ -108,7 +113,9 @@ const EmployerDashboard = () => {
             reviews.map((review) => (
               <div key={review._id} className="employer-review-card">
                 <div className="review-header">
-                  <span className="rating-badge">Rating: {review.rating}/5</span>
+                  <span className="rating-badge">
+                    Rating: {review.rating}/5
+                  </span>
                   <span className="review-date">
                     {new Date(review.createdAt).toLocaleDateString()}
                   </span>
@@ -120,7 +127,10 @@ const EmployerDashboard = () => {
                     <h4>Official Company Response:</h4>
                     <p>{review.employerResponse.text}</p>
                     <small>
-                      Responded on {new Date(review.employerResponse.respondedAt).toLocaleDateString()}
+                      Responded on{' '}
+                      {new Date(
+                        review.employerResponse.respondedAt
+                      ).toLocaleDateString()}
                     </small>
                   </div>
                 ) : (
@@ -174,8 +184,14 @@ const EmployerDashboard = () => {
     return (
       <div className="employer-dashboard-container status-pending">
         <h2>Verification Pending</h2>
-        <p>Your claim has been submitted and is currently awaiting manual review by a Job Jury administrator.</p>
-        <p>Because your email domain did not automatically match the company record, this process may take up to 24-48 hours.</p>
+        <p>
+          Your claim has been submitted and is currently awaiting manual review
+          by a Job Jury administrator.
+        </p>
+        <p>
+          Because your email domain did not automatically match the company
+          record, this process may take up to 24-48 hours.
+        </p>
       </div>
     );
   }
@@ -185,7 +201,10 @@ const EmployerDashboard = () => {
     <div className="employer-dashboard-container">
       <h2>Claim Your Company</h2>
       {user?.verificationStatus === 'rejected' && (
-        <div className="alert-error">Your previous claim was rejected by an administrator. Please try again.</div>
+        <div className="alert-error">
+          Your previous claim was rejected by an administrator. Please try
+          again.
+        </div>
       )}
       <p>Search the registry to link your employer account to your company.</p>
 
@@ -199,23 +218,27 @@ const EmployerDashboard = () => {
         />
 
         <div className="claim-results-list">
-          {searchQuery && filteredCompanies.map((company) => (
-            <div key={company._id} className="claim-card">
-              <div className="claim-info">
-                <h4>{company.name}</h4>
-                <span>{company.website || 'No website listed'}</span>
+          {searchQuery &&
+            filteredCompanies.map((company) => (
+              <div key={company._id} className="claim-card">
+                <div className="claim-info">
+                  <h4>{company.name}</h4>
+                  <span>{company.website || 'No website listed'}</span>
+                </div>
+                <button
+                  disabled={submittingClaim}
+                  onClick={() => handleClaimSubmit(company._id)}
+                  className="claim-btn"
+                >
+                  Claim
+                </button>
               </div>
-              <button
-                disabled={submittingClaim}
-                onClick={() => handleClaimSubmit(company._id)}
-                className="claim-btn"
-              >
-                Claim
-              </button>
-            </div>
-          ))}
+            ))}
           {searchQuery && filteredCompanies.length === 0 && (
-            <p>No companies found. If your company is not listed, register it first.</p>
+            <p>
+              No companies found. If your company is not listed, register it
+              first.
+            </p>
           )}
         </div>
       </div>

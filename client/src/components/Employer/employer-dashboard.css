@@ -51,7 +51,8 @@
   margin-top: 10px;
 }
 
-.btn-respond, .btn-submit {
+.btn-respond,
+.btn-submit {
   background-color: #10b981;
   color: white;
   border: none;

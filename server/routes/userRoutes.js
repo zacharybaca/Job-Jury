@@ -12,8 +12,8 @@ import {
   makeUserAdmin,
   createUserAsAdmin,
   submitCompanyClaim, // NEW
-  getPendingClaims,   // NEW
-  updateClaimStatus,  // NEW
+  getPendingClaims, // NEW
+  updateClaimStatus, // NEW
 } from "../controllers/userController.js";
 import { protect, admin, isEmployer } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/cloudinary.js";
@@ -45,9 +45,7 @@ router.use(admin);
 router.get("/pending-claims", getPendingClaims);
 router.patch("/:id/claim-status", updateClaimStatus);
 
-router.route("/")
-  .get(getUsers)
-  .post(createUserAsAdmin);
+router.route("/").get(getUsers).post(createUserAsAdmin);
 
 router.patch("/:id/admin", makeUserAdmin);
 router.patch("/:id/demote", demoteUserAdmin);

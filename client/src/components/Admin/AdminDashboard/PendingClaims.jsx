@@ -22,22 +22,24 @@ const PendingClaims = () => {
   }, []);
 
   const handleAction = async (userId, action) => {
-    if (!window.confirm(`Are you sure you want to ${action} this claim?`)) return;
+    if (!window.confirm(`Are you sure you want to ${action} this claim?`))
+      return;
 
     const status = action === 'approve' ? 'verified' : 'rejected';
     const response = await fetcher(`/api/users/${userId}/claim-status`, {
       method: 'PATCH',
-      body: JSON.stringify({ status })
+      body: JSON.stringify({ status }),
     });
 
     if (response.success) {
-      setClaims(claims.filter(claim => claim._id !== userId));
+      setClaims(claims.filter((claim) => claim._id !== userId));
     } else {
       alert(response.error || `Failed to ${action} claim.`);
     }
   };
 
-  if (loading) return <div className="admin-loading">Loading claims queue...</div>;
+  if (loading)
+    return <div className="admin-loading">Loading claims queue...</div>;
 
   // Fallback check to guarantee map executes on an array
   if (!Array.isArray(claims) || claims.length === 0) {
@@ -62,8 +64,18 @@ const PendingClaims = () => {
               <td>{claim.managedCompany?.name || 'Unknown'}</td>
               <td>{claim.managedCompany?.website || 'N/A'}</td>
               <td className="admin-actions">
-                <button className="approve-btn" onClick={() => handleAction(claim._id, 'approve')}>Verify</button>
-                <button className="delete-btn" onClick={() => handleAction(claim._id, 'reject')}>Reject</button>
+                <button
+                  className="approve-btn"
+                  onClick={() => handleAction(claim._id, 'approve')}
+                >
+                  Verify
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleAction(claim._id, 'reject')}
+                >
+                  Reject
+                </button>
               </td>
             </tr>
           ))}

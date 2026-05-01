@@ -34,7 +34,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
-    user.notificationsEnabled = req.body.notificationsEnabled !== undefined ? req.body.notificationsEnabled : user.notificationsEnabled;
+    user.notificationsEnabled =
+      req.body.notificationsEnabled !== undefined
+        ? req.body.notificationsEnabled
+        : user.notificationsEnabled;
 
     // The pre-save hook in your model will handle hashing if the password is changed
     if (req.body.password) {
@@ -258,7 +261,10 @@ const toggleUserSuspension = asyncHandler(async (req, res) => {
   }
 
   // Prevent admins from suspending themselves
-  if (user._id.toString() === req.user._id.toString() || user._id.toString() === "699dd79be3893bbe8d1c94d0") {
+  if (
+    user._id.toString() === req.user._id.toString() ||
+    user._id.toString() === "699dd79be3893bbe8d1c94d0"
+  ) {
     res.status(400);
     throw new Error("You cannot suspend your own account or the main admin.");
   }
@@ -331,10 +337,14 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
   if (company.website) {
     try {
       const companyUrl = new URL(
-        company.website.startsWith("http") ? company.website : `https://${company.website}`
+        company.website.startsWith("http")
+          ? company.website
+          : `https://${company.website}`,
       );
       // Strip 'www.' for cleaner matching
-      const companyDomain = companyUrl.hostname.replace("www.", "").toLowerCase();
+      const companyDomain = companyUrl.hostname
+        .replace("www.", "")
+        .toLowerCase();
 
       if (userDomain === companyDomain) {
         isAutoVerified = true;
@@ -363,7 +373,10 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
 // @route   GET /api/users/pending-claims
 // @access  Private/Admin
 const getPendingClaims = asyncHandler(async (req, res) => {
-  const claims = await User.find({ verificationStatus: "pending", isEmployer: true })
+  const claims = await User.find({
+    verificationStatus: "pending",
+    isEmployer: true,
+  })
     .populate("managedCompany", "name website location")
     .select("name email username verificationStatus createdAt");
 
@@ -390,7 +403,6 @@ const updateClaimStatus = asyncHandler(async (req, res) => {
   await user.save();
   res.status(200).json({ success: true, data: user });
 });
-
 
 export {
   getUserProfile,

@@ -24,7 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
     username,
     email,
     password,
-    isEmployer: isEmployer || false // Default to false if not provided
+    isEmployer: isEmployer || false, // Default to false if not provided
   });
 
   if (user) {
@@ -51,7 +51,9 @@ const isUserAdmin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    res.status(200).json({ isAdmin: user.isAdmin, isEmployer: user.isEmployer });
+    res
+      .status(200)
+      .json({ isAdmin: user.isAdmin, isEmployer: user.isEmployer });
   } else {
     res.status(404);
     throw new Error("User not found");
@@ -66,17 +68,17 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
     res.status(200).json({
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-    name: user.name,
-    notificationsEnabled: user.notificationsEnabled,
-    isEmployer: user.isEmployer,
-    // NEW FIELDS TO RETURN:
-    managedCompany: user.managedCompany,
-    verificationStatus: user.verificationStatus,
-    role: user.role, // Ensure role is returned if used for admin checks
-  });
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name,
+      notificationsEnabled: user.notificationsEnabled,
+      isEmployer: user.isEmployer,
+      // NEW FIELDS TO RETURN:
+      managedCompany: user.managedCompany,
+      verificationStatus: user.verificationStatus,
+      role: user.role, // Ensure role is returned if used for admin checks
+    });
   } else {
     res.status(401);
     throw new Error("Invalid email or password");

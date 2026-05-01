@@ -137,7 +137,6 @@ const NavBar = () => {
                   >
                     Newsfeed
                   </Link>
-
                   <Link
                     to="/settings"
                     className="nav-user-item" // Renamed
@@ -167,7 +166,19 @@ const NavBar = () => {
           )}
           <li>
             <div className="notification-bell-container">
-              {user && user.notificationsEnabled ? <img src="/assets/icons/notification-icon-on.svg" alt="Notifications On" className="notification-bell" /> : <img src="/assets/icons/notification-icon-off.png" alt="Notifications Off" className="notification-bell notification-bell-off" />}
+              {user && user.notificationsEnabled ? (
+                <img
+                  src="/assets/icons/notification-icon-on.svg"
+                  alt="Notifications On"
+                  className="notification-bell"
+                />
+              ) : (
+                <img
+                  src="/assets/icons/notification-icon-off.png"
+                  alt="Notifications Off"
+                  className="notification-bell notification-bell-off"
+                />
+              )}
             </div>
           </li>
         </ul>

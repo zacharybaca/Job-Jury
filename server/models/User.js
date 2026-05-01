@@ -21,14 +21,14 @@ const userSchema = mongoose.Schema(
       default: null,
     },
     verificationStatus: {
-    type: String,
-    enum: ["unverified", "pending", "verified", "rejected"],
-    default: "unverified",
-  },
-  verificationDocument: {
-    type: String,
-    default: null,
-  },
+      type: String,
+      enum: ["unverified", "pending", "verified", "rejected"],
+      default: "unverified",
+    },
+    verificationDocument: {
+      type: String,
+      default: null,
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
     isSuspended: { type: Boolean, default: false },

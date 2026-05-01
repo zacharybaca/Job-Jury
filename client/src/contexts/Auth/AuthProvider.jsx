@@ -32,7 +32,9 @@ export const AuthProvider = ({ children }) => {
       if (response.success && response.data?.user) {
         if (response.data.user.isSuspended) {
           setUser(null);
-          alert('Your account has been suspended. Please contact support for more information.');
+          alert(
+            'Your account has been suspended. Please contact support for more information.'
+          );
           return;
         }
         setUser(response.data.user);

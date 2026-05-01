@@ -34,10 +34,22 @@ const AdminCreateUser = () => {
     setIsSubmitting(false);
 
     if (response.success) {
-      setMessage({ type: 'success', text: `User ${formData.username} created successfully.` });
-      setFormData({ name: '', username: '', email: '', password: '', isAdmin: false });
+      setMessage({
+        type: 'success',
+        text: `User ${formData.username} created successfully.`,
+      });
+      setFormData({
+        name: '',
+        username: '',
+        email: '',
+        password: '',
+        isAdmin: false,
+      });
     } else {
-      setMessage({ type: 'error', text: response.error || 'Failed to create user.' });
+      setMessage({
+        type: 'error',
+        text: response.error || 'Failed to create user.',
+      });
     }
   };
 
@@ -45,12 +57,12 @@ const AdminCreateUser = () => {
     <div className="admin-create-user-container">
       <div className="admin-create-user-card">
         <h2 className="admin-create-user-title">Create New User</h2>
-        <p className="admin-create-user-subtitle">Manually provision an account without email verification.</p>
+        <p className="admin-create-user-subtitle">
+          Manually provision an account without email verification.
+        </p>
 
         {message.text && (
-          <div className={`message-banner ${message.type}`}>
-            {message.text}
-          </div>
+          <div className={`message-banner ${message.type}`}>{message.text}</div>
         )}
 
         <form onSubmit={handleSubmit} className="admin-form">

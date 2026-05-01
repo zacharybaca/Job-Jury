@@ -100,7 +100,9 @@ const PendingCompanies = ({ onUpdate }) => {
               <td>{company.industry}</td>
               <td>{company.location}</td>
               <td>
-                <span className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}>
+                <span
+                  className={`status-badge ${company.isApproved ? 'approved' : 'pending'}`}
+                >
                   {company.isApproved ? 'Approved' : 'Pending'}
                 </span>
               </td>
@@ -111,8 +113,18 @@ const PendingCompanies = ({ onUpdate }) => {
                 >
                   View
                 </button>
-                <button className="approve-btn" onClick={() => handleApprove(company._id, company.name)}>Approve</button>
-                <button className="delete-btn" onClick={() => handleDelete(company._id, company.name)}>Delete</button>
+                <button
+                  className="approve-btn"
+                  onClick={() => handleApprove(company._id, company.name)}
+                >
+                  Approve
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(company._id, company.name)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

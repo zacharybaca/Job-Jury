@@ -5,7 +5,8 @@ const CompanyHeader = ({ company }) => {
   if (!company) return null;
 
   // Destructure for cleaner code
-  const { name, industry, location, averageRating, imageUrl, reviews } = company;
+  const { name, industry, location, averageRating, imageUrl, reviews } =
+    company;
 
   const renderStars = (rating) => {
     const stars = [];
