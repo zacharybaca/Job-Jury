@@ -21,6 +21,7 @@ import PricingPage from './components/Pages/PricingPage';
 import MyFavorites from './components/Auth/MyFavorites/MyFavorites';
 import LeakSubmissionForm from './components/Utility/LeakSubmissionForm/LeakSubmissionForm';
 import NewsFeed from './components/Layout/NewsFeed/NewsFeed';
+import EmployerDashboard from './components/Employer/EmployerDashboard';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -301,6 +302,8 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
 
+        <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+        
         <Route
           path="*"
           element={
