@@ -4,8 +4,11 @@ import asyncHandler from "express-async-handler";
 import crypto from "crypto";
 import sendEmail from "../utils/sendEmail.js";
 
+// Inside server/controllers/authController.js
+
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, username, email, password } = req.body;
+  // 1. Extract isEmployer from the request body
+  const { name, username, email, password, isEmployer } = req.body;
 
   const userExists = await User.findOne({ email });
   const userNameExists = await User.findOne({ username });
@@ -15,7 +18,14 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("User already exists");
   }
 
-  const user = await User.create({ name, username, email, password });
+  // 2. Pass isEmployer into the creation method
+  const user = await User.create({
+    name,
+    username,
+    email,
+    password,
+    isEmployer: isEmployer || false // Default to false if not provided
+  });
 
   if (user) {
     generateToken(res, user._id);
@@ -25,6 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       name: user.name,
       notificationsEnabled: user.notificationsEnabled,
+      isEmployer: user.isEmployer, // Return it in the payload
     });
   } else {
     res.status(400);
@@ -37,7 +48,7 @@ const isUserAdmin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    res.status(200).json({ isAdmin: user.isAdmin });
+    res.status(200).json({ isAdmin: user.isAdmin, isEmployer: user.isEmployer });
   } else {
     res.status(404);
     throw new Error("User not found");
@@ -57,6 +68,7 @@ const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
       name: user.name,
       notificationsEnabled: user.notificationsEnabled,
+      isEmployer: user.isEmployer, // Return it in the payload
     });
   } else {
     res.status(401);
