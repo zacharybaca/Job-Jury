@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PendingCompanies from './PendingCompanies';
-import CompanyRegistry from './CompanyRegistry';
 import UserManagement from './UserManagement';
 import ReviewApprovals from './ReviewApprovals';
 import AdminCreateUser from './AdminCreateUser';
@@ -61,10 +60,6 @@ const AdminDashboard = () => {
             <section className="admin-section">
               <h2>Pending Approvals</h2>
               <PendingCompanies onUpdate={triggerRefresh} />
-            </section>
-            <section className="admin-section">
-              <h2>Approved Company Registry</h2>
-              <CompanyRegistry key={refreshKey} refreshKey={refreshKey} />
             </section>
           </div>
         )}
