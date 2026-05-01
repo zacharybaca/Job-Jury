@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../../../hooks/useAuth';
-import { useFetcher } from '../../../hooks/useFetcher';
+import { useAuth } from '../../hooks/useAuth';
+import { useFetcher } from '../../hooks/useFetcher';
 import './employer-dashboard.css';
 
 const EmployerDashboard = () => {
