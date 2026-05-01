@@ -10,7 +10,8 @@ const PendingClaims = () => {
     setLoading(true);
     const response = await fetcher('/api/users/pending-claims');
     if (response.success) {
-      setClaims(response.data);
+      // Target the nested array to match your fetcher architecture
+      setClaims(response.data.data || []);
     }
     setLoading(false);
   };
@@ -38,7 +39,10 @@ const PendingClaims = () => {
 
   if (loading) return <div className="admin-loading">Loading claims queue...</div>;
 
-  if (claims.length === 0) return <div className="empty-state">No pending claims.</div>;
+  // Fallback check to guarantee map executes on an array
+  if (!Array.isArray(claims) || claims.length === 0) {
+    return <div className="empty-state">No pending claims.</div>;
+  }
 
   return (
     <div className="table-wrapper">
