@@ -69,3 +69,74 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* --- Claiming Workflow Styles --- */
+
+.status-pending {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.claim-search-section {
+  margin-top: 20px;
+}
+
+.employer-search-input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.claim-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.claim-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 15px 20px;
+}
+
+.claim-info h4 {
+  margin: 0 0 5px 0;
+  color: #0f172a;
+}
+
+.claim-info span {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.claim-btn {
+  background-color: #0f172a;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.claim-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
