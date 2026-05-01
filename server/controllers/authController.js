@@ -77,14 +77,13 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  const isProduction = process.env.NODE_ENV === "production";
-
-  // Using clearCookie is safer and cleaner than manually setting an expired date
-  res.clearCookie("jwt", {
+  res.cookie("jwt", "", {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? "none" : "lax",
-    path: "/", // <-- CRITICAL: Forces the browser to target the root domain cookie
+    secure: true,      // MUST MATCH generateToken
+    sameSite: "none",  // MUST MATCH generateToken
+    path: "/",         // MUST MATCH generateToken
+    expires: new Date(0),
+    maxAge: 0,
   });
 
   res.status(200).json({ message: "User logged out" });
