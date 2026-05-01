@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
 
 const PendingCompanies = ({ onUpdate }) => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { fetcher } = useFetcher();
+  const navigate = useNavigate();
 
   const loadCompanies = async () => {
     setLoading(true);
@@ -103,7 +105,12 @@ const PendingCompanies = ({ onUpdate }) => {
                 </span>
               </td>
               <td className="admin-actions">
-                <button className="view-btn">View</button>
+                <button
+                  className="view-btn"
+                  onClick={() => navigate(`/companies/${company._id}`)}
+                >
+                  View
+                </button>
                 <button className="approve-btn" onClick={() => handleApprove(company._id, company.name)}>Approve</button>
                 <button className="delete-btn" onClick={() => handleDelete(company._id, company.name)}>Delete</button>
               </td>
