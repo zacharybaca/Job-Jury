@@ -75,7 +75,7 @@ const CompanyList = () => {
       <div className="company-grid">
         {localLoading ? (
           /* Skeletons */
-          [...Array(6)].map((_, index) => (
+          [...Array(6)].map(() => (
             <>
               <div className="skeleton-image shimmer"></div>
               <div className="skeleton-body">
