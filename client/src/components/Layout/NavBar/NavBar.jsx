@@ -153,6 +153,15 @@ const NavBar = () => {
                       Admin Dashboard
                     </Link>
                   )}
+                  {user.isEmployer && (
+                    <Link
+                      to="/employer/dashboard"
+                      className="nav-user-item" // Renamed
+                      onClick={closeMenu}
+                    >
+                      Employer Dashboard
+                    </Link>
+                  )}
                   <div className="nav-user-divider"></div> {/* Renamed */}
                   <button
                     onClick={handleLogout}

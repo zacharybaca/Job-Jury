@@ -23,7 +23,7 @@ const EmployerDashboard = () => {
     const fetchCompaniesForClaim = async () => {
       const res = await fetcher('/api/companies');
       if (res.success) {
-        setAllCompanies(res.data);
+        setAllCompanies(res.data.data || res.data || []);
       }
     };
 
@@ -43,7 +43,9 @@ const EmployerDashboard = () => {
     setLoadingReviews(true);
     const response = await fetcher(`/api/companies/${user.managedCompany}`);
     if (response.success) {
-      setReviews(response.data.reviews || []);
+      // Target nested object matching API architecture
+      const companyData = response.data?.data || response.data;
+      setReviews(companyData?.reviews || []);
     }
     setLoadingReviews(false);
   }, [user, fetcher]);
@@ -65,10 +67,10 @@ const EmployerDashboard = () => {
     });
 
     if (res.success) {
-      alert(res.message);
-      await checkUserAuth(); // Refresh global user state to update the view
+      alert(res.data?.message || res.message || 'Claim submitted successfully.');
+      await checkUserAuth();
     } else {
-      alert(res.error || 'Failed to submit claim.');
+      alert(res.error || res.data?.message || 'Failed to submit claim.');
     }
     setSubmittingClaim(false);
   };
@@ -90,9 +92,11 @@ const EmployerDashboard = () => {
     }
   };
 
-  const filteredCompanies = allCompanies.filter((c) =>
-    c.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredCompanies = Array.isArray(allCompanies)
+    ? allCompanies.filter((c) =>
+        c.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   // --- VIEW 1: Verified (Review Management Dashboard) ---
   if (user?.verificationStatus === 'verified') {
