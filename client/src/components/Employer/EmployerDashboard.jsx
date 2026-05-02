@@ -67,7 +67,9 @@ const EmployerDashboard = () => {
     });
 
     if (res.success) {
-      alert(res.data?.message || res.message || 'Claim submitted successfully.');
+      alert(
+        res.data?.message || res.message || 'Claim submitted successfully.'
+      );
       await checkUserAuth();
     } else {
       alert(res.error || res.data?.message || 'Failed to submit claim.');
