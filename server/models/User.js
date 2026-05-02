@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema(
       ref: "Company",
       default: null,
     },
+    companyRole: {
+      type: String,
+      default: null,
+    },
     verificationStatus: {
       type: String,
       enum: ["unverified", "pending", "verified", "rejected"],

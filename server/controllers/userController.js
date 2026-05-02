@@ -321,7 +321,7 @@ const createUserAsAdmin = asyncHandler(async (req, res) => {
 // @route   POST /api/users/claim-company
 // @access  Private (Employer Only)
 const submitCompanyClaim = asyncHandler(async (req, res) => {
-  const { companyId } = req.body;
+  const { companyId, companyRole, verificationDocument } = req.body;
   const user = await User.findById(req.user._id);
   const company = await Company.findById(companyId);
 
@@ -330,8 +330,16 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
     throw new Error("Company not found");
   }
 
-  // Auto-verification logic via domain matching
+  const userPrefix = user.email.split("@")[0].toLowerCase();
   const userDomain = user.email.split("@")[1].toLowerCase();
+  const authoritativePrefixes = [
+    "hr",
+    "admin",
+    "careers",
+    "management",
+    "director",
+  ];
+
   let isAutoVerified = false;
 
   if (company.website) {
@@ -341,12 +349,15 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
           ? company.website
           : `https://${company.website}`,
       );
-      // Strip 'www.' for cleaner matching
       const companyDomain = companyUrl.hostname
         .replace("www.", "")
         .toLowerCase();
 
-      if (userDomain === companyDomain) {
+      // Auto-verify ONLY if domain matches AND prefix is an authoritative HR/Admin alias
+      if (
+        userDomain === companyDomain &&
+        authoritativePrefixes.includes(userPrefix)
+      ) {
         isAutoVerified = true;
       }
     } catch (error) {
@@ -354,8 +365,13 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
     }
   }
 
-  // Update user record based on verification result
   user.managedCompany = companyId;
+  user.companyRole = companyRole || "Unspecified";
+
+  if (verificationDocument) {
+    user.verificationDocument = verificationDocument;
+  }
+
   user.verificationStatus = isAutoVerified ? "verified" : "pending";
   await user.save();
 
@@ -364,8 +380,8 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
     verificationStatus: user.verificationStatus,
     managedCompany: user.managedCompany,
     message: isAutoVerified
-      ? "Domain match successful. Company claimed."
-      : "Claim submitted. Pending admin manual review.",
+      ? "Authorization verified. Company claimed successfully."
+      : "Claim submitted. Pending administrative review to verify your role.",
   });
 });
 

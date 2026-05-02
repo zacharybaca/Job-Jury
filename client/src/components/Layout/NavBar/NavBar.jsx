@@ -8,14 +8,11 @@ const NavBar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  // State and Ref for the dropdown menu
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Click-outside listener
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // If the dropdown is open AND the click happened outside our ref, close it
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
@@ -31,11 +28,10 @@ const NavBar = () => {
     e.preventDefault();
     localStorage.removeItem('user-wallpaper');
     await logout();
-    setIsDropdownOpen(false); // Close menu on logout
+    setIsDropdownOpen(false);
     navigate('/login', { state: { message: 'Successfully logged out.' } });
   };
 
-  // Helper to close menu when a link is clicked
   const closeMenu = () => setIsDropdownOpen(false);
 
   return (
@@ -68,13 +64,11 @@ const NavBar = () => {
           )}
 
           {user && (
-            // The Dropdown Container
             <li className="user-menu-container" ref={dropdownRef}>
               <button
                 className="dropdown-toggle"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
-                {/* NEW: Dynamic Avatar Rendering */}
                 {user.avatar ? (
                   <img
                     src={user.avatar}
@@ -98,56 +92,78 @@ const NavBar = () => {
               </button>
 
               {/* The Dropdown Menu */}
-              {/* The Dropdown Menu */}
               {isDropdownOpen && (
                 <div className="nav-user-dropdown">
-                  {' '}
-                  {/* Renamed */}
                   <div className="nav-user-header">
-                    {' '}
-                    {/* Renamed */}
-                    Signed in as <strong>{user.username}</strong>
+                    <div>
+                      Signed in as <strong>{user.username}</strong>
+                    </div>
+                    {/* Role Indicator Badge */}
+                    {(user.isAdmin || user.isEmployer) && (
+                      <div
+                        className="nav-user-role"
+                        style={{
+                          fontSize: '0.8rem',
+                          color: '#64748b',
+                          marginTop: '4px',
+                        }}
+                      >
+                        {user.isAdmin ? 'Administrator' : 'Employer Account'}
+                      </div>
+                    )}
                   </div>
-                  <div className="nav-user-divider"></div> {/* Renamed */}
+                  <div className="nav-user-divider"></div>
+
+                  {/* Universal Links */}
                   <Link
                     to="/register-company"
-                    className="nav-user-item" // Renamed
+                    className="nav-user-item"
                     onClick={closeMenu}
                   >
                     Register Company
                   </Link>
-                  <Link
-                    to="/my-submissions"
-                    className="nav-user-item" // Renamed
-                    onClick={closeMenu}
-                  >
-                    My Submissions
-                  </Link>
-                  <Link
-                    to="/my-favorites"
-                    className="nav-user-item" // Renamed
-                    onClick={closeMenu}
-                  >
-                    My Favorites
-                  </Link>
-                  <Link
-                    to="/newsfeed"
-                    className="nav-user-item" // Renamed
-                    onClick={closeMenu}
-                  >
-                    Newsfeed
-                  </Link>
+
+                  {/* Standard User Only Links */}
+                  {!user.isEmployer && (
+                    <>
+                      <Link
+                        to="/my-submissions"
+                        className="nav-user-item"
+                        onClick={closeMenu}
+                      >
+                        My Submissions
+                      </Link>
+                      <Link
+                        to="/my-favorites"
+                        className="nav-user-item"
+                        onClick={closeMenu}
+                      >
+                        My Favorites
+                      </Link>
+                      <Link
+                        to="/newsfeed"
+                        className="nav-user-item"
+                        onClick={closeMenu}
+                      >
+                        Newsfeed
+                      </Link>
+                    </>
+                  )}
+
+                  {/* Universal Links */}
                   <Link
                     to="/settings"
-                    className="nav-user-item" // Renamed
+                    className="nav-user-item"
                     onClick={closeMenu}
                   >
                     Profile Settings
                   </Link>
+
+                  {/* Role Dashboards */}
                   {user.isAdmin && (
                     <Link
                       to="/admin/dashboard"
-                      className="nav-user-item" // Renamed
+                      className="nav-user-item"
                       onClick={closeMenu}
                     >
                       Admin Dashboard
@@ -156,16 +172,17 @@ const NavBar = () => {
                   {user.isEmployer && (
                     <Link
                       to="/employer/dashboard"
-                      className="nav-user-item" // Renamed
+                      className="nav-user-item"
                       onClick={closeMenu}
                     >
                       Employer Dashboard
                     </Link>
                   )}
-                  <div className="nav-user-divider"></div> {/* Renamed */}
+
+                  <div className="nav-user-divider"></div>
                   <button
                     onClick={handleLogout}
-                    className="nav-user-item logout-item" // Renamed
+                    className="nav-user-item logout-item"
                   >
                     Logout
                   </button>

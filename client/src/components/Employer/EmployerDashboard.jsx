@@ -12,6 +12,11 @@ const EmployerDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [submittingClaim, setSubmittingClaim] = useState(false);
 
+  // --- Hybrid Verification Form State ---
+  const [selectedCompanyToClaim, setSelectedCompanyToClaim] = useState(null);
+  const [companyRole, setCompanyRole] = useState('');
+  const [verificationDocument, setVerificationDocument] = useState('');
+
   // --- Review Management State ---
   const [reviews, setReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
@@ -43,7 +48,6 @@ const EmployerDashboard = () => {
     setLoadingReviews(true);
     const response = await fetcher(`/api/companies/${user.managedCompany}`);
     if (response.success) {
-      // Target nested object matching API architecture
       const companyData = response.data?.data || response.data;
       setReviews(companyData?.reviews || []);
     }
@@ -57,19 +61,39 @@ const EmployerDashboard = () => {
   }, [fetchCompanyReviews, user]);
 
   // --- Handlers ---
-  const handleClaimSubmit = async (companyId) => {
-    if (!window.confirm('Are you sure you want to claim this company?')) return;
+  const initiateClaimProcess = (company) => {
+    setSelectedCompanyToClaim(company);
+    setCompanyRole('');
+    setVerificationDocument('');
+  };
+
+  const cancelClaimProcess = () => {
+    setSelectedCompanyToClaim(null);
+    setCompanyRole('');
+    setVerificationDocument('');
+  };
+
+  const handleFinalClaimSubmit = async () => {
+    if (!companyRole.trim()) {
+      alert('Please enter your specific job title or role.');
+      return;
+    }
 
     setSubmittingClaim(true);
     const res = await fetcher('/api/users/claim-company', {
       method: 'POST',
-      body: JSON.stringify({ companyId }),
+      body: JSON.stringify({
+        companyId: selectedCompanyToClaim._id,
+        companyRole,
+        verificationDocument,
+      }),
     });
 
     if (res.success) {
       alert(
         res.data?.message || res.message || 'Claim submitted successfully.'
       );
+      setSelectedCompanyToClaim(null);
       await checkUserAuth();
     } else {
       alert(res.error || res.data?.message || 'Failed to submit claim.');
@@ -195,8 +219,8 @@ const EmployerDashboard = () => {
           by a Job Jury administrator.
         </p>
         <p>
-          Because your email domain did not automatically match the company
-          record, this process may take up to 24-48 hours.
+          This administrative review is required to verify your authorization
+          status to act on behalf of the company.
         </p>
       </div>
     );
@@ -208,46 +232,103 @@ const EmployerDashboard = () => {
       <h2>Claim Your Company</h2>
       {user?.verificationStatus === 'rejected' && (
         <div className="alert-error">
-          Your previous claim was rejected by an administrator. Please try
-          again.
+          Your previous claim was rejected by an administrator. Please provide
+          accurate verification details.
         </div>
       )}
-      <p>Search the registry to link your employer account to your company.</p>
 
-      <div className="claim-search-section">
-        <input
-          type="text"
-          placeholder="Search by company name..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="employer-search-input"
-        />
+      {!selectedCompanyToClaim ? (
+        <>
+          <p>
+            Search the registry to link your employer account to your company.
+          </p>
+          <div className="claim-search-section">
+            <input
+              type="text"
+              placeholder="Search by company name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="employer-search-input"
+            />
 
-        <div className="claim-results-list">
-          {searchQuery &&
-            filteredCompanies.map((company) => (
-              <div key={company._id} className="claim-card">
-                <div className="claim-info">
-                  <h4>{company.name}</h4>
-                  <span>{company.website || 'No website listed'}</span>
-                </div>
-                <button
-                  disabled={submittingClaim}
-                  onClick={() => handleClaimSubmit(company._id)}
-                  className="claim-btn"
-                >
-                  Claim
-                </button>
-              </div>
-            ))}
-          {searchQuery && filteredCompanies.length === 0 && (
-            <p>
-              No companies found. If your company is not listed, register it
-              first.
-            </p>
-          )}
+            <div className="claim-results-list">
+              {searchQuery &&
+                filteredCompanies.map((company) => (
+                  <div key={company._id} className="claim-card">
+                    <div className="claim-info">
+                      <h4>{company.name}</h4>
+                      <span>{company.website || 'No website listed'}</span>
+                    </div>
+                    <button
+                      onClick={() => initiateClaimProcess(company)}
+                      className="claim-btn"
+                    >
+                      Select
+                    </button>
+                  </div>
+                ))}
+              {searchQuery && filteredCompanies.length === 0 && (
+                <p>
+                  No companies found. If your company is not listed, register it
+                  first.
+                </p>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="verification-form-container">
+          <h3>Verify Employment Details</h3>
+          <p>
+            You are requesting access to manage:{' '}
+            <strong>{selectedCompanyToClaim.name}</strong>
+          </p>
+
+          <div className="form-group">
+            <label>Your Job Title / Role</label>
+            <input
+              type="text"
+              value={companyRole}
+              onChange={(e) => setCompanyRole(e.target.value)}
+              placeholder="e.g., HR Director, Operations Manager"
+              className="employer-form-input"
+            />
+            <small>Must match your official title.</small>
+          </div>
+
+          <div className="form-group">
+            <label>Verification Link (Optional, but highly recommended)</label>
+            <input
+              type="text"
+              value={verificationDocument}
+              onChange={(e) => setVerificationDocument(e.target.value)}
+              placeholder="e.g., LinkedIn Profile URL or company directory link"
+              className="employer-form-input"
+            />
+            <small>
+              If your email does not utilize an HR or Admin prefix, a link
+              verifying your employment is required for approval.
+            </small>
+          </div>
+
+          <div className="verification-form-actions">
+            <button
+              className="btn-submit"
+              onClick={handleFinalClaimSubmit}
+              disabled={submittingClaim}
+            >
+              {submittingClaim ? 'Submitting...' : 'Submit Claim Request'}
+            </button>
+            <button
+              className="btn-cancel"
+              onClick={cancelClaimProcess}
+              disabled={submittingClaim}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -141,3 +141,47 @@
   background-color: #94a3b8;
   cursor: not-allowed;
 }
+
+.verification-form-container {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.verification-form-container h3 {
+  margin-top: 0;
+  color: #0f172a;
+}
+
+.form-group {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #334155;
+}
+
+.employer-form-input {
+  padding: 10px 12px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form-group small {
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.verification-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
