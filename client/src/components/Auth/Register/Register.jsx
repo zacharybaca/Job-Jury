@@ -37,9 +37,16 @@ const Register = () => {
     });
 
     if (response.success) {
-      navigate('/login', {
-        state: { message: 'Registration successful! Please log in.' },
-      });
+      if (
+        response.data.isEmployer &&
+        response.data.verificationStatus === 'unverified'
+      ) {
+        navigate('/employer/dashboard');
+      } else {
+        navigate('/login', {
+          state: { message: 'Registration successful! Please log in.' },
+        });
+      }
     } else {
       setToastConfig({ message: response.error, type: 'error' });
     }

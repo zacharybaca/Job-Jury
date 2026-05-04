@@ -1,13 +1,9 @@
 import User from "../models/User.js";
-import Company from "../models/Company.js"; // Import for claim handling
+import Company from "../models/Company.js";
 import asyncHandler from "express-async-handler";
-import { v2 as cloudinary } from "cloudinary"; // Import to handle image deletion
+import { v2 as cloudinary } from "cloudinary";
 
-// @desc    Get user profile
-// @route   GET /api/users/profile
-// @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  // Find user and populate the savedCompanies array with actual company data
   const user = await User.findById(req.user._id).populate("savedCompanies");
 
   if (user) {
@@ -25,9 +21,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Update user profile
-// @route   PUT /api/users/profile
-// @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -39,18 +32,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         ? req.body.notificationsEnabled
         : user.notificationsEnabled;
 
-    // The pre-save hook in your model will handle hashing if the password is changed
     if (req.body.password) {
       user.password = req.body.password;
     }
 
-    // NEW: Handle Cloudinary Avatar Replacement
     if (req.file) {
-      // 1. If an old avatar exists, destroy it in Cloudinary to prevent orphaned files
       if (user.avatarPublicId) {
         await cloudinary.uploader.destroy(user.avatarPublicId);
       }
-      // 2. Attach the new Cloudinary URLs provided by the Multer middleware
       user.avatar = req.file.path;
       user.avatarPublicId = req.file.filename;
     }
@@ -71,12 +60,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Change Subscription Tier
-// @route   PATCH /api/users/:id/subscription
-// @access  Private/Admin
 const changeSubscriptionTier = asyncHandler(async (req, res) => {
   const { subscriptionTier } = req.body;
-  // Modify query target from req.user._id to req.params.id
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -98,22 +83,14 @@ const changeSubscriptionTier = asyncHandler(async (req, res) => {
   });
 });
 
-// NEW: Delete User Profile Function
-// @desc    Delete user profile and avatar
-// @route   DELETE /api/users/profile
-// @access  Private
 const deleteUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    // 1. Delete the avatar from Cloudinary if they uploaded one
     if (user.avatarPublicId) {
       await cloudinary.uploader.destroy(user.avatarPublicId);
     }
-
-    // 2. Delete the user document from the database
     await user.deleteOne();
-
     res.status(200).json({
       success: true,
       message: "User profile and associated avatar removed.",
@@ -124,9 +101,6 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Save/Unsave a company
-// @route   POST /api/users/save/:companyId
-// @access  Private
 const toggleSaveCompany = asyncHandler(async (req, res) => {
   const { companyId } = req.params;
   const user = await User.findById(req.user._id);
@@ -137,8 +111,6 @@ const toggleSaveCompany = asyncHandler(async (req, res) => {
   }
 
   const isSaved = user.savedCompanies.some((id) => id.toString() === companyId);
-
-  // atomic update: prevents full document validation
   const update = isSaved
     ? { $pull: { savedCompanies: companyId } }
     : { $addToSet: { savedCompanies: companyId } };
@@ -155,18 +127,11 @@ const toggleSaveCompany = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Get all users
-// @route   GET /api/users
-// @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  // .select('-password') ensures we don't accidentally send hashed passwords to the frontend
   const users = await User.find({}).select("-password").sort({ createdAt: -1 });
   res.status(200).json({ success: true, data: users });
 });
 
-// @desc    Make a user an admin
-// @route   PATCH /api/users/:id/admin
-// @access  Private/Admin
 const makeUserAdmin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -174,7 +139,6 @@ const makeUserAdmin = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User not found");
   }
-
   if (user.isAdmin) {
     res.status(400);
     throw new Error("User is already an admin");
@@ -193,9 +157,6 @@ const makeUserAdmin = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Remove admin privileges from a user
-// @route   PATCH /api/users/:id/demote
-// @access  Private/Admin
 const demoteUserAdmin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -203,8 +164,6 @@ const demoteUserAdmin = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User not found");
   }
-
-  // Prevent admins from demoting themselves and locking everyone out
   if (
     user._id.toString() === req.user._id.toString() ||
     user._id.toString() === "699dd79be3893bbe8d1c94d0"
@@ -235,8 +194,6 @@ const toggleWatchlist = asyncHandler(async (req, res) => {
 });
 
 const fixCorruptedData = asyncHandler(async (req, res) => {
-  // This forcefully clears the watchlist and savedCompanies for ALL users
-  // to remove the code strings that are crashing your app.
   await User.updateMany(
     {},
     {
@@ -249,9 +206,6 @@ const fixCorruptedData = asyncHandler(async (req, res) => {
   res.send("Database sanitized: All corrupted watchlist strings removed.");
 });
 
-// @desc    Toggle user suspension status
-// @route   PATCH /api/users/:id/suspend
-// @access  Private/Admin
 const toggleUserSuspension = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -259,8 +213,6 @@ const toggleUserSuspension = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User not found");
   }
-
-  // Prevent admins from suspending themselves
   if (
     user._id.toString() === req.user._id.toString() ||
     user._id.toString() === "699dd79be3893bbe8d1c94d0"
@@ -282,12 +234,8 @@ const toggleUserSuspension = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Create User as Admin
-// @route   POST /api/users
-// @access  Private/Admin
 const createUserAsAdmin = asyncHandler(async (req, res) => {
   const { name, username, email, password, isAdmin } = req.body;
-
   const userExists = await User.findOne({ $or: [{ email }, { username }] });
 
   if (userExists) {
@@ -304,7 +252,6 @@ const createUserAsAdmin = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    // Return success without calling generateToken()
     res.status(201).json({
       _id: user._id,
       username: user.username,
@@ -317,11 +264,8 @@ const createUserAsAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Submit a claim for a company
-// @route   POST /api/users/claim-company
-// @access  Private (Employer Only)
 const submitCompanyClaim = asyncHandler(async (req, res) => {
-  const { companyId, companyRole, verificationDocument } = req.body;
+  const { companyId, companyRole } = req.body;
   const user = await User.findById(req.user._id);
   const company = await Company.findById(companyId);
 
@@ -353,7 +297,6 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
         .replace("www.", "")
         .toLowerCase();
 
-      // Auto-verify ONLY if domain matches AND prefix is an authoritative HR/Admin alias
       if (
         userDomain === companyDomain &&
         authoritativePrefixes.includes(userPrefix)
@@ -368,8 +311,8 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
   user.managedCompany = companyId;
   user.companyRole = companyRole || "Unspecified";
 
-  if (verificationDocument) {
-    user.verificationDocument = verificationDocument;
+  if (req.file) {
+    user.verificationDocument = req.file.path; // Cloudinary URL assigned via Multer
   }
 
   user.verificationStatus = isAutoVerified ? "verified" : "pending";
@@ -385,25 +328,21 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Get all pending employer claims
-// @route   GET /api/users/pending-claims
-// @access  Private/Admin
 const getPendingClaims = asyncHandler(async (req, res) => {
   const claims = await User.find({
     verificationStatus: "pending",
     isEmployer: true,
   })
     .populate("managedCompany", "name website location")
-    .select("name email username verificationStatus createdAt");
+    .select(
+      "name email username verificationStatus verificationDocument createdAt",
+    );
 
   res.status(200).json({ success: true, data: claims });
 });
 
-// @desc    Approve or Reject a pending claim
-// @route   PATCH /api/users/:id/claim-status
-// @access  Private/Admin
 const updateClaimStatus = asyncHandler(async (req, res) => {
-  const { status } = req.body; // 'verified' or 'rejected'
+  const { status } = req.body;
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -413,7 +352,7 @@ const updateClaimStatus = asyncHandler(async (req, res) => {
 
   user.verificationStatus = status;
   if (status === "rejected") {
-    user.managedCompany = null; // Clear the association on rejection
+    user.managedCompany = null;
   }
 
   await user.save();
@@ -423,15 +362,15 @@ const updateClaimStatus = asyncHandler(async (req, res) => {
 export {
   getUserProfile,
   updateUserProfile,
-  deleteUserProfile, // Export the new function
+  deleteUserProfile,
   toggleSaveCompany,
-  toggleUserSuspension, // Export the new function
+  toggleUserSuspension,
   getUsers,
   makeUserAdmin,
   demoteUserAdmin,
-  createUserAsAdmin, // Export the new function
+  createUserAsAdmin,
   toggleWatchlist,
-  fixCorruptedData, // Export the new function
+  fixCorruptedData,
   changeSubscriptionTier,
   submitCompanyClaim,
   getPendingClaims,

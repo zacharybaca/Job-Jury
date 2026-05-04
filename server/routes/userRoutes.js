@@ -36,7 +36,12 @@ router
 router.post("/save/:companyId", toggleSaveCompany);
 
 // --- NEW: Employer Specific Routes ---
-router.post("/claim-company", isEmployer, submitCompanyClaim);
+router.post(
+  "/claim-company",
+  isEmployer,
+  upload.single("verificationDocument"),
+  submitCompanyClaim,
+);
 
 // Apply admin access to everything below it
 router.use(admin);

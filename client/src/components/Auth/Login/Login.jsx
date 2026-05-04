@@ -43,7 +43,14 @@ const Login = () => {
     if (response.success) {
       await checkUserAuth();
       const origin = location.state?.from?.pathname || '/';
-      navigate(origin);
+      if (
+        response.data.isEmployer &&
+        response.data.verificationStatus === 'unverified'
+      ) {
+        navigate('/employer/dashboard');
+      } else {
+        navigate(origin);
+      }
     } else {
       // 2. Replace the alert() with a professional Error Toast
       setToastConfig({

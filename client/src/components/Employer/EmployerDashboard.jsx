@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useFetcher } from '../../hooks/useFetcher';
+import { useNavigate } from 'react-router-dom';
 import './employer-dashboard.css';
 
 const EmployerDashboard = () => {
   const { user, checkUserAuth } = useAuth();
   const { fetcher } = useFetcher();
+  const navigate = useNavigate();
 
   // --- Claiming State ---
   const [allCompanies, setAllCompanies] = useState([]);
@@ -15,7 +17,7 @@ const EmployerDashboard = () => {
   // --- Hybrid Verification Form State ---
   const [selectedCompanyToClaim, setSelectedCompanyToClaim] = useState(null);
   const [companyRole, setCompanyRole] = useState('');
-  const [verificationDocument, setVerificationDocument] = useState('');
+  const [verificationDocument, setVerificationDocument] = useState(null);
 
   // --- Review Management State ---
   const [reviews, setReviews] = useState([]);
@@ -64,13 +66,13 @@ const EmployerDashboard = () => {
   const initiateClaimProcess = (company) => {
     setSelectedCompanyToClaim(company);
     setCompanyRole('');
-    setVerificationDocument('');
+    setVerificationDocument(null);
   };
 
   const cancelClaimProcess = () => {
     setSelectedCompanyToClaim(null);
     setCompanyRole('');
-    setVerificationDocument('');
+    setVerificationDocument(null);
   };
 
   const handleFinalClaimSubmit = async () => {
@@ -80,24 +82,40 @@ const EmployerDashboard = () => {
     }
 
     setSubmittingClaim(true);
-    const res = await fetcher('/api/users/claim-company', {
+
+    const formData = new FormData();
+    formData.append('companyId', selectedCompanyToClaim._id);
+    formData.append('companyRole', companyRole);
+    if (verificationDocument) {
+      formData.append('verificationDocument', verificationDocument);
+    }
+
+    // Extract potential token for Bearer strategy fallback
+    const userStorage = JSON.parse(localStorage.getItem('user') || '{}');
+    const token = userStorage.token || localStorage.getItem('token');
+
+    const options = {
       method: 'POST',
-      body: JSON.stringify({
-        companyId: selectedCompanyToClaim._id,
-        companyRole,
-        verificationDocument,
-      }),
-    });
+      body: formData,
+    };
+
+    // Inject headers only if token exists; fetcher handles 'credentials: include' automatically
+    if (token) {
+      options.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    const res = await fetcher('/api/users/claim-company', options);
 
     if (res.success) {
-      alert(
-        res.data?.message || res.message || 'Claim submitted successfully.'
-      );
+      alert(res.data?.message || 'Claim submitted successfully.');
       setSelectedCompanyToClaim(null);
       await checkUserAuth();
     } else {
       alert(res.error || res.data?.message || 'Failed to submit claim.');
     }
+
     setSubmittingClaim(false);
   };
 
@@ -116,6 +134,11 @@ const EmployerDashboard = () => {
     } else {
       alert(response.error || 'Failed to post response.');
     }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) setVerificationDocument(file);
   };
 
   const filteredCompanies = Array.isArray(allCompanies)
@@ -268,10 +291,18 @@ const EmployerDashboard = () => {
                   </div>
                 ))}
               {searchQuery && filteredCompanies.length === 0 && (
-                <p>
-                  No companies found. If your company is not listed, register it
-                  first.
-                </p>
+                <div style={{ marginTop: '10px' }}>
+                  <p style={{ marginBottom: '10px', color: '#64748b' }}>
+                    No companies found. If your company is not listed, register
+                    it first.
+                  </p>
+                  <button
+                    onClick={() => navigate('/register-company')}
+                    className="claim-btn"
+                  >
+                    Register New Company
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -297,17 +328,17 @@ const EmployerDashboard = () => {
           </div>
 
           <div className="form-group">
-            <label>Verification Link (Optional, but highly recommended)</label>
+            <label>Verification Document</label>
             <input
-              type="text"
-              value={verificationDocument}
-              onChange={(e) => setVerificationDocument(e.target.value)}
-              placeholder="e.g., LinkedIn Profile URL or company directory link"
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg"
+              onChange={handleFileChange}
               className="employer-form-input"
+              style={{ padding: '8px' }}
             />
             <small>
-              If your email does not utilize an HR or Admin prefix, a link
-              verifying your employment is required for approval.
+              Please upload a document verifying your employment status (e.g.,
+              ID badge, official letterhead).
             </small>
           </div>
 

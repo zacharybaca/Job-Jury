@@ -4,8 +4,13 @@ import { FetcherContext } from './FetcherContext.jsx';
 export const FetcherProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Consistency Check: Ensure this matches the key in your Render/Vite .env
-  const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  // Vite automatically sets DEV to true during local development and false in production
+  const isLocalDev = import.meta.env.DEV;
+
+  // Use localhost for development, fallback to Render URL or Prod ENV for production
+  const backendUrl = isLocalDev
+    ? 'http://localhost:5000'
+    : import.meta.env.VITE_API_URL || 'https://job-jury.onrender.com';
 
   const fetcher = async (
     url,
