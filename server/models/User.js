@@ -69,6 +69,14 @@ userSchema.pre("save", function (next) {
   next();
 });
 
+// Admins cannot be labeled as an employer
+userSchema.pre("save", function (next) {
+  if (this.isAdmin && this.isEmployer) {
+    this.isEmployer = false;
+  }
+  next();
+});
+
 // Method to compare passwords
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
