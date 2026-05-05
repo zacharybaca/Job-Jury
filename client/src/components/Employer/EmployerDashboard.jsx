@@ -77,7 +77,7 @@ const EmployerDashboard = () => {
 
   const handleFinalClaimSubmit = async () => {
     if (!companyRole.trim()) {
-      alert('Please enter your specific job title or role.');
+      alert('Please select your specific job title or role.');
       return;
     }
 
@@ -90,23 +90,16 @@ const EmployerDashboard = () => {
       formData.append('verificationDocument', verificationDocument);
     }
 
-    // Extract potential token for Bearer strategy fallback
     const userStorage = JSON.parse(localStorage.getItem('user') || '{}');
-    const token = userStorage.token || localStorage.getItem('token');
+    const token = userStorage.token || localStorage.getItem('token') || '';
 
-    const options = {
+    const res = await fetcher('/api/users/claim-company', {
       method: 'POST',
-      body: formData,
-    };
-
-    // Inject headers only if token exists; fetcher handles 'credentials: include' automatically
-    if (token) {
-      options.headers = {
+      headers: {
         Authorization: `Bearer ${token}`,
-      };
-    }
-
-    const res = await fetcher('/api/users/claim-company', options);
+      },
+      body: formData,
+    });
 
     if (res.success) {
       alert(res.data?.message || 'Claim submitted successfully.');
@@ -293,8 +286,7 @@ const EmployerDashboard = () => {
               {searchQuery && filteredCompanies.length === 0 && (
                 <div style={{ marginTop: '10px' }}>
                   <p style={{ marginBottom: '10px', color: '#64748b' }}>
-                    No companies found. If your company is not listed, register
-                    it first.
+                    No companies found. If your company is not listed, register it first.
                   </p>
                   <button
                     onClick={() => navigate('/register-company')}
@@ -317,14 +309,20 @@ const EmployerDashboard = () => {
 
           <div className="form-group">
             <label>Your Job Title / Role</label>
-            <input
-              type="text"
+            <select
               value={companyRole}
               onChange={(e) => setCompanyRole(e.target.value)}
-              placeholder="e.g., HR Director, Operations Manager"
               className="employer-form-input"
-            />
-            <small>Must match your official title.</small>
+            >
+              <option value="" disabled>Select your role...</option>
+              <option value="Human Resources">Human Resources</option>
+              <option value="Public Relations">Public Relations</option>
+              <option value="C-Level Executive">C-Level Executive</option>
+              <option value="Owner / Founder">Owner / Founder</option>
+              <option value="Operations Manager">Operations Manager</option>
+              <option value="Legal Counsel">Legal Counsel</option>
+              <option value="General Manager">General Manager</option>
+            </select>
           </div>
 
           <div className="form-group">
@@ -337,8 +335,7 @@ const EmployerDashboard = () => {
               style={{ padding: '8px' }}
             />
             <small>
-              Please upload a document verifying your employment status (e.g.,
-              ID badge, official letterhead).
+              Please upload a document verifying your employment status (e.g., ID badge, official letterhead).
             </small>
           </div>
 
