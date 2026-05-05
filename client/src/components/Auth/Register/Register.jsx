@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth.js';
 import { useFetcher } from '../../../hooks/useFetcher.js';
 import Toast from '../../Layout/Toast/Toast.jsx';
 import '../auth-forms.css';
@@ -10,9 +11,11 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
-    isEmployer: false, // Added tracking for the employer role
+    isEmployer: false,
   });
+
   const { fetcher } = useFetcher();
+  const { checkUserAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,6 +40,8 @@ const Register = () => {
     });
 
     if (response.success) {
+      await checkUserAuth();
+
       if (
         response.data.isEmployer &&
         response.data.verificationStatus === 'unverified'
@@ -115,7 +120,6 @@ const Register = () => {
             />
           </div>
 
-          {/* NEW: Employer Role Toggle */}
           <div className="auth-form-group checkbox-group">
             <label className="checkbox-label">
               <input
@@ -128,6 +132,12 @@ const Register = () => {
               Register as an Employer / Company Representative
             </label>
           </div>
+
+          {formData.isEmployer && (
+            <div className="employer-ux-helper">
+              <strong>Next Step:</strong> After creating your account, you will be redirected to the Employer Portal to search for your company and submit verification credentials.
+            </div>
+          )}
 
           <button type="submit" className="auth-submit-btn">
             Create Account
