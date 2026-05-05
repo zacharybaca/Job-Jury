@@ -10,7 +10,6 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     avatar: { type: String },
-    // UPDATE 1: Renamed to match the controller
     avatarPublicId: { type: String, default: "" },
     savedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
     isAdmin: { type: Boolean, default: false },
@@ -22,6 +21,15 @@ const userSchema = mongoose.Schema(
     },
     companyRole: {
       type: String,
+      enum: [
+        "Human Resources",
+        "Public Relations",
+        "C-Level Executive",
+        "Owner / Founder",
+        "Operations Manager",
+        "Legal Counsel",
+        "General Manager"
+      ],
       default: null,
     },
     verificationStatus: {
@@ -50,7 +58,6 @@ const userSchema = mongoose.Schema(
   { timestamps: true },
 );
 
-// Encrypt password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
@@ -59,7 +66,6 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Update subscription tier before saving
 userSchema.pre("save", function (next) {
   if (!this.isModified("subscriptionTier")) {
     return next();
@@ -69,7 +75,6 @@ userSchema.pre("save", function (next) {
   next();
 });
 
-// Admins cannot be labeled as an employer
 userSchema.pre("save", function (next) {
   if (this.isAdmin && this.isEmployer) {
     this.isEmployer = false;
@@ -77,34 +82,20 @@ userSchema.pre("save", function (next) {
   next();
 });
 
-// Method to compare passwords
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 userSchema.methods.getResetPasswordToken = function () {
-  // 1. Generate a raw 20-character hex token
   const resetToken = crypto.randomBytes(20).toString("hex");
-
-  // 2. Hash the token and set it to the database field
-  // We hash it in the DB so if your database is ever compromised, hackers can't use the tokens
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-
-  // 3. Set expiration to 10 minutes from right now
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
-
-  // 4. Return the RAW token (this is what we email to the user)
   return resetToken;
 };
 
-/**
- * PRE-DELETE MIDDLEWARE
- * Triggers on user.deleteOne()
- * Handles Cloudinary asset removal, Review cascade deletion, and Pending Company cleanup.
- */
 userSchema.pre(
   "deleteOne",
   { document: true, query: false },
@@ -112,25 +103,21 @@ userSchema.pre(
     try {
       const userId = this._id;
 
-      // 1. Cleanup Cloudinary Image
       if (this.avatarPublicId) {
         await cloudinary.uploader.destroy(this.avatarPublicId);
         console.log(`✅ Cloudinary avatar removed: ${this.avatarPublicId}`);
       }
 
-      // 2. Cascade Delete Reviews
-      // Make sure '{ author: userId }' matches the field name in your Review model!
       const Review = mongoose.model("Review");
       const deletedReviews = await Review.deleteMany({ author: userId });
       console.log(
         `✅ Cascade delete: Removed ${deletedReviews.deletedCount} reviews for user ${this.username}`,
       );
 
-      // 3. NEW: Cleanup Pending Company Submissions
       const Company = mongoose.model("Company");
       const deletedCompanies = await Company.deleteMany({
         createdBy: userId,
-        isApproved: false, // Only delete if it hasn't been approved yet
+        isApproved: false,
       });
       console.log(
         `✅ Cascade delete: Removed ${deletedCompanies.deletedCount} pending companies for user ${this.username}`,
@@ -139,7 +126,6 @@ userSchema.pre(
       next();
     } catch (error) {
       console.error("❌ Middleware Cleanup Error:", error);
-      // We call next() anyway so the primary user record is still deleted
       next();
     }
   },
