@@ -309,10 +309,10 @@ const submitCompanyClaim = asyncHandler(async (req, res) => {
   }
 
   user.managedCompany = companyId;
-  user.companyRole = companyRole || "Unspecified";
+  user.companyRole = companyRole;
 
   if (req.file) {
-    user.verificationDocument = req.file.path; // Cloudinary URL assigned via Multer
+    user.verificationDocument = req.file.path;
   }
 
   user.verificationStatus = isAutoVerified ? "verified" : "pending";
@@ -334,9 +334,7 @@ const getPendingClaims = asyncHandler(async (req, res) => {
     isEmployer: true,
   })
     .populate("managedCompany", "name website location")
-    .select(
-      "name email username verificationStatus verificationDocument createdAt",
-    );
+    .select("name email username verificationStatus verificationDocument createdAt");
 
   res.status(200).json({ success: true, data: claims });
 });
