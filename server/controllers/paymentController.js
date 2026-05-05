@@ -4,6 +4,21 @@ import asyncHandler from "express-async-handler";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+// Environment-aware Price ID mapping
+const STRIPE_PRICES = process.env.NODE_ENV === "production"
+  ? {
+      free: "price_1THBlGPPcImIkQHpnkTik0t8",
+      juror: "price_1THgmLPPcImIkQHpAM5ShM2P",
+      judge: "price_1THgnKPPcImIkQHpnjTRmea4",
+      firm: "price_1THgnwPPcImIkQHpjcvyqDB2",
+    }
+  : {
+      free: "price_1TTnPVAZa6QGV1FF5WBiRFDE",
+      juror: "price_1TTnRyAZa6QGV1FFMDgq5nl0",
+      judge: "price_1TTnTPAZa6QGV1FFPiqp160N",
+      firm: "price_1TTnUbAZa6QGV1FFmYkvUsMy",
+    };
+
 export const createCheckoutSession = asyncHandler(async (req, res) => {
   const { priceId } = req.body;
 
@@ -43,10 +58,10 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
 
     let tier = "free";
 
-    // Replace these placeholder strings with your actual Stripe Price IDs
-    if (priceId === "price_1P...") tier = "juror";
-    if (priceId === "price_1Q...") tier = "judge";
-    if (priceId === "price_1R...") tier = "firm";
+    // Dynamic verification against environment-specific IDs
+    if (priceId === STRIPE_PRICES.juror) tier = "juror";
+    if (priceId === STRIPE_PRICES.judge) tier = "judge";
+    if (priceId === STRIPE_PRICES.firm)  tier = "firm";
 
     await User.findByIdAndUpdate(userId, {
       isPremium: tier !== "free",
