@@ -23,6 +23,7 @@ import PricingPage from './components/Pages/PricingPage';
 import MyFavorites from './components/Auth/MyFavorites/MyFavorites';
 import LeakSubmissionForm from './components/Utility/LeakSubmissionForm/LeakSubmissionForm';
 import NewsFeed from './components/Layout/NewsFeed/NewsFeed';
+import SubscribePage from './components/Pages/Home/SubscribePage';
 import './App.css';
 
 const ScrollToTop = () => {
@@ -307,6 +308,8 @@ function App() {
           <Route path="/employer/dashboard" element={<EmployerDashboard />} />
         </Route>
 
+        <Route path="/subscribe" element={<SubscribePage />} />
+        
         <Route
           path="*"
           element={
