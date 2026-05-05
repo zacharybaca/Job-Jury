@@ -40,12 +40,11 @@
   justify-content: center;
   margin: 0 auto;
   gap: 20px;
-  border: 2px solid yellow;
   width: 100%;
+  max-width: 100%;
 }
 
 .analytics-container {
-  border: 2px solid black;
   padding: 20px;
   box-sizing: border-box;
   border-radius: 16px;
@@ -63,7 +62,7 @@
   width: 100%;
   max-width: 600px;
   box-sizing: border-box;
-  border: 3px solid gold;
+  border: 3px dotted gold;
   background-color: rgba(248, 250, 252, 0.5);
   border-radius: 16px;
 }
@@ -101,7 +100,12 @@
 }
 
 .header-section {
+  margin-top: 2%;
+  margin-bottom: 2%;
   padding-top: 3%;
+  border: 2px solid black;
+  border-radius: 12px;
+  background-color: green;
 }
 
 .analytics-container h2,
@@ -291,4 +295,59 @@
   background-color: #1e293b;
   color: white;
   border: none;
+}
+
+.analytics-dashboard {
+  position: relative; /* Essential for overlay positioning */
+}
+
+.analytics-container.locked .analytics-grid {
+  filter: blur(8px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.6;
+}
+
+.paywall-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.1); /* Subtle darkening */
+}
+
+.paywall-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  border: 2px solid #10b981; /* Jury Emerald */
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.view-plans-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 15px;
+}
+
+.view-plans-btn:hover {
+  background-color: #059669;
 }
