@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node -r dotenv/config server.js",
-    "dev": "nodemon -r dotenv/config server.js"
+    "dev": "nodemon -r dotenv/config server.js",
+    "tunnel": "npx localtunnel --port 5000 --subdomain job-jury-dev-server",
+    "stripe:listen": "stripe listen --forward-to localhost:5000/api/payments/webhook"
   },
   "keywords": [
     "mern",
