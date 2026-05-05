@@ -1,30 +1,27 @@
 import React from 'react';
-import { useFetcher } from '../hooks/useFetcher';
+import { useFetcher } from '../../hooks/useFetcher';
 
-const SubscriptionCard = ({ priceId, tierName, priceLabel }) => {
+const SubscriptionCard = ({ tierName, priceLabel, priceId }) => {
   const { fetcher } = useFetcher();
 
   const handleSubscribe = async () => {
-    const response = await fetcher('/api/payments/create-checkout-session', {
+    const res = await fetcher('/api/payments/create-checkout-session', {
       method: 'POST',
-      body: JSON.stringify({ priceId }),
+      body: JSON.stringify({ priceId })
     });
 
-    if (response.success && response.url) {
-      // Redirect to Stripe's secure checkout page
-      window.location.href = response.url;
+    if (res.success && res.data.url) {
+      window.location.href = res.data.url;
     } else {
-      alert(response.error || 'Failed to initiate checkout.');
+      alert("Checkout failed to initialize.");
     }
   };
 
   return (
-    <div className="tier-card">
+    <div className="subscription-card">
       <h3>{tierName}</h3>
-      <p className="price">{priceLabel}</p>
-      <button onClick={handleSubscribe} className="subscribe-btn">
-        Upgrade to {tierName}
-      </button>
+      <p>{priceLabel}</p>
+      <button onClick={handleSubscribe}>Subscribe</button>
     </div>
   );
 };
