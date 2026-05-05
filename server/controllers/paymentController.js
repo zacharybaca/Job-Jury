@@ -28,7 +28,7 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
     event = stripe.webhooks.constructEvent(
       req.body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET,
+      process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err) {
     return res.status(400).send(`Webhook Error: ${err.message}`);
@@ -38,18 +38,21 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
     const session = event.data.object;
     const userId = session.client_reference_id;
 
-    const amount = session.amount_total;
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+    const priceId = lineItems.data[0].price.id;
+
     let tier = "free";
-    if (amount === 999) tier = "juror";
-    if (amount === 1999) tier = "judge";
-    // Add firm tier if amount matches (e.g., $49.99)
-    if (amount === 4999) tier = "firm";
+
+    // Replace these placeholder strings with your actual Stripe Price IDs
+    if (priceId === "price_1P...") tier = "juror";
+    if (priceId === "price_1Q...") tier = "judge";
+    if (priceId === "price_1R...") tier = "firm";
 
     await User.findByIdAndUpdate(userId, {
       isPremium: tier !== "free",
       subscriptionTier: tier,
       stripeCustomerId: session.customer,
-      stripeSubscriptionId: session.subscription, // Matches current User.js field name
+      stripeSubscriptionId: session.subscription,
     });
   }
 
