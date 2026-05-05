@@ -161,3 +161,18 @@
   margin: 0;
   accent-color: #10b981; /* Jury Emerald */
 }
+
+.employer-ux-helper {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  color: #166534;
+  line-height: 1.4;
+}
+
+.employer-ux-helper strong {
+  font-weight: 700;
+}
