@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useAuth } from '../../../hooks/useAuth.js';
 import { useSavedCompanies } from '../../../hooks/useSavedCompanies.js';
@@ -14,6 +14,7 @@ import './company-detail.css';
 
 const CompanyDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { fetcher } = useFetcher();
   const { user, loading: authLoading } = useAuth();
   const { savedCompanies, fetchSavedCompanies } = useSavedCompanies();
@@ -72,15 +73,12 @@ const CompanyDetail = () => {
     setSortOrder(order);
     setIsDropdownOpen(false);
 
-    // Create a new sorted array from the existing reviews
     if (company && company.reviews) {
       const sortedReviews = [...company.reviews].sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
         return order === 'desc' ? dateB - dateA : dateA - dateB;
       });
-
-      // Update local state without re-fetching
       setCompany({ ...company, reviews: sortedReviews });
     }
   };
@@ -125,7 +123,7 @@ const CompanyDetail = () => {
         </p>
       </section>
 
-      <div className="analytics-container">
+      <div className={`analytics-container ${!user?.isPremium ? 'locked' : ''}`}>
         <section className="section-container analytics-dashboard">
           <div className="analytics-grid">
             <section className="judge-analytics-container">
@@ -138,6 +136,23 @@ const CompanyDetail = () => {
               <InterviewQuestions companyId={id} variant="Light" />
             </section>
           </div>
+
+          {/* Subscription Paywall Overlay */}
+          {!user?.isPremium && (
+            <div className="paywall-overlay">
+              <div className="paywall-content">
+                <div className="lock-icon">🔒</div>
+                <h3>Historical Analytics Locked</h3>
+                <p>Upgrade to a premium tier to unlock in-depth company metrics and historical data.</p>
+                <button
+                  className="view-plans-btn"
+                  onClick={() => navigate('/subscribe')}
+                >
+                  View Plans
+                </button>
+              </div>
+            </div>
+          )}
         </section>
 
         <section className="section-container reviews-section">
@@ -159,13 +174,12 @@ const CompanyDetail = () => {
                     {showLeakForm ? 'Cancel Leak' : 'Add Leak'}
                   </button>
 
-                  {/* Replaced generic button with Dropdown logic */}
                   <div className="filter-dropdown-container" ref={dropdownRef}>
                     <button
                       className="filter-reviews-btn"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     >
-                      Sort Reviews: {sortOrder === 'desc' ? 'Newest' : 'Oldest'}
+                      Sort: {sortOrder === 'desc' ? 'Newest' : 'Oldest'}
                     </button>
 
                     {isDropdownOpen && (
