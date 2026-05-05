@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useAuth } from '../../../hooks/useAuth';
+import { useFetcher } from '../../../hooks/useFetcher';
 
 const SubscriptionCard = ({ tierName, priceLabel, priceId, tierKey }) => {
   const { user } = useAuth();
