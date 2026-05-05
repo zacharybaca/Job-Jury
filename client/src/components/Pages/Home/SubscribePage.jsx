@@ -7,16 +7,16 @@ const isProduction =
 
 const STRIPE_PRICES = isProduction
   ? {
-      free: "price_1THBlGPPcImIkQHpnkTik0t8",
-      juror: "price_1THgmLPPcImIkQHpAM5ShM2P",
-      judge: "price_1THgnKPPcImIkQHpnjTRmea4",
-      firm: "price_1THgnwPPcImIkQHpjcvyqDB2",
+      free: 'price_1THBlGPPcImIkQHpnkTik0t8',
+      juror: 'price_1THgmLPPcImIkQHpAM5ShM2P',
+      judge: 'price_1THgnKPPcImIkQHpnjTRmea4',
+      firm: 'price_1THgnwPPcImIkQHpjcvyqDB2',
     }
   : {
-      free: "price_1TTnPVAZa6QGV1FF5WBiRFDE",
-      juror: "price_1TTnRyAZa6QGV1FFMDgq5nl0",
-      judge: "price_1TTnTPAZa6QGV1FFPiqp160N",
-      firm: "price_1TTnUbAZa6QGV1FFmYkvUsMy",
+      free: 'price_1TTnPVAZa6QGV1FF5WBiRFDE',
+      juror: 'price_1TTnRyAZa6QGV1FFMDgq5nl0',
+      judge: 'price_1TTnTPAZa6QGV1FFPiqp160N',
+      firm: 'price_1TTnUbAZa6QGV1FFmYkvUsMy',
     };
 
 const SubscribePage = () => {

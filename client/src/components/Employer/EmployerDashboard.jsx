@@ -286,7 +286,8 @@ const EmployerDashboard = () => {
               {searchQuery && filteredCompanies.length === 0 && (
                 <div style={{ marginTop: '10px' }}>
                   <p style={{ marginBottom: '10px', color: '#64748b' }}>
-                    No companies found. If your company is not listed, register it first.
+                    No companies found. If your company is not listed, register
+                    it first.
                   </p>
                   <button
                     onClick={() => navigate('/register-company')}
@@ -314,7 +315,9 @@ const EmployerDashboard = () => {
               onChange={(e) => setCompanyRole(e.target.value)}
               className="employer-form-input"
             >
-              <option value="" disabled>Select your role...</option>
+              <option value="" disabled>
+                Select your role...
+              </option>
               <option value="Human Resources">Human Resources</option>
               <option value="Public Relations">Public Relations</option>
               <option value="C-Level Executive">C-Level Executive</option>
@@ -335,7 +338,8 @@ const EmployerDashboard = () => {
               style={{ padding: '8px' }}
             />
             <small>
-              Please upload a document verifying your employment status (e.g., ID badge, official letterhead).
+              Please upload a document verifying your employment status (e.g.,
+              ID badge, official letterhead).
             </small>
           </div>
 

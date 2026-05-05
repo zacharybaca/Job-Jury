@@ -334,7 +334,9 @@ const getPendingClaims = asyncHandler(async (req, res) => {
     isEmployer: true,
   })
     .populate("managedCompany", "name website location")
-    .select("name email username verificationStatus verificationDocument createdAt");
+    .select(
+      "name email username verificationStatus verificationDocument createdAt",
+    );
 
   res.status(200).json({ success: true, data: claims });
 });

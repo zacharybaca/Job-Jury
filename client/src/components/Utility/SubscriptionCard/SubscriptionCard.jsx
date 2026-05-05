@@ -15,14 +15,14 @@ const SubscriptionCard = ({ tierName, priceLabel, priceId, tierKey }) => {
     setLoading(true);
     const res = await fetcher('/api/payments/create-checkout-session', {
       method: 'POST',
-      body: JSON.stringify({ priceId })
+      body: JSON.stringify({ priceId }),
     });
 
     if (res.success && res.data.url) {
       window.location.href = res.data.url;
     } else {
       setLoading(false);
-      alert(res.error || "Checkout failed to initialize.");
+      alert(res.error || 'Checkout failed to initialize.');
     }
   };
 

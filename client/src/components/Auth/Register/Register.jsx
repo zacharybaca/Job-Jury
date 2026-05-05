@@ -135,7 +135,9 @@ const Register = () => {
 
           {formData.isEmployer && (
             <div className="employer-ux-helper">
-              <strong>Next Step:</strong> After creating your account, you will be redirected to the Employer Portal to search for your company and submit verification credentials.
+              <strong>Next Step:</strong> After creating your account, you will
+              be redirected to the Employer Portal to search for your company
+              and submit verification credentials.
             </div>
           )}
 

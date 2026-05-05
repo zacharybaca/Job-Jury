@@ -309,7 +309,7 @@ function App() {
         </Route>
 
         <Route path="/subscribe" element={<SubscribePage />} />
-        
+
         <Route
           path="*"
           element={

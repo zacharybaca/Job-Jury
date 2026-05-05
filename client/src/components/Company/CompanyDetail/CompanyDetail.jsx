@@ -123,7 +123,9 @@ const CompanyDetail = () => {
         </p>
       </section>
 
-      <div className={`analytics-container ${!user?.isPremium ? 'locked' : ''}`}>
+      <div
+        className={`analytics-container ${!user?.isPremium ? 'locked' : ''}`}
+      >
         <section className="section-container analytics-dashboard">
           <div className="analytics-grid">
             <section className="judge-analytics-container">
@@ -143,7 +145,10 @@ const CompanyDetail = () => {
               <div className="paywall-content">
                 <div className="lock-icon">🔒</div>
                 <h3>Historical Analytics Locked</h3>
-                <p>Upgrade to a premium tier to unlock in-depth company metrics and historical data.</p>
+                <p>
+                  Upgrade to a premium tier to unlock in-depth company metrics
+                  and historical data.
+                </p>
                 <button
                   className="view-plans-btn"
                   onClick={() => navigate('/subscribe')}

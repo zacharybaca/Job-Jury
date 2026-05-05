@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema(
         "Owner / Founder",
         "Operations Manager",
         "Legal Counsel",
-        "General Manager"
+        "General Manager",
       ],
       default: null,
     },
